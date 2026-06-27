@@ -162,7 +162,7 @@ message.textContent = submission.message;</code></pre>
 <tr><td>privacy / retention helper text</td><td>保持期間や扱い方が画面上で説明されているか</td><td>利用者とレビュー担当の両方がデータの扱いを読めるようにするため</td></tr>
 <tr><td>no-network明示</td><td>このデモが外部送信しないことを宣言しているか</td><td>ローカルデモと本番送信フォームを混同しないため</td></tr>
 <tr><td>HTML注入API禁止</td><td><code>innerHTML</code> 等でユーザー入力をHTMLとして解釈していないか</td><td>XSSの典型的な入口を避けるため</td></tr>
-<tr><td><code>textContent</code> 表示</td><td>ユーザー入力をテキストとして安全に描画しているか</td><td>「入力値を表示する」機能を安全側に倒すため</td></tr>
+<tr><td><code>textContent</code> 表示</td><td>フォーム下の「問い合わせプレビュー」欄に、入力した氏名・メール・会社規模・予算・相談内容をテキストとして表示しているか</td><td>「入力値を表示する」機能を安全側に倒すため</td></tr>
 <tr><td>送信API禁止</td><td><code>fetch</code> 等で外部送信していないか</td><td>静的デモで個人情報が外に出ないことを確認するため</td></tr>
 <tr><td>ブラウザ保存禁止</td><td><code>localStorage</code> 等にPIIを残していないか</td><td>端末に不要な個人情報を残さないため</td></tr>
 <tr><td>consoleログ禁止</td><td>PIIをログへ出していないか</td><td>デバッグログ経由の情報漏えいを避けるため</td></tr>
