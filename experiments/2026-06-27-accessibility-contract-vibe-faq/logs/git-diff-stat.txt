@@ -1,0 +1,26 @@
+ .../2026-06-27-accessibility-contract-vibe-faq.md  | 440 +++++++++++++++++++++
+ ...-06-27-accessibility-contract-reverse-chain.svg |  48 +++
+ assets/2026-06-27-vibe-vs-fixed-audit.svg          |  33 ++
+ backlog.md                                         |   9 +-
+ book/outline.md                                    |   4 +
+ .../AI_TASK_PACKET_v0.1.md                         |  43 ++
+ .../PLAN.md                                        |  52 +++
+ .../audit_static.py                                |  88 +++++
+ .../fixed-app/app.js                               | 138 +++++++
+ .../fixed-app/index.html                           |  53 +++
+ .../fixed-app/styles.css                           | 261 ++++++++++++
+ .../logs/audit-results.md                          | 131 ++++++
+ .../logs/codex-fixed-run.log                       |  18 +
+ .../logs/codex-vibe-run.log                        |   5 +
+ .../logs/environment.txt                           |  10 +
+ .../logs/fixed-verification.txt                    |  17 +
+ .../logs/git-status-before.txt                     |   2 +
+ .../logs/http-check.txt                            |   2 +
+ .../logs/http-index.html                           |  45 +++
+ .../logs/static-audit.txt                          |  24 ++
+ .../vibe-app/app.js                                |  89 +++++
+ .../vibe-app/index.html                            |  45 +++
+ .../vibe-app/styles.css                            | 248 ++++++++++++
+ logs/2026-06-27-accessibility-contract-env.txt     |  10 +
+ .../aidd-spec-ai-task-packet-standard-v0.1.md      | 179 +++++++++
+ 25 files changed, 1991 insertions(+), 3 deletions(-)

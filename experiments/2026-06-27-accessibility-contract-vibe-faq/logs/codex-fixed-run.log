@@ -1,0 +1,18 @@
+Implemented the packet in `experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app`:
+
+- Added static FAQ app: `index.html`, `styles.css`, `app.js`
+- Added optional audit script: `experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py`
+- Kept changes within the allowed paths
+- Did not install dependencies
+
+Verification results:
+
+```bash
+node --check experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app/app.js
+# passed
+```
+
+```bash
+python3 experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app
+# all checks passed
+```

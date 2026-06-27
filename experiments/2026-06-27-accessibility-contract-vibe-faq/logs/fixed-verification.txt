@@ -1,0 +1,17 @@
+## fixed node syntax check
+## fixed static audit
+PASS: HTML lang exists
+PASS: Search input has visible label
+PASS: Search input controls faq-list
+PASS: Search input references helper text
+PASS: Search input references result status
+PASS: Search input references no-result status
+PASS: Result count live region exists
+PASS: FAQ collection uses ul/list semantics
+PASS: FAQ item data count >= 8
+PASS: FAQ toggles use buttons
+PASS: Form submit is prevented in JS
+PASS: CSS includes focus-visible rule
+PASS: Decorative SVG icons are hidden
+PASS: No dependency import statements
+## diff name-status

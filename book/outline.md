@@ -103,6 +103,10 @@ AIに「いい感じに作って」と頼む時代は終わる。これから必
 
 日次noteは、書籍の素材を毎日蓄積する場にする。
 
+### 蓄積済み素材
+
+- 2026-06-27: 「雑なFAQ検索アプリのアクセシビリティ監査からAI Task Packetを逆算する」 — 第6章 Design Contract、第9章 AI Task Packet、第10章 Verification Evidence、第12章 雑プロンプト vs AI Task Packet に接続。
+
 各記事は以下のどれかに分類する。
 
 - Concept: 標準仕様の考え方

@@ -2,9 +2,9 @@
 
 ## North Star: AIDD-Spec / AI駆動開発の世界標準
 
-- [ ] Reverse Engineering Methodology: 雑バイブコーディング成果物を監査し、後工程から前工程成果物を逆算する
-- [ ] Vibe-coded sample appを1つ作り、監査カテゴリを通して欠陥を洗い出す
-- [ ] 監査結果からAI Task Packet v0.1を逆算する
+- [x] Reverse Engineering Methodology: 雑バイブコーディング成果物を監査し、後工程から前工程成果物を逆算する（2026-06-27 FAQ検索アクセシビリティ契約で実施）
+- [x] Vibe-coded sample appを1つ作り、監査カテゴリを通して欠陥を洗い出す（2026-06-27 vibe-app）
+- [x] 監査結果からAI Task Packet v0.1を逆算する（2026-06-27 Accessibility Contract / Verification Evidence）
 - [ ] AIDD-Spec v0.1: 建築図面に相当する標準成果物体系を定義する
 - [ ] 書籍企画: 「AI駆動開発時代の設計図面」章立てを毎週更新する
 - [ ] Product Brief テンプレートとCodex検証
@@ -44,6 +44,9 @@
 - [ ] GitHub Issue→ブランチ→実装→テスト→PR文面の自動化
 
 ## Phase 3: 複数エージェント/継続改善
+
+- [ ] 次回候補: FAQ検索アプリに axe / Lighthouse / Playwright の軽量監査を追加し、静的監査では拾えない問題を比較する
+- [ ] 次回候補: 同じFAQ題材で「Performance Budget」を事前に渡すとCLS/LCP系の欠陥が減るか検証する
 
 - [ ] 2つのCodexに実装案を競わせる
 - [ ] Codex実装をHermesがレビューする二段構え

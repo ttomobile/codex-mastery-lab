@@ -1,0 +1,2161 @@
+diff --git a/articles/2026-06-27-accessibility-contract-vibe-faq.md b/articles/2026-06-27-accessibility-contract-vibe-faq.md
+new file mode 100644
+index 0000000..87c133a
+--- /dev/null
++++ b/articles/2026-06-27-accessibility-contract-vibe-faq.md
+@@ -0,0 +1,440 @@
++# 雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由
++
++> 2026-06-27 / Codex Mastery Lab 日次ドラフト  
++> 想定読了時間: 約10分  
++> 種別: Experiment / Failure / Template
++
++![雑プロンプト vs AI Task Packet](../assets/2026-06-27-vibe-vs-fixed-audit.svg)
++
++## 1. 今日の問い
++
++AI駆動開発では、Codexに「FAQ検索アプリをいい感じに作って」と頼むだけでも、それっぽいUIはかなり速く出てくる。では、その成果物は本当に後工程で読める設計図面になっているのか。
++
++今日の問いはこれだ。
++
++> 小さなFAQ検索UIをあえて雑なプロンプトで作らせ、アクセシビリティ監査で見つかった欠陥から、AI Task Packetに事前に含めるべき項目を逆算できるか？
++
++建築でいえば、見た目のパースだけを見て「良さそう」と判断するのではなく、図面として施工者・検査者・保守担当が読めるかを見る。Webアプリでも同じで、画面がきれいでも、支援技術・キーボード操作・テスト・レビューが読めなければ、標準設計図面とは言えない。
++
++## 2. 仮説
++
++今回の仮説は次の通り。
++
++> Codexへ雑に「FAQ検索アプリを作って」と渡すと、見た目と基本動作は作る。しかし、検索欄と結果リストのプログラム上の関係、no results状態、キーボード操作、検証証拠は抜けやすい。これらは後から直すのではなく、AI Task Packetの Accessibility Contract と Verification Evidence に最初から入れるべきである。
++
++AIDD-Specの思想は「上流工程の理想論」から標準を作らないことだ。まず後工程で壊れ方を見る。壊れた箇所から、理想状態、修正指示、必要だった前工程情報を逆算する。
++
++## 3. 実験環境
++
++実行環境は以下。M4 Mac mini / 16GB RAM / 256GB SSD という制約環境で、重い依存インストールは避けた。
++
++```text
++2026-06-27 12:16:29 JST
++ProductName:    macOS
++ProductVersion: 26.5.1
++BuildVersion:   25F80
++arch:           arm64
++Disk:           228Gi total / 140Gi available
++Codex CLI:      codex-cli 0.142.3
++```
++
++実験ディレクトリ:
++
++```text
++/Users/tto/codex-mastery-lab/experiments/2026-06-27-accessibility-contract-vibe-faq/
++```
++
++ログ:
++
++```text
++/Users/tto/codex-mastery-lab/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/
++```
++
++## 4. 実験計画
++
++最初に `PLAN.md` を作り、今回の監査カテゴリを3つに絞った。
++
++1. Accessibility
++2. Requirement Fit / State Behavior
++3. Build / Console / Verification Evidence
++
++今回はLighthouseやaxeを入れない。理由は、今日の目的が「重い監査ツールを回すこと」ではなく、雑プロンプトで抜けた項目をAI Task Packetへ戻すことだからだ。依存なしの静的監査でも、前工程に戻すべき欠陥は十分に見える。
++
++## 5. Codexへ実際に渡した雑プロンプト
++
++Codexには以下をそのまま渡した。
++
++```text
++In this git repo, create a tiny static FAQ search app under experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app.
++Use only HTML, CSS, and vanilla JavaScript. Make it look like a polished SaaS help center.
++Include at least 8 FAQ items and a search box that filters questions live.
++Keep it simple. Do not install dependencies. Do not modify files outside that vibe-app directory. Then exit.
++```
++
++実行コマンド:
++
++```bash
++codex exec --sandbox danger-full-access "In this git repo, create a tiny static FAQ search app under experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app. Use only HTML, CSS, and vanilla JavaScript. Make it look like a polished SaaS help center. Include at least 8 FAQ items and a search box that filters questions live. Keep it simple. Do not install dependencies. Do not modify files outside that vibe-app directory. Then exit."
++```
++
++Codexは `vibe-app` に3ファイルを作った。
++
++```text
++index.html  45 lines
++styles.css  248 lines
++app.js      89 lines
++```
++
++Codexの最終報告はこうだった。
++
++```text
++Created the static FAQ search app under:
++experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/index.html
++
++It includes HTML, CSS, and vanilla JS only, with 9 FAQ items and live filtering.
++No dependencies installed. I only created files inside the requested vibe-app directory.
++```
++
++ここまでは良い。依存なし、指定ディレクトリ内、FAQ 9件、ライブ検索あり。雑プロンプトとしてはかなり優秀だ。
++
++## 6. 生成されたコードの良かった点
++
++まず、Codexを公平に評価すると、vibe-appには良い点も多かった。
++
++```html
++<form class="search-panel" role="search">
++  <label for="faq-search">Search the help center</label>
++  <div class="search-box">
++    <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
++      ...
++    </svg>
++    <input id="faq-search" type="search" autocomplete="off" placeholder="Try billing, SSO, export, invite...">
++  </div>
++</form>
++```
++
++- `label for="faq-search"` がある
++- SVGは `aria-hidden="true"` / `focusable="false"`
++- `role="search"` がある
++- `aria-live="polite"` の結果件数表示がある
++- FAQは `details` / `summary` を使っており、標準HTMLの開閉UIに寄せている
++
++つまり、「AIはアクセシビリティを完全に無視する」という話ではない。むしろ、明示していない割にはかなり良い。しかし、後工程で監査すると「標準仕様としては足りない」部分が出る。
++
++## 7. 静的監査を実行した
++
++まずJavaScriptの構文チェック。
++
++```bash
++node --check experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/app.js
++```
++
++これは通った。次に、HTML/CSS/JSを軽く静的監査した。チェックしたのは、検索欄ラベル、結果件数live region、リストセマンティクス、`aria-controls`、`aria-describedby`、フォームsubmit抑止、`:focus-visible` などだ。
++
++結果:
++
++```text
++PASS: HTML lang exists
++PASS: Search input has label for faq-search
++PASS: Result count live region exists
++FAIL: FAQ list has explicit list semantics
++FAIL: Search input declares controlled results
++FAIL: No-result state is programmatically referenced by input
++FAIL: Form submit is prevented in JS
++FAIL: Focus visible rule exists
++PASS: FAQ item count >= 8
++PASS: No dependency import statements
++```
++
++HTTP serverでも配信確認だけ行った。
++
++```bash
++python3 -m http.server 8765 --directory experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app
++curl -s http://127.0.0.1:8765/ -o experiments/2026-06-27-accessibility-contract-vibe-faq/logs/http-index.html
++```
++
++確認結果:
++
++```text
++bytes 1728
++has title True
++```
++
++ここで大事なのは、「画面が表示される」ことと「後工程が監査できる」ことは別だという点だ。
++
++## 8. 欠陥1: FAQ一覧がdivで、コレクションとして読めない
++
++vibe-appのHTMLはこうだった。
++
++```html
++<div id="faq-list" class="faq-list"></div>
++```
++
++JS側で `details` を追加しているが、FAQ全体は `ul/li` ではない。人間の目にはカード一覧に見える。しかし、支援技術や静的監査にとっては「FAQ項目のコレクション」であることが曖昧になる。
++
++理想状態:
++
++```html
++<ul id="faq-list" class="faq-list"></ul>
++```
++
++各項目は `li` として追加する。カスタム要素を使うなら、少なくとも `role="list"` / `role="listitem"` が必要になる。
++
++逆算すると、これは実装後に「ulに直して」ではなく、AI Task Packetの `accessibility_contract.collection_semantics` に入れるべき項目だ。
++
++## 9. 欠陥2: 検索欄と結果領域の関係がプログラム上つながっていない
++
++vibe-appの検索欄はラベル付きで悪くない。しかし、検索欄がどの領域を制御しているのかは明示されていない。
++
++不足していたもの:
++
++```html
++aria-controls="faq-list"
++aria-describedby="search-help result-status no-results"
++```
++
++人間には「この検索欄はFAQを絞り込む」と分かる。しかし、AIが作るUI標準としては、視覚的配置だけに頼ってはいけない。検索欄、ヘルプテキスト、結果件数、no results状態が、DOM上でも関係として読める必要がある。
++
++これは建築図面でいえば、部屋が隣に描かれているだけで配管・電気・避難経路の関係が記号化されていない状態に近い。
++
++## 10. 欠陥3: Enterキーの挙動が仕様化されていない
++
++vibe-appにはフォームがあるが、submitイベントを抑止していなかった。
++
++```js
++searchInput.addEventListener("input", filterFaqs);
++```
++
++ライブ検索では、Enterキーでページがリロードされると、キーボードユーザーの文脈が壊れる可能性がある。静的HTMLではブラウザ既定動作によりGET送信・再読み込みに近い挙動になることがある。
++
++理想状態:
++
++```js
++form.addEventListener("submit", (event) => {
++  event.preventDefault();
++});
++```
++
++この欠陥は、AIが賢いかどうかではなく、前工程で「Enterキーの期待挙動」を渡していないことが原因だ。AI Task Packetには `keyboard_interactions` が必要になる。
++
++## 11. 欠陥4: 検証証拠が成果物として残らない
++
++vibe promptでは、Codexに「作って」とは言ったが、「何を実行して合格とするか」を渡していない。
++
++結果として、Codexはファイル作成とgit status確認はしたが、アクセシビリティ契約を検証するコマンドは残さなかった。
++
++AIDD-Specでは、これは `Verification Evidence` の欠落である。
++
++理想状態:
++
++```yaml
++quality_gate:
++  required_commands:
++    - node --check path/to/app.js
++    - python3 path/to/audit_static.py path/to/app
++```
++
++小さなUIでも、最低限「何をもって完了とするか」を実行可能な形にする必要がある。
++
++![欠陥から逆算する Accessibility Contract](../assets/2026-06-27-accessibility-contract-reverse-chain.svg)
++
++## 12. 逆算してAI Task Packet v0.1を作った
++
++監査結果から、次のAI Task Packetを作った。
++
++```markdown
++# AI Task Packet v0.1: Accessible FAQ Search
++
++## Functional requirements
++
++- At least 8 FAQ items.
++- Search filters live across question, answer, and tag.
++- Empty query shows all FAQs.
++- No-result query shows a visible no-results message.
++- Pressing Enter inside the search form must not reload the page.
++
++## Accessibility Contract
++
++- The search input must have a visible label.
++- The search input must declare `aria-controls="faq-list"`.
++- The search input must declare `aria-describedby` pointing to helper text and result status/no-result status as appropriate.
++- The result count must be in an `aria-live="polite"` region and include the query context when a query exists.
++- FAQ collection must expose list semantics (`ul/li` or equivalent `role="list"/"listitem"`).
++- FAQ toggle controls must be keyboard-operable and retain visible focus.
++- CSS must include a `:focus-visible` rule for keyboard focus evidence.
++- Decorative icons must be `aria-hidden="true"` and `focusable="false"`.
++
++## Quality Gate / Verification Evidence
++
++```bash
++node --check experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app/app.js
++python3 experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app
++```
++```
++
++これをCodexに渡して、`fixed-app` を作らせた。
++
++実行コマンド:
++
++```bash
++codex exec --sandbox danger-full-access "Read experiments/2026-06-27-accessibility-contract-vibe-faq/AI_TASK_PACKET_v0.1.md. Implement exactly that packet. Keep all changes inside experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app except an optional audit_static.py directly under the experiment directory. Do not install dependencies. Then run the verification commands if possible and report results."
++```
++
++## 13. 修正後の結果
++
++Codexは `fixed-app` と `audit_static.py` を作り、検証まで実行した。
++
++こちらでも再実行した結果:
++
++```text
++## fixed node syntax check
++## fixed static audit
++PASS: HTML lang exists
++PASS: Search input has visible label
++PASS: Search input controls faq-list
++PASS: Search input references helper text
++PASS: Search input references result status
++PASS: Search input references no-result status
++PASS: Result count live region exists
++PASS: FAQ collection uses ul/list semantics
++PASS: FAQ item data count >= 8
++PASS: FAQ toggles use buttons
++PASS: Form submit is prevented in JS
++PASS: CSS includes focus-visible rule
++PASS: Decorative SVG icons are hidden
++PASS: No dependency import statements
++```
++
++差分として重要なのは、単にHTMLが変わったことではない。Codexに渡した前工程情報が変わると、成果物の構造が変わったことだ。
++
++fixed-appでは検索欄がこうなった。
++
++```html
++<input
++  id="faq-search"
++  type="search"
++  autocomplete="off"
++  placeholder="Try billing, SSO, export, invite..."
++  aria-controls="faq-list"
++  aria-describedby="search-help result-status no-results"
++>
++```
++
++FAQ一覧もこうなった。
++
++```html
++<ul id="faq-list" class="faq-list"></ul>
++```
++
++そしてJSにsubmit抑止が入った。
++
++```js
++form.addEventListener("submit", (event) => {
++  event.preventDefault();
++});
++```
++
++## 14. 標準フォーマットでの監査結果
++
++今回の代表的なfindingをAIDD-Specの標準形式で記録すると、こうなる。
++
++```yaml
++category: Accessibility
++finding: The search input did not declare which result region it controls or which status text describes it.
++severity: high
++observed_by: static HTML audit
++ideal_state: Search input is programmatically connected to result list, helper text, result count, and no-result state.
++fix_instruction: Add aria-controls="faq-list" and aria-describedby="search-help result-status no-results" to the input; keep referenced elements present in the DOM.
++needed_upstream_info:
++  - Accessibility Contract
++  - State Design: empty/loading/error/success
++  - Copy Contract
++standard_update:
++  document: AI Task Packet
++  field: accessibility_contract.search_relationships
++codex_prompt_delta: |
++  The search input must declare aria-controls for the results container and aria-describedby for helper, live result status, and no-result status text.
++verification:
++  command: python3 experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app
++  expected: PASS
++```
++
++この形式にすることで、欠陥が単なる反省で終わらず、次回の前工程成果物に戻る。
++
++## 15. AIDD-Specへの反映
++
++今日の結果を受けて、標準仕様として以下を追加した。
++
++```text
++/Users/tto/codex-mastery-lab/standards/aidd-spec-ai-task-packet-standard-v0.1.md
++```
++
++追加した主なフィールド:
++
++```yaml
++accessibility_contract:
++  relationships: []
++  collection_semantics: []
++  keyboard_interactions: []
++  focus_evidence: []
++quality_gate:
++  required_commands: []
++verification_evidence:
++  files_to_attach: []
++  logs_to_save: []
++```
++
++ここでのポイントは、Accessibility Contractを「善意のチェックリスト」にしないことだ。Codexに渡せる実装条件、監査できるDOM条件、再実行できるコマンドに落とす。
++
++## 16. CTO視点の考察
++
++今回の実験で最も重要だったのは、Codexが失敗したことではない。むしろCodexは、雑な指示に対してかなり良いものを出した。
++
++問題は、雑な指示でも「それっぽく良いもの」が出てしまうことだ。
++
++これはAI駆動開発の危険なところで、成果物の表面品質が高いほど、後工程の欠陥が見えにくくなる。だから、AI時代の設計図面には次が必要になる。
++
++- UI部品の見た目だけでなく、支援技術との関係を書く
++- 画面状態だけでなく、状態遷移時に読み上げるテキストを書く
++- キーボード操作の期待挙動を書く
++- 完了条件を「見た目」ではなく「コマンドで再現できる証拠」にする
++
++建築でいうなら、完成予想図だけを渡して施工するのではなく、平面図、設備図、建具表、検査基準まで渡す。そのソフトウェア版がAIDD-Specであり、Codexへ渡す最小実装単位がAI Task Packetだ。
++
++## 17. SaaS化するなら何を作るか
++
++AIDD Control PlaneとしてSaaS化するなら、今回の学びはそのまま機能になる。
++
++1. UI種別として「検索UI」を選ぶ
++2. SaaSが必須のAccessibility Contractを提示する
++3. `aria-controls` / `aria-describedby` / live region / list semantics をフォームで入力させる
++4. その入力からAI Task Packetを生成する
++5. Codex実行後、静的監査を自動実行する
++6. FAILした項目から修正プロンプトと標準仕様更新案を生成する
++
++価値は「AIにコードを書かせる」ことではない。AIが作ったものを検査可能な設計図面レベルへ引き上げ、次回から最初に渡す仕様を改善することだ。
++
++## 18. 明日から使えるチェックリスト
++
++検索UIをAIに作らせる前に、最低限これをAI Task Packetへ入れる。
++
++- [ ] 検索欄にvisible labelがあるか
++- [ ] 検索欄が `aria-controls` で結果領域を指しているか
++- [ ] 検索欄が `aria-describedby` でヘルプ、結果件数、no resultsを参照しているか
++- [ ] 結果件数が `aria-live="polite"` で更新されるか
++- [ ] 結果一覧が `ul/li` または equivalent role で表現されるか
++- [ ] no results状態の表示文言が決まっているか
++- [ ] Enterキーでページ遷移・reloadしないか
++- [ ] キーボードフォーカスが `:focus-visible` で見えるか
++- [ ] `node --check` など最低限の検証コマンドがあるか
++- [ ] 監査結果をログとして保存するか
++
++## 19. 次回検証
++
++次回は、同じFAQ検索アプリに対して、静的監査ではなくaxe / Lighthouse / Playwrightの軽量監査をどこまでM4 Mac miniで現実的に回せるかを調べたい。
++
++今日の結論は明確だ。
++
++> Codexのアウトプット品質を上げる最短距離は、プロンプトを長くすることではない。後工程の監査で必要になる情報を、AI Task Packetの標準フィールドとして前工程に戻すことである。
++
++今日の小さなFAQアプリは、その最小の証拠になった。
+diff --git a/assets/2026-06-27-accessibility-contract-reverse-chain.svg b/assets/2026-06-27-accessibility-contract-reverse-chain.svg
+new file mode 100644
+index 0000000..6e25718
+--- /dev/null
++++ b/assets/2026-06-27-accessibility-contract-reverse-chain.svg
+@@ -0,0 +1,48 @@
++<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
++  <title id="title">Accessibility Contract reverse chain</title>
++  <desc id="desc">A diagram showing how defects in a vibe-coded FAQ app are converted into upstream AIDD-Spec fields.</desc>
++  <rect width="1200" height="675" fill="#f8fafc"/>
++  <text x="60" y="70" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#0f172a">欠陥から逆算する Accessibility Contract</text>
++  <text x="60" y="110" font-family="Arial, sans-serif" font-size="18" fill="#475569">雑なFAQ検索アプリの監査結果 → 理想状態 → 修正指示 → AI Task Packet → AIDD-Spec</text>
++  <defs>
++    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
++      <path d="M2,2 L10,6 L2,10 Z" fill="#0f766e"/>
++    </marker>
++  </defs>
++  <g font-family="Arial, sans-serif">
++    <rect x="60" y="170" width="200" height="145" rx="16" fill="#fee2e2" stroke="#ef4444"/>
++    <text x="84" y="205" font-size="20" font-weight="700" fill="#7f1d1d">Finding</text>
++    <text x="84" y="238" font-size="15" fill="#7f1d1d">• list semanticsなし</text>
++    <text x="84" y="263" font-size="15" fill="#7f1d1d">• aria-controlsなし</text>
++    <text x="84" y="288" font-size="15" fill="#7f1d1d">• Enterでreload可能</text>
++
++    <line x1="270" y1="242" x2="345" y2="242" stroke="#0f766e" stroke-width="4" marker-end="url(#arrow)"/>
++
++    <rect x="360" y="170" width="205" height="145" rx="16" fill="#ecfeff" stroke="#06b6d4"/>
++    <text x="384" y="205" font-size="20" font-weight="700" fill="#164e63">Ideal State</text>
++    <text x="384" y="238" font-size="15" fill="#164e63">検索欄・結果・FAQが</text>
++    <text x="384" y="263" font-size="15" fill="#164e63">支援技術から関係性</text>
++    <text x="384" y="288" font-size="15" fill="#164e63">として読める</text>
++
++    <line x1="575" y1="242" x2="650" y2="242" stroke="#0f766e" stroke-width="4" marker-end="url(#arrow)"/>
++
++    <rect x="665" y="170" width="205" height="145" rx="16" fill="#fef3c7" stroke="#f59e0b"/>
++    <text x="689" y="205" font-size="20" font-weight="700" fill="#78350f">Fix Instruction</text>
++    <text x="689" y="238" font-size="15" fill="#78350f">aria-describedby</text>
++    <text x="689" y="263" font-size="15" fill="#78350f">ul/li + button</text>
++    <text x="689" y="288" font-size="15" fill="#78350f">preventDefault</text>
++
++    <line x1="880" y1="242" x2="955" y2="242" stroke="#0f766e" stroke-width="4" marker-end="url(#arrow)"/>
++
++    <rect x="970" y="170" width="180" height="145" rx="16" fill="#dcfce7" stroke="#22c55e"/>
++    <text x="994" y="205" font-size="20" font-weight="700" fill="#14532d">Upstream</text>
++    <text x="994" y="238" font-size="15" fill="#14532d">Accessibility Contract</text>
++    <text x="994" y="263" font-size="15" fill="#14532d">State Design</text>
++    <text x="994" y="288" font-size="15" fill="#14532d">Verification Evidence</text>
++
++    <rect x="190" y="405" width="820" height="150" rx="18" fill="#ffffff" stroke="#cbd5e1"/>
++    <text x="230" y="445" font-size="22" font-weight="700" fill="#0f172a">AIDD-Specへの更新</text>
++    <text x="230" y="482" font-size="17" fill="#334155">AI Task Packetに「画面状態」「支援技術との関係」「検証コマンド」を必須フィールドとして追加。</text>
++    <text x="230" y="516" font-size="17" fill="#334155">SaaS化するなら、入力フォームからアクセシビリティ契約を生成し、静的監査を自動実行する。</text>
++  </g>
++</svg>
+diff --git a/assets/2026-06-27-vibe-vs-fixed-audit.svg b/assets/2026-06-27-vibe-vs-fixed-audit.svg
+new file mode 100644
+index 0000000..4f53548
+--- /dev/null
++++ b/assets/2026-06-27-vibe-vs-fixed-audit.svg
+@@ -0,0 +1,33 @@
++<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
++  <title id="title">Vibe app versus fixed app audit results</title>
++  <desc id="desc">Audit comparison between a vague Codex prompt and an AIDD Task Packet with accessibility contract.</desc>
++  <rect width="1200" height="675" fill="#f8fafc"/>
++  <text x="60" y="72" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#0f172a">雑プロンプト vs AI Task Packet</text>
++  <text x="60" y="112" font-family="Arial, sans-serif" font-size="18" fill="#475569">同じFAQ検索アプリでも、前工程で渡す設計図面があると監査結果が変わる</text>
++  <g font-family="Arial, sans-serif">
++    <rect x="80" y="165" width="480" height="410" rx="20" fill="#fff1f2" stroke="#fb7185"/>
++    <text x="120" y="215" font-size="26" font-weight="700" fill="#881337">vibe-app</text>
++    <text x="120" y="248" font-size="16" fill="#9f1239">Prompt: “FAQ検索アプリをいい感じに作って”</text>
++    <g font-size="18" fill="#7f1d1d">
++      <text x="120" y="305">✅ HTML lang</text>
++      <text x="120" y="340">✅ visible label</text>
++      <text x="120" y="375">✅ aria-live result count</text>
++      <text x="120" y="410">❌ explicit list semantics</text>
++      <text x="120" y="445">❌ aria-controls / describedby</text>
++      <text x="120" y="480">❌ submit preventDefault</text>
++      <text x="120" y="515">❌ :focus-visible evidence</text>
++    </g>
++    <rect x="640" y="165" width="480" height="410" rx="20" fill="#ecfdf5" stroke="#34d399"/>
++    <text x="680" y="215" font-size="26" font-weight="700" fill="#064e3b">fixed-app</text>
++    <text x="680" y="248" font-size="16" fill="#065f46">Prompt: Accessibility Contract + Verification Evidence</text>
++    <g font-size="18" fill="#14532d">
++      <text x="680" y="305">✅ HTML lang</text>
++      <text x="680" y="340">✅ visible label</text>
++      <text x="680" y="375">✅ aria-controls / describedby</text>
++      <text x="680" y="410">✅ live result status with query context</text>
++      <text x="680" y="445">✅ ul/li list semantics</text>
++      <text x="680" y="480">✅ button toggles + aria-expanded</text>
++      <text x="680" y="515">✅ preventDefault + :focus-visible</text>
++    </g>
++  </g>
++</svg>
+diff --git a/backlog.md b/backlog.md
+index 8263daa..87c9837 100644
+--- a/backlog.md
++++ b/backlog.md
+@@ -2,9 +2,9 @@
+ 
+ ## North Star: AIDD-Spec / AI駆動開発の世界標準
+ 
+-- [ ] Reverse Engineering Methodology: 雑バイブコーディング成果物を監査し、後工程から前工程成果物を逆算する
+-- [ ] Vibe-coded sample appを1つ作り、監査カテゴリを通して欠陥を洗い出す
+-- [ ] 監査結果からAI Task Packet v0.1を逆算する
++- [x] Reverse Engineering Methodology: 雑バイブコーディング成果物を監査し、後工程から前工程成果物を逆算する（2026-06-27 FAQ検索アクセシビリティ契約で実施）
++- [x] Vibe-coded sample appを1つ作り、監査カテゴリを通して欠陥を洗い出す（2026-06-27 vibe-app）
++- [x] 監査結果からAI Task Packet v0.1を逆算する（2026-06-27 Accessibility Contract / Verification Evidence）
+ - [ ] AIDD-Spec v0.1: 建築図面に相当する標準成果物体系を定義する
+ - [ ] 書籍企画: 「AI駆動開発時代の設計図面」章立てを毎週更新する
+ - [ ] Product Brief テンプレートとCodex検証
+@@ -45,6 +45,9 @@
+ 
+ ## Phase 3: 複数エージェント/継続改善
+ 
++- [ ] 次回候補: FAQ検索アプリに axe / Lighthouse / Playwright の軽量監査を追加し、静的監査では拾えない問題を比較する
++- [ ] 次回候補: 同じFAQ題材で「Performance Budget」を事前に渡すとCLS/LCP系の欠陥が減るか検証する
++
+ - [ ] 2つのCodexに実装案を競わせる
+ - [ ] Codex実装をHermesがレビューする二段構え
+ - [ ] 失敗ログから「次回のCodexプロンプト」を改善する
+diff --git a/book/outline.md b/book/outline.md
+index 8914a97..67ca321 100644
+--- a/book/outline.md
++++ b/book/outline.md
+@@ -103,6 +103,10 @@ AIに「いい感じに作って」と頼む時代は終わる。これから必
+ 
+ 日次noteは、書籍の素材を毎日蓄積する場にする。
+ 
++### 蓄積済み素材
++
++- 2026-06-27: 「雑なFAQ検索アプリのアクセシビリティ監査からAI Task Packetを逆算する」 — 第6章 Design Contract、第9章 AI Task Packet、第10章 Verification Evidence、第12章 雑プロンプト vs AI Task Packet に接続。
++
+ 各記事は以下のどれかに分類する。
+ 
+ - Concept: 標準仕様の考え方
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/AI_TASK_PACKET_v0.1.md b/experiments/2026-06-27-accessibility-contract-vibe-faq/AI_TASK_PACKET_v0.1.md
+new file mode 100644
+index 0000000..4d08c61
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/AI_TASK_PACKET_v0.1.md
+@@ -0,0 +1,43 @@
++# AI Task Packet v0.1: Accessible FAQ Search
++
++## Task
++
++Create a corrected static FAQ search app in `experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app` using only HTML, CSS, and vanilla JavaScript.
++
++## Product intent
++
++A polished SaaS help center FAQ search. It must support fast keyword filtering and be usable by keyboard and screen reader users.
++
++## Functional requirements
++
++- At least 8 FAQ items.
++- Search filters live across question, answer, and tag.
++- Empty query shows all FAQs.
++- No-result query shows a visible no-results message.
++- Pressing Enter inside the search form must not reload the page.
++
++## Accessibility Contract
++
++- The search input must have a visible label.
++- The search input must declare `aria-controls="faq-list"`.
++- The search input must declare `aria-describedby` pointing to helper text and result status/no-result status as appropriate.
++- The result count must be in an `aria-live="polite"` region and include the query context when a query exists.
++- FAQ collection must expose list semantics (`ul/li` or equivalent `role="list"/"listitem"`).
++- FAQ toggle controls must be keyboard-operable and retain visible focus.
++- CSS must include a `:focus-visible` rule for keyboard focus evidence.
++- Decorative icons must be `aria-hidden="true"` and `focusable="false"`.
++
++## Quality Gate / Verification Evidence
++
++After implementation, run or make possible these checks:
++
++```bash
++node --check experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app/app.js
++python3 experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app
++```
++
++## Constraints
++
++- Do not install dependencies.
++- Do not modify files outside `fixed-app` unless creating a tiny local audit script directly under `experiments/2026-06-27-accessibility-contract-vibe-faq/`.
++- Keep the implementation small and readable.
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/PLAN.md b/experiments/2026-06-27-accessibility-contract-vibe-faq/PLAN.md
+new file mode 100644
+index 0000000..51774fb
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/PLAN.md
+@@ -0,0 +1,52 @@
++# Experiment Plan: Accessibility Contract reverse engineering from a vibe-coded FAQ app
++
++Date: 2026-06-27
++
++## Theme
++
++監査カテゴリ: Accessibility / Requirement Fit / Quality Gate Contract
++
++雑なCodexプロンプトで小さなFAQ検索アプリを作り、アクセシビリティと仕様充足の欠陥から、AI Task Packetに事前に含めるべき Accessibility Contract と Verification Evidence を逆算する。
++
++## Hypothesis
++
++Codexへ「FAQ検索アプリを作って」とだけ渡すと、見た目と基本動作は作るが、以下が抜けやすい。
++
++- フォーム/検索欄の明示ラベル
++- 検索結果件数のスクリーンリーダー通知
++- no results / empty query など状態設計
++- キーボード操作やフォーカス可視化
++- 検証コマンド/証拠の残し方
++
++これらは、実装後に「直して」と言うのではなく、前工程の Accessibility Contract / State Design / Verification Evidence としてAI Task Packetに入れるべきである。
++
++## Scope
++
++- 依存追加なし。HTML/CSS/vanilla JSのみ。
++- 実験ディレクトリ内に閉じる。
++- ローカルファイル/軽量Python HTTP serverで確認する。
++- 監査は手動HTMLレビュー + 軽量スクリプト + Node構文チェックで行う。
++
++## Codex prompt for vibe coding
++
++```text
++In this git repo, create a tiny static FAQ search app under experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app.
++Use only HTML, CSS, and vanilla JavaScript. Make it look like a polished SaaS help center.
++Include at least 8 FAQ items and a search box that filters questions live.
++Keep it simple. Do not install dependencies. Do not modify files outside that vibe-app directory. Then exit.
++```
++
++## Audit categories
++
++1. Accessibility
++2. Requirement Fit / state behavior
++3. Build / Console / Verification Evidence
++
++## Evidence to save
++
++- logs/environment.txt
++- logs/codex-vibe-run.log
++- logs/audit-results.md
++- logs/git-status-before.txt / git-status-after.txt / git-diff-after.patch
++- assets/2026-06-27-accessibility-contract-reverse-chain.svg
++- articles/2026-06-27-accessibility-contract-vibe-faq.md
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py b/experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py
+new file mode 100644
+index 0000000..eb17fbb
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py
+@@ -0,0 +1,88 @@
++#!/usr/bin/env python3
++import re
++import sys
++from html.parser import HTMLParser
++from pathlib import Path
++
++
++class AuditParser(HTMLParser):
++    def __init__(self):
++        super().__init__()
++        self.stack = []
++        self.tags = []
++        self.inputs = {}
++        self.labels_for = set()
++        self.ids = set()
++        self.live_regions = []
++        self.faq_items = 0
++        self.ul_ids = set()
++        self.decorative_icons = []
++
++    def handle_starttag(self, tag, attrs):
++        attr = dict(attrs)
++        self.tags.append((tag, attr))
++        if "id" in attr:
++            self.ids.add(attr["id"])
++        if tag == "input" and "id" in attr:
++            self.inputs[attr["id"]] = attr
++        if tag == "label" and "for" in attr:
++            self.labels_for.add(attr["for"])
++        if attr.get("aria-live") == "polite":
++            self.live_regions.append(attr)
++        if tag == "ul" and "id" in attr:
++            self.ul_ids.add(attr["id"])
++        if tag == "li" and self.stack and self.stack[-1][0] == "ul" and self.stack[-1][1].get("id") == "faq-list":
++            self.faq_items += 1
++        if tag == "svg":
++            self.decorative_icons.append(attr)
++        self.stack.append((tag, attr))
++
++    def handle_endtag(self, tag):
++        for index in range(len(self.stack) - 1, -1, -1):
++            if self.stack[index][0] == tag:
++                del self.stack[index:]
++                return
++
++
++def check(name, passed, failures):
++    print(f"{'PASS' if passed else 'FAIL'}: {name}")
++    if not passed:
++        failures.append(name)
++
++
++def main():
++    if len(sys.argv) != 2:
++        print("usage: audit_static.py FIXED_APP_DIR", file=sys.stderr)
++        return 2
++
++    root = Path(sys.argv[1])
++    html = (root / "index.html").read_text(encoding="utf-8")
++    css = (root / "styles.css").read_text(encoding="utf-8")
++    js = (root / "app.js").read_text(encoding="utf-8")
++
++    parser = AuditParser()
++    parser.feed(html)
++    search = parser.inputs.get("faq-search", {})
++    describedby = set(search.get("aria-describedby", "").split())
++    failures = []
++
++    check("HTML lang exists", bool(re.search(r"<html[^>]+lang=", html)), failures)
++    check("Search input has visible label", "faq-search" in parser.labels_for, failures)
++    check("Search input controls faq-list", search.get("aria-controls") == "faq-list", failures)
++    check("Search input references helper text", "search-help" in describedby and "search-help" in parser.ids, failures)
++    check("Search input references result status", "result-status" in describedby and "result-status" in parser.ids, failures)
++    check("Search input references no-result status", "no-results" in describedby and "no-results" in parser.ids, failures)
++    check("Result count live region exists", bool(parser.live_regions), failures)
++    check("FAQ collection uses ul/list semantics", "faq-list" in parser.ul_ids, failures)
++    check("FAQ item data count >= 8", len(re.findall(r"question:\s*[\"']", js)) >= 8, failures)
++    check("FAQ toggles use buttons", bool(re.search(r"createElement\([\"']button[\"']\)", js)), failures)
++    check("Form submit is prevented in JS", "preventDefault()" in js and bool(re.search(r"[\"']submit[\"']\s*,", js)), failures)
++    check("CSS includes focus-visible rule", ":focus-visible" in css, failures)
++    check("Decorative SVG icons are hidden", all(icon.get("aria-hidden") == "true" and icon.get("focusable") == "false" for icon in parser.decorative_icons), failures)
++    check("No dependency import statements", "import " not in js and "require(" not in js, failures)
++
++    return 1 if failures else 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app/app.js b/experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app/app.js
+new file mode 100644
+index 0000000..ac405a2
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app/app.js
+@@ -0,0 +1,138 @@
++const faqs = [
++  {
++    question: "How do I invite a teammate?",
++    answer: "Open Settings, choose Members, and send an invitation to their work email. New teammates can be assigned a role before they accept.",
++    tag: "Team"
++  },
++  {
++    question: "Can I enable single sign-on?",
++    answer: "Yes. SSO is available on Business and Enterprise plans. Admins can configure SAML from Settings after verifying the company domain.",
++    tag: "Security"
++  },
++  {
++    question: "Where can I update billing details?",
++    answer: "Billing owners can update payment methods, billing contacts, and invoice details from Settings under Billing.",
++    tag: "Billing"
++  },
++  {
++    question: "How do exports work?",
++    answer: "Workspace admins can export projects as CSV files from the Reports area. Large exports are delivered by email when they are ready.",
++    tag: "Data"
++  },
++  {
++    question: "Does Vibe support Slack notifications?",
++    answer: "Yes. Connect Slack from Integrations, pick a channel, and choose which project events should post updates.",
++    tag: "Integrations"
++  },
++  {
++    question: "Can I restore deleted projects?",
++    answer: "Deleted projects remain recoverable for 30 days. Go to Settings, select Trash, and restore the project from the list.",
++    tag: "Projects"
++  },
++  {
++    question: "How do I change notification preferences?",
++    answer: "Open your profile menu, select Notifications, and adjust email, desktop, and digest settings for each workspace.",
++    tag: "Account"
++  },
++  {
++    question: "What roles are available for users?",
++    answer: "Workspaces include owner, admin, editor, and viewer roles. Each role controls access to billing, member management, and project changes.",
++    tag: "Permissions"
++  },
++  {
++    question: "Is there an audit log?",
++    answer: "Enterprise workspaces include searchable audit logs for sign-ins, role changes, exports, billing events, and integration updates.",
++    tag: "Compliance"
++  }
++];
++
++const form = document.querySelector("#search-form");
++const searchInput = document.querySelector("#faq-search");
++const list = document.querySelector("#faq-list");
++const noResults = document.querySelector("#no-results");
++const resultStatus = document.querySelector("#result-status");
++
++function normalize(value) {
++  return value.trim().toLowerCase();
++}
++
++function createFaqItem(faq, index) {
++  const item = document.createElement("li");
++  item.className = "faq-item";
++
++  const button = document.createElement("button");
++  button.className = "faq-toggle";
++  button.type = "button";
++  button.id = `faq-toggle-${index}`;
++  button.setAttribute("aria-expanded", "false");
++  button.setAttribute("aria-controls", `faq-answer-${index}`);
++
++  const question = document.createElement("span");
++  question.textContent = faq.question;
++
++  const icon = document.createElement("span");
++  icon.className = "toggle-icon";
++  icon.setAttribute("aria-hidden", "true");
++  icon.textContent = "+";
++
++  const answer = document.createElement("div");
++  answer.className = "faq-answer";
++  answer.id = `faq-answer-${index}`;
++  answer.setAttribute("role", "region");
++  answer.setAttribute("aria-labelledby", button.id);
++  answer.hidden = true;
++
++  const answerText = document.createElement("p");
++  answerText.textContent = faq.answer;
++
++  const tag = document.createElement("span");
++  tag.className = "tag";
++  tag.textContent = faq.tag;
++
++  button.addEventListener("click", () => {
++    const isExpanded = button.getAttribute("aria-expanded") === "true";
++    button.setAttribute("aria-expanded", String(!isExpanded));
++    answer.hidden = isExpanded;
++    icon.textContent = isExpanded ? "+" : "-";
++  });
++
++  button.append(question, icon);
++  answer.append(answerText, tag);
++  item.append(button, answer);
++  return item;
++}
++
++function getMatches(query) {
++  if (!query) {
++    return faqs;
++  }
++
++  return faqs.filter((faq) => {
++    const searchableText = `${faq.question} ${faq.answer} ${faq.tag}`.toLowerCase();
++    return searchableText.includes(query);
++  });
++}
++
++function updateStatus(count, query) {
++  const noun = count === 1 ? "FAQ" : "FAQs";
++  resultStatus.textContent = query
++    ? `${count} ${noun} found for "${query}".`
++    : `${count} ${noun} available.`;
++}
++
++function renderFaqs() {
++  const query = normalize(searchInput.value);
++  const matches = getMatches(query);
++
++  list.replaceChildren(...matches.map(createFaqItem));
++  noResults.hidden = matches.length > 0;
++  updateStatus(matches.length, query);
++}
++
++form.addEventListener("submit", (event) => {
++  event.preventDefault();
++});
++
++searchInput.addEventListener("input", renderFaqs);
++
++renderFaqs();
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app/index.html b/experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app/index.html
+new file mode 100644
+index 0000000..fd76c4d
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app/index.html
+@@ -0,0 +1,53 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <title>Vibe Help Center FAQ</title>
++    <link rel="stylesheet" href="styles.css">
++  </head>
++  <body>
++    <main class="shell">
++      <section class="hero" aria-labelledby="page-title">
++        <div>
++          <p class="eyebrow">Vibe Support</p>
++          <h1 id="page-title">Find the right answer fast</h1>
++          <p class="intro">Search account, billing, security, integration, and workspace questions from one focused help center.</p>
++        </div>
++
++        <form id="search-form" class="search-panel" role="search" aria-labelledby="search-label">
++          <label id="search-label" for="faq-search">Search FAQs</label>
++          <p id="search-help" class="field-help">Filter by keyword, answer text, or tag.</p>
++          <div class="search-box">
++            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
++              <path d="M10.5 4a6.5 6.5 0 0 1 5.17 10.44l3.44 3.45a1 1 0 0 1-1.42 1.41l-3.44-3.44A6.5 6.5 0 1 1 10.5 4Zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Z"></path>
++            </svg>
++            <input
++              id="faq-search"
++              type="search"
++              autocomplete="off"
++              placeholder="Try billing, SSO, export, invite..."
++              aria-controls="faq-list"
++              aria-describedby="search-help result-status no-results"
++            >
++          </div>
++        </form>
++      </section>
++
++      <section class="content" aria-labelledby="faq-title">
++        <div class="section-heading">
++          <div>
++            <p class="eyebrow">FAQ</p>
++            <h2 id="faq-title">Popular questions</h2>
++          </div>
++          <p id="result-status" class="result-status" aria-live="polite"></p>
++        </div>
++
++        <ul id="faq-list" class="faq-list"></ul>
++        <p id="no-results" class="empty-state" hidden>No matching FAQs. Try a different keyword.</p>
++      </section>
++    </main>
++
++    <script src="app.js"></script>
++  </body>
++</html>
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app/styles.css b/experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app/styles.css
+new file mode 100644
+index 0000000..de7ec3c
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app/styles.css
+@@ -0,0 +1,261 @@
++:root {
++  color-scheme: light;
++  --bg: #f5f7fb;
++  --panel: #ffffff;
++  --ink: #182235;
++  --muted: #637083;
++  --line: #d8e0ec;
++  --brand: #0f766e;
++  --brand-dark: #115e59;
++  --accent: #a16207;
++  --focus: #f59e0b;
++  --shadow: 0 18px 45px rgba(24, 34, 53, 0.1);
++}
++
++* {
++  box-sizing: border-box;
++}
++
++body {
++  margin: 0;
++  min-height: 100vh;
++  color: var(--ink);
++  background: linear-gradient(180deg, #ffffff 0%, var(--bg) 42%);
++  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
++}
++
++.shell {
++  width: min(1120px, calc(100% - 40px));
++  margin: 0 auto;
++  padding: 52px 0;
++}
++
++.hero {
++  display: grid;
++  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
++  gap: 28px;
++  align-items: end;
++  padding: 42px;
++  border: 1px solid var(--line);
++  border-radius: 8px;
++  background: rgba(255, 255, 255, 0.92);
++  box-shadow: var(--shadow);
++}
++
++.eyebrow {
++  margin: 0 0 10px;
++  color: var(--brand-dark);
++  font-size: 0.78rem;
++  font-weight: 800;
++  letter-spacing: 0;
++  text-transform: uppercase;
++}
++
++h1,
++h2,
++p {
++  margin-top: 0;
++}
++
++h1 {
++  max-width: 690px;
++  margin-bottom: 14px;
++  font-size: clamp(2.2rem, 6vw, 4.5rem);
++  line-height: 1;
++  letter-spacing: 0;
++}
++
++h2 {
++  margin-bottom: 0;
++  font-size: clamp(1.5rem, 3vw, 2.15rem);
++  letter-spacing: 0;
++}
++
++.intro {
++  max-width: 620px;
++  margin-bottom: 0;
++  color: var(--muted);
++  font-size: 1.06rem;
++  line-height: 1.65;
++}
++
++.search-panel {
++  padding: 22px;
++  border: 1px solid var(--line);
++  border-radius: 8px;
++  background: #fbfcfe;
++}
++
++label {
++  display: block;
++  margin-bottom: 6px;
++  color: #334155;
++  font-size: 0.94rem;
++  font-weight: 750;
++}
++
++.field-help {
++  margin-bottom: 12px;
++  color: var(--muted);
++  font-size: 0.9rem;
++}
++
++.search-box {
++  display: flex;
++  align-items: center;
++  gap: 12px;
++  min-height: 56px;
++  padding: 0 16px;
++  border: 1px solid #cbd5e1;
++  border-radius: 8px;
++  background: var(--panel);
++  transition: border-color 160ms ease, box-shadow 160ms ease;
++}
++
++.search-box:focus-within {
++  border-color: var(--brand);
++  box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.14);
++}
++
++.search-box svg {
++  width: 22px;
++  height: 22px;
++  flex: 0 0 auto;
++  fill: var(--brand);
++}
++
++input {
++  width: 100%;
++  min-width: 0;
++  border: 0;
++  outline: 0;
++  color: var(--ink);
++  background: transparent;
++  font: inherit;
++}
++
++input::placeholder {
++  color: #8b98aa;
++}
++
++:focus-visible {
++  outline: 3px solid var(--focus);
++  outline-offset: 3px;
++}
++
++.content {
++  padding: 40px 0 0;
++}
++
++.section-heading {
++  display: flex;
++  align-items: end;
++  justify-content: space-between;
++  gap: 18px;
++  margin-bottom: 18px;
++}
++
++.result-status {
++  margin-bottom: 4px;
++  color: var(--muted);
++  font-size: 0.95rem;
++  white-space: nowrap;
++}
++
++.faq-list {
++  display: grid;
++  gap: 12px;
++  margin: 0;
++  padding: 0;
++  list-style: none;
++}
++
++.faq-item {
++  border: 1px solid var(--line);
++  border-radius: 8px;
++  background: var(--panel);
++  box-shadow: 0 8px 24px rgba(24, 34, 53, 0.06);
++}
++
++.faq-toggle {
++  display: flex;
++  align-items: center;
++  justify-content: space-between;
++  gap: 16px;
++  width: 100%;
++  min-height: 70px;
++  padding: 20px 22px;
++  border: 0;
++  border-radius: 8px;
++  color: var(--ink);
++  background: transparent;
++  cursor: pointer;
++  font: inherit;
++  font-weight: 750;
++  text-align: left;
++}
++
++.toggle-icon {
++  display: grid;
++  width: 28px;
++  height: 28px;
++  flex: 0 0 auto;
++  place-items: center;
++  border-radius: 999px;
++  color: var(--brand-dark);
++  background: #e6f5f3;
++  font-size: 1.1rem;
++  line-height: 1;
++}
++
++.faq-answer {
++  padding: 0 22px 22px;
++}
++
++.faq-answer p {
++  margin-bottom: 14px;
++  color: var(--muted);
++  line-height: 1.65;
++}
++
++.tag {
++  display: inline-flex;
++  align-items: center;
++  padding: 5px 9px;
++  border-radius: 999px;
++  color: #713f12;
++  background: #fef3c7;
++  font-size: 0.78rem;
++  font-weight: 750;
++}
++
++.empty-state {
++  margin: 18px 0 0;
++  padding: 28px;
++  border: 1px dashed #cbd5e1;
++  border-radius: 8px;
++  color: var(--muted);
++  background: rgba(255, 255, 255, 0.78);
++  text-align: center;
++}
++
++@media (max-width: 760px) {
++  .shell {
++    width: min(100% - 28px, 1120px);
++    padding: 28px 0;
++  }
++
++  .hero {
++    grid-template-columns: 1fr;
++    padding: 26px;
++  }
++
++  .section-heading {
++    display: block;
++  }
++
++  .result-status {
++    margin-top: 10px;
++    white-space: normal;
++  }
++}
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/audit-results.md b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/audit-results.md
+new file mode 100644
+index 0000000..767bff5
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/audit-results.md
+@@ -0,0 +1,131 @@
++# Audit Results: FAQ Search Accessibility Contract
++
++## Summary
++
++- Experiment: `experiments/2026-06-27-accessibility-contract-vibe-faq/`
++- Vibe implementation: `vibe-app/`
++- Corrected implementation: `fixed-app/`
++- Audit categories: Accessibility, Requirement Fit / State Behavior, Build / Console / Verification Evidence
++
++## Commands
++
++```bash
++node --check experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/app.js
++python3 <inline static audit>
++node --check experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app/app.js
++python3 experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app
++```
++
++## Vibe app static audit excerpt
++
++```text
++PASS: HTML lang exists
++PASS: Search input has label for faq-search
++PASS: Result count live region exists
++FAIL: FAQ list has explicit list semantics
++FAIL: Search input declares controlled results
++FAIL: No-result state is programmatically referenced by input
++FAIL: Form submit is prevented in JS
++FAIL: Focus visible rule exists
++PASS: FAQ item count >= 8
++PASS: No dependency import statements
++```
++
++## Fixed app verification excerpt
++
++```text
++PASS: HTML lang exists
++PASS: Search input has visible label
++PASS: Search input controls faq-list
++PASS: Search input references helper text
++PASS: Search input references result status
++PASS: Search input references no-result status
++PASS: Result count live region exists
++PASS: FAQ collection uses ul/list semantics
++PASS: FAQ item data count >= 8
++PASS: FAQ toggles use buttons
++PASS: Form submit is prevented in JS
++PASS: CSS includes focus-visible rule
++PASS: Decorative SVG icons are hidden
++PASS: No dependency import statements
++```
++
++## Standardized findings
++
++```yaml
++- category: Accessibility
++  finding: FAQ results were rendered in a generic div without list semantics.
++  severity: medium
++  observed_by: static HTML audit
++  ideal_state: Search results are exposed as a navigable collection using ul/li or equivalent role=list/listitem semantics.
++  fix_instruction: Render the FAQ collection as <ul id="faq-list"> and each FAQ as <li>; if custom roles are used, include role="list" and role="listitem".
++  needed_upstream_info:
++    - Accessibility Contract
++    - Screen Inventory
++    - Component Responsibility
++  standard_update:
++    document: AI Task Packet
++    field: accessibility_contract.collection_semantics
++  codex_prompt_delta: |
++    The FAQ result collection must expose list semantics: use <ul id="faq-list"> with <li> items or equivalent ARIA roles.
++  verification:
++    command: python3 experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app
++    expected: PASS: FAQ collection uses ul/list semantics
++
++- category: Accessibility
++  finding: The search input did not declare which result region it controls or which status text describes it.
++  severity: high
++  observed_by: static HTML audit
++  ideal_state: Search input is programmatically connected to result list, helper text, result count, and no-result state.
++  fix_instruction: Add aria-controls="faq-list" and aria-describedby="search-help result-status no-results" to the input; keep the referenced elements present in the DOM.
++  needed_upstream_info:
++    - Accessibility Contract
++    - State Design: empty/loading/error/success
++    - Copy Contract
++  standard_update:
++    document: AI Task Packet
++    field: accessibility_contract.search_relationships
++  codex_prompt_delta: |
++    The search input must declare aria-controls for the results container and aria-describedby for helper, live result status, and no-result status text.
++  verification:
++    command: python3 experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app
++    expected: PASS: Search input controls faq-list; PASS: Search input references result status
++
++- category: Requirement Fit / State Behavior
++  finding: Pressing Enter in the search form could submit the form and reload the static page.
++  severity: medium
++  observed_by: code review / static JS audit
++  ideal_state: Live search remains in-page for keyboard users; Enter does not destroy the current filtered state.
++  fix_instruction: Give the form an id and add a submit listener that calls event.preventDefault().
++  needed_upstream_info:
++    - User Flow Diagram
++    - Keyboard Interaction Contract
++    - Acceptance Criteria Matrix
++  standard_update:
++    document: AI Task Packet
++    field: interaction_contract.form_submit_behavior
++  codex_prompt_delta: |
++    Pressing Enter in the search input must not reload or navigate; prevent default form submission and keep filtered state visible.
++  verification:
++    command: python3 experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app
++    expected: PASS: Form submit is prevented in JS
++
++- category: Build / Lint / Format / Console
++  finding: The vibe prompt did not ask Codex to leave a reusable verification command or audit script.
++  severity: medium
++  observed_by: experiment log review
++  ideal_state: Every AI-generated UI task includes executable verification evidence, even if the check is lightweight.
++  fix_instruction: Add a small dependency-free static audit script and require node --check plus the audit script in the task packet.
++  needed_upstream_info:
++    - Quality Gate Contract
++    - Verification Evidence
++    - Definition of Done
++  standard_update:
++    document: Verification Evidence
++    field: required_commands.static_ui_audit
++  codex_prompt_delta: |
++    After implementation, run node --check and a local static accessibility audit script; include the command output in the final report.
++  verification:
++    command: node --check experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app/app.js && python3 experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app
++    expected: exit 0
++```
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/codex-fixed-run.log b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/codex-fixed-run.log
+new file mode 100644
+index 0000000..802c20e
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/codex-fixed-run.log
+@@ -0,0 +1,18 @@
++Implemented the packet in `experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app`:
++
++- Added static FAQ app: `index.html`, `styles.css`, `app.js`
++- Added optional audit script: `experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py`
++- Kept changes within the allowed paths
++- Did not install dependencies
++
++Verification results:
++
++```bash
++node --check experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app/app.js
++# passed
++```
++
++```bash
++python3 experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app
++# all checks passed
++```
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/codex-vibe-run.log b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/codex-vibe-run.log
+new file mode 100644
+index 0000000..ec78b22
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/codex-vibe-run.log
+@@ -0,0 +1,5 @@
++Created the static FAQ search app under:
++
++[experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/index.html](/Users/tto/codex-mastery-lab/experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/index.html)
++
++It includes HTML, CSS, and vanilla JS only, with 9 FAQ items and live filtering. No dependencies installed. I only created files inside the requested `vibe-app` directory.
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/environment.txt b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/environment.txt
+new file mode 100644
+index 0000000..6494a6b
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/environment.txt
+@@ -0,0 +1,10 @@
++2026-06-27 12:16:29 JST
++ProductName:		macOS
++ProductVersion:		26.5.1
++BuildVersion:		25F80
++arm64
++Filesystem        Size    Used   Avail Capacity iused ifree %iused  Mounted on
++/dev/disk2s1s1   228Gi    12Gi   140Gi     8%    459k  1.5G    0%   /
++codex-cli 0.142.3
++?? experiments/2026-06-27-accessibility-contract-vibe-faq/
++?? logs/
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/fixed-verification.txt b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/fixed-verification.txt
+new file mode 100644
+index 0000000..dc6ff3a
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/fixed-verification.txt
+@@ -0,0 +1,17 @@
++## fixed node syntax check
++## fixed static audit
++PASS: HTML lang exists
++PASS: Search input has visible label
++PASS: Search input controls faq-list
++PASS: Search input references helper text
++PASS: Search input references result status
++PASS: Search input references no-result status
++PASS: Result count live region exists
++PASS: FAQ collection uses ul/list semantics
++PASS: FAQ item data count >= 8
++PASS: FAQ toggles use buttons
++PASS: Form submit is prevented in JS
++PASS: CSS includes focus-visible rule
++PASS: Decorative SVG icons are hidden
++PASS: No dependency import statements
++## diff name-status
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/git-status-before.txt b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/git-status-before.txt
+new file mode 100644
+index 0000000..24c07f1
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/git-status-before.txt
+@@ -0,0 +1,2 @@
++?? experiments/2026-06-27-accessibility-contract-vibe-faq/
++?? logs/
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/http-check.txt b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/http-check.txt
+new file mode 100644
+index 0000000..26d1c3a
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/http-check.txt
+@@ -0,0 +1,2 @@
++bytes 1728
++has title True
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/http-index.html b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/http-index.html
+new file mode 100644
+index 0000000..69ade73
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/http-index.html
+@@ -0,0 +1,45 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <title>Vibe Help Center</title>
++    <link rel="stylesheet" href="styles.css">
++  </head>
++  <body>
++    <main class="shell">
++      <section class="hero" aria-labelledby="page-title">
++        <div class="hero-copy">
++          <p class="eyebrow">Vibe Support</p>
++          <h1 id="page-title">How can we help?</h1>
++          <p class="intro">Search concise answers about accounts, billing, security, integrations, and team workflows.</p>
++        </div>
++
++        <form class="search-panel" role="search">
++          <label for="faq-search">Search the help center</label>
++          <div class="search-box">
++            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
++              <path d="M10.5 4a6.5 6.5 0 0 1 5.17 10.44l3.44 3.45a1 1 0 0 1-1.42 1.41l-3.44-3.44A6.5 6.5 0 1 1 10.5 4Zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Z"/>
++            </svg>
++            <input id="faq-search" type="search" autocomplete="off" placeholder="Try billing, SSO, export, invite...">
++          </div>
++        </form>
++      </section>
++
++      <section class="content" aria-labelledby="faq-title">
++        <div class="section-heading">
++          <div>
++            <p class="eyebrow">FAQ</p>
++            <h2 id="faq-title">Popular questions</h2>
++          </div>
++          <p id="result-count" class="result-count" aria-live="polite"></p>
++        </div>
++
++        <div id="faq-list" class="faq-list"></div>
++        <p id="empty-state" class="empty-state" hidden>No matching articles. Try a different keyword.</p>
++      </section>
++    </main>
++
++    <script src="app.js"></script>
++  </body>
++</html>
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/static-audit.txt b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/static-audit.txt
+new file mode 100644
+index 0000000..3ffbc6a
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/static-audit.txt
+@@ -0,0 +1,24 @@
++## file list
++experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/app.js
++experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/index.html
++experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/styles.css
++
++## line counts
++      45 experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/index.html
++     248 experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/styles.css
++      89 experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/app.js
++     382 total
++
++## node syntax check
++
++## static audit
++PASS: HTML lang exists
++PASS: Search input has label for faq-search
++PASS: Result count live region exists
++FAIL: FAQ list has explicit list semantics
++FAIL: Search input declares controlled results
++FAIL: No-result state is programmatically referenced by input
++FAIL: Form submit is prevented in JS
++FAIL: Focus visible rule exists
++PASS: FAQ item count >= 8
++PASS: No dependency import statements
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/app.js b/experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/app.js
+new file mode 100644
+index 0000000..28762d8
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/app.js
+@@ -0,0 +1,89 @@
++const faqs = [
++  {
++    question: "How do I invite a teammate?",
++    answer: "Open Settings, choose Members, and send an invitation to their work email. New teammates can be assigned a role before they accept.",
++    tag: "Team"
++  },
++  {
++    question: "Can I enable single sign-on?",
++    answer: "Yes. SSO is available on Business and Enterprise plans. Admins can configure SAML from Settings after verifying the company domain.",
++    tag: "Security"
++  },
++  {
++    question: "Where can I update billing details?",
++    answer: "Billing owners can update payment methods, billing contacts, and invoice details from Settings under Billing.",
++    tag: "Billing"
++  },
++  {
++    question: "How do exports work?",
++    answer: "Workspace admins can export projects as CSV files from the Reports area. Large exports are delivered by email when they are ready.",
++    tag: "Data"
++  },
++  {
++    question: "Does Vibe support Slack notifications?",
++    answer: "Yes. Connect Slack from Integrations, pick a channel, and choose which project events should post updates.",
++    tag: "Integrations"
++  },
++  {
++    question: "Can I restore deleted projects?",
++    answer: "Deleted projects remain recoverable for 30 days. Go to Settings, select Trash, and restore the project from the list.",
++    tag: "Projects"
++  },
++  {
++    question: "How do I change my notification preferences?",
++    answer: "Open your profile menu, select Notifications, and adjust email, desktop, and digest settings for each workspace.",
++    tag: "Account"
++  },
++  {
++    question: "What roles are available for users?",
++    answer: "Workspaces include owner, admin, editor, and viewer roles. Each role controls access to billing, member management, and project changes.",
++    tag: "Permissions"
++  },
++  {
++    question: "Is there an audit log?",
++    answer: "Enterprise workspaces include searchable audit logs for sign-ins, role changes, exports, billing events, and integration updates.",
++    tag: "Compliance"
++  }
++];
++
++const searchInput = document.querySelector("#faq-search");
++const list = document.querySelector("#faq-list");
++const emptyState = document.querySelector("#empty-state");
++const resultCount = document.querySelector("#result-count");
++
++function createFaqItem(faq) {
++  const details = document.createElement("details");
++  details.className = "faq-item";
++
++  const summary = document.createElement("summary");
++  summary.textContent = faq.question;
++
++  const answer = document.createElement("p");
++  answer.textContent = faq.answer;
++
++  const tag = document.createElement("span");
++  tag.className = "tag";
++  tag.textContent = faq.tag;
++
++  details.append(summary, answer, tag);
++  return details;
++}
++
++function renderFaqs(items) {
++  list.replaceChildren(...items.map(createFaqItem));
++  emptyState.hidden = items.length > 0;
++  resultCount.textContent = `${items.length} ${items.length === 1 ? "answer" : "answers"}`;
++}
++
++function filterFaqs() {
++  const query = searchInput.value.trim().toLowerCase();
++  const matches = faqs.filter((faq) => {
++    const text = `${faq.question} ${faq.answer} ${faq.tag}`.toLowerCase();
++    return text.includes(query);
++  });
++
++  renderFaqs(matches);
++}
++
++searchInput.addEventListener("input", filterFaqs);
++renderFaqs(faqs);
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/index.html b/experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/index.html
+new file mode 100644
+index 0000000..69ade73
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/index.html
+@@ -0,0 +1,45 @@
++<!doctype html>
++<html lang="en">
++  <head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <title>Vibe Help Center</title>
++    <link rel="stylesheet" href="styles.css">
++  </head>
++  <body>
++    <main class="shell">
++      <section class="hero" aria-labelledby="page-title">
++        <div class="hero-copy">
++          <p class="eyebrow">Vibe Support</p>
++          <h1 id="page-title">How can we help?</h1>
++          <p class="intro">Search concise answers about accounts, billing, security, integrations, and team workflows.</p>
++        </div>
++
++        <form class="search-panel" role="search">
++          <label for="faq-search">Search the help center</label>
++          <div class="search-box">
++            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
++              <path d="M10.5 4a6.5 6.5 0 0 1 5.17 10.44l3.44 3.45a1 1 0 0 1-1.42 1.41l-3.44-3.44A6.5 6.5 0 1 1 10.5 4Zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Z"/>
++            </svg>
++            <input id="faq-search" type="search" autocomplete="off" placeholder="Try billing, SSO, export, invite...">
++          </div>
++        </form>
++      </section>
++
++      <section class="content" aria-labelledby="faq-title">
++        <div class="section-heading">
++          <div>
++            <p class="eyebrow">FAQ</p>
++            <h2 id="faq-title">Popular questions</h2>
++          </div>
++          <p id="result-count" class="result-count" aria-live="polite"></p>
++        </div>
++
++        <div id="faq-list" class="faq-list"></div>
++        <p id="empty-state" class="empty-state" hidden>No matching articles. Try a different keyword.</p>
++      </section>
++    </main>
++
++    <script src="app.js"></script>
++  </body>
++</html>
+diff --git a/experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/styles.css b/experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/styles.css
+new file mode 100644
+index 0000000..d8fffcc
+--- /dev/null
++++ b/experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/styles.css
+@@ -0,0 +1,248 @@
++:root {
++  color-scheme: light;
++  --bg: #f6f8fb;
++  --panel: #ffffff;
++  --ink: #162033;
++  --muted: #647084;
++  --line: #dfe5ef;
++  --brand: #0f766e;
++  --brand-dark: #115e59;
++  --accent: #b45309;
++  --shadow: 0 18px 45px rgba(22, 32, 51, 0.1);
++}
++
++* {
++  box-sizing: border-box;
++}
++
++body {
++  margin: 0;
++  min-height: 100vh;
++  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
++  color: var(--ink);
++  background:
++    radial-gradient(circle at 15% 0%, rgba(15, 118, 110, 0.12), transparent 34rem),
++    linear-gradient(180deg, #ffffff 0%, var(--bg) 36%);
++}
++
++.shell {
++  width: min(1120px, calc(100% - 40px));
++  margin: 0 auto;
++  padding: 56px 0;
++}
++
++.hero {
++  display: grid;
++  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
++  gap: 28px;
++  align-items: end;
++  padding: 44px;
++  border: 1px solid var(--line);
++  border-radius: 8px;
++  background: rgba(255, 255, 255, 0.86);
++  box-shadow: var(--shadow);
++}
++
++.eyebrow {
++  margin: 0 0 10px;
++  color: var(--brand-dark);
++  font-size: 0.78rem;
++  font-weight: 800;
++  letter-spacing: 0;
++  text-transform: uppercase;
++}
++
++h1,
++h2,
++p {
++  margin-top: 0;
++}
++
++h1 {
++  max-width: 720px;
++  margin-bottom: 14px;
++  font-size: clamp(2.4rem, 7vw, 4.9rem);
++  line-height: 0.96;
++  letter-spacing: 0;
++}
++
++h2 {
++  margin-bottom: 0;
++  font-size: clamp(1.55rem, 3vw, 2.2rem);
++  letter-spacing: 0;
++}
++
++.intro {
++  max-width: 610px;
++  margin-bottom: 0;
++  color: var(--muted);
++  font-size: 1.08rem;
++  line-height: 1.65;
++}
++
++.search-panel {
++  padding: 22px;
++  border: 1px solid var(--line);
++  border-radius: 8px;
++  background: #fbfcfe;
++}
++
++label {
++  display: block;
++  margin-bottom: 10px;
++  color: #334155;
++  font-size: 0.92rem;
++  font-weight: 750;
++}
++
++.search-box {
++  display: flex;
++  align-items: center;
++  gap: 12px;
++  min-height: 56px;
++  padding: 0 16px;
++  border: 1px solid #cbd5e1;
++  border-radius: 8px;
++  background: var(--panel);
++  transition: border-color 160ms ease, box-shadow 160ms ease;
++}
++
++.search-box:focus-within {
++  border-color: var(--brand);
++  box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.14);
++}
++
++.search-box svg {
++  width: 22px;
++  height: 22px;
++  flex: 0 0 auto;
++  fill: var(--brand);
++}
++
++input {
++  width: 100%;
++  min-width: 0;
++  border: 0;
++  outline: 0;
++  color: var(--ink);
++  background: transparent;
++  font: inherit;
++}
++
++input::placeholder {
++  color: #8b98aa;
++}
++
++.content {
++  padding: 40px 0 0;
++}
++
++.section-heading {
++  display: flex;
++  align-items: end;
++  justify-content: space-between;
++  gap: 18px;
++  margin-bottom: 18px;
++}
++
++.result-count {
++  margin-bottom: 4px;
++  color: var(--muted);
++  font-size: 0.95rem;
++  white-space: nowrap;
++}
++
++.faq-list {
++  display: grid;
++  gap: 12px;
++}
++
++.faq-item {
++  border: 1px solid var(--line);
++  border-radius: 8px;
++  background: var(--panel);
++  box-shadow: 0 8px 24px rgba(22, 32, 51, 0.06);
++}
++
++.faq-item summary {
++  display: flex;
++  align-items: center;
++  justify-content: space-between;
++  gap: 16px;
++  min-height: 70px;
++  padding: 20px 22px;
++  cursor: pointer;
++  color: var(--ink);
++  font-weight: 750;
++  list-style: none;
++}
++
++.faq-item summary::-webkit-details-marker {
++  display: none;
++}
++
++.faq-item summary::after {
++  content: "+";
++  display: grid;
++  width: 28px;
++  height: 28px;
++  flex: 0 0 auto;
++  place-items: center;
++  border-radius: 50%;
++  color: var(--brand-dark);
++  background: #e6f5f3;
++  font-size: 1.1rem;
++  line-height: 1;
++}
++
++.faq-item[open] summary::after {
++  content: "-";
++}
++
++.faq-item p {
++  margin: -4px 22px 22px;
++  color: var(--muted);
++  line-height: 1.65;
++}
++
++.tag {
++  display: inline-flex;
++  align-items: center;
++  margin: 0 22px 20px;
++  padding: 5px 9px;
++  border-radius: 999px;
++  color: #7c2d12;
++  background: #ffedd5;
++  font-size: 0.78rem;
++  font-weight: 750;
++}
++
++.empty-state {
++  padding: 28px;
++  border: 1px dashed #cbd5e1;
++  border-radius: 8px;
++  color: var(--muted);
++  background: rgba(255, 255, 255, 0.74);
++  text-align: center;
++}
++
++@media (max-width: 760px) {
++  .shell {
++    width: min(100% - 28px, 1120px);
++    padding: 28px 0;
++  }
++
++  .hero {
++    grid-template-columns: 1fr;
++    padding: 26px;
++  }
++
++  .section-heading {
++    display: block;
++  }
++
++  .result-count {
++    margin-top: 10px;
++    white-space: normal;
++  }
++}
+diff --git a/logs/2026-06-27-accessibility-contract-env.txt b/logs/2026-06-27-accessibility-contract-env.txt
+new file mode 100644
+index 0000000..6494a6b
+--- /dev/null
++++ b/logs/2026-06-27-accessibility-contract-env.txt
+@@ -0,0 +1,10 @@
++2026-06-27 12:16:29 JST
++ProductName:		macOS
++ProductVersion:		26.5.1
++BuildVersion:		25F80
++arm64
++Filesystem        Size    Used   Avail Capacity iused ifree %iused  Mounted on
++/dev/disk2s1s1   228Gi    12Gi   140Gi     8%    459k  1.5G    0%   /
++codex-cli 0.142.3
++?? experiments/2026-06-27-accessibility-contract-vibe-faq/
++?? logs/
+diff --git a/standards/aidd-spec-ai-task-packet-standard-v0.1.md b/standards/aidd-spec-ai-task-packet-standard-v0.1.md
+new file mode 100644
+index 0000000..12aacf0
+--- /dev/null
++++ b/standards/aidd-spec-ai-task-packet-standard-v0.1.md
+@@ -0,0 +1,179 @@
++# AIDD-Spec: AI Task Packet Standard v0.1
++
++> 後工程の監査・レビュー・運用から逆算して、CodexなどのAI実装エージェントへ渡す最小実装単位を標準化する。
++
++## 1. 目的
++
++AI Task Packet は、AIに「何を作るか」を伝えるだけのプロンプトではない。
++
++これは、後工程のレビュー担当・テスト担当・アクセシビリティ監査・運用担当が必要とする情報を、実装前にAIへ渡すための小さな設計図面である。
++
++## 2. 必須フィールド
++
++```yaml
++task_id: string
++scope:
++  target_paths: []
++  forbidden_paths: []
++product_intent: string
++functional_requirements: []
++non_goals: []
++acceptance_criteria: []
++state_design:
++  empty: string
++  loading: string
++  error: string
++  success: string
++accessibility_contract:
++  labels: []
++  relationships: []
++  collection_semantics: []
++  keyboard_interactions: []
++  focus_evidence: []
++security_contract:
++  data_classification: string
++  input_validation: []
++quality_gate:
++  required_commands: []
++  expected_results: []
++verification_evidence:
++  files_to_attach: []
++  logs_to_save: []
++prompt_delta_log:
++  previous_failure: string
++  added_instruction: string
++```
++
++## 3. 今日の実験から追加した項目
++
++### 3.1 `accessibility_contract.relationships`
++
++検索UIや動的フィルタUIでは、視覚的に近くに配置されているだけでは不十分である。
++AI Task Packetには、支援技術が読める関係性を明記する。
++
++例:
++
++```yaml
++accessibility_contract:
++  relationships:
++    - search_input controls faq-list via aria-controls
++    - search_input is described by helper text, live result status, and no-result status via aria-describedby
++    - result status uses aria-live="polite" and includes query context
++```
++
++### 3.2 `accessibility_contract.collection_semantics`
++
++動的に生成されるカード一覧は、`div` の羅列になりやすい。
++FAQ、検索結果、通知、メニューなど、コレクションとして読ませるべきUIは、前工程で明示する。
++
++例:
++
++```yaml
++accessibility_contract:
++  collection_semantics:
++    - FAQ results must be rendered as <ul id="faq-list"> and <li> items
++    - If custom elements are used, provide equivalent role="list" and role="listitem"
++```
++
++### 3.3 `accessibility_contract.keyboard_interactions`
++
++フォーム内のライブ検索では、Enterキーの挙動が仕様になっていないと、AIはブラウザ既定動作に任せる可能性がある。
++
++例:
++
++```yaml
++accessibility_contract:
++  keyboard_interactions:
++    - Typing filters results live
++    - Pressing Enter in the search input must not reload or navigate
++    - FAQ toggles must be real buttons or equivalent keyboard-operable controls
++```
++
++### 3.4 `quality_gate.required_commands`
++
++UIが小さくても、最低限の検証証拠を要求する。
++依存追加が重い場合は、軽量な静的監査でもよい。
++
++例:
++
++```yaml
++quality_gate:
++  required_commands:
++    - node --check path/to/app.js
++    - python3 path/to/audit_static.py path/to/app
++  expected_results:
++    - JavaScript syntax check exits 0
++    - Static accessibility contract audit exits 0
++```
++
++## 4. AI Task Packetテンプレート Lite
++
++```markdown
++# AI Task Packet: <task name>
++
++## Scope
++
++- Target paths:
++- Forbidden paths:
++- Dependencies policy:
++
++## Product intent
++
++## Functional requirements
++
++## Non-goals
++
++## State design
++
++- Empty:
++- Loading:
++- Error:
++- Success:
++
++## Accessibility Contract
++
++- Visible labels:
++- Programmatic relationships:
++- Collection semantics:
++- Keyboard interactions:
++- Focus evidence:
++- Live regions:
++
++## Quality Gate
++
++Run these commands and include results:
++
++```bash
++<command 1>
++<command 2>
++```
++
++## Verification Evidence
++
++- Files changed:
++- Commands run:
++- Logs saved:
++- Known limitations:
++```
++
++## 5. Control Plane機能仮説
++
++AIDD Control Planeでは、AI Task Packetを自由記述ではなくフォームとして生成する。
++
++- UI種別を「検索」「一覧」「フォーム」「認証」「決済」などから選ぶ
++- UI種別に応じて Accessibility Contract の必須項目を自動提示する
++- `aria-controls` / `aria-describedby` / live region / list semantics を静的監査する
++- Codex実行ログ、監査結果、修正プロンプトを Learning Log に自動保存する
++
++## 6. 今日の検証結果との対応
++
++2026-06-27 の FAQ検索アプリ実験では、雑プロンプト版で以下が抜けた。
++
++- FAQ一覧のリストセマンティクス
++- 検索欄と結果領域の `aria-controls`
++- 検索欄とヘルプ/結果/未検出状態の `aria-describedby`
++- Enterキーでフォーム送信を抑止する仕様
++- `:focus-visible` によるキーボードフォーカス証拠
++- 再実行可能な静的監査コマンド
++
++AI Task Packet v0.1にこれらを事前に入れると、fixed-appでは静的監査がすべてPASSした。

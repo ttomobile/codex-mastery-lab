@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Vibe app versus fixed app audit results</title>
+  <desc id="desc">Audit comparison between a vague Codex prompt and an AIDD Task Packet with accessibility contract.</desc>
+  <rect width="1200" height="675" fill="#f8fafc"/>
+  <text x="60" y="72" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#0f172a">雑プロンプト vs AI Task Packet</text>
+  <text x="60" y="112" font-family="Arial, sans-serif" font-size="18" fill="#475569">同じFAQ検索アプリでも、前工程で渡す設計図面があると監査結果が変わる</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="80" y="165" width="480" height="410" rx="20" fill="#fff1f2" stroke="#fb7185"/>
+    <text x="120" y="215" font-size="26" font-weight="700" fill="#881337">vibe-app</text>
+    <text x="120" y="248" font-size="16" fill="#9f1239">Prompt: “FAQ検索アプリをいい感じに作って”</text>
+    <g font-size="18" fill="#7f1d1d">
+      <text x="120" y="305">✅ HTML lang</text>
+      <text x="120" y="340">✅ visible label</text>
+      <text x="120" y="375">✅ aria-live result count</text>
+      <text x="120" y="410">❌ explicit list semantics</text>
+      <text x="120" y="445">❌ aria-controls / describedby</text>
+      <text x="120" y="480">❌ submit preventDefault</text>
+      <text x="120" y="515">❌ :focus-visible evidence</text>
+    </g>
+    <rect x="640" y="165" width="480" height="410" rx="20" fill="#ecfdf5" stroke="#34d399"/>
+    <text x="680" y="215" font-size="26" font-weight="700" fill="#064e3b">fixed-app</text>
+    <text x="680" y="248" font-size="16" fill="#065f46">Prompt: Accessibility Contract + Verification Evidence</text>
+    <g font-size="18" fill="#14532d">
+      <text x="680" y="305">✅ HTML lang</text>
+      <text x="680" y="340">✅ visible label</text>
+      <text x="680" y="375">✅ aria-controls / describedby</text>
+      <text x="680" y="410">✅ live result status with query context</text>
+      <text x="680" y="445">✅ ul/li list semantics</text>
+      <text x="680" y="480">✅ button toggles + aria-expanded</text>
+      <text x="680" y="515">✅ preventDefault + :focus-visible</text>
+    </g>
+  </g>
+</svg>

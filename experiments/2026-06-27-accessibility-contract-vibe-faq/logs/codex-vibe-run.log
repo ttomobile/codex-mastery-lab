@@ -1,0 +1,5 @@
+Created the static FAQ search app under:
+
+[experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/index.html](/Users/tto/codex-mastery-lab/experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/index.html)
+
+It includes HTML, CSS, and vanilla JS only, with 9 FAQ items and live filtering. No dependencies installed. I only created files inside the requested `vibe-app` directory.
