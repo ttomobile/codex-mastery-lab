@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Security Baseline reverse engineering chain</title>
+  <desc id="desc">A diagram showing how contact form audit findings are reversed into upstream AIDD-Spec fields.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#147c72" />
+    </marker>
+    <style>
+      .bg{fill:#f7f4ef}.card{fill:#fff;stroke:#d9dfdc;stroke-width:2;rx:18}.head{font:700 24px system-ui;fill:#15221f}.body{font:500 17px system-ui;fill:#40504b}.small{font:700 15px system-ui;fill:#147c72}.arrow{stroke:#147c72;stroke-width:4;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="620"/>
+  <text x="60" y="64" class="head">欠陥から前工程へ戻す: Contact Form Security Baseline</text>
+  <g transform="translate(60 110)">
+    <rect class="card" width="250" height="135"/>
+    <text x="24" y="38" class="small">Audit Finding</text>
+    <text x="24" y="72" class="body">PII分類・同意・保持期間が</text>
+    <text x="24" y="100" class="body">成果物に残らない</text>
+  </g>
+  <line x1="322" y1="178" x2="422" y2="178" class="arrow"/>
+  <g transform="translate(440 110)">
+    <rect class="card" width="250" height="135"/>
+    <text x="24" y="38" class="small">Ideal State</text>
+    <text x="24" y="72" class="body">PII/業務データ分類、</text>
+    <text x="24" y="100" class="body">no-network、no-storageが明示</text>
+  </g>
+  <line x1="702" y1="178" x2="802" y2="178" class="arrow"/>
+  <g transform="translate(820 110)">
+    <rect class="card" width="300" height="135"/>
+    <text x="24" y="38" class="small">Fix Instruction</text>
+    <text x="24" y="72" class="body">data-classification / consent /</text>
+    <text x="24" y="100" class="body">SECURITY_PRIVACY.mdを追加</text>
+  </g>
+  <line x1="970" y1="255" x2="970" y2="335" class="arrow"/>
+  <g transform="translate(820 355)">
+    <rect class="card" width="300" height="145"/>
+    <text x="24" y="38" class="small">Needed Upstream Info</text>
+    <text x="24" y="72" class="body">Security Contract</text>
+    <text x="24" y="100" class="body">Privacy/Data Classification</text>
+    <text x="24" y="128" class="body">Verification Evidence</text>
+  </g>
+  <line x1="802" y1="428" x2="702" y2="428" class="arrow"/>
+  <g transform="translate(440 355)">
+    <rect class="card" width="250" height="145"/>
+    <text x="24" y="38" class="small">AI Task Packet</text>
+    <text x="24" y="72" class="body">safe_rendering</text>
+    <text x="24" y="100" class="body">retention_policy</text>
+    <text x="24" y="128" class="body">privacy_consent</text>
+  </g>
+  <line x1="422" y1="428" x2="322" y2="428" class="arrow"/>
+  <g transform="translate(60 355)">
+    <rect class="card" width="250" height="145"/>
+    <text x="24" y="38" class="small">AIDD-Spec Update</text>
+    <text x="24" y="72" class="body">Security/Privacyを</text>
+    <text x="24" y="100" class="body">フォームUIの標準図面へ</text>
+  </g>
+</svg>

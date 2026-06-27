@@ -1,0 +1,303 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</title><style>
+:root { color-scheme: light; --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1; --accent:#1d4ed8; --code:#0f172a; }
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:var(--bg); color:var(--fg); line-height:1.78; }
+.layout { display:grid; grid-template-columns: 280px minmax(0, 1fr); min-height:100vh; }
+aside { position:sticky; top:0; height:100vh; overflow:auto; padding:24px; background:#0b1220; color:#e5eefc; }
+aside h1 { font-size:18px; line-height:1.35; margin:0 0 20px; }
+aside a { color:#c7d7ff; text-decoration:none; display:block; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.08); font-size:14px; }
+aside a:hover { color:#fff; }
+main { max-width: 940px; padding: 48px 42px 80px; }
+article { background:var(--card); padding:42px 48px; border:1px solid var(--line); border-radius:22px; box-shadow:0 18px 50px rgba(15,23,42,.08); }
+h1 { font-size: 34px; line-height:1.25; margin: 0 0 22px; letter-spacing:-.02em; }
+h2 { font-size: 25px; margin: 44px 0 14px; padding-top:8px; border-top:1px solid #edf1f7; }
+h3 { font-size: 19px; margin: 28px 0 10px; }
+p { margin: 14px 0; }
+blockquote { margin: 18px 0; padding: 14px 18px; border-left: 4px solid var(--accent); background:#eff6ff; color:#1e3a8a; border-radius: 10px; }
+pre { background:var(--code); color:#e2e8f0; padding:18px; border-radius:14px; overflow:auto; line-height:1.55; font-size:13px; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+p code, li code { background:#eef2ff; color:#1e3a8a; padding:2px 5px; border-radius:5px; }
+img { max-width:100%; border:1px solid var(--line); border-radius:14px; background:white; margin:18px 0; }
+table { border-collapse: collapse; width:100%; margin:18px 0; font-size:14px; }
+th, td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; }
+th { background:#f1f5f9; }
+.meta { color:var(--muted); font-size:14px; margin-bottom:24px; }
+.home article { max-width:860px; }
+@media (max-width: 850px) { .layout { grid-template-columns:1fr; } aside { position:relative; height:auto; } main { padding:20px; } article { padding:26px 20px; } }
+</style></head><body><div class="layout "><aside><h1>Codex Mastery Lab<br>AIDD-Spec Preview</h1><a href="2026-06-27-accessibility-contract-vibe-faq.html">雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a href="2026-06-27-codex-mastery-lab-start.html">Codexを「最強の開発相棒」に育てる：M4 Mac miniで始める継続検証ラボ</a>
+<a href="2026-06-27-contact-api-threat-model.html">問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
+<a href="2026-06-27-performance-budget-vibe-gallery.html">「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a href="2026-06-27-security-baseline-contact-form.html">問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a></aside><main><article><h1>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</h1>
+<blockquote>2026-06-27 / Codex Mastery Lab 日次ドラフト  </blockquote>
+<blockquote>想定読了時間: 約10分  </blockquote>
+<blockquote>種別: Experiment / Failure / Template</blockquote>
+<p><img src="assets/2026-06-27-vibe-vs-fixed-audit.svg" alt="雑プロンプト vs AI Task Packet"></p>
+<h2>1. 今日の問い</h2>
+<p>AI駆動開発では、Codexに「FAQ検索アプリをいい感じに作って」と頼むだけでも、それっぽいUIはかなり速く出てくる。では、その成果物は本当に後工程で読める設計図面になっているのか。</p>
+<p>今日の問いはこれだ。</p>
+<blockquote>小さなFAQ検索UIをあえて雑なプロンプトで作らせ、アクセシビリティ監査で見つかった欠陥から、AI Task Packetに事前に含めるべき項目を逆算できるか？</blockquote>
+<p>建築でいえば、見た目のパースだけを見て「良さそう」と判断するのではなく、図面として施工者・検査者・保守担当が読めるかを見る。Webアプリでも同じで、画面がきれいでも、支援技術・キーボード操作・テスト・レビューが読めなければ、標準設計図面とは言えない。</p>
+<h2>2. 仮説</h2>
+<p>今回の仮説は次の通り。</p>
+<blockquote>Codexへ雑に「FAQ検索アプリを作って」と渡すと、見た目と基本動作は作る。しかし、検索欄と結果リストのプログラム上の関係、no results状態、キーボード操作、検証証拠は抜けやすい。これらは後から直すのではなく、AI Task Packetの Accessibility Contract と Verification Evidence に最初から入れるべきである。</blockquote>
+<p>AIDD-Specの思想は「上流工程の理想論」から標準を作らないことだ。まず後工程で壊れ方を見る。壊れた箇所から、理想状態、修正指示、必要だった前工程情報を逆算する。</p>
+<h2>3. 実験環境</h2>
+<p>実行環境は以下。M4 Mac mini / 16GB RAM / 256GB SSD という制約環境で、重い依存インストールは避けた。</p>
+<pre><code>2026-06-27 12:16:29 JST
+ProductName:    macOS
+ProductVersion: 26.5.1
+BuildVersion:   25F80
+arch:           arm64
+Disk:           228Gi total / 140Gi available
+Codex CLI:      codex-cli 0.142.3</code></pre>
+<p>実験ディレクトリ:</p>
+<pre><code>/Users/tto/codex-mastery-lab/experiments/2026-06-27-accessibility-contract-vibe-faq/</code></pre>
+<p>ログ:</p>
+<pre><code>/Users/tto/codex-mastery-lab/experiments/2026-06-27-accessibility-contract-vibe-faq/logs/</code></pre>
+<h2>4. 実験計画</h2>
+<p>最初に <code>PLAN.md</code> を作り、今回の監査カテゴリを3つに絞った。</p>
+<ol>
+<li>Accessibility</li>
+<li>Requirement Fit / State Behavior</li>
+<li>Build / Console / Verification Evidence</li>
+</ol>
+<p>今回はLighthouseやaxeを入れない。理由は、今日の目的が「重い監査ツールを回すこと」ではなく、雑プロンプトで抜けた項目をAI Task Packetへ戻すことだからだ。依存なしの静的監査でも、前工程に戻すべき欠陥は十分に見える。</p>
+<h2>5. 実際にCodexへ渡した雑プロンプト</h2>
+<p>Codexには以下をそのまま渡した。</p>
+<pre><code>In this git repo, create a tiny static FAQ search app under experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app.
+Use only HTML, CSS, and vanilla JavaScript. Make it look like a polished SaaS help center.
+Include at least 8 FAQ items and a search box that filters questions live.
+Keep it simple. Do not install dependencies. Do not modify files outside that vibe-app directory. Then exit.</code></pre>
+<p>実行コマンド:</p>
+<pre><code>codex exec --sandbox danger-full-access &quot;In this git repo, create a tiny static FAQ search app under experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app. Use only HTML, CSS, and vanilla JavaScript. Make it look like a polished SaaS help center. Include at least 8 FAQ items and a search box that filters questions live. Keep it simple. Do not install dependencies. Do not modify files outside that vibe-app directory. Then exit.&quot;</code></pre>
+<p>Codexは <code>vibe-app</code> に3ファイルを作った。</p>
+<pre><code>index.html  45 lines
+styles.css  248 lines
+app.js      89 lines</code></pre>
+<p>Codexの最終報告はこうだった。</p>
+<pre><code>Created the static FAQ search app under:
+experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/index.html
+
+It includes HTML, CSS, and vanilla JS only, with 9 FAQ items and live filtering.
+No dependencies installed. I only created files inside the requested vibe-app directory.</code></pre>
+<p>ここまでは良い。依存なし、指定ディレクトリ内、FAQ 9件、ライブ検索あり。雑プロンプトとしてはかなり優秀だ。</p>
+<h2>6. 生成されたコードの良かった点</h2>
+<p>まず、Codexを公平に評価すると、vibe-appには良い点も多かった。</p>
+<pre><code>&lt;form class=&quot;search-panel&quot; role=&quot;search&quot;&gt;
+  &lt;label for=&quot;faq-search&quot;&gt;Search the help center&lt;/label&gt;
+  &lt;div class=&quot;search-box&quot;&gt;
+    &lt;svg aria-hidden=&quot;true&quot; viewBox=&quot;0 0 24 24&quot; focusable=&quot;false&quot;&gt;
+      ...
+    &lt;/svg&gt;
+    &lt;input id=&quot;faq-search&quot; type=&quot;search&quot; autocomplete=&quot;off&quot; placeholder=&quot;Try billing, SSO, export, invite...&quot;&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+<ul>
+<li><code>label for=&quot;faq-search&quot;</code> がある</li>
+<li>SVGは <code>aria-hidden=&quot;true&quot;</code> / <code>focusable=&quot;false&quot;</code></li>
+<li><code>role=&quot;search&quot;</code> がある</li>
+<li><code>aria-live=&quot;polite&quot;</code> の結果件数表示がある</li>
+<li>FAQは <code>details</code> / <code>summary</code> を使っており、標準HTMLの開閉UIに寄せている</li>
+</ul>
+<p>つまり、「AIはアクセシビリティを完全に無視する」という話ではない。むしろ、明示していない割にはかなり良い。しかし、後工程で監査すると「標準仕様としては足りない」部分が出る。</p>
+<h2>7. 静的監査を実行した</h2>
+<p>まずJavaScriptの構文チェック。</p>
+<pre><code>node --check experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app/app.js</code></pre>
+<p>これは通った。次に、HTML/CSS/JSを軽く静的監査した。チェックしたのは、検索欄ラベル、結果件数live region、リストセマンティクス、<code>aria-controls</code>、<code>aria-describedby</code>、フォームsubmit抑止、<code>:focus-visible</code> などだ。</p>
+<p>結果:</p>
+<pre><code>PASS: HTML lang exists
+PASS: Search input has label for faq-search
+PASS: Result count live region exists
+FAIL: FAQ list has explicit list semantics
+FAIL: Search input declares controlled results
+FAIL: No-result state is programmatically referenced by input
+FAIL: Form submit is prevented in JS
+FAIL: Focus visible rule exists
+PASS: FAQ item count &gt;= 8
+PASS: No dependency import statements</code></pre>
+<p>HTTP serverでも配信確認だけ行った。</p>
+<pre><code>python3 -m http.server 8765 --directory experiments/2026-06-27-accessibility-contract-vibe-faq/vibe-app
+curl -s http://127.0.0.1:8765/ -o experiments/2026-06-27-accessibility-contract-vibe-faq/logs/http-index.html</code></pre>
+<p>確認結果:</p>
+<pre><code>bytes 1728
+has title True</code></pre>
+<p>ここで大事なのは、「画面が表示される」ことと「後工程が監査できる」ことは別だという点だ。</p>
+<h2>8. 欠陥1: FAQ一覧がdivで、コレクションとして読めない</h2>
+<p>vibe-appのHTMLはこうだった。</p>
+<pre><code>&lt;div id=&quot;faq-list&quot; class=&quot;faq-list&quot;&gt;&lt;/div&gt;</code></pre>
+<p>JS側で <code>details</code> を追加しているが、FAQ全体は <code>ul/li</code> ではない。人間の目にはカード一覧に見える。しかし、支援技術や静的監査にとっては「FAQ項目のコレクション」であることが曖昧になる。</p>
+<p>理想状態:</p>
+<pre><code>&lt;ul id=&quot;faq-list&quot; class=&quot;faq-list&quot;&gt;&lt;/ul&gt;</code></pre>
+<p>各項目は <code>li</code> として追加する。カスタム要素を使うなら、少なくとも <code>role=&quot;list&quot;</code> / <code>role=&quot;listitem&quot;</code> が必要になる。</p>
+<p>逆算すると、これは実装後に「ulに直して」ではなく、AI Task Packetの <code>accessibility_contract.collection_semantics</code> に入れるべき項目だ。</p>
+<h2>9. 欠陥2: 検索欄と結果領域の関係がプログラム上つながっていない</h2>
+<p>vibe-appの検索欄はラベル付きで悪くない。しかし、検索欄がどの領域を制御しているのかは明示されていない。</p>
+<p>不足していたもの:</p>
+<pre><code>aria-controls=&quot;faq-list&quot;
+aria-describedby=&quot;search-help result-status no-results&quot;</code></pre>
+<p>人間には「この検索欄はFAQを絞り込む」と分かる。しかし、AIが作るUI標準としては、視覚的配置だけに頼ってはいけない。検索欄、ヘルプテキスト、結果件数、no results状態が、DOM上でも関係として読める必要がある。</p>
+<p>これは建築図面でいえば、部屋が隣に描かれているだけで配管・電気・避難経路の関係が記号化されていない状態に近い。</p>
+<h2>10. 欠陥3: Enterキーの挙動が仕様化されていない</h2>
+<p>vibe-appにはフォームがあるが、submitイベントを抑止していなかった。</p>
+<pre><code>searchInput.addEventListener(&quot;input&quot;, filterFaqs);</code></pre>
+<p>ライブ検索では、Enterキーでページがリロードされると、キーボードユーザーの文脈が壊れる可能性がある。静的HTMLではブラウザ既定動作によりGET送信・再読み込みに近い挙動になることがある。</p>
+<p>理想状態:</p>
+<pre><code>form.addEventListener(&quot;submit&quot;, (event) =&gt; {
+  event.preventDefault();
+});</code></pre>
+<p>この欠陥は、AIが賢いかどうかではなく、前工程で「Enterキーの期待挙動」を渡していないことが原因だ。AI Task Packetには <code>keyboard_interactions</code> が必要になる。</p>
+<h2>11. 欠陥4: 検証証拠が成果物として残らない</h2>
+<p>vibe promptでは、Codexに「作って」とは言ったが、「何を実行して合格とするか」を渡していない。</p>
+<p>結果として、Codexはファイル作成とgit status確認はしたが、アクセシビリティ契約を検証するコマンドは残さなかった。</p>
+<p>AIDD-Specでは、これは <code>Verification Evidence</code> の欠落である。</p>
+<p>理想状態:</p>
+<pre><code>quality_gate:
+  required_commands:
+    - node --check path/to/app.js
+    - python3 path/to/audit_static.py path/to/app</code></pre>
+<p>小さなUIでも、最低限「何をもって完了とするか」を実行可能な形にする必要がある。</p>
+<p><img src="assets/2026-06-27-accessibility-contract-reverse-chain.svg" alt="欠陥から逆算する Accessibility Contract"></p>
+<h2>12. 逆算してAI Task Packet v0.1を作った</h2>
+<p>監査結果から、次のAI Task Packetを作った。</p>
+<pre><code># AI Task Packet v0.1: Accessible FAQ Search
+
+## Functional requirements
+
+- At least 8 FAQ items.
+- Search filters live across question, answer, and tag.
+- Empty query shows all FAQs.
+- No-result query shows a visible no-results message.
+- Pressing Enter inside the search form must not reload the page.
+
+## Accessibility Contract
+
+- The search input must have a visible label.
+- The search input must declare `aria-controls=&quot;faq-list&quot;`.
+- The search input must declare `aria-describedby` pointing to helper text and result status/no-result status as appropriate.
+- The result count must be in an `aria-live=&quot;polite&quot;` region and include the query context when a query exists.
+- FAQ collection must expose list semantics (`ul/li` or equivalent `role=&quot;list&quot;/&quot;listitem&quot;`).
+- FAQ toggle controls must be keyboard-operable and retain visible focus.
+- CSS must include a `:focus-visible` rule for keyboard focus evidence.
+- Decorative icons must be `aria-hidden=&quot;true&quot;` and `focusable=&quot;false&quot;`.
+
+## Quality Gate / Verification Evidence
+</code></pre>
+<p>node --check experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app/app.js</p>
+<p>python3 experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app</p>
+<pre><code></code></pre>
+<p>これをCodexに渡して、<code>fixed-app</code> を作らせた。</p>
+<p>実行コマンド:</p>
+<pre><code>codex exec --sandbox danger-full-access &quot;Read experiments/2026-06-27-accessibility-contract-vibe-faq/AI_TASK_PACKET_v0.1.md. Implement exactly that packet. Keep all changes inside experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app except an optional audit_static.py directly under the experiment directory. Do not install dependencies. Then run the verification commands if possible and report results.&quot;</code></pre>
+<h2>13. 修正後の結果</h2>
+<p>Codexは <code>fixed-app</code> と <code>audit_static.py</code> を作り、検証まで実行した。</p>
+<p>こちらでも再実行した結果:</p>
+<pre><code>## fixed node syntax check
+## fixed static audit
+PASS: HTML lang exists
+PASS: Search input has visible label
+PASS: Search input controls faq-list
+PASS: Search input references helper text
+PASS: Search input references result status
+PASS: Search input references no-result status
+PASS: Result count live region exists
+PASS: FAQ collection uses ul/list semantics
+PASS: FAQ item data count &gt;= 8
+PASS: FAQ toggles use buttons
+PASS: Form submit is prevented in JS
+PASS: CSS includes focus-visible rule
+PASS: Decorative SVG icons are hidden
+PASS: No dependency import statements</code></pre>
+<p>差分として重要なのは、単にHTMLが変わったことではない。Codexに渡した前工程情報が変わると、成果物の構造が変わったことだ。</p>
+<p>fixed-appでは検索欄がこうなった。</p>
+<pre><code>&lt;input
+  id=&quot;faq-search&quot;
+  type=&quot;search&quot;
+  autocomplete=&quot;off&quot;
+  placeholder=&quot;Try billing, SSO, export, invite...&quot;
+  aria-controls=&quot;faq-list&quot;
+  aria-describedby=&quot;search-help result-status no-results&quot;
+&gt;</code></pre>
+<p>FAQ一覧もこうなった。</p>
+<pre><code>&lt;ul id=&quot;faq-list&quot; class=&quot;faq-list&quot;&gt;&lt;/ul&gt;</code></pre>
+<p>そしてJSにsubmit抑止が入った。</p>
+<pre><code>form.addEventListener(&quot;submit&quot;, (event) =&gt; {
+  event.preventDefault();
+});</code></pre>
+<h2>14. 標準フォーマットでの監査結果</h2>
+<p>今回の代表的なfindingをAIDD-Specの標準形式で記録すると、こうなる。</p>
+<pre><code>category: Accessibility
+finding: The search input did not declare which result region it controls or which status text describes it.
+severity: high
+observed_by: static HTML audit
+ideal_state: Search input is programmatically connected to result list, helper text, result count, and no-result state.
+fix_instruction: Add aria-controls=&quot;faq-list&quot; and aria-describedby=&quot;search-help result-status no-results&quot; to the input; keep referenced elements present in the DOM.
+needed_upstream_info:
+  - Accessibility Contract
+  - State Design: empty/loading/error/success
+  - Copy Contract
+standard_update:
+  document: AI Task Packet
+  field: accessibility_contract.search_relationships
+codex_prompt_delta: |
+  The search input must declare aria-controls for the results container and aria-describedby for helper, live result status, and no-result status text.
+verification:
+  command: python3 experiments/2026-06-27-accessibility-contract-vibe-faq/audit_static.py experiments/2026-06-27-accessibility-contract-vibe-faq/fixed-app
+  expected: PASS</code></pre>
+<p>この形式にすることで、欠陥が単なる反省で終わらず、次回の前工程成果物に戻る。</p>
+<h2>15. AIDD-Specへの反映</h2>
+<p>今日の結果を受けて、標準仕様として以下を追加した。</p>
+<pre><code>/Users/tto/codex-mastery-lab/standards/aidd-spec-ai-task-packet-standard-v0.1.md</code></pre>
+<p>追加した主なフィールド:</p>
+<pre><code>accessibility_contract:
+  relationships: []
+  collection_semantics: []
+  keyboard_interactions: []
+  focus_evidence: []
+quality_gate:
+  required_commands: []
+verification_evidence:
+  files_to_attach: []
+  logs_to_save: []</code></pre>
+<p>ここでのポイントは、Accessibility Contractを「善意のチェックリスト」にしないことだ。Codexに渡せる実装条件、監査できるDOM条件、再実行できるコマンドに落とす。</p>
+<h2>16. CTO視点の考察</h2>
+<p>今回の実験で最も重要だったのは、Codexが失敗したことではない。むしろCodexは、雑な指示に対してかなり良いものを出した。</p>
+<p>問題は、雑な指示でも「それっぽく良いもの」が出てしまうことだ。</p>
+<p>これはAI駆動開発の危険なところで、成果物の表面品質が高いほど、後工程の欠陥が見えにくくなる。だから、AI時代の設計図面には次が必要になる。</p>
+<ul>
+<li>UI部品の見た目だけでなく、支援技術との関係を書く</li>
+<li>画面状態だけでなく、状態遷移時に読み上げるテキストを書く</li>
+<li>キーボード操作の期待挙動を書く</li>
+<li>完了条件を「見た目」ではなく「コマンドで再現できる証拠」にする</li>
+</ul>
+<p>建築でいうなら、完成予想図だけを渡して施工するのではなく、平面図、設備図、建具表、検査基準まで渡す。そのソフトウェア版がAIDD-Specであり、Codexへ渡す最小実装単位がAI Task Packetだ。</p>
+<h2>17. SaaS化するなら何を作るか</h2>
+<p>AIDD Control PlaneとしてSaaS化するなら、今回の学びはそのまま機能になる。</p>
+<ol>
+<li>UI種別として「検索UI」を選ぶ</li>
+<li>SaaSが必須のAccessibility Contractを提示する</li>
+<li><code>aria-controls</code> / <code>aria-describedby</code> / live region / list semantics をフォームで入力させる</li>
+<li>その入力からAI Task Packetを生成する</li>
+<li>Codex実行後、静的監査を自動実行する</li>
+<li>FAILした項目から修正プロンプトと標準仕様更新案を生成する</li>
+</ol>
+<p>価値は「AIにコードを書かせる」ことではない。AIが作ったものを検査可能な設計図面レベルへ引き上げ、次回から最初に渡す仕様を改善することだ。</p>
+<h2>18. 明日から使えるチェックリスト</h2>
+<p>検索UIをAIに作らせる前に、最低限これをAI Task Packetへ入れる。</p>
+<ul>
+<li><input type="checkbox" disabled> 検索欄にvisible labelがあるか</li>
+<li><input type="checkbox" disabled> 検索欄が <code>aria-controls</code> で結果領域を指しているか</li>
+<li><input type="checkbox" disabled> 検索欄が <code>aria-describedby</code> でヘルプ、結果件数、no resultsを参照しているか</li>
+<li><input type="checkbox" disabled> 結果件数が <code>aria-live=&quot;polite&quot;</code> で更新されるか</li>
+<li><input type="checkbox" disabled> 結果一覧が <code>ul/li</code> または equivalent role で表現されるか</li>
+<li><input type="checkbox" disabled> no results状態の表示文言が決まっているか</li>
+<li><input type="checkbox" disabled> Enterキーでページ遷移・reloadしないか</li>
+<li><input type="checkbox" disabled> キーボードフォーカスが <code>:focus-visible</code> で見えるか</li>
+<li><input type="checkbox" disabled> <code>node --check</code> など最低限の検証コマンドがあるか</li>
+<li><input type="checkbox" disabled> 監査結果をログとして保存するか</li>
+</ul>
+<h2>19. 次回検証</h2>
+<p>次回は、同じFAQ検索アプリに対して、静的監査ではなくaxe / Lighthouse / Playwrightの軽量監査をどこまでM4 Mac miniで現実的に回せるかを調べたい。</p>
+<p>今日の結論は明確だ。</p>
+<blockquote>Codexのアウトプット品質を上げる最短距離は、プロンプトを長くすることではない。後工程の監査で必要になる情報を、AI Task Packetの標準フィールドとして前工程に戻すことである。</blockquote>
+<p>今日の小さなFAQアプリは、その最小の証拠になった。</p></article></main></div></body></html>

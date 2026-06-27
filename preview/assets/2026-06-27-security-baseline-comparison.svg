@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">Vibe app versus security-baselined app audit comparison</title>
+  <desc id="desc">Comparison of static security audit results before and after AI Task Packet security baseline.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f7f4ef}.panel{fill:#fff;stroke:#d9dfdc;stroke-width:2}.title{font:800 28px system-ui;fill:#15221f}.label{font:700 20px system-ui;fill:#15221f}.text{font:500 17px system-ui;fill:#40504b}.pass{fill:#147c72}.fail{fill:#c6473a}.muted{fill:#62706c}.barbg{fill:#eef5f3}.chip{fill:#fff7ec;stroke:#d6903f;stroke-width:2}
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="640"/>
+  <text x="60" y="62" class="title">Security Baselineを渡す前後で何が変わったか</text>
+  <g transform="translate(70 110)">
+    <rect class="panel" width="500" height="440" rx="20"/>
+    <text x="34" y="50" class="label">雑プロンプト版</text>
+    <text x="34" y="84" class="text">11 passed / 7 failed</text>
+    <rect x="34" y="118" width="420" height="28" rx="14" class="barbg"/>
+    <rect x="34" y="118" width="257" height="28" rx="14" class="pass"/>
+    <rect x="291" y="118" width="163" height="28" rx="14" class="fail"/>
+    <text x="34" y="190" class="text">✓ textContentで表示</text>
+    <text x="34" y="222" class="text">✓ network/storageなし</text>
+    <text x="34" y="254" class="text">✗ maxlengthなし</text>
+    <text x="34" y="286" class="text">✗ privacy consentなし</text>
+    <text x="34" y="318" class="text">✗ data-classificationなし</text>
+    <text x="34" y="350" class="text">✗ SECURITY_PRIVACY.mdなし</text>
+    <rect x="34" y="382" width="400" height="34" rx="17" class="chip"/>
+    <text x="54" y="405" class="text">良い実装判断はあったが、証拠が残らない</text>
+  </g>
+  <g transform="translate(630 110)">
+    <rect class="panel" width="500" height="440" rx="20"/>
+    <text x="34" y="50" class="label">AI Task Packet版</text>
+    <text x="34" y="84" class="text">18 passed / 0 failed</text>
+    <rect x="34" y="118" width="420" height="28" rx="14" class="barbg"/>
+    <rect x="34" y="118" width="420" height="28" rx="14" class="pass"/>
+    <text x="34" y="190" class="text">✓ maxlengthを明示</text>
+    <text x="34" y="222" class="text">✓ required consent</text>
+    <text x="34" y="254" class="text">✓ data-classification</text>
+    <text x="34" y="286" class="text">✓ data-static-demo marker</text>
+    <text x="34" y="318" class="text">✓ no-network / no-storage evidence</text>
+    <text x="34" y="350" class="text">✓ SECURITY_PRIVACY.md</text>
+    <rect x="34" y="382" width="390" height="34" rx="17" class="chip"/>
+    <text x="54" y="405" class="text">監査が読むべき設計図面が成果物に残る</text>
+  </g>
+</svg>

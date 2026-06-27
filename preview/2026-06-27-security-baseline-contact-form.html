@@ -1,0 +1,292 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</title><style>
+:root { color-scheme: light; --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1; --accent:#1d4ed8; --code:#0f172a; }
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:var(--bg); color:var(--fg); line-height:1.78; }
+.layout { display:grid; grid-template-columns: 280px minmax(0, 1fr); min-height:100vh; }
+aside { position:sticky; top:0; height:100vh; overflow:auto; padding:24px; background:#0b1220; color:#e5eefc; }
+aside h1 { font-size:18px; line-height:1.35; margin:0 0 20px; }
+aside a { color:#c7d7ff; text-decoration:none; display:block; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.08); font-size:14px; }
+aside a:hover { color:#fff; }
+main { max-width: 940px; padding: 48px 42px 80px; }
+article { background:var(--card); padding:42px 48px; border:1px solid var(--line); border-radius:22px; box-shadow:0 18px 50px rgba(15,23,42,.08); }
+h1 { font-size: 34px; line-height:1.25; margin: 0 0 22px; letter-spacing:-.02em; }
+h2 { font-size: 25px; margin: 44px 0 14px; padding-top:8px; border-top:1px solid #edf1f7; }
+h3 { font-size: 19px; margin: 28px 0 10px; }
+p { margin: 14px 0; }
+blockquote { margin: 18px 0; padding: 14px 18px; border-left: 4px solid var(--accent); background:#eff6ff; color:#1e3a8a; border-radius: 10px; }
+pre { background:var(--code); color:#e2e8f0; padding:18px; border-radius:14px; overflow:auto; line-height:1.55; font-size:13px; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+p code, li code { background:#eef2ff; color:#1e3a8a; padding:2px 5px; border-radius:5px; }
+img { max-width:100%; border:1px solid var(--line); border-radius:14px; background:white; margin:18px 0; }
+table { border-collapse: collapse; width:100%; margin:18px 0; font-size:14px; }
+th, td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; }
+th { background:#f1f5f9; }
+.meta { color:var(--muted); font-size:14px; margin-bottom:24px; }
+.home article { max-width:860px; }
+@media (max-width: 850px) { .layout { grid-template-columns:1fr; } aside { position:relative; height:auto; } main { padding:20px; } article { padding:26px 20px; } }
+</style></head><body><div class="layout "><aside><h1>Codex Mastery Lab<br>AIDD-Spec Preview</h1><a href="2026-06-27-accessibility-contract-vibe-faq.html">雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a href="2026-06-27-codex-mastery-lab-start.html">Codexを「最強の開発相棒」に育てる：M4 Mac miniで始める継続検証ラボ</a>
+<a href="2026-06-27-contact-api-threat-model.html">問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
+<a href="2026-06-27-performance-budget-vibe-gallery.html">「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a href="2026-06-27-security-baseline-contact-form.html">問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a></aside><main><article><h1>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</h1>
+<blockquote>2026-06-27 / Codex Mastery Lab 日次ドラフト  </blockquote>
+<blockquote>想定読了時間: 約10分  </blockquote>
+<blockquote>種別: Experiment / Failure / Template</blockquote>
+<p><img src="assets/2026-06-27-security-baseline-reverse-chain.svg" alt="Security Baseline reverse chain"></p>
+<h2>1. 今日の問い</h2>
+<p>前回までに、FAQ検索UIではアクセシビリティ契約、SaaSギャラリーではPerformance BudgetをAI Task Packetへ戻した。今日の問いは、フォームである。</p>
+<blockquote>Codexに「B2B SaaSの問い合わせフォームをいい感じに作って」と雑に頼んだとき、後工程のSecurity / Privacy監査が読むべきPII分類、入力制約、保存方針、同意、証拠ファイルは成果物に残るのか？</blockquote>
+<p>建築でいえば、受付カウンターの見た目だけでは足りない。個人情報を受け取る場所なら、入退室、保管、廃棄、監査記録、責任分界が必要になる。ソフトウェアの問い合わせフォームも同じで、UIとして成立していても、PIIをどう扱うかが図面に書かれていなければ、後工程のセキュリティ担当・法務・運用担当は読めない。</p>
+<h2>2. 仮説</h2>
+<p>今回の仮説は次の通り。</p>
+<blockquote>フォームUIは、見た目と基本動作が成立しやすい。そのため「動いたからOK」になりやすい。しかし、後工程が必要とする Data Classification、consent、retention、no-network/no-storage、safe rendering の証拠は、雑プロンプトでは抜けやすい。これは後からレビューで怒るのではなく、AI Task Packetの Security Contract / Privacy Contract / Verification Evidence に最初から入れるべきである。</blockquote>
+<p>今回は重い依存は入れない。M4 Mac mini / 16GB RAM / 256GB SSD の制約環境で回す日次実験なので、ブラウザ自動化や脆弱性スキャナではなく、HTML/CSS/JSの静的監査で「前工程に戻すべき情報」を抽出する。</p>
+<h2>3. 実験環境</h2>
+<pre><code>Sat Jun 27 12:49:17 JST 2026
+Codex CLI: codex-cli 0.142.3
+ProductName:    macOS
+ProductVersion: 26.5.1
+BuildVersion:   25F80
+Disk:           228Gi total / 140Gi available</code></pre>
+<p>実験ディレクトリ:</p>
+<pre><code>/Users/tto/codex-mastery-lab/experiments/2026-06-27-security-baseline-contact-form/</code></pre>
+<p>ログ:</p>
+<pre><code>/Users/tto/codex-mastery-lab/experiments/2026-06-27-security-baseline-contact-form/logs/</code></pre>
+<h2>4. 実験計画</h2>
+<p><code>PLAN.md</code> では、監査カテゴリを次の3つに絞った。</p>
+<ol>
+<li>Security / Vulnerability</li>
+<li>Privacy / Data Classification</li>
+<li>Build / Console / Verification Evidence</li>
+</ol>
+<p>今回の目的は、問い合わせフォームそのものを本番品質にすることではない。目的は、後工程の監査が「これが分からないと合格にできない」と判断する情報を見つけ、それをAI Task Packetの標準フィールドへ戻すことである。</p>
+<h2>5. Codexへ渡した雑プロンプト</h2>
+<p>実際にCodexへ渡したプロンプトはこれである。</p>
+<pre><code>In this git repo, create a tiny static SaaS lead capture/contact form under experiments/2026-06-27-security-baseline-contact-form/vibe-app. Use only HTML, CSS, and vanilla JavaScript. Make it look like a polished B2B SaaS demo request page. Include fields for name, email, company size, budget, and message. Add a client-side submission preview or recent submissions panel so the user can see what was submitted. Keep it simple. Do not install dependencies. Do not modify files outside that vibe-app directory. Then exit.</code></pre>
+<p>実行コマンド:</p>
+<pre><code>codex exec --sandbox danger-full-access &quot;In this git repo, create a tiny static SaaS lead capture/contact form under experiments/2026-06-27-security-baseline-contact-form/vibe-app. Use only HTML, CSS, and vanilla JavaScript. Make it look like a polished B2B SaaS demo request page. Include fields for name, email, company size, budget, and message. Add a client-side submission preview or recent submissions panel so the user can see what was submitted. Keep it simple. Do not install dependencies. Do not modify files outside that vibe-app directory. Then exit.&quot;</code></pre>
+<p>Codexは <code>vibe-app</code> に3ファイルを作った。</p>
+<pre><code>index.html
+styles.css
+app.js</code></pre>
+<p>Codexの最終報告はこうだった。</p>
+<pre><code>It includes name, email, company size, budget, message, and a recent submissions preview panel. No dependencies installed, and no files outside `vibe-app` were modified by me.
+Verification run: `node --check experiments/2026-06-27-security-baseline-contact-form/vibe-app/app.js` passed.</code></pre>
+<p>ここまでは優秀である。依存なし、指定ディレクトリ内、JavaScript構文チェックも通っている。さらに重要なのは、Codexがユーザー入力の表示に <code>textContent</code> を使っていたことだ。</p>
+<pre><code>const message = document.createElement(&quot;p&quot;);
+message.className = &quot;submission-message&quot;;
+message.textContent = submission.message;</code></pre>
+<p>つまり、雑プロンプトでもXSSの典型的な失敗である <code>innerHTML</code> は避けていた。今回の論点は「Codexが危険なコードを書いた」ではない。むしろ逆で、良い判断をしているのに、標準仕様として後工程が読むべき証拠が残っていないことが問題である。</p>
+<h2>6. 静的セキュリティ監査を作った</h2>
+<p>監査スクリプト <code>audit_static_security.py</code> は、次を確認する。</p>
+<ul>
+<li>必須ファイルの存在</li>
+<li>フォームの安定ID</li>
+<li><code>type=&quot;email&quot;</code> と <code>required</code></li>
+<li>free-text入力の <code>maxlength</code></li>
+<li>company size / budget がselectで制約されているか</li>
+<li>privacy consent checkboxがrequiredか</li>
+<li>PII / business sensitive fieldに <code>data-classification</code> があるか</li>
+<li>privacy / retention helper textがあるか</li>
+<li>no-networkの明示があるか</li>
+<li><code>innerHTML</code> / <code>insertAdjacentHTML</code> / <code>outerHTML</code> を使っていないか</li>
+<li><code>textContent</code> で表示しているか</li>
+<li><code>fetch</code> / <code>XMLHttpRequest</code> / <code>sendBeacon</code> を使っていないか</li>
+<li><code>localStorage</code> / <code>sessionStorage</code> / <code>indexedDB</code> を使っていないか</li>
+<li><code>console.log</code> にPIIを出していないか</li>
+<li><code>SECURITY_PRIVACY.md</code> があるか</li>
+</ul>
+<p>実行コマンド:</p>
+<pre><code>node --check experiments/2026-06-27-security-baseline-contact-form/vibe-app/app.js
+python3 experiments/2026-06-27-security-baseline-contact-form/audit_static_security.py experiments/2026-06-27-security-baseline-contact-form/vibe-app</code></pre>
+<p>結果:</p>
+<pre><code>APP: experiments/2026-06-27-security-baseline-contact-form/vibe-app
+SIZES: total_static_bytes=10538 html=3471 css=4889 js=2178
+PASS: Required app files exist: index.html, styles.css, app.js
+PASS: Lead form exists with stable id
+PASS: Email field uses type=email
+PASS: Required fields are declared
+FAIL: Text inputs/textarea have explicit maxlength constraints
+PASS: Company size is constrained by select options
+PASS: Budget is constrained by select options
+FAIL: Privacy consent checkbox is required before preview
+FAIL: PII fields carry data-classification markers
+FAIL: Form fields reference privacy/retention help text
+FAIL: Form explicitly declares static-demo/no-network behavior
+PASS: User-controlled values are not rendered with HTML injection APIs
+PASS: User-controlled preview is rendered with textContent or equivalent safe text API
+PASS: No network submission APIs are used in the static demo
+PASS: PII is not persisted to browser storage
+PASS: No console logging of form/PII data
+FAIL: SECURITY_PRIVACY.md evidence file exists
+FAIL: Security/privacy evidence covers classification, PII, retention, no-network, verification
+SUMMARY: 11 passed / 7 failed</code></pre>
+<p>ここで見るべきは、失敗と成功の両方である。</p>
+<p>成功している点:</p>
+<ul>
+<li><code>textContent</code> で表示しており、HTML injection APIを避けている</li>
+<li>network submission APIを使っていない</li>
+<li>browser persistent storageを使っていない</li>
+<li>consoleへPIIを出していない</li>
+</ul>
+<p>失敗している点:</p>
+<ul>
+<li><code>maxlength</code> がない</li>
+<li>privacy consentがない</li>
+<li><code>data-classification</code> がない</li>
+<li>no-network / retention方針がDOM上で読めない</li>
+<li><code>SECURITY_PRIVACY.md</code> がない</li>
+</ul>
+<p>つまり、実装判断は悪くない。しかし、監査証跡として読めない。これはAI時代の危険な失敗である。「良い実装だったから安全」ではなく、「なぜ安全と言えるのかを後工程が再確認できない」状態だからだ。</p>
+<p><img src="assets/2026-06-27-security-baseline-comparison.svg" alt="Security audit comparison"></p>
+<h2>7. 欠陥から理想状態を定義する</h2>
+<p>代表findingをAIDD-Spec標準形式で書く。</p>
+<pre><code>category: Privacy / Data Classification
+finding: The vibe app collected name, email, budget, company size, and free-text message without a machine-readable data classification or consent/retention contract.
+severity: high
+observed_by: audit_static_security.py
+ideal_state: PII and business-sensitive fields are classified in the DOM and in evidence, and the user sees retention/no-network behavior before preview.
+fix_instruction: Add data-classification attributes, privacy/retention helper text, and a required privacy consent checkbox.
+needed_upstream_info:
+  - Privacy/Data Classification
+  - Consent Policy
+  - Retention Policy
+standard_update:
+  document: AI Task Packet Standard
+  field: privacy_contract.data_classification + privacy_contract.retention + privacy_contract.consent
+codex_prompt_delta: |
+  Add data-classification markers to PII/business-sensitive fields. Explain that this static demo keeps data in memory only until refresh and requires privacy consent before preview.
+verification:
+  command: python3 experiments/2026-06-27-security-baseline-contact-form/audit_static_security.py experiments/2026-06-27-security-baseline-contact-form/fixed-app
+  expected: PASS</code></pre>
+<p>このfindingから逆算すると、AI Task Packetには少なくとも以下が必要になる。</p>
+<ul>
+<li><code>security_contract.safe_rendering</code></li>
+<li><code>security_contract.input_validation</code></li>
+<li><code>security_contract.prohibited_browser_apis</code></li>
+<li><code>security_contract.logging_policy</code></li>
+<li><code>privacy_contract.pii_fields</code></li>
+<li><code>privacy_contract.business_sensitive_fields</code></li>
+<li><code>privacy_contract.consent_required</code></li>
+<li><code>privacy_contract.retention_policy</code></li>
+<li><code>privacy_contract.storage_policy</code></li>
+<li><code>verification_evidence.security_privacy_file</code></li>
+</ul>
+<h2>8. 改善版 AI Task Packet v0.3</h2>
+<p>改善版では、Codexに次の条件を渡した。</p>
+<pre><code>## Security Contract
+- Treat name, email, budget, company size, and message as user-controlled input.
+- Render user-controlled values only through safe text APIs such as `textContent`; do not use `innerHTML`, `outerHTML`, or `insertAdjacentHTML` for submitted values.
+- Do not use `fetch`, `XMLHttpRequest`, or `navigator.sendBeacon`; this is a static no-network demo.
+- Do not use `localStorage`, `sessionStorage`, or `indexedDB`; PII must not be persisted in browser storage.
+- Do not log submitted form values to console.
+- Add explicit length constraints: name max 80, email max 120, message max 600.
+
+## Privacy / Data Classification Contract
+- Add `data-classification` attributes to PII/business-sensitive fields.
+- Add visible helper text explaining this is a no-network preview and that data is retained in memory only until refresh.
+- Add a required privacy consent checkbox named `privacyConsent` before previewing.
+- Add `data-static-demo=&quot;true&quot;` to the form.
+
+## Verification Evidence
+Create `SECURITY_PRIVACY.md` inside `fixed-app/`.</code></pre>
+<p>実行コマンド:</p>
+<pre><code>codex exec --sandbox danger-full-access &quot;Read experiments/2026-06-27-security-baseline-contact-form/AI_TASK_PACKET_v0.3.md. Implement exactly that packet. Keep all changes inside experiments/2026-06-27-security-baseline-contact-form/fixed-app. Do not install dependencies. Then run the verification commands if possible and report results. Then exit.&quot;</code></pre>
+<h2>9. 修正後の結果</h2>
+<p>Codexは <code>fixed-app</code> に以下を作った。</p>
+<pre><code>index.html
+styles.css
+app.js
+SECURITY_PRIVACY.md</code></pre>
+<p>こちらでも検証を再実行した。</p>
+<pre><code>APP: experiments/2026-06-27-security-baseline-contact-form/fixed-app
+SIZES: total_static_bytes=13061 html=5197 css=5291 js=2573
+PASS: Required app files exist: index.html, styles.css, app.js
+PASS: Lead form exists with stable id
+PASS: Email field uses type=email
+PASS: Required fields are declared
+PASS: Text inputs/textarea have explicit maxlength constraints
+PASS: Company size is constrained by select options
+PASS: Budget is constrained by select options
+PASS: Privacy consent checkbox is required before preview
+PASS: PII fields carry data-classification markers
+PASS: Form fields reference privacy/retention help text
+PASS: Form explicitly declares static-demo/no-network behavior
+PASS: User-controlled values are not rendered with HTML injection APIs
+PASS: User-controlled preview is rendered with textContent or equivalent safe text API
+PASS: No network submission APIs are used in the static demo
+PASS: PII is not persisted to browser storage
+PASS: No console logging of form/PII data
+PASS: SECURITY_PRIVACY.md evidence file exists
+PASS: Security/privacy evidence covers classification, PII, retention, no-network, verification
+SUMMARY: 18 passed / 0 failed</code></pre>
+<p>HTTP配信も確認した。</p>
+<pre><code>status 200
+bytes 5197
+content_type text/html
+has title True
+has static demo marker True
+has consent True</code></pre>
+<p>差分として大きいのは、単にHTML属性が増えたことではない。<code>SECURITY_PRIVACY.md</code> が成果物として残ったことである。</p>
+<pre><code>## Data Classification
+| Field | Control | Data classification |
+| Name | `name` | `pii.name` |
+| Email | `email` | `pii.email` |
+| Company size | `companySize` | `business.company_size` |
+| Budget | `budget` | `business.budget` |
+| Message | `message` | `pii_or_confidential.free_text` |
+
+## No Network and No Storage
+The form declares `data-static-demo=&quot;true&quot;`. The application does not call `fetch`, `XMLHttpRequest`, or `navigator.sendBeacon`, and it does not use `localStorage`, `sessionStorage`, or `indexedDB`.</code></pre>
+<p>後工程のレビュー担当は、チャット上の「安全にしました」ではなく、リポジトリに残った証拠を読める。これがVerification Evidenceである。</p>
+<h2>10. AIDD-Specへの反映</h2>
+<p>今回、標準仕様ファイルを更新した。</p>
+<pre><code>/Users/tto/codex-mastery-lab/standards/aidd-spec-ai-task-packet-standard-v0.1.md</code></pre>
+<p>追加した主なフィールド:</p>
+<pre><code>security_contract:
+  safe_rendering: []
+  prohibited_browser_apis: []
+  logging_policy: string
+privacy_contract:
+  pii_fields: []
+  business_sensitive_fields: []
+  consent_required: boolean
+  retention_policy: string
+  storage_policy: string
+verification_evidence:
+  files_to_attach:
+    - SECURITY_PRIVACY.md</code></pre>
+<p>AIDD Control Planeにするなら、これはフォームになる。UI種別で「問い合わせフォーム」を選んだ瞬間に、PII項目、業務機密項目、保存先、保持期間、同意文言、禁止API、証拠ファイルを入力させる。Codex実行後は、<code>data-classification</code> と <code>SECURITY_PRIVACY.md</code> を自動監査する。</p>
+<h2>11. CTO視点の考察</h2>
+<p>今回の学びは、セキュリティは「脆弱なコードを探す」だけでは足りないということだ。雑プロンプト版は、危険な <code>innerHTML</code> も使っていないし、勝手にネットワーク送信もしていない。表面的にはかなり良い。</p>
+<p>しかし、組織で運用するには足りない。なぜなら、PIIの扱いはコードの安全性だけでなく、説明責任だからだ。</p>
+<ul>
+<li>どのフィールドがPIIか</li>
+<li>どのフィールドが業務機密か</li>
+<li>どこに保存するのか</li>
+<li>いつ消えるのか</li>
+<li>ユーザーに何を説明したのか</li>
+<li>何をもって「送信していない」と確認したのか</li>
+</ul>
+<p>これらがないと、後工程はレビューできない。建築でいえば、鍵が付いている部屋を作ったが、何を保管する部屋なのか、誰が入れるのか、保管期限は何か、点検記録はどこかが図面にない状態である。</p>
+<p>AI駆動開発では、AIがかなり良い初期実装を出す。だからこそ、表面品質に騙される。AIDD-Specの役割は、AIの善意や偶然の良い判断を、再現可能な設計図面に変換することだ。</p>
+<h2>12. 明日から使えるチェックリスト</h2>
+<p>問い合わせフォームをAIに作らせる前に、最低限これをAI Task Packetへ入れる。</p>
+<ul>
+<li><input type="checkbox" disabled> どのフィールドがPIIかを書く</li>
+<li><input type="checkbox" disabled> どのフィールドが業務機密かを書く</li>
+<li><input type="checkbox" disabled> <code>maxlength</code> など入力サイズ制約を書く</li>
+<li><input type="checkbox" disabled> ユーザー入力のDOM表示は <code>textContent</code> のみにする</li>
+<li><input type="checkbox" disabled> <code>innerHTML</code> / <code>outerHTML</code> / <code>insertAdjacentHTML</code> を禁止する</li>
+<li><input type="checkbox" disabled> 静的デモなら <code>fetch</code> / <code>XMLHttpRequest</code> / <code>sendBeacon</code> を禁止する</li>
+<li><input type="checkbox" disabled> PIIを <code>localStorage</code> / <code>sessionStorage</code> / <code>indexedDB</code> に保存しない</li>
+<li><input type="checkbox" disabled> consoleにPIIを出さない</li>
+<li><input type="checkbox" disabled> retention方針を書く</li>
+<li><input type="checkbox" disabled> privacy consentが必要かを書く</li>
+<li><input type="checkbox" disabled> <code>SECURITY_PRIVACY.md</code> をVerification Evidenceとして残す</li>
+</ul>
+<h2>13. 次回検証</h2>
+<p>次は、同じ問い合わせフォームにサーバーAPIを足した場合を検証したい。静的フォームでは no-network / no-storage を禁止すればよかった。しかし、実サービスでは送信先がある。そうなると、CSRF、rate limit、server-side validation、audit log、retention、削除要求、メール通知、権限境界が出てくる。</p>
+<p>今日の結論は明確だ。</p>
+<blockquote>フォームのSecurity Baselineは、実装後レビューのチェックリストではなく、AI Task Packetに事前に渡すべき設計図面である。</blockquote>
+<p>Codexがたまたま安全なDOM APIを選んだことを喜ぶだけでは足りない。後工程が読める証拠に変換し、次回から最初に渡す。それがAIDD-Specの逆算プロセスである。</p></article></main></div></body></html>

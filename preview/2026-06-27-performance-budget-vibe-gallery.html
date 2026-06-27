@@ -1,0 +1,217 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</title><style>
+:root { color-scheme: light; --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1; --accent:#1d4ed8; --code:#0f172a; }
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:var(--bg); color:var(--fg); line-height:1.78; }
+.layout { display:grid; grid-template-columns: 280px minmax(0, 1fr); min-height:100vh; }
+aside { position:sticky; top:0; height:100vh; overflow:auto; padding:24px; background:#0b1220; color:#e5eefc; }
+aside h1 { font-size:18px; line-height:1.35; margin:0 0 20px; }
+aside a { color:#c7d7ff; text-decoration:none; display:block; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.08); font-size:14px; }
+aside a:hover { color:#fff; }
+main { max-width: 940px; padding: 48px 42px 80px; }
+article { background:var(--card); padding:42px 48px; border:1px solid var(--line); border-radius:22px; box-shadow:0 18px 50px rgba(15,23,42,.08); }
+h1 { font-size: 34px; line-height:1.25; margin: 0 0 22px; letter-spacing:-.02em; }
+h2 { font-size: 25px; margin: 44px 0 14px; padding-top:8px; border-top:1px solid #edf1f7; }
+h3 { font-size: 19px; margin: 28px 0 10px; }
+p { margin: 14px 0; }
+blockquote { margin: 18px 0; padding: 14px 18px; border-left: 4px solid var(--accent); background:#eff6ff; color:#1e3a8a; border-radius: 10px; }
+pre { background:var(--code); color:#e2e8f0; padding:18px; border-radius:14px; overflow:auto; line-height:1.55; font-size:13px; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+p code, li code { background:#eef2ff; color:#1e3a8a; padding:2px 5px; border-radius:5px; }
+img { max-width:100%; border:1px solid var(--line); border-radius:14px; background:white; margin:18px 0; }
+table { border-collapse: collapse; width:100%; margin:18px 0; font-size:14px; }
+th, td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; }
+th { background:#f1f5f9; }
+.meta { color:var(--muted); font-size:14px; margin-bottom:24px; }
+.home article { max-width:860px; }
+@media (max-width: 850px) { .layout { grid-template-columns:1fr; } aside { position:relative; height:auto; } main { padding:20px; } article { padding:26px 20px; } }
+</style></head><body><div class="layout "><aside><h1>Codex Mastery Lab<br>AIDD-Spec Preview</h1><a href="2026-06-27-accessibility-contract-vibe-faq.html">雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a href="2026-06-27-codex-mastery-lab-start.html">Codexを「最強の開発相棒」に育てる：M4 Mac miniで始める継続検証ラボ</a>
+<a href="2026-06-27-contact-api-threat-model.html">問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
+<a href="2026-06-27-performance-budget-vibe-gallery.html">「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a href="2026-06-27-security-baseline-contact-form.html">問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a></aside><main><article><h1>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</h1>
+<blockquote>2026-06-27 / Codex Mastery Lab 日次ドラフト  </blockquote>
+<blockquote>想定読了時間: 約10分  </blockquote>
+<blockquote>種別: Experiment / Failure / Template</blockquote>
+<p><img src="assets/2026-06-27-performance-budget-reverse-chain.svg" alt="Performance Budget reverse chain"></p>
+<h2>1. 今日の問い</h2>
+<p>前回は、雑に作ったFAQ検索アプリをアクセシビリティ観点で監査し、<code>aria-controls</code> やリストセマンティクスを AI Task Packet に戻した。今日の問いは性能である。</p>
+<blockquote>Codexに「プレミアムでビジュアルなSaaSギャラリーを作って」と雑に頼むと、見た目は良くなる。しかし、後工程のPerformance / Lighthouse監査が必要とする予算・証拠・資産方針は成果物に残るのか？</blockquote>
+<p>建築図面でいえば、完成予想パースだけでは施工できない。壁材、重量、配線、設備容量、避難経路、検査項目が必要になる。Webアプリでも同じで、見た目だけでは足りない。AIが作ったUIを運用・監査できる設計図面にするには、Performance Budget を前工程の仕様として渡す必要があるのではないか、という仮説を検証した。</p>
+<h2>2. 仮説</h2>
+<p>今回の仮説は次の通り。</p>
+<blockquote>「premium」「visual」という曖昧な指示は、CSSの肥大化、重い装飾、外部画像/CDN、motion配慮漏れを誘発しやすい。たとえ今回Codexが外部依存を避けても、Performance BudgetとAsset Policyを事前に渡さなければ、後工程で何を合格とするかが曖昧になる。</blockquote>
+<p>今回はM4 Mac mini / 16GB RAM / 256GB SSDの制約環境で回すため、LighthouseやPlaywrightの追加インストールはしない。代わりに、静的ファイルサイズ、CSS行数、外部参照、画像寸法、motion fallback、証拠ファイルの有無を監査する軽量スクリプトを作った。これはLighthouseの代替ではないが、「前工程へ戻すべき情報」を抽出するには十分である。</p>
+<h2>3. 実験環境</h2>
+<pre><code>2026-06-27 12:34:44 JST
+ProductName:    macOS
+ProductVersion: 26.5.1
+BuildVersion:   25F80
+Disk:           228Gi total / 140Gi available
+Codex CLI:      codex-cli 0.142.3</code></pre>
+<p>実験ディレクトリ:</p>
+<pre><code>/Users/tto/codex-mastery-lab/experiments/2026-06-27-performance-budget-vibe-gallery/</code></pre>
+<p>ログ:</p>
+<pre><code>/Users/tto/codex-mastery-lab/experiments/2026-06-27-performance-budget-vibe-gallery/logs/</code></pre>
+<h2>4. 実験計画</h2>
+<p><code>PLAN.md</code> には、今回の監査カテゴリを次の3つに絞って書いた。</p>
+<ol>
+<li>Performance / Lighthouse proxy</li>
+<li>Dependency / Asset / Version Health</li>
+<li>Build / Console / Verification Evidence</li>
+</ol>
+<p>ここでの狙いは、単に小さなページを高速化することではない。後工程の監査で必要になる情報を、どの標準成果物へ戻すべきかを見ることである。</p>
+<h2>5. Codexへ渡した雑プロンプト</h2>
+<p>実際に渡したプロンプトはこれである。</p>
+<pre><code>In this git repo, create a tiny static SaaS product gallery landing page under experiments/2026-06-27-performance-budget-vibe-gallery/vibe-app.
+Use only HTML, CSS, and vanilla JavaScript. Make it look premium and visual, with a hero section, 6 feature/product cards, images or illustrations for each card, a testimonial strip, and a small interactive filter.
+Keep it simple. Do not install dependencies. Do not modify files outside that vibe-app directory. Then exit.</code></pre>
+<p>実行コマンド:</p>
+<pre><code>codex exec --sandbox danger-full-access &quot;In this git repo, create a tiny static SaaS product gallery landing page under experiments/2026-06-27-performance-budget-vibe-gallery/vibe-app. Use only HTML, CSS, and vanilla JavaScript. Make it look premium and visual, with a hero section, 6 feature/product cards, images or illustrations for each card, a testimonial strip, and a small interactive filter. Keep it simple. Do not install dependencies. Do not modify files outside that vibe-app directory. Then exit.&quot;</code></pre>
+<p>Codexは <code>vibe-app</code> に3ファイルを作った。</p>
+<pre><code>index.html  176 lines
+styles.css  605 lines
+app.js       31 lines</code></pre>
+<p>Codexの最終報告はこうだった。</p>
+<pre><code>Built the static SaaS gallery landing page under vibe-app.
+It includes the hero, six visual product cards, testimonial strip, and vanilla JS category filter.
+No dependencies installed, no external assets referenced, and no files were modified outside vibe-app.
+Verification: checked the created file set and confirmed there are no http, @import, or url(...) external references.</code></pre>
+<p>ここで面白いのは、Codexがかなり良い判断をしていることだ。外部画像やCDNを使わず、CSSだけでビジュアルを作った。雑プロンプトとしては優秀である。しかし、後工程で見ると別の問題が出る。</p>
+<h2>6. 軽量な性能監査を作った</h2>
+<p>今回作った監査スクリプトは <code>audit_static_performance.py</code> である。チェック内容は次の通り。</p>
+<ul>
+<li>HTML / CSS / JS のサイズ</li>
+<li>合計静的バイト数</li>
+<li>CSS行数</li>
+<li>外部ネットワーク参照の有無</li>
+<li><code>&lt;img&gt;</code> がある場合の <code>width</code> / <code>height</code> と <code>loading=&quot;lazy&quot;</code></li>
+<li>Performance Budgetの証拠ファイル有無</li>
+<li><code>backdrop-filter</code> / <code>box-shadow</code> / <code>transition</code> / <code>transform</code> などの装飾コスト</li>
+<li><code>prefers-reduced-motion</code> の有無</li>
+<li>consoleログの残存</li>
+</ul>
+<p>実行コマンド:</p>
+<pre><code>node --check experiments/2026-06-27-performance-budget-vibe-gallery/vibe-app/app.js
+python3 experiments/2026-06-27-performance-budget-vibe-gallery/audit_static_performance.py experiments/2026-06-27-performance-budget-vibe-gallery/vibe-app</code></pre>
+<p>結果:</p>
+<pre><code>APP: experiments/2026-06-27-performance-budget-vibe-gallery/vibe-app
+SIZES: html=6958 css=10154 js=906 total=18018 css_lines=605
+PASS: HTML bytes within budget — 6958 &lt;= 16000
+PASS: CSS bytes within budget — 10154 &lt;= 12000
+PASS: JS bytes within budget — 906 &lt;= 5000
+PASS: Total static bytes within budget — 18018 &lt;= 32000
+FAIL: CSS line count stays reviewable — 605 &lt;= 360
+PASS: No external network asset references — found 0
+FAIL: Performance budget is documented in deliverable
+FAIL: Potentially costly visual CSS is bounded — found 20 tokens
+FAIL: Motion/transition has prefers-reduced-motion fallback
+PASS: No console logging left in JS</code></pre>
+<p>ここで重要なのは、ファイルサイズ自体は合格していることだ。総量18KBなので、単純に「重い」とは言えない。しかしCSSが605行まで伸び、Performance Budgetの証拠がなく、motion fallbackもない。つまり、性能欠陥は「現在のページが遅い」ではなく、「後工程で継続監査できる設計図面になっていない」ことにある。</p>
+<p><img src="assets/2026-06-27-performance-budget-comparison.svg" alt="Performance Budget comparison"></p>
+<h2>7. 欠陥から理想状態を定義する</h2>
+<p>今回の代表findingをAIDD-Spec標準形式で書く。</p>
+<pre><code>category: Performance / Lighthouse Proxy
+finding: Visual static page had no explicit performance budget evidence and CSS grew to 605 lines despite being a tiny app.
+severity: medium
+observed_by: audit_static_performance.py
+ideal_state: Every AI-generated UI packet carries measurable budgets for total bytes, CSS/JS size, asset source policy, motion fallback, and evidence file.
+fix_instruction: Add Performance Budget Contract and Asset Policy to the AI Task Packet; require PERFORMANCE_BUDGET.md and static audit output.
+needed_upstream_info:
+  - Performance Budget
+  - Asset Policy
+  - Rendering Strategy
+  - Verification Evidence
+standard_update:
+  document: aidd-spec-ai-task-packet-standard-v0.1.md
+  field: performance_budget_contract + asset_policy
+codex_prompt_delta: |
+  Keep total static bytes &lt;= 32KB, CSS &lt;= 12KB and &lt;= 360 lines, JS &lt;= 5KB. Avoid external assets/CDNs/url(). Include reduced-motion fallback and PERFORMANCE_BUDGET.md with measured sizes.
+verification:
+  command: python3 experiments/2026-06-27-performance-budget-vibe-gallery/audit_static_performance.py experiments/2026-06-27-performance-budget-vibe-gallery/fixed-app
+  expected: pass</code></pre>
+<p>このfindingから逆算すると、AI Task Packetには少なくとも以下が必要になる。</p>
+<ul>
+<li><code>performance_budget_contract.total_static_bytes</code></li>
+<li><code>performance_budget_contract.css_budget</code></li>
+<li><code>performance_budget_contract.js_budget</code></li>
+<li><code>performance_budget_contract.motion_policy</code></li>
+<li><code>asset_policy.external_network_assets</code></li>
+<li><code>asset_policy.image_dimensions_required</code></li>
+<li><code>asset_policy.font_policy</code></li>
+<li><code>verification_evidence.files_to_attach</code></li>
+</ul>
+<h2>8. 改善版 AI Task Packet v0.2</h2>
+<p>次に、Codexへ改善版のTask Packetを渡した。要点は以下である。</p>
+<pre><code># AI Task Packet v0.2: Performance-Budgeted Static SaaS Gallery
+
+## Performance Budget Contract
+- Total static bytes for `index.html + styles.css + app.js` must be &lt;= 32KB.
+- `styles.css` must be &lt;= 12KB and &lt;= 360 lines.
+- `app.js` must be &lt;= 5KB.
+- Avoid external network assets: no `http://`, `https://`, CSS `@import`, or `url(...)` references.
+- Use CSS/simple inline SVG/semantic HTML instead of remote raster images.
+- Bound expensive paint effects.
+- If transitions are used, include a `@media (prefers-reduced-motion: reduce)` fallback.
+
+## Verification Evidence
+Create a short `PERFORMANCE_BUDGET.md` inside `fixed-app/` containing budget values, actual measured sizes, commands run, and trade-offs.</code></pre>
+<p>実行コマンド:</p>
+<pre><code>codex exec --sandbox danger-full-access &quot;Read experiments/2026-06-27-performance-budget-vibe-gallery/AI_TASK_PACKET_v0.2.md. Implement exactly that packet. Keep all changes inside experiments/2026-06-27-performance-budget-vibe-gallery/fixed-app. Do not install dependencies. Then run the verification commands if possible and report results. Then exit.&quot;</code></pre>
+<h2>9. 修正後の結果</h2>
+<p>Codexは <code>fixed-app</code> に以下を作った。</p>
+<pre><code>index.html
+styles.css
+app.js
+PERFORMANCE_BUDGET.md</code></pre>
+<p>こちらでも検証を再実行した。</p>
+<pre><code>APP: experiments/2026-06-27-performance-budget-vibe-gallery/fixed-app
+SIZES: html=4930 css=6742 js=796 total=12468 css_lines=349
+PASS: HTML bytes within budget — 4930 &lt;= 16000
+PASS: CSS bytes within budget — 6742 &lt;= 12000
+PASS: JS bytes within budget — 796 &lt;= 5000
+PASS: Total static bytes within budget — 12468 &lt;= 32000
+PASS: CSS line count stays reviewable — 349 &lt;= 360
+PASS: No external network asset references — found 0
+PASS: Performance budget is documented in deliverable
+PASS: Potentially costly visual CSS is bounded — found 5 tokens
+PASS: Motion/transition has prefers-reduced-motion fallback
+PASS: No console logging left in JS</code></pre>
+<p>HTTP配信も確認した。</p>
+<pre><code>status 200
+bytes 4930
+content_type text/html
+has title True
+has gallery True</code></pre>
+<p>差分として大きいのは、単にCSSが短くなったことではない。<code>PERFORMANCE_BUDGET.md</code> が成果物として残ったことである。これにより、後工程のレビュー担当は「何を測ったのか」「どの予算を守ったのか」「どんなトレードオフを選んだのか」を再確認できる。</p>
+<h2>10. AIDD-Specへの反映</h2>
+<p>今回、標準仕様ファイルを更新した。</p>
+<pre><code>/Users/tto/codex-mastery-lab/standards/aidd-spec-ai-task-packet-standard-v0.1.md</code></pre>
+<p>追加した主なフィールド:</p>
+<pre><code>performance_budget_contract:
+  total_static_bytes: string
+  css_budget: string
+  js_budget: string
+  lighthouse_targets: []
+  motion_policy: string
+asset_policy:
+  external_network_assets: string
+  image_dimensions_required: boolean
+  lazy_loading_policy: string
+  font_policy: string</code></pre>
+<p>AIDD Control Planeにするなら、これはフォームになる。たとえば「ページ種別: ランディングページ」「想定端末: mobile first」「画像利用: あり/なし」「第三者CDN: 禁止/許可」「Lighthouse目標: 90以上」のように入力し、AI Task Packetと監査スクリプトを自動生成する。</p>
+<h2>11. CTO視点の考察</h2>
+<p>今回の学びは、AIが悪いコードを書いたという話ではない。むしろCodexは雑プロンプトでもかなり良い判断をした。外部依存なし、Vanilla JS、静的HTML、見た目もそれなりに成立していた。</p>
+<p>危険なのは、良い判断が「偶然」に依存していることだ。ある日別のAI、別のモデル、別のプロンプトで同じ「premium visual」を渡したら、Unsplash画像、Google Fonts、重いアニメーション、外部analyticsが入り込むかもしれない。標準仕様は、AIの善意に頼らないためにある。</p>
+<p>建築図面なら、デザイナーが美しい外観を描いても、構造計算や設備容量が別途必要になる。AI駆動開発でも、見た目のUI指示とは別に、Performance BudgetとAsset Policyを図面として渡す必要がある。</p>
+<h2>12. 明日から使えるチェックリスト</h2>
+<ul>
+<li>AIに「premium」「visual」「rich」と言うなら、同時に予算を書く</li>
+<li>CSS/JS/総量の上限を書く</li>
+<li>外部画像/CDN/フォントの許可方針を書く</li>
+<li>画像を使うなら width/height と lazy loading を書く</li>
+<li>motionを使うなら <code>prefers-reduced-motion</code> を書く</li>
+<li>Lighthouse目標値だけでなく、Lite実験用の静的監査も用意する</li>
+<li>Codexの口頭報告ではなく、証拠ファイルを成果物に残す</li>
+</ul>
+<h2>13. 次回検証</h2>
+<p>次は、同じPerformance Budgetを「事前に渡す」だけでなく、実ブラウザのLighthouse/axe/Playwrightにどこまで軽量に接続できるかを試す。制約環境では重い依存を避ける必要があるため、まずは既存ブラウザの有無、追加インストールなしで取れるメトリクス、そしてAIDD Control Planeが自動保存すべきEvidenceの粒度を検証したい。</p></article></main></div></body></html>
