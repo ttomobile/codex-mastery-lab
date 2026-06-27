@@ -14,6 +14,7 @@ OUT_ASSETS = OUT / 'assets'
 
 SERIES_ORDER = [
     '001-series-roadmap.md',
+    '2026-06-27-watchflow-trial-001.md',
     '2026-06-27-accessibility-contract-vibe-faq.md',
     '2026-06-27-performance-budget-vibe-gallery.md',
     '2026-06-27-security-baseline-contact-form.md',
@@ -230,7 +231,8 @@ def main():
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True, exist_ok=True)
     OUT_ASSETS.mkdir(parents=True, exist_ok=True)
-    for asset in list(ASSETS.glob('2026-06-27*.svg')) + list(ASSETS.glob('2026-06-27*.gif')) + list(ASSETS.glob('2026-06-27*.console.txt')):
+    asset_patterns = ['2026-06-27*.svg', '2026-06-27*.gif', '2026-06-27*.png', '2026-06-27*.console.txt']
+    for asset in [p for pattern in asset_patterns for p in ASSETS.glob(pattern)]:
         shutil.copy2(asset, OUT_ASSETS / asset.name)
     articles = ordered_articles()
     items = [(p, article_title(p), slug(p)) for p in articles]

@@ -1,0 +1,74 @@
+
+> watchflow@0.1.0 test:e2e
+> playwright test
+
+
+Running 11 tests using 5 workers
+
+  ✓   2 [chromium] › e2e/watchflow.spec.ts:12:7 › WatchFlow E2E › 検索結果の空状態を表示できる (497ms)
+[WebServer] [browser] Image with src "/api/media/poster?v=vf-001" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[WebServer] [browser] Image with src "/api/media/poster?v=vf-001" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+  ✘   6 [firefox] › e2e/watchflow.spec.ts:4:7 › WatchFlow E2E › ホームから動画詳細へ移動できる (1ms)
+  ✓   5 [chromium] › e2e/watchflow.spec.ts:17:7 › WatchFlow E2E › 動画取得失敗時にリトライ導線を表示する (714ms)
+  ✓   3 [chromium] › e2e/visual.spec.ts:9:7 › WatchFlow Visual Regression › 動画詳細画面の基準スクリーンショット (938ms)
+  ✘   7 [firefox] › e2e/watchflow.spec.ts:12:7 › WatchFlow E2E › 検索結果の空状態を表示できる (1ms)
+  ✘   8 [firefox] › e2e/watchflow.spec.ts:17:7 › WatchFlow E2E › 動画取得失敗時にリトライ導線を表示する (1ms)
+  ✓   4 [chromium] › e2e/visual.spec.ts:4:7 › WatchFlow Visual Regression › ホーム画面の基準スクリーンショット (994ms)
+  ✓   1 [chromium] › e2e/watchflow.spec.ts:4:7 › WatchFlow E2E › ホームから動画詳細へ移動できる (1.4s)
+[WebServer] [browser] Image with src "/api/media/poster?v=vf-001" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+  ✓   9 [webkit] › e2e/watchflow.spec.ts:12:7 › WatchFlow E2E › 検索結果の空状態を表示できる (585ms)
+  ✓  11 [webkit] › e2e/watchflow.spec.ts:17:7 › WatchFlow E2E › 動画取得失敗時にリトライ導線を表示する (749ms)
+  ✓  10 [webkit] › e2e/watchflow.spec.ts:4:7 › WatchFlow E2E › ホームから動画詳細へ移動できる (942ms)
+
+
+  1) [firefox] › e2e/watchflow.spec.ts:4:7 › WatchFlow E2E › ホームから動画詳細へ移動できる ───────────────────────
+
+    Error: browserType.launch: Executable doesn't exist at /path/to/home/Library/Caches/ms-playwright/firefox-1532/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright was just installed or updated.       ║
+    ║ Please run the following command to download new browsers: ║
+    ║                                                            ║
+    ║     npx playwright install                                 ║
+    ║                                                            ║
+    ║ <3 Playwright Team                                         ║
+    ╚════════════════════════════════════════════════════════════╝
+
+    Error Context: test-results/watchflow-WatchFlow-E2E-ホームから動画詳細へ移動できる-firefox/error-context.md
+
+  2) [firefox] › e2e/watchflow.spec.ts:12:7 › WatchFlow E2E › 検索結果の空状態を表示できる ───────────────────────
+
+    Error: browserType.launch: Executable doesn't exist at /path/to/home/Library/Caches/ms-playwright/firefox-1532/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright was just installed or updated.       ║
+    ║ Please run the following command to download new browsers: ║
+    ║                                                            ║
+    ║     npx playwright install                                 ║
+    ║                                                            ║
+    ║ <3 Playwright Team                                         ║
+    ╚════════════════════════════════════════════════════════════╝
+
+    Error Context: test-results/watchflow-WatchFlow-E2E-検索結果の空状態を表示できる-firefox/error-context.md
+
+  3) [firefox] › e2e/watchflow.spec.ts:17:7 › WatchFlow E2E › 動画取得失敗時にリトライ導線を表示する ──────────────────
+
+    Error: browserType.launch: Executable doesn't exist at /path/to/home/Library/Caches/ms-playwright/firefox-1532/firefox/Nightly.app/Contents/MacOS/firefox
+    ╔════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright was just installed or updated.       ║
+    ║ Please run the following command to download new browsers: ║
+    ║                                                            ║
+    ║     npx playwright install                                 ║
+    ║                                                            ║
+    ║ <3 Playwright Team                                         ║
+    ╚════════════════════════════════════════════════════════════╝
+
+    Error Context: test-results/watchflow-WatchFlow-E2E-動画取得失敗時にリトライ導線を表示する-firefox/error-context.md
+
+  3 failed
+    [firefox] › e2e/watchflow.spec.ts:4:7 › WatchFlow E2E › ホームから動画詳細へ移動できる ────────────────────────
+    [firefox] › e2e/watchflow.spec.ts:12:7 › WatchFlow E2E › 検索結果の空状態を表示できる ────────────────────────
+    [firefox] › e2e/watchflow.spec.ts:17:7 › WatchFlow E2E › 動画取得失敗時にリトライ導線を表示する ───────────────────
+  8 passed (3.1s)
+exit=1

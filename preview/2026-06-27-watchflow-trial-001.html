@@ -1,0 +1,304 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WatchFlow Trial 001：雑プロンプトからNext.js動画アプリはどこまで作れるか</title><style>
+:root {
+  color-scheme: light;
+  --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
+  --accent:#1d4ed8; --accent2:#7c3aed; --code:#0f172a; --soft:#eef4ff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif; background:var(--bg); color:var(--fg); line-height:1.82; }
+a { color: var(--accent); }
+.layout { display:grid; grid-template-columns: 300px minmax(0, 1fr); min-height:100vh; }
+aside { position:sticky; top:0; height:100vh; overflow:auto; padding:22px; background:#0b1220; color:#e5eefc; }
+.brand { font-weight:800; line-height:1.35; margin:0 0 16px; font-size:18px; letter-spacing:-.01em; }
+.series-note { color:#9fb4d8; font-size:12px; margin:0 0 18px; }
+.chapter-link { color:#c7d7ff; text-decoration:none; display:block; padding:10px 10px; border:1px solid rgba(255,255,255,.08); border-radius:12px; margin:8px 0; font-size:14px; background:rgba(255,255,255,.03); }
+.chapter-link:hover, .chapter-link.current { color:#fff; background:rgba(59,130,246,.22); border-color:rgba(147,197,253,.45); }
+.chapter-num { color:#93c5fd; font-weight:700; font-size:12px; display:block; margin-bottom:2px; }
+main { max-width: 980px; padding: 42px 34px 80px; }
+article { background:var(--card); padding:42px 48px; border:1px solid var(--line); border-radius:24px; box-shadow:0 18px 50px rgba(15,23,42,.08); }
+h1 { font-size: clamp(28px, 5vw, 42px); line-height:1.24; margin: 0 0 22px; letter-spacing:-.03em; }
+h2 { font-size: clamp(22px, 3vw, 28px); margin: 46px 0 14px; padding-top:10px; border-top:1px solid #edf1f7; }
+h3 { font-size: 20px; margin: 30px 0 10px; }
+p { margin: 14px 0; }
+blockquote { margin: 18px 0; padding: 14px 18px; border-left: 4px solid var(--accent); background:#eff6ff; color:#1e3a8a; border-radius: 10px; }
+pre { background:var(--code); color:#e2e8f0; padding:18px; border-radius:14px; overflow:auto; line-height:1.55; font-size:13px; white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; }
+pre code { white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow-wrap:anywhere; word-break:break-word; }
+p code, li code { background:#eef2ff; color:#1e3a8a; padding:2px 5px; border-radius:5px; white-space:normal; }
+ul, ol { padding-left:1.45em; }
+li { overflow-wrap:anywhere; }
+img { max-width:100%; border:1px solid var(--line); border-radius:14px; background:white; margin:18px 0; height:auto; }
+table { border-collapse: collapse; width:100%; margin:18px 0; font-size:14px; display:block; overflow-x:auto; }
+th, td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; min-width:120px; }
+th { background:#f1f5f9; }
+.meta { color:var(--muted); font-size:14px; margin-bottom:24px; }
+.hero { background:linear-gradient(135deg,#eff6ff,#faf5ff); border:1px solid #dbeafe; border-radius:24px; padding:28px; margin-bottom:22px; }
+.chapter-nav { display:flex; gap:12px; justify-content:space-between; margin:24px 0; }
+.chapter-nav a { flex:1; text-decoration:none; background:var(--soft); border:1px solid var(--line); border-radius:14px; padding:14px; color:#17315f; }
+.chapter-nav .next { text-align:right; }
+.chapter-nav span { display:block; color:var(--muted); font-size:12px; }
+.home-grid { display:grid; gap:14px; padding:0; list-style:none; }
+.home-grid li a { display:block; padding:18px; background:#fff; border:1px solid var(--line); border-radius:16px; text-decoration:none; box-shadow:0 8px 24px rgba(15,23,42,.05); }
+.mobile-index { display:none; background:#0b1220; padding:12px 16px; position:sticky; top:0; z-index:10; }
+.mobile-index details { color:#e5eefc; }
+.mobile-index summary { cursor:pointer; font-weight:700; }
+.mobile-index a { color:#c7d7ff; display:block; padding:8px 0; }
+@media (max-width: 900px) {
+  .layout { display:block; }
+  aside { display:none; }
+  .mobile-index { display:block; }
+  main { padding:16px; max-width:none; }
+  article { padding:24px 18px; border-radius:18px; }
+  .chapter-nav { flex-direction:column; }
+  .chapter-nav .next { text-align:left; }
+  pre { font-size:12px; padding:14px; }
+}
+@media (max-width: 480px) {
+  body { line-height:1.75; }
+  main { padding:10px; }
+  article { padding:20px 14px; border-radius:14px; }
+  h1 { font-size:28px; }
+  h2 { font-size:22px; }
+}
+</style></head><body><div class="mobile-index"><details><summary>連載目次を開く</summary><a href="001-series-roadmap.html">第01回｜WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
+<a href="2026-06-27-watchflow-trial-001.html">第02回｜WatchFlow Trial 001：雑プロンプトからNext.js動画アプリはどこまで作れるか</a>
+<a href="2026-06-27-accessibility-contract-vibe-faq.html">第03回｜雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a href="2026-06-27-performance-budget-vibe-gallery.html">第04回｜「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a href="2026-06-27-security-baseline-contact-form.html">第05回｜問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
+<a href="2026-06-27-contact-api-threat-model.html">第06回｜問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a></details></div><div class="layout "><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">スマホ対応プレビュー / 順番に読める連載版</p><a class="chapter-link " href="001-series-roadmap.html"><span class="chapter-num">第01回</span>WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
+<a class="chapter-link current" href="2026-06-27-watchflow-trial-001.html"><span class="chapter-num">第02回</span>WatchFlow Trial 001：雑プロンプトからNext.js動画アプリはどこまで作れるか</a>
+<a class="chapter-link " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">第03回</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">第04回</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a class="chapter-link " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">第05回</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
+<a class="chapter-link " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">第06回</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="001-series-roadmap.html"><span>前の記事</span>WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a><a class="next" href="2026-06-27-accessibility-contract-vibe-faq.html"><span>次の記事</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a></nav><article><h1>WatchFlow Trial 001：雑プロンプトからNext.js動画アプリはどこまで作れるか</h1>
+<blockquote>2026-06-27 / WatchFlow 100点チャレンジ  </blockquote>
+<blockquote>対象: Trial 001 / Next.js / モック込み動画サービス  </blockquote>
+<blockquote>結果: <strong>61 / 100</strong></blockquote>
+<p><img src="assets/2026-06-27-watchflow-trial001-score-card.png" alt="WatchFlow Trial 001 採点速報" loading="lazy"></p>
+<h2>まず結果</h2>
+<p>Trial 001では、前回作った初回プロンプトをCodexに渡し、Next.js + TypeScriptでYouTube風動画視聴アプリ「WatchFlow」を生成させた。</p>
+<p>結論から言うと、初回としてはかなり作れた。</p>
+<ul>
+<li>Next.js App Router</li>
+<li>TypeScript strict</li>
+<li>日本語UI</li>
+<li>mock API</li>
+<li>mock media</li>
+<li>auth / billing状態API</li>
+<li>動画詳細ページ</li>
+<li>検索ページ</li>
+<li>チャンネルページ</li>
+<li>コメント欄</li>
+<li>動画プレイヤー</li>
+<li>Playwright E2E</li>
+<li>Visual Regression</li>
+<li>Vitest</li>
+<li>GitHub Actions</li>
+<li>Dependabot</li>
+<li>GDPR readiness doc</li>
+<li>技術選定ADR</li>
+</ul>
+<p>ここまで一気に出た。</p>
+<p>一方で、100点にはまだ遠い。スコアは <strong>61 / 100</strong> とした。</p>
+<h2>生成されたアプリ</h2>
+<p><img src="assets/2026-06-27-watchflow-trial001-demo.gif" alt="WatchFlow Trial 001 GIF" loading="lazy"></p>
+<h3>ホーム</h3>
+<p><img src="assets/2026-06-27-watchflow-trial001-home.png" alt="WatchFlow Trial 001 ホーム" loading="lazy"></p>
+<p>ホームは、検索バー、ゲスト状態、動画カード一覧を持っている。日本語UIで、独自名WatchFlowになっており、YouTubeのロゴや実データは使っていない。</p>
+<p>ただし、動画視聴サービスとして見るとまだ薄い。</p>
+<ul>
+<li>サイドナビがない</li>
+<li>カテゴリレールがない</li>
+<li>ショート、履歴、登録チャンネル、プレイリスト導線がない</li>
+<li>動画カードの情報量が少ない</li>
+<li>ホームの下半分がかなり空いている</li>
+</ul>
+<p>「YouTube風」というより、「動画カードの一覧ページ」に近い。</p>
+<h3>動画詳細</h3>
+<p><img src="assets/2026-06-27-watchflow-trial001-watch.png" alt="WatchFlow Trial 001 動画詳細" loading="lazy"></p>
+<p>動画詳細は、かなり良い出発点になっている。</p>
+<ul>
+<li>poster表示</li>
+<li>再生/一時停止</li>
+<li>シーク</li>
+<li>音量</li>
+<li>字幕ボタン</li>
+<li>メディア状態切り替え</li>
+<li>概要</li>
+<li>チャンネル概要</li>
+<li>コメント</li>
+<li>関連動画欄</li>
+</ul>
+<p>一方で、右カラムの関連動画は見出しだけが目立ち、初期表示で回遊体験が弱い。動画プレイヤーも、本格的な動画サービスとしてはまだ不足が多い。</p>
+<p>不足しているもの:</p>
+<ul>
+<li>再生速度</li>
+<li>全画面</li>
+<li>Picture in Picture</li>
+<li>字幕切り替えUI</li>
+<li>buffer量表示</li>
+<li>実ストリーミング制御</li>
+<li>プレミアム状態による体験差分</li>
+<li>session expiredやpayment failedの画面反映</li>
+</ul>
+<h3>検索空状態</h3>
+<p><img src="assets/2026-06-27-watchflow-trial001-search-empty.png" alt="WatchFlow Trial 001 検索空状態" loading="lazy"></p>
+<p>検索結果なしの空状態は実装されていた。これは良い。</p>
+<p>ただし、検索結果ページ全体としては、ソート、フィルタ、候補表示、検索履歴、チャンネル/動画/プレイリストの種別表示まではない。</p>
+<h2>生成された構成</h2>
+<p>生成物は次のような構成だった。</p>
+<pre><code>/path/to/project-root/experiments/watchflow-trial-001/generated-repo/
+  app/
+    api/
+      auth/
+      billing/
+      comments/
+      media/
+      search/
+      videos/
+    channel/[id]/
+    search/
+    watch/[id]/
+  features/
+    channel/
+    comments/
+    layout/
+    video/
+  lib/
+    api/
+    i18n/
+    mocks/
+    privacy/
+    utils/
+  e2e/
+    watchflow.spec.ts
+    visual.spec.ts
+  docs/
+    decisions/
+    privacy-gdpr-readiness.md
+    score-self-review.md
+    testing.md
+  .github/
+    workflows/ci.yml
+    dependabot.yml</code></pre>
+<p>1ファイル巨大実装ではなく、<code>app/</code>、<code>features/</code>、<code>components/ui/</code>、<code>lib/</code> に分かれている。これはTrial 001としてはかなり良い。</p>
+<p>ただし、<code>VideoPlayer.tsx</code> は165行あり、再生状態、UI、イベント処理、字幕ボタン、error/retryが集中している。100点を狙うなら、次回は次のように分けたい。</p>
+<pre><code>VideoPlayerShell
+PlayerControls
+CaptionControls
+usePlayerStateMachine
+mediaAdapter
+playerErrorMapper</code></pre>
+<h2>依存関係と技術選定</h2>
+<p><code>package.json</code> はこうなった。</p>
+<pre><code>{
+  &quot;packageManager&quot;: &quot;npm@10.9.8&quot;,
+  &quot;engines&quot;: {
+    &quot;node&quot;: &quot;&gt;=22.23.0 &lt;23&quot;,
+    &quot;npm&quot;: &quot;&gt;=10.9.0 &lt;11&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;lucide-react&quot;: &quot;1.21.0&quot;,
+    &quot;next&quot;: &quot;16.2.9&quot;,
+    &quot;react&quot;: &quot;19.2.7&quot;,
+    &quot;react-dom&quot;: &quot;19.2.7&quot;
+  }
+}</code></pre>
+<p>良い点:</p>
+<ul>
+<li>lockfileがある</li>
+<li>Node/npm versionが明示されている</li>
+<li>依存バージョンがpinされている</li>
+<li>ADRに技術選定理由がある</li>
+<li><code>npm audit</code> は0 vulnerabilities</li>
+</ul>
+<p>気になる点:</p>
+<ul>
+<li>こちらの標準としてはpnpmを想定していたが、Codexはnpmを選んだ</li>
+<li>Next.js 16.2.9 / React 19.2.7 / TypeScript 6.0.3というかなり新しい組み合わせを選んだ</li>
+<li>実務で安定版として採用してよいかは別途判断が必要</li>
+<li>依存採用理由はあるが、バージョン採用理由はまだ弱い</li>
+</ul>
+<p>ここはTrial 002で、package managerとバージョン方針をより明示する必要がある。</p>
+<h2>実行した検証</h2>
+<h3>lint / typecheck / unit / build</h3>
+<p>すべて通った。</p>
+<pre><code>npm run lint       exit=0
+npm run typecheck  exit=0
+npm run test       exit=0
+npm run build      exit=0</code></pre>
+<p>Unit Test結果:</p>
+<p><img src="assets/2026-06-27-watchflow-trial001-terminal-unit.png" alt="WatchFlow Trial 001 Unit Test" loading="lazy"></p>
+<p>ただし、VitestでReactの <code>act(...)</code> warning が出ている。テストは合格だが、ユーザー操作後の状態更新を正しく待てていない可能性がある。100点基準では失点にする。</p>
+<h3>E2E / Visual Regression</h3>
+<p>最初の <code>npm run test:e2e</code> は一部失敗した。</p>
+<p>理由は、FirefoxブラウザがローカルのPlaywright環境に入っていなかったためである。</p>
+<pre><code>Firefox: browser executable doesn&#x27;t exist</code></pre>
+<p><code>npx playwright install firefox</code> も試したが、600秒でtimeoutした。そのため、今回は環境制約として記録し、Chromium / WebKitだけを再実行した。</p>
+<p>Chromium / WebKitは合格した。</p>
+<pre><code>npx playwright test --project=chromium --project=webkit
+8 passed</code></pre>
+<p><img src="assets/2026-06-27-watchflow-trial001-terminal-e2e.png" alt="WatchFlow Trial 001 E2E" loading="lazy"></p>
+<p>Playwright HTML reportも生成された。</p>
+<p><img src="assets/2026-06-27-watchflow-trial001-playwright-report.png" alt="WatchFlow Trial 001 Playwright Report" loading="lazy"></p>
+<p>ただし、LCP対象画像に対してNext.jsが次のwarningを出している。</p>
+<pre><code>Image with src &quot;/api/media/poster?v=vf-001&quot; was detected as the Largest Contentful Paint (LCP).
+Please add the loading=&quot;eager&quot; property if this image is above the fold.</code></pre>
+<p>これもTrial 002の改善対象にする。</p>
+<h2>採点</h2>
+<table>
+<tr><th>カテゴリ</th><th>配点</th><th>Trial 001</th><th>理由</th></tr>
+<tr><td>Product Parity</td><td>10</td><td>5</td><td>ホーム、検索、動画詳細、コメント、チャンネルはあるが、サイドナビ、履歴、登録、プレイリスト、通知などが弱い</td></tr>
+<tr><td>Video Experience</td><td>12</td><td>7</td><td>poster、再生/停止、シーク、音量、字幕track、失敗/リトライはある。再生速度、全画面、PiP、字幕切替UIはない</td></tr>
+<tr><td>Network / State Handling</td><td>10</td><td>6</td><td>検索空状態、メディア失敗、遅延、404、retryはある。offline、timeout、session expired、payment failedの画面反映は限定的</td></tr>
+<tr><td>Mock Backend Contracts</td><td>8</td><td>5</td><td>Route HandlerでAPI/auth/billing/mediaはあるが、docker-composeや独立mock service、テストからの状態制御はない</td></tr>
+<tr><td>Technical Foundation / Dependency Governance</td><td>10</td><td>6</td><td>Node/npm/lockfile/pinning/ADRはある。pnpmではなくnpm、バージョン採用理由が弱い</td></tr>
+<tr><td>Next.js Architecture Fitness</td><td>10</td><td>7</td><td>App Router、Route Handler、loading/error/not-found、Client VideoPlayer分離は良い。キャッシュ/Server Component戦略は浅い</td></tr>
+<tr><td>Component Architecture</td><td>8</td><td>6</td><td>feature/ui/lib分離あり。VideoPlayerに責務が集中</td></tr>
+<tr><td>Design System</td><td>8</td><td>4</td><td>独自見た目とCSS variablesはあるが、design token文書、variant体系、コンポーネントカタログはない</td></tr>
+<tr><td>Accessibility</td><td>8</td><td>5</td><td>aria-label、role、button名、caption trackはある。axe検査、focus order、contrast証拠は不足</td></tr>
+<tr><td>E2E / Visual / Unit</td><td>13</td><td>6</td><td>Unit/Component/E2E/Visualあり。Firefox未実行、テスト数が少ない、coverage未取得</td></tr>
+<tr><td>Public Repo Operations</td><td>6</td><td>4</td><td>GitHub Actions、Dependabot、README、docsあり。license、artifact運用の実CI確認、商標注意が不足</td></tr>
+<tr><td><strong>合計</strong></td><td><strong>100</strong></td><td><strong>61</strong></td><td>初回としては優秀だが、100点にはまだ遠い</td></tr>
+</table>
+<h2>Trial 001で分かったこと</h2>
+<p>雑プロンプトとはいえ、今回のプロンプトはかなり要求が多い。だから、Codexは最初から多くの成果物を出した。</p>
+<p>特に良かったのは次の点。</p>
+<ul>
+<li>App Routerを使った</li>
+<li>Route Handlerでmock APIを作った</li>
+<li>動画プレイヤーをClient Componentにした</li>
+<li>E2E、Visual、Unitを最初から入れた</li>
+<li>CIとDependabotも作った</li>
+<li>GDPR readiness docも作った</li>
+</ul>
+<p>一方で、100点を狙うには「作った」だけでは足りない。</p>
+<ul>
+<li>Firefoxが実行できる状態までセットアップできていない</li>
+<li>動画サービス特有の再生体験が浅い</li>
+<li>mock backendがRoute Handlerに閉じていて、障害注入が弱い</li>
+<li>課金・認証状態がUI体験に十分接続されていない</li>
+<li>Design Systemが文書化されていない</li>
+<li>coverageやaxeがない</li>
+<li>バージョン選定理由が浅い</li>
+</ul>
+<p>つまり、Trial 002では「何を作るか」ではなく、<strong>どのように検証可能に作るか</strong>をより強く指示する必要がある。</p>
+<h2>Trial 002へ戻す指示差分</h2>
+<p>次回のAI Task Packetには、最低限これを追加する。</p>
+<pre><code>- package managerはpnpm固定にする
+- Next.js/React/TypeScriptの安定版バージョンを明示し、採用理由をADRに書く
+- Playwright browsers installをセットアップ手順とCIに入れる
+- Firefox未導入を事前検出するdoctor scriptを作る
+- mock-api / mock-media / mock-auth / mock-billingをdocker-composeで独立サービス化する
+- VideoPlayerをstate machine、media adapter、controls、captionsへ分解する
+- payment_failed、session_expired、offline、timeoutを実画面とE2Eで確認する
+- axeによるアクセシビリティ検査をE2Eに追加する
+- Unit Testのcoverage閾値を設定する
+- Design System文書とコンポーネントカタログを作る
+- LCP対象posterのloading/eager優先度を明示する</code></pre>
+<h2>まとめ</h2>
+<p>Trial 001は、初回としてはかなり良い。</p>
+<p>しかし、100点の動画サービス風アプリではない。</p>
+<p>今回の一番大きな学びは、AIに「E2EもVisualもCIもDependabotも入れて」と書けば、かなりの箱は作るということだ。一方で、その箱が本当にプロ品質で回るか、失敗状態を制御できるか、ブラウザを揃えられるか、設計として保守できるかは別問題である。</p>
+<p>次回は、WatchFlowを「作れるアプリ」から「検証可能なアプリ」へ寄せる。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="001-series-roadmap.html"><span>前の記事</span>WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a><a class="next" href="2026-06-27-accessibility-contract-vibe-faq.html"><span>次の記事</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a></nav></main></div></body></html>
