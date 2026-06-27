@@ -1,0 +1,8 @@
+Created [server.js](/Users/tto/codex-mastery-lab/experiments/2026-06-27-contact-api-threat-model/vibe-api/server.js) with a dependency-free Node HTTP API:
+
+- `GET /health`
+- `POST /api/contact` accepting JSON `name`, `email`, `company`, `message`
+- JSON success and validation/error responses
+- Uses only built-in Node modules
+
+Verification passed: `node --check experiments/2026-06-27-contact-api-threat-model/vibe-api/server.js`.

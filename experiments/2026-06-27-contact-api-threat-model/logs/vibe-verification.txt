@@ -1,0 +1,32 @@
+## node --check vibe
+## smoke vibe
+GET /health => 200 {"ok":true,"status":"healthy"}
+POST /api/contact valid => 201 {"ok":true,"message":"Contact request received","contact":{"name":"Taro Test","email":"taro@example.com","company":"AIDD Lab"}}
+response_headers_subset {'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store'}
+POST /api/contact invalid => 422 {"ok":false,"errors":["name is required","email must be valid","message is required"]}
+SERVER_LOG:
+Contact API listening on http://localhost:53440
+## static audit vibe
+APP: experiments/2026-06-27-contact-api-threat-model/vibe-api
+SIZES: server_js_bytes=3840
+PASS: server.js exists
+PASS: uses built-in http module
+PASS: no Express or external web framework dependency
+PASS: GET /health is implemented
+PASS: POST /api/contact is implemented
+PASS: requires or returns application/json
+PASS: request body size limit is explicit and small
+PASS: field length validation exists
+PASS: email validation exists
+FAIL: CSRF or browser-origin protection is documented/implemented
+FAIL: Origin allowlist policy exists
+FAIL: rate limit with 429 behavior exists
+FAIL: request id is generated or propagated
+FAIL: audit logging policy exists
+FAIL: console logging avoids direct PII payload dumping
+FAIL: retention/no-persistence policy exists
+FAIL: data classification covers PII
+FAIL: error response contract is documented
+FAIL: SECURITY_OPERATIONS.md evidence file exists
+FAIL: evidence file contains verification commands/results
+SUMMARY: 9 passed / 11 failed

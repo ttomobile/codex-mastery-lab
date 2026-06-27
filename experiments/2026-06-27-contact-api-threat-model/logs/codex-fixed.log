@@ -1,0 +1,10 @@
+Implemented the packet entirely inside `experiments/2026-06-27-contact-api-threat-model/fixed-api`.
+
+Added:
+- `server.js`: dependency-free Node HTTP API with `/health`, `/api/contact`, validation, request IDs, origin/CSRF checks, body limit, rate limiting, no PII logging, and consistent JSON errors.
+- `SECURITY_OPERATIONS.md`: required security/operations evidence and expected verification results.
+
+Verification results:
+- `node --check .../fixed-api/server.js`: passed
+- `python3 .../smoke_contact_api.py .../fixed-api`: passed
+- `python3 .../audit_contact_api.py .../fixed-api`: passed, `20 passed / 0 failed`

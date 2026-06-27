@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Vibe API versus fixed API audit comparison</title>
+  <desc id="desc">Comparison showing missing security and operations evidence in vibe API and complete checks in fixed API.</desc>
+  <style>
+    .bg{fill:#f8fafc}.title{font:800 32px system-ui,-apple-system,Segoe UI,sans-serif;fill:#0f172a}.sub{font:16px system-ui;fill:#475569}.head{font:700 20px system-ui;fill:#fff}.cell{font:15px system-ui;fill:#0f172a}.muted{font:13px system-ui;fill:#64748b}.ok{fill:#dcfce7;stroke:#22c55e}.ng{fill:#fee2e2;stroke:#ef4444}.card{rx:20;stroke-width:2}.pill{font:700 15px system-ui;fill:#fff}
+  </style>
+  <rect class="bg" width="1200" height="520"/>
+  <text x="60" y="60" class="title">問い合わせAPI: 雑プロンプト版とTask Packet版の監査差分</text>
+  <text x="60" y="88" class="sub">同じ小さなNode APIでも、前工程でSecurity / Operations Contractを渡すと後工程の読める証拠が増える。</text>
+
+  <rect x="70" y="125" width="500" height="330" rx="24" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="70" y="125" width="500" height="64" rx="24" fill="#ef4444"/>
+  <text x="100" y="165" class="head">Vibe API</text>
+  <text x="440" y="165" class="pill">9 PASS / 11 FAIL</text>
+
+  <g transform="translate(105 220)">
+    <rect class="ng card" width="28" height="28"/><text x="42" y="20" class="cell">CSRF / Origin allowlist がない</text>
+    <rect y="45" class="ng card" width="28" height="28"/><text x="42" y="65" class="cell">Rate limit / 429 がない</text>
+    <rect y="90" class="ng card" width="28" height="28"/><text x="42" y="110" class="cell">Request ID / audit log がない</text>
+    <rect y="135" class="ng card" width="28" height="28"/><text x="42" y="155" class="cell">Data classification / retention がない</text>
+    <rect y="180" class="ng card" width="28" height="28"/><text x="42" y="200" class="cell">SECURITY_OPERATIONS.md がない</text>
+  </g>
+  <text x="105" y="430" class="muted">ただし、JSON API・入力検証・body limitはCodexが自律的に入れた。</text>
+
+  <rect x="630" y="125" width="500" height="330" rx="24" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="630" y="125" width="500" height="64" rx="24" fill="#16a34a"/>
+  <text x="660" y="165" class="head">Fixed API with AI Task Packet v0.4</text>
+  <text x="990" y="165" class="pill">20 PASS / 0 FAIL</text>
+
+  <g transform="translate(665 220)">
+    <rect class="ok card" width="28" height="28"/><text x="42" y="20" class="cell">Origin allowlist + X-CSRF-Token</text>
+    <rect y="45" class="ok card" width="28" height="28"/><text x="42" y="65" class="cell">In-memory per-IP rate limit + 429</text>
+    <rect y="90" class="ok card" width="28" height="28"/><text x="42" y="110" class="cell">X-Request-Id + 非PII audit log</text>
+    <rect y="135" class="ok card" width="28" height="28"/><text x="42" y="155" class="cell">PII classification + no-persistence retention</text>
+    <rect y="180" class="ok card" width="28" height="28"/><text x="42" y="200" class="cell">SECURITY_OPERATIONS.md に検証証拠</text>
+  </g>
+  <text x="665" y="430" class="muted">実行ログ: experiments/2026-06-27-contact-api-threat-model/logs/fixed-verification.txt</text>
+</svg>

@@ -1,0 +1,205 @@
+## git status --short
+ M backlog.md
+ M book/outline.md
+ M standards/aidd-spec-ai-task-packet-standard-v0.1.md
+?? articles/2026-06-27-contact-api-threat-model.md
+?? assets/2026-06-27-contact-api-audit-comparison.svg
+?? assets/2026-06-27-contact-api-reverse-chain.svg
+?? experiments/2026-06-27-contact-api-threat-model/
+?? logs/2026-06-27-contact-api-threat-model-env.txt
+
+## git diff -- standards/book/backlog
+diff --git a/backlog.md b/backlog.md
+index e5bc870..af7e578 100644
+--- a/backlog.md
++++ b/backlog.md
+@@ -5,7 +5,7 @@
+ - [x] Reverse Engineering Methodology: 雑バイブコーディング成果物を監査し、後工程から前工程成果物を逆算する（2026-06-27 FAQ検索アクセシビリティ契約で実施）
+ - [x] Vibe-coded sample appを1つ作り、監査カテゴリを通して欠陥を洗い出す（2026-06-27 vibe-app）
+ - [x] 監査結果からAI Task Packet v0.1を逆算する（2026-06-27 Accessibility Contract / Verification Evidence）
+-- [ ] AIDD-Spec v0.1: 建築図面に相当する標準成果物体系を定義する
++- [ ] AIDD-Spec v0.1: 建築図面に相当する標準成果物体系を定義する（API Security / Operations Contractを2026-06-27にAI Task Packet v0.4へ追記）
+ - [ ] 書籍企画: 「AI駆動開発時代の設計図面」章立てを毎週更新する
+ - [ ] Product Brief テンプレートとCodex検証
+ - [ ] AI-Ready Requirement Spec テンプレートとCodex検証
+@@ -13,7 +13,7 @@
+ - [ ] System Contract: API/DB/権限/外部連携テンプレート
+ - [x] Non-Functional Contract: Performance Budget / Asset Policy をAI Task Packetへ反映する（2026-06-27 performance-budget-vibe-gallery）
+ - [ ] Non-Functional Contract: 性能/可用性/セキュリティ/コスト/運用テンプレート
+-- [x] AI Task Packet: Codexに渡す最小単位の標準化（2026-06-27: Accessibility / Performance / Security-Privacy の3カテゴリをv0.1へ反映）
++- [x] AI Task Packet: Codexに渡す最小単位の標準化（2026-06-27: Accessibility / Performance / Security-Privacy / API Security-Operations の4カテゴリをv0.1へ反映）
+ - [ ] Verification Evidence: 「できた」の証拠標準
+ - [ ] Learning Log: 失敗を標準とプロンプトに還元する仕組み
+ - [ ] AIDD Control Plane SaaS MVP仕様
+@@ -50,7 +50,9 @@
+ - [x] 次回候補: 同じFAQ題材で「Performance Budget」を事前に渡すとCLS/LCP系の欠陥が減るか検証する（2026-06-27: 静的SaaSギャラリーでPerformance Budget Contractを検証。次は実Lighthouse接続）
+ - [ ] 次回候補: 追加依存を最小化して Lighthouse / axe / Playwright のうち1つを実行し、静的監査とのズレを比較する
+ - [x] 次回候補: 問い合わせフォームの Security Baseline / Privacy Contract を静的監査で検証する（2026-06-27 security-baseline-contact-form）
+-- [ ] 次回候補: 同じ問い合わせフォームで、サーバーAPIを足した場合の CSRF / rate limit / audit log / retention を逆算する
++- [x] 次回候補: 同じ問い合わせフォームで、サーバーAPIを足した場合の CSRF / rate limit / audit log / retention を逆算する（2026-06-27 contact-api-threat-model）
++- [ ] 次回候補: 問い合わせAPIで Origin拒否 / CSRF拒否 / rate limit 429 のnegative testを実HTTPで自動化する
++- [ ] 次回候補: SECURITY_OPERATIONS.mdをAIDD Control Planeのフォーム項目から生成するMVPを作る
+ 
+ - [ ] 2つのCodexに実装案を競わせる
+ - [ ] Codex実装をHermesがレビューする二段構え
+diff --git a/book/outline.md b/book/outline.md
+index dad9f07..7668fdd 100644
+--- a/book/outline.md
++++ b/book/outline.md
+@@ -108,6 +108,7 @@ AIに「いい感じに作って」と頼む時代は終わる。これから必
+ - 2026-06-27: 「雑なFAQ検索アプリのアクセシビリティ監査からAI Task Packetを逆算する」 — 第6章 Design Contract、第9章 AI Task Packet、第10章 Verification Evidence、第12章 雑プロンプト vs AI Task Packet に接続。
+ - 2026-06-27: 「プレミアムにしてで膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる」 — 第8章 Non-Functional Contract、第9章 AI Task Packet、第10章 Verification Evidence、第12章 雑プロンプト vs AI Task Packet、第17章 16GB Mac miniで回す現実的なAI開発環境に接続。
+ - 2026-06-27: 「問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する」 — 第7章 System Contract、第8章 Non-Functional Contract、第9章 AI Task Packet、第10章 Verification Evidence、第12章 雑プロンプト vs AI Task Packet に接続。
++- 2026-06-27: 「問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する」 — 第7章 System Contract、第8章 Non-Functional Contract、第9章 AI Task Packet、第10章 Verification Evidence、第12章 雑プロンプト vs AI Task Packet、第16章 AI実装レビューを3層に分ける に接続。
+ 
+ 各記事は以下のどれかに分類する。
+ 
+diff --git a/standards/aidd-spec-ai-task-packet-standard-v0.1.md b/standards/aidd-spec-ai-task-packet-standard-v0.1.md
+index a694467..0c22ebe 100644
+--- a/standards/aidd-spec-ai-task-packet-standard-v0.1.md
++++ b/standards/aidd-spec-ai-task-packet-standard-v0.1.md
+@@ -42,6 +42,17 @@ privacy_contract:
+   consent_required: boolean
+   retention_policy: string
+   storage_policy: string
++api_security_contract:
++  allowed_origins: []
++  csrf_policy: string
++  request_body_limit: string
++  public_write_endpoints: []
++api_operations_contract:
++  request_id_policy: string
++  rate_limit_policy: string
++  audit_log_policy: string
++  error_response_contract: string
++  retention_evidence: string
+ performance_budget_contract:
+   total_static_bytes: string
+   css_budget: string
+@@ -236,7 +247,54 @@ verification_evidence:
+     - SECURITY_PRIVACY.md
+ ```
+ 
+-## 6. AI Task Packetテンプレート Lite
++## 6. Contact API Security / Operations実験から追加した項目
++
++### 6.1 `api_security_contract.allowed_origins` / `csrf_policy`
++
++ブラウザから呼ばれる公開POST APIは、UIと同じく「動いた」だけでは不十分である。後工程のセキュリティ監査は、どのOriginを信頼し、CSRFをどの境界で扱うかを読む必要がある。今回の雑プロンプト版はJSON APIとしては成立したが、CSRF / Origin allowlist の仕様と証拠がなかった。
++
++例:
++
++```yaml
++api_security_contract:
++  public_write_endpoints:
++    - POST /api/contact
++  allowed_origins:
++    - http://127.0.0.1
++  csrf_policy: "Browser-origin POST requests must include X-CSRF-Token matching the configured CSRF_TOKEN. Demo token is allowed only for local prototype and must be documented as non-production auth."
++  request_body_limit: "16KB for contact API demo"
++```
++
++### 6.2 `api_operations_contract.rate_limit_policy`
++
++公開write endpointには、たとえ小さなデモでも濫用境界が必要である。AI Task Packetに rate limit を書かない場合、Codexは入力検証までは入れても、負荷・コスト・スパムの境界を省きやすい。
++
++例:
++
++```yaml
++api_operations_contract:
++  rate_limit_policy: "POST /api/contact: 5 requests per IP per 60 seconds in memory for demo; return 429 with Retry-After when exceeded."
++```
++
++### 6.3 `api_operations_contract.request_id_policy` / `audit_log_policy` / `error_response_contract`
++
++運用担当が読む証拠として、request id、非PII audit log、一貫したerror response contractを標準項目にする。チャット上の「確認しました」ではなく、`SECURITY_OPERATIONS.md` と実行ログに残す。
++
++例:
++
++```yaml
++api_operations_contract:
++  request_id_policy: "Generate or propagate X-Request-Id on every response"
++  audit_log_policy: "Log JSON lines with requestId, method, path, status, decision only; never log raw request body or PII fields"
++  error_response_contract: "{ ok: false, error: { code, message, requestId } }"
++  retention_evidence: "SECURITY_OPERATIONS.md documents no persistence; payload exists only in current request memory"
++verification_evidence:
++  files_to_attach:
++    - SECURITY_OPERATIONS.md
++    - logs/fixed-verification.txt
++```
++
++## 7. AI Task Packetテンプレート Lite
+ 
+ ```markdown
+ # AI Task Packet: <task name>
+@@ -285,6 +343,21 @@ verification_evidence:
+ - Retention policy:
+ - Storage policy:
+ 
++## API Security Contract
++
++- Public write endpoints:
++- Allowed origins:
++- CSRF policy:
++- Request body limit:
++
++## API Operations Contract
++
++- Request ID policy:
++- Rate limit policy:
++- Audit log policy:
++- Error response contract:
++- Retention evidence:
++
+ ## Performance Budget Contract
+ 
+ - Total static bytes:
+@@ -317,7 +390,7 @@ Run these commands and include results:
+ - Known limitations:
+ ```
+ 
+-## 7. Control Plane機能仮説
++## 8. Control Plane機能仮説
+ 
+ AIDD Control Planeでは、AI Task Packetを自由記述ではなくフォームとして生成する。
+ 
+@@ -327,7 +400,7 @@ AIDD Control Planeでは、AI Task Packetを自由記述ではなくフォーム
+ - フォームUIでは PII/Data Classification、retention、consent、no-network/no-storage を必須入力にする
+ - Codex実行ログ、監査結果、修正プロンプトを Learning Log に自動保存する
+ 
+-## 8. 今日の検証結果との対応
++## 9. 今日の検証結果との対応
+ 
+ 2026-06-27 の FAQ検索アプリ実験では、雑プロンプト版で以下が抜けた。
+ 
+@@ -349,3 +422,14 @@ AI Task Packet v0.1にこれらを事前に入れると、fixed-appでは静的
+ - `SECURITY_PRIVACY.md` による監査証跡
+ 
+ AI Task Packet v0.3に Security Contract / Privacy Contract / Verification Evidence を事前に入れると、fixed-appでは静的セキュリティ監査が `18 passed / 0 failed` になった。
++
++2026-06-27 の問い合わせAPI Security / Operations実験では、雑プロンプト版で以下が抜けた。
++
++- CSRF / Origin allowlist の明示
++- public write endpoint の rate limit と `429` 挙動
++- `X-Request-Id` と非PII audit log
++- data classification と retention/no-persistence の証拠
++- 一貫した error response contract
++- `SECURITY_OPERATIONS.md` による監査証跡
++
++AI Task Packet v0.4に API Security Contract / API Operations Contract / Verification Evidence を事前に入れると、fixed-apiでは静的API監査が `20 passed / 0 failed` になった。
+
+## experiment files
+experiments/2026-06-27-contact-api-threat-model/AI_TASK_PACKET_v0.4.md
+experiments/2026-06-27-contact-api-threat-model/FINDINGS.md
+experiments/2026-06-27-contact-api-threat-model/PLAN.md
+experiments/2026-06-27-contact-api-threat-model/audit_contact_api.py
+experiments/2026-06-27-contact-api-threat-model/fixed-api/SECURITY_OPERATIONS.md
+experiments/2026-06-27-contact-api-threat-model/fixed-api/server.js
+experiments/2026-06-27-contact-api-threat-model/logs/codex-fixed.log
+experiments/2026-06-27-contact-api-threat-model/logs/codex-vibe.log
+experiments/2026-06-27-contact-api-threat-model/logs/env.txt
+experiments/2026-06-27-contact-api-threat-model/logs/fixed-verification.txt
+experiments/2026-06-27-contact-api-threat-model/logs/git-status-and-diff.txt
+experiments/2026-06-27-contact-api-threat-model/logs/vibe-verification.txt
+experiments/2026-06-27-contact-api-threat-model/smoke_contact_api.py
+experiments/2026-06-27-contact-api-threat-model/vibe-api/server.js

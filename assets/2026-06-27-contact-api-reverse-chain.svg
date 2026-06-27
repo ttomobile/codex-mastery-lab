@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Contact API reverse chain</title>
+  <desc id="desc">AIDD reverse engineering chain from missing API security and operations findings to upstream AI Task Packet fields.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#111827"/><stop offset="100%" stop-color="#1e3a8a"/></linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#93c5fd"/></marker>
+    <style>
+      .card{fill:#fff;stroke:#bfdbfe;stroke-width:2;rx:18;filter:url(#shadow)}
+      .h{font:700 24px system-ui,-apple-system,Segoe UI,sans-serif;fill:#f8fafc}
+      .t{font:600 17px system-ui,-apple-system,Segoe UI,sans-serif;fill:#0f172a}
+      .s{font:14px system-ui,-apple-system,Segoe UI,sans-serif;fill:#334155}
+      .label{font:700 13px system-ui,-apple-system,Segoe UI,sans-serif;fill:#2563eb;text-transform:uppercase;letter-spacing:.08em}
+    </style>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#0f172a" flood-opacity=".18"/></filter>
+  </defs>
+  <rect width="1200" height="620" fill="url(#bg)"/>
+  <text x="60" y="60" class="h">問い合わせAPI監査から AI Task Packet へ逆算する</text>
+  <text x="60" y="92" style="font:16px system-ui;fill:#dbeafe">後工程が読めない欠陥を、前工程の標準成果物へ戻す</text>
+
+  <g transform="translate(60 135)">
+    <rect class="card" width="300" height="130"/>
+    <text x="24" y="35" class="label">Finding</text>
+    <text x="24" y="65" class="t">動くAPIだが証拠がない</text>
+    <text x="24" y="92" class="s">CSRF / Origin / rate limit /</text>
+    <text x="24" y="114" class="s">request id / retention が不在</text>
+  </g>
+  <line x1="370" y1="200" x2="455" y2="200" stroke="#93c5fd" stroke-width="4" marker-end="url(#arrow)"/>
+  <g transform="translate(470 135)">
+    <rect class="card" width="300" height="130"/>
+    <text x="24" y="35" class="label">Ideal state</text>
+    <text x="24" y="65" class="t">APIは運用図面を持つ</text>
+    <text x="24" y="92" class="s">脅威境界・濫用境界・</text>
+    <text x="24" y="114" class="s">監査証跡が再確認できる</text>
+  </g>
+  <line x1="780" y1="200" x2="865" y2="200" stroke="#93c5fd" stroke-width="4" marker-end="url(#arrow)"/>
+  <g transform="translate(880 135)">
+    <rect class="card" width="260" height="130"/>
+    <text x="24" y="35" class="label">Fix instruction</text>
+    <text x="24" y="65" class="t">制御と証拠を実装</text>
+    <text x="24" y="92" class="s">Origin/CSRF、429、</text>
+    <text x="24" y="114" class="s">X-Request-Id、Evidence</text>
+  </g>
+
+  <line x1="1010" y1="270" x2="1010" y2="342" stroke="#93c5fd" stroke-width="4" marker-end="url(#arrow)"/>
+  <g transform="translate(820 360)">
+    <rect class="card" width="330" height="145"/>
+    <text x="24" y="35" class="label">Needed upstream info</text>
+    <text x="24" y="65" class="t">前工程で決めるべきこと</text>
+    <text x="24" y="92" class="s">Trusted origins / CSRF policy</text>
+    <text x="24" y="114" class="s">Load assumption / audit policy</text>
+    <text x="24" y="136" class="s">Data classification / retention</text>
+  </g>
+  <line x1="815" y1="432" x2="730" y2="432" stroke="#93c5fd" stroke-width="4" marker-end="url(#arrow)"/>
+  <g transform="translate(390 360)">
+    <rect class="card" width="330" height="145"/>
+    <text x="24" y="35" class="label">AI Task Packet delta</text>
+    <text x="24" y="65" class="t">API Security / Ops Contract</text>
+    <text x="24" y="92" class="s">allowed_origins, csrf_policy,</text>
+    <text x="24" y="114" class="s">rate_limit, request_id,</text>
+    <text x="24" y="136" class="s">security_operations_evidence</text>
+  </g>
+  <line x1="385" y1="432" x2="300" y2="432" stroke="#93c5fd" stroke-width="4" marker-end="url(#arrow)"/>
+  <g transform="translate(60 360)">
+    <rect class="card" width="230" height="145"/>
+    <text x="24" y="35" class="label">Result</text>
+    <text x="24" y="65" class="t">監査結果が改善</text>
+    <text x="24" y="95" class="s">vibe: 9 pass / 11 fail</text>
+    <text x="24" y="120" class="s">fixed: 20 pass / 0 fail</text>
+  </g>
+</svg>

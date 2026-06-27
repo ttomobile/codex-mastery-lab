@@ -5,7 +5,7 @@
 - [x] Reverse Engineering Methodology: 雑バイブコーディング成果物を監査し、後工程から前工程成果物を逆算する（2026-06-27 FAQ検索アクセシビリティ契約で実施）
 - [x] Vibe-coded sample appを1つ作り、監査カテゴリを通して欠陥を洗い出す（2026-06-27 vibe-app）
 - [x] 監査結果からAI Task Packet v0.1を逆算する（2026-06-27 Accessibility Contract / Verification Evidence）
-- [ ] AIDD-Spec v0.1: 建築図面に相当する標準成果物体系を定義する
+- [ ] AIDD-Spec v0.1: 建築図面に相当する標準成果物体系を定義する（API Security / Operations Contractを2026-06-27にAI Task Packet v0.4へ追記）
 - [ ] 書籍企画: 「AI駆動開発時代の設計図面」章立てを毎週更新する
 - [ ] Product Brief テンプレートとCodex検証
 - [ ] AI-Ready Requirement Spec テンプレートとCodex検証
@@ -13,7 +13,7 @@
 - [ ] System Contract: API/DB/権限/外部連携テンプレート
 - [x] Non-Functional Contract: Performance Budget / Asset Policy をAI Task Packetへ反映する（2026-06-27 performance-budget-vibe-gallery）
 - [ ] Non-Functional Contract: 性能/可用性/セキュリティ/コスト/運用テンプレート
-- [x] AI Task Packet: Codexに渡す最小単位の標準化（2026-06-27: Accessibility / Performance / Security-Privacy の3カテゴリをv0.1へ反映）
+- [x] AI Task Packet: Codexに渡す最小単位の標準化（2026-06-27: Accessibility / Performance / Security-Privacy / API Security-Operations の4カテゴリをv0.1へ反映）
 - [ ] Verification Evidence: 「できた」の証拠標準
 - [ ] Learning Log: 失敗を標準とプロンプトに還元する仕組み
 - [ ] AIDD Control Plane SaaS MVP仕様
@@ -50,7 +50,9 @@
 - [x] 次回候補: 同じFAQ題材で「Performance Budget」を事前に渡すとCLS/LCP系の欠陥が減るか検証する（2026-06-27: 静的SaaSギャラリーでPerformance Budget Contractを検証。次は実Lighthouse接続）
 - [ ] 次回候補: 追加依存を最小化して Lighthouse / axe / Playwright のうち1つを実行し、静的監査とのズレを比較する
 - [x] 次回候補: 問い合わせフォームの Security Baseline / Privacy Contract を静的監査で検証する（2026-06-27 security-baseline-contact-form）
-- [ ] 次回候補: 同じ問い合わせフォームで、サーバーAPIを足した場合の CSRF / rate limit / audit log / retention を逆算する
+- [x] 次回候補: 同じ問い合わせフォームで、サーバーAPIを足した場合の CSRF / rate limit / audit log / retention を逆算する（2026-06-27 contact-api-threat-model）
+- [ ] 次回候補: 問い合わせAPIで Origin拒否 / CSRF拒否 / rate limit 429 のnegative testを実HTTPで自動化する
+- [ ] 次回候補: SECURITY_OPERATIONS.mdをAIDD Control Planeのフォーム項目から生成するMVPを作る
 
 - [ ] 2つのCodexに実装案を競わせる
 - [ ] Codex実装をHermesがレビューする二段構え
