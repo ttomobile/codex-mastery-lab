@@ -16,6 +16,7 @@ SERIES_ORDER = [
     '001-series-roadmap.md',
     '2026-06-27-watchflow-trial-001.md',
     '2026-06-27-watchflow-trial-002.md',
+    '2026-06-27-watchflow-trial-003.md',
     '2026-06-27-accessibility-contract-vibe-faq.md',
     '2026-06-27-performance-budget-vibe-gallery.md',
     '2026-06-27-security-baseline-contact-form.md',
