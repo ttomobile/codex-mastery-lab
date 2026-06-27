@@ -61,11 +61,11 @@ th { background:#f1f5f9; }
   h1 { font-size:28px; }
   h2 { font-size:22px; }
 }
-</style></head><body><div class="mobile-index"><details><summary>連載目次を開く</summary><a href="001-series-roadmap.html">第01回｜第1回｜AIに「いい感じに作って」と頼む前に必要な共通説明書を作る</a>
+</style></head><body><div class="mobile-index"><details><summary>連載目次を開く</summary><a href="001-series-roadmap.html">第01回｜WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
 <a href="2026-06-27-accessibility-contract-vibe-faq.html">第02回｜雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
 <a href="2026-06-27-performance-budget-vibe-gallery.html">第03回｜「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
 <a href="2026-06-27-security-baseline-contact-form.html">第04回｜問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
-<a href="2026-06-27-contact-api-threat-model.html">第05回｜問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a></details></div><div class="layout "><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">スマホ対応プレビュー / 順番に読める連載版</p><a class="chapter-link " href="001-series-roadmap.html"><span class="chapter-num">第01回</span>第1回｜AIに「いい感じに作って」と頼む前に必要な共通説明書を作る</a>
+<a href="2026-06-27-contact-api-threat-model.html">第05回｜問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a></details></div><div class="layout "><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">スマホ対応プレビュー / 順番に読める連載版</p><a class="chapter-link " href="001-series-roadmap.html"><span class="chapter-num">第01回</span>WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
 <a class="chapter-link " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">第02回</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
 <a class="chapter-link current" href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">第03回</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
 <a class="chapter-link " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">第04回</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
@@ -100,9 +100,9 @@ BuildVersion:   25F80
 Disk:           228Gi total / 140Gi available
 Codex CLI:      codex-cli 0.142.3</code></pre>
 <p>実験ディレクトリ:</p>
-<pre><code>/Users/tto/codex-mastery-lab/experiments/2026-06-27-performance-budget-vibe-gallery/</code></pre>
+<pre><code>/path/to/project-root/experiments/2026-06-27-performance-budget-vibe-gallery/</code></pre>
 <p>ログ:</p>
-<pre><code>/Users/tto/codex-mastery-lab/experiments/2026-06-27-performance-budget-vibe-gallery/logs/</code></pre>
+<pre><code>/path/to/project-root/experiments/2026-06-27-performance-budget-vibe-gallery/logs/</code></pre>
 <h2>4. 実験計画</h2>
 <p><code>PLAN.md</code> には、今回の監査カテゴリを次の3つに絞って書いた。</p>
 <ol>
@@ -236,7 +236,7 @@ has gallery True</code></pre>
 <p>差分として大きいのは、単にCSSが短くなったことではない。<code>PERFORMANCE_BUDGET.md</code> が成果物として残ったことである。これにより、後工程のレビュー担当は「何を測ったのか」「どの予算を守ったのか」「どんなトレードオフを選んだのか」を再確認できる。</p>
 <h2>10. AIDD-Specへの反映</h2>
 <p>今回、標準仕様ファイルを更新した。</p>
-<pre><code>/Users/tto/codex-mastery-lab/standards/aidd-spec-ai-task-packet-standard-v0.1.md</code></pre>
+<pre><code>/path/to/project-root/standards/aidd-spec-ai-task-packet-standard-v0.1.md</code></pre>
 <p>追加した主なフィールド:</p>
 <pre><code>performance_budget_contract:
   total_static_bytes: string

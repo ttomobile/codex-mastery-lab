@@ -29,7 +29,7 @@ OS: macOS 26.5.1
 CPU: Apple M4
 Memory: 16GB
 Disk: 228GiB中 141GiB available
-Codex: /Users/tto/.local/bin/codex
+Codex: ~/bin/codex
 Codex CLI: 0.142.3
 Git: 2.50.1
 Node: v22.23.1

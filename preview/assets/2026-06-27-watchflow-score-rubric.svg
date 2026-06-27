@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="920" viewBox="0 0 1400 920">
+  <rect width="1400" height="920" rx="34" fill="#fff"/>
+  <text x="70" y="78" fill="#111827" font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif" font-size="38" font-weight="800">100点ルーブリック v0.1</text>
+  <text x="70" y="118" fill="#64748b" font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif" font-size="20">Next.jsでYouTube風サービスをプロ品質に近づけるための採点表</text>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif" font-size="18">
+    <rect x="70" y="160" width="1260" height="660" rx="24" fill="#f8fafc" stroke="#e2e8f0"/>
+    <g font-weight="800" fill="#0f172a"><text x="110" y="215">カテゴリ</text><text x="900" y="215">点</text><text x="980" y="215">主な確認観点</text></g>
+    <g fill="#334155">
+      <text x="110" y="270">Product Parity</text><text x="910" y="270" font-weight="800">10</text><text x="980" y="270">ホーム、検索、動画詳細、コメント、関連動画</text>
+      <text x="110" y="320">Video Experience</text><text x="910" y="320" font-weight="800">12</text><text x="980" y="320">再生、シーク、字幕、バッファ、失敗、リトライ</text>
+      <text x="110" y="370">Network / State Handling</text><text x="910" y="370" font-weight="800">10</text><text x="980" y="370">loading / empty / error / offline / timeout</text>
+      <text x="110" y="420">Mock Backend Contracts</text><text x="910" y="420" font-weight="800">8</text><text x="980" y="420">API、media、auth、billing、障害モード</text>
+      <text x="110" y="470">Technical Foundation</text><text x="910" y="470" font-weight="800">10</text><text x="980" y="470">Next.js、pinning、lockfile、依存管理、ADR</text>
+      <text x="110" y="520">Next.js Architecture</text><text x="910" y="520" font-weight="800">10</text><text x="980" y="520">App Router、Server/Client境界、Route Handler</text>
+      <text x="110" y="570">Component Architecture</text><text x="910" y="570" font-weight="800">8</text><text x="980" y="570">分解、責務、テスト容易性、API境界</text>
+      <text x="110" y="620">Design System</text><text x="910" y="620" font-weight="800">8</text><text x="980" y="620">tokens、components、variants、responsive</text>
+      <text x="110" y="670">Accessibility</text><text x="910" y="670" font-weight="800">8</text><text x="980" y="670">keyboard、aria、focus、contrast、reduced motion</text>
+      <text x="110" y="720">E2E / Visual / Unit</text><text x="910" y="720" font-weight="800">13</text><text x="980" y="720">multi-browser、pixel基準、coverage、HTML report画像</text>
+      <text x="110" y="770">Public Repo Operations</text><text x="910" y="770" font-weight="800">6</text><text x="980" y="770">CI/CD、Dependabot、公開手順、再現性</text>
+    </g>
+    <line x1="100" y1="235" x2="1300" y2="235" stroke="#cbd5e1"/>
+    <g stroke="#e2e8f0"><line x1="100" y1="292" x2="1300" y2="292"/><line x1="100" y1="342" x2="1300" y2="342"/><line x1="100" y1="392" x2="1300" y2="392"/><line x1="100" y1="442" x2="1300" y2="442"/><line x1="100" y1="492" x2="1300" y2="492"/><line x1="100" y1="542" x2="1300" y2="542"/><line x1="100" y1="592" x2="1300" y2="592"/><line x1="100" y1="642" x2="1300" y2="642"/><line x1="100" y1="692" x2="1300" y2="692"/><line x1="100" y1="742" x2="1300" y2="742"/></g>
+  </g>
+  <rect x="70" y="850" width="1260" height="44" rx="22" fill="#eff6ff"/>
+  <text x="100" y="879" fill="#1d4ed8" font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif" font-size="18" font-weight="700">終了条件: 100点に到達する、または100回試行する。毎回、失点をAI Task PacketとAIDD-Specに戻す。</text>
+</svg>

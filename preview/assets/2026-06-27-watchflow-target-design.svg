@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="1" stop-color="#172033"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <rect width="1400" height="900" rx="34" fill="url(#bg)"/>
+  <text x="70" y="72" fill="#e5e7eb" font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif" font-size="34" font-weight="800">WatchFlow 参照デザイン v0.1</text>
+  <text x="70" y="110" fill="#94a3b8" font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif" font-size="18">YouTubeそのものではなく、動画視聴サービスとして100点を目指すための独自基準画面</text>
+
+  <rect x="70" y="145" width="1260" height="86" rx="26" fill="#111827" stroke="#334155"/>
+  <circle cx="114" cy="188" r="24" fill="#ef4444"/>
+  <text x="150" y="198" fill="#fff" font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif" font-size="30" font-weight="800">WatchFlow</text>
+  <rect x="385" y="165" width="520" height="48" rx="24" fill="#0f172a" stroke="#475569"/>
+  <text x="414" y="197" fill="#94a3b8" font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif" font-size="18">動画、チャンネル、トピックを検索</text>
+  <rect x="930" y="165" width="72" height="48" rx="24" fill="#2563eb"/>
+  <text x="950" y="197" fill="#fff" font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif" font-size="18" font-weight="700">検索</text>
+  <rect x="1140" y="165" width="142" height="48" rx="24" fill="#1e293b" stroke="#475569"/>
+  <text x="1170" y="197" fill="#e5e7eb" font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif" font-size="18" font-weight="700">ゲスト</text>
+
+  <rect x="70" y="260" width="210" height="560" rx="26" fill="#111827" stroke="#334155"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif" font-size="18" fill="#cbd5e1">
+    <text x="105" y="315">ホーム</text>
+    <text x="105" y="370">ショート</text>
+    <text x="105" y="425">登録チャンネル</text>
+    <text x="105" y="480">履歴</text>
+    <text x="105" y="535">あとで見る</text>
+    <text x="105" y="590">プレミアム</text>
+  </g>
+  <rect x="94" y="288" width="162" height="42" rx="20" fill="#2563eb" opacity="0.25"/>
+
+  <rect x="315" y="260" width="640" height="360" rx="28" fill="#020617" filter="url(#shadow)"/>
+  <rect x="342" y="290" width="586" height="270" rx="22" fill="#1e293b"/>
+  <polygon points="600,385 600,465 678,425" fill="#fff" opacity="0.92"/>
+  <rect x="342" y="578" width="586" height="18" rx="9" fill="#334155"/>
+  <rect x="342" y="578" width="248" height="18" rx="9" fill="#ef4444"/>
+  <text x="315" y="675" fill="#f8fafc" font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif" font-size="30" font-weight="800">Next.jsでAI駆動開発を100点に近づける</text>
+  <text x="315" y="712" fill="#94a3b8" font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif" font-size="18">Codex Mastery Lab ・ 12万回視聴 ・ 3日前</text>
+  <rect x="315" y="745" width="126" height="42" rx="21" fill="#1e293b" stroke="#475569"/>
+  <text x="348" y="773" fill="#e5e7eb" font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif" font-size="16">高評価</text>
+  <rect x="455" y="745" width="126" height="42" rx="21" fill="#1e293b" stroke="#475569"/>
+  <text x="488" y="773" fill="#e5e7eb" font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif" font-size="16">共有</text>
+
+  <rect x="990" y="260" width="340" height="560" rx="26" fill="#111827" stroke="#334155"/>
+  <text x="1020" y="310" fill="#f8fafc" font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif" font-size="22" font-weight="800">関連動画</text>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif">
+    <g transform="translate(1020 342)"><rect width="128" height="74" rx="14" fill="#334155"/><rect x="145" width="150" height="16" rx="8" fill="#cbd5e1"/><rect x="145" y="28" width="116" height="12" rx="6" fill="#64748b"/><rect x="145" y="50" width="92" height="12" rx="6" fill="#64748b"/></g>
+    <g transform="translate(1020 452)"><rect width="128" height="74" rx="14" fill="#334155"/><rect x="145" width="150" height="16" rx="8" fill="#cbd5e1"/><rect x="145" y="28" width="116" height="12" rx="6" fill="#64748b"/><rect x="145" y="50" width="92" height="12" rx="6" fill="#64748b"/></g>
+    <g transform="translate(1020 562)"><rect width="128" height="74" rx="14" fill="#334155"/><rect x="145" width="150" height="16" rx="8" fill="#cbd5e1"/><rect x="145" y="28" width="116" height="12" rx="6" fill="#64748b"/><rect x="145" y="50" width="92" height="12" rx="6" fill="#64748b"/></g>
+    <g transform="translate(1020 672)"><rect width="128" height="74" rx="14" fill="#334155"/><rect x="145" width="150" height="16" rx="8" fill="#cbd5e1"/><rect x="145" y="28" width="116" height="12" rx="6" fill="#64748b"/><rect x="145" y="50" width="92" height="12" rx="6" fill="#64748b"/></g>
+  </g>
+</svg>

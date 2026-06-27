@@ -48,13 +48,13 @@ Disk:           228Gi total / 140Gi available
 実験ディレクトリ:
 
 ```text
-/Users/tto/codex-mastery-lab/experiments/2026-06-27-contact-api-threat-model/
+/path/to/project-root/experiments/2026-06-27-contact-api-threat-model/
 ```
 
 ログ:
 
 ```text
-/Users/tto/codex-mastery-lab/experiments/2026-06-27-contact-api-threat-model/logs/
+/path/to/project-root/experiments/2026-06-27-contact-api-threat-model/logs/
 ```
 
 ## 4. 実験計画

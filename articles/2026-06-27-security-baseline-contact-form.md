@@ -56,13 +56,13 @@ Disk:           228Gi total / 140Gi available
 実験ディレクトリ:
 
 ```text
-/Users/tto/codex-mastery-lab/experiments/2026-06-27-security-baseline-contact-form/
+/path/to/project-root/experiments/2026-06-27-security-baseline-contact-form/
 ```
 
 ログ:
 
 ```text
-/Users/tto/codex-mastery-lab/experiments/2026-06-27-security-baseline-contact-form/logs/
+/path/to/project-root/experiments/2026-06-27-security-baseline-contact-form/logs/
 ```
 
 ## 4. 実験計画
@@ -348,7 +348,7 @@ The form declares `data-static-demo="true"`. The application does not call `fetc
 今回、標準仕様ファイルを更新した。
 
 ```text
-/Users/tto/codex-mastery-lab/standards/aidd-spec-ai-task-packet-standard-v0.1.md
+/path/to/project-root/standards/aidd-spec-ai-task-packet-standard-v0.1.md
 ```
 
 追加した主なフィールド:

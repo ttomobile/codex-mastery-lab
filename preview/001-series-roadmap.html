@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第1回｜AIに「いい感じに作って」と頼む前に必要な共通説明書を作る</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</title><style>
 :root {
   color-scheme: light;
   --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
@@ -61,157 +61,269 @@ th { background:#f1f5f9; }
   h1 { font-size:28px; }
   h2 { font-size:22px; }
 }
-</style></head><body><div class="mobile-index"><details><summary>連載目次を開く</summary><a href="001-series-roadmap.html">第01回｜第1回｜AIに「いい感じに作って」と頼む前に必要な共通説明書を作る</a>
+</style></head><body><div class="mobile-index"><details><summary>連載目次を開く</summary><a href="001-series-roadmap.html">第01回｜WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
 <a href="2026-06-27-accessibility-contract-vibe-faq.html">第02回｜雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
 <a href="2026-06-27-performance-budget-vibe-gallery.html">第03回｜「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
 <a href="2026-06-27-security-baseline-contact-form.html">第04回｜問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
-<a href="2026-06-27-contact-api-threat-model.html">第05回｜問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a></details></div><div class="layout "><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">スマホ対応プレビュー / 順番に読める連載版</p><a class="chapter-link current" href="001-series-roadmap.html"><span class="chapter-num">第01回</span>第1回｜AIに「いい感じに作って」と頼む前に必要な共通説明書を作る</a>
+<a href="2026-06-27-contact-api-threat-model.html">第05回｜問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a></details></div><div class="layout "><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">スマホ対応プレビュー / 順番に読める連載版</p><a class="chapter-link current" href="001-series-roadmap.html"><span class="chapter-num">第01回</span>WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
 <a class="chapter-link " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">第02回</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
 <a class="chapter-link " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">第03回</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
 <a class="chapter-link " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">第04回</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
-<a class="chapter-link " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">第05回</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><span></span><a class="next" href="2026-06-27-accessibility-contract-vibe-faq.html"><span>次の記事</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a></nav><article><h1>第1回｜AIに「いい感じに作って」と頼む前に必要な共通説明書を作る</h1>
-<blockquote>2026-06-27 / Codex Mastery Lab 連載リスタート版  </blockquote>
-<blockquote>想定読了時間: 約10分  </blockquote>
-<blockquote>種別: Concept / Roadmap / Book</blockquote>
-<p><img src="assets/2026-06-27-series-roadmap.svg" alt="AIDD-Spec連載ロードマップ" loading="lazy"></p>
-<h2>1. この連載でやりたいこと</h2>
-<p>この連載では、Codexの便利な使い方を紹介するだけでは終わらない。</p>
-<p>目的はもっと大きい。</p>
-<blockquote>AIにWebアプリやスマホアプリを作らせる時代に、最初に何を伝えれば、あとから困らない成果物が出てくるのかを検証し続ける。</blockquote>
-<p>最近のAIコーディングは本当に速い。Codexに「FAQ検索アプリを作って」「問い合わせフォームを作って」と頼むと、数分でそれっぽいものが出てくる。見た目も悪くない。動きもする。はじめて見た人なら「もうこれでいいのでは」と感じるかもしれない。</p>
-<p>しかし、実際の開発では「画面が表示された」だけでは終わらない。</p>
+<a class="chapter-link " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">第05回</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><span></span><a class="next" href="2026-06-27-accessibility-contract-vibe-faq.html"><span>次の記事</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a></nav><article><h1>WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</h1>
+<blockquote>2026-06-27 / Codex Mastery Lab 新シリーズ  </blockquote>
+<blockquote>想定読了時間: 約12分  </blockquote>
+<blockquote>種別: Roadmap / Experiment Design / Scoring Rubric</blockquote>
+<p><img src="assets/2026-06-27-watchflow-target-design.svg" alt="WatchFlow参照デザイン" loading="lazy"></p>
+<h2>まず結論</h2>
+<p>これまでの小さなFAQ、ギャラリー、問い合わせフォームの実験で分かったことがある。小さな題材でも学びはある。しかし、読者にとって「何が足りないのか」が直感的に分かりにくい。</p>
+<p>そこで、ここからは題材を変える。</p>
+<p><strong>YouTube風の動画視聴Webアプリ「WatchFlow」を、Codexへの指示改善だけで100点に近づける。</strong></p>
+<p>ただし、YouTubeのロゴ、商標、実データ、実APIをコピーするわけではない。読者がよく知っている「動画視聴サービス」という体験を題材にして、AIに何をどこまで指示すべきかを検証する。</p>
+<p>終了条件は2つ。</p>
+<pre><code>100点満点に到達する
+または
+100回試行する</code></pre>
+<p>毎回、Codexに渡した日本語プロンプト、生成されたアプリ、ブラウザ操作GIF、正解デザインとの画像比較、E2E/Unit/Visualテスト結果、CI結果、失点理由、追加したAIDD-Specルールを記録する。</p>
+<p><img src="assets/2026-06-27-watchflow-iteration-loop.svg" alt="WatchFlow試行ループ" loading="lazy"></p>
+<h2>なぜYouTube風アプリなのか</h2>
+<p>YouTube風アプリは、誰でも完成形を想像しやすい。</p>
 <ul>
-<li>仕様を満たしているか</li>
-<li>エラー時にどう動くか</li>
-<li>キーボードだけで操作できるか</li>
-<li>スマホで見やすいか</li>
-<li>セキュリティ上危なくないか</li>
-<li>個人情報をどう扱うか</li>
-<li>パフォーマンスは悪くないか</li>
-<li>後から直しやすい構成か</li>
-<li>テストや監査の証拠が残っているか</li>
-<li>運用保守で何を見ればよいか</li>
+<li>ホームに動画カードが並ぶ</li>
+<li>検索できる</li>
+<li>動画詳細ページがある</li>
+<li>関連動画が出る</li>
+<li>コメントがある</li>
+<li>チャンネル情報がある</li>
+<li>再生、停止、シーク、字幕、バッファリング、エラーがある</li>
+<li>ログイン状態や課金状態で体験が変わる</li>
 </ul>
-<p>こうした観点が抜けていると、最初は速くても後で手戻りが増える。</p>
-<p>料理で例えるなら、完成写真だけ見て「この料理を再現して」と言われるようなものだ。写真だけでも雰囲気は分かる。でも、材料、分量、火加減、手順、失敗しやすいポイントがなければ、毎回同じ味にはならない。</p>
-<p>AI開発でも同じだ。AIに渡すべきなのは、ふわっとした完成イメージだけではない。再現できる説明書が必要になる。</p>
-<p>この連載では、その説明書を仮に <strong>AIDD-Spec</strong> と呼ぶ。</p>
-<p>AIDD は AI-Driven Development の略で、AIDD-Spec は「AI駆動開発のための標準仕様」という意味だ。</p>
-<h2>2. なぜ今これを検証するのか</h2>
-<p>AIにコードを書かせる記事はすでにたくさんある。</p>
-<p>「このプロンプトを使うと爆速」</p>
-<p>「AIで1日でSaaSを作った」</p>
-<p>「Cursor/Codex/Claude Codeで開発が変わった」</p>
-<p>こうした記事は面白いし、実際に役立つものもある。ただし、多くは成功例に寄りがちだ。</p>
-<p>一方で、実務で本当に知りたいのは次のようなことだ。</p>
+<p>つまり、雑なAI生成アプリと理想状態の差分を説明しやすい。</p>
+<p>「なんとなく動いた」では足りない。プロ品質を目指すなら、動画再生、通信制御、エラーハンドリング、アクセシビリティ、テスト、設計、公開リポジトリ運用まで見る必要がある。</p>
+<p>この題材なら、AI駆動開発の難しさが見えやすい。</p>
+<h2>今回の前提</h2>
+<p>このシリーズでは、Next.jsを標準スタックにする。</p>
+<p>理由は、実務で採用することが多いからである。AI駆動開発の標準を考えるなら、普段使わない技術で理想論を作るより、実際にチームが採用しやすい技術で検証した方がよい。</p>
+<p>ただし、Next.jsを使っただけでは合格にしない。</p>
+<p>Next.jsの使い方、採用パッケージ、バージョンpinning、lockfile、Node.jsバージョン、依存管理、App Router設計、Server/Client Component境界、テスト容易性、CI/CD、Dependabotまで採点する。</p>
+<p>つまり、今回の問いはこうである。</p>
+<blockquote>Next.jsでYouTube風動画サービスを作るとき、Codexにどこまで指示すれば、プロフェッショナル品質に近づくのか？</blockquote>
+<h2>フロントエンドだけではなく、ローカルモック込みで評価する</h2>
+<p>WatchFlowは、最初から本物のバックエンド、OAuth、Stripe、動画配信基盤を作るわけではない。</p>
+<p>しかし、フロントエンド品質を100点で評価するには、フロントエンドだけでは足りない。</p>
+<p>動画サービスには次が必要になる。</p>
 <ul>
-<li>雑に頼むと何が抜けるのか</li>
-<li>どの欠陥はあとから直しにくいのか</li>
-<li>AIに最初から何を伝えれば欠陥が減るのか</li>
-<li>テストや監査の証拠をどう残せばよいのか</li>
-<li>駆け出しエンジニアでもレビューできる形にするには何が必要か</li>
-<li>チームでAI開発を使うなら、どの成果物を標準化すべきか</li>
+<li>動画一覧API</li>
+<li>検索API</li>
+<li>コメントAPI</li>
+<li>認証状態</li>
+<li>課金状態</li>
+<li>動画メディア配信</li>
+<li>通信遅延</li>
+<li>404</li>
+<li>500</li>
+<li>timeout</li>
+<li>session expired</li>
+<li>payment failed</li>
+<li>offline</li>
 </ul>
-<p>ここを検証しないままAI開発を進めると、表面上は速いのに、裏側では品質の借金が増える。</p>
-<p>たとえば問い合わせフォームをAIに作らせる。見た目はきれい。入力もできる。送信ボタンもある。だが、個人情報を保存してよいのか、ログに出してよいのか、同意チェックが必要なのか、保存期間は何日なのか、誰が見るのか、という情報が抜けている。</p>
-<p>この状態で「できました」と言われても、実務では困る。</p>
-<p>だからこの連載では、最初からきれいな正解を作らない。まずはあえて雑に作らせる。そこから欠陥を見つける。欠陥を直すための指示を考える。そして、その指示を出すには前段で何を決めておくべきだったのかを逆算する。</p>
-<h2>3. 検証の基本ループ</h2>
-<p>この連載の基本ループは次の通り。</p>
-<pre><code>1. Codexに日本語の雑なプロンプトで小さなアプリを作らせる
-2. できたものをブラウザで操作し、GIFで記録する
-3. 仕様・アクセシビリティ・性能・セキュリティなどから監査する
-4. 欠陥を記録する
-5. 理想状態を定義する
-6. 修正プロンプトを作る
-7. 指示を見直した版をCodexに作らせる
-8. 修正版もブラウザで操作し、GIFで記録する
-9. 再監査する
-10. 何を最初から伝えるべきだったかを逆算する
-11. AIDD-Specに追加する
-12. 記事として公開できる形にまとめる</code></pre>
-<p>ポイントは、AIを責めることではない。</p>
-<p>Codexがうまく作れなかったなら、それはCodexの限界かもしれない。しかし同時に、こちらが渡した説明が足りなかった可能性もある。</p>
-<p>この連載では、AIの失敗を「次に渡す説明書を改善する材料」として扱う。</p>
-<h2>4. 何を標準化したいのか</h2>
-<p>AIDD-Specで標準化したいものは、単なるプロンプト集ではない。</p>
-<p>プロンプトだけを集めても、状況が変わると使えなくなる。必要なのは、AIに渡す情報の型だ。</p>
-<p>現時点では、以下のような成果物を考えている。</p>
+<p>そこで、方針はこうする。</p>
+<blockquote>本番サービスそのものは作らない。  </blockquote>
+<blockquote>ただし、本番で起きる状態をテストできるローカルモックは作る。</blockquote>
+<p>将来的には、次のような構成を目指す。</p>
+<pre><code>/path/to/project-root/
+  apps/
+    web/              Next.jsアプリ
+  mocks/
+    api/              動画、検索、コメントAPI
+    media/            mp4、poster、字幕、遅延、失敗モード
+    auth/             anonymous / logged_in / premium / session_expired
+    billing/          free / premium / payment_failed
+  packages/
+    design-system/
+    test-utils/
+    contracts/
+  .github/
+    workflows/
+    dependabot.yml</code></pre>
+<p>公開記事では、個人ユーザー名を含むローカル絶対パスは出さない。<code>/path/to/project-root/</code> や <code>~/watchflow-lab/</code> のように伏せる。</p>
+<h2>100点ルーブリック v0.1</h2>
+<p>最初の採点基準はこれで始める。</p>
+<p><img src="assets/2026-06-27-watchflow-score-rubric.svg" alt="WatchFlow 100点ルーブリック" loading="lazy"></p>
 <table>
-<tr><th>分類</th><th>成果物</th><th>何のためにあるか</th></tr>
-<tr><td>要件</td><td>AI-Ready Requirement Spec</td><td>AIが実装できる粒度まで要件を分解する</td></tr>
-<tr><td>画面</td><td>Design Contract</td><td>画面状態、文言、アクセシビリティ、モバイル対応を明確にする</td></tr>
-<tr><td>API</td><td>API Contract</td><td>エンドポイント、入力、出力、エラー、認可を明確にする</td></tr>
-<tr><td>データ</td><td>Data Classification</td><td>個人情報や機密情報の扱いを明確にする</td></tr>
-<tr><td>非機能</td><td>Performance Budget</td><td>速度、サイズ、Lighthouse目標などを決める</td></tr>
-<tr><td>セキュリティ</td><td>Security Baseline</td><td>最低限守るべき安全基準を決める</td></tr>
-<tr><td>実装指示</td><td>AI Task Packet</td><td>Codexに1回渡す作業単位を定義する</td></tr>
-<tr><td>証拠</td><td>Verification Evidence</td><td>「できた」と言える証拠を残す</td></tr>
-<tr><td>学習</td><td>Learning Log</td><td>失敗を次回の指示に反映する</td></tr>
+<tr><th>カテゴリ</th><th>点</th><th>見るもの</th></tr>
+<tr><td>Product Parity</td><td>10</td><td>ホーム、検索、動画詳細、コメント、関連動画、チャンネル導線</td></tr>
+<tr><td>Video Experience</td><td>12</td><td>再生、停止、シーク、音量、字幕、バッファリング、失敗、リトライ</td></tr>
+<tr><td>Network / State Handling</td><td>10</td><td>loading、empty、error、offline、timeout、retry</td></tr>
+<tr><td>Mock Backend Contracts</td><td>8</td><td>API、media、auth、billing、障害モードをローカルで再現できるか</td></tr>
+<tr><td>Technical Foundation / Dependency Governance</td><td>10</td><td>Next.js、TypeScript、Node、pnpm、lockfile、version pinning、ADR</td></tr>
+<tr><td>Next.js Architecture Fitness</td><td>10</td><td>App Router、Server/Client境界、Route Handler、loading/error/not-found</td></tr>
+<tr><td>Component Architecture</td><td>8</td><td>ページ、feature、shared UI、service層の責務分離</td></tr>
+<tr><td>Design System</td><td>8</td><td>tokens、components、variants、responsive、focus、reduced motion</td></tr>
+<tr><td>Accessibility</td><td>8</td><td>keyboard、aria、focus、contrast、字幕、reduced motion</td></tr>
+<tr><td>E2E / Visual / Unit</td><td>13</td><td>マルチブラウザ、pixel基準、HTML report画像、coverage、境界値</td></tr>
+<tr><td>Public Repo Operations</td><td>6</td><td>GitHub Actions、Dependabot、README、license、artifact保存</td></tr>
 </table>
-<p>これらは全部を最初から完璧に作る必要はない。</p>
-<p>むしろ、毎回の実験で「この情報がないと困った」と分かったものを少しずつ追加していく。</p>
-<h2>5. 第2回以降でやること</h2>
-<p>すでに初期実験として、いくつかの題材を試している。</p>
-<p>第2回では、FAQ検索アプリを扱う。雑に作ると見た目は悪くないが、検索欄と結果リストの関係、リスト構造、キーボード操作、アクセシビリティの証拠が抜けた。そこから Accessibility Contract を逆算する。</p>
-<p>第3回では、SaaSギャラリー画面を扱う。「プレミアムでビジュアルに」と頼むと、CSSや装飾は増える。そこで Performance Budget と Asset Policy を考える。</p>
-<p>第4回では、問い合わせフォームを扱う。個人情報や営業情報を受け取る画面では、見た目だけでなく、同意、保存方針、ログ出力、ブラウザAPIの禁止事項を考える必要がある。</p>
-<p>第5回では、問い合わせAPIを扱う。APIが動くだけでは不十分で、CSRF、Origin制限、rate limit、request id、監査ログ、エラー形式、保存期間が必要になる。</p>
-<p>その先では、次のようなテーマを扱う予定だ。</p>
+<p>最初から満点を取る必要はない。むしろ、Trial 001は低い点数でよい。</p>
+<p>重要なのは、失点理由を毎回AIDD-Specに戻すことだ。</p>
+<h2>正解画像をどう扱うか</h2>
+<p>今回から、正解とする画像を必ず置く。</p>
+<p>ただし、YouTubeそのものに対してpixel-perfectを目指すわけではない。商標や画面コピーの問題もあるし、YouTubeは地域、ログイン状態、A/Bテストで見た目が変わる。</p>
+<p>そこで、次のルールにする。</p>
+<ol>
+<li>YouTube風の体験を観察する</li>
+<li>WatchFlow独自の参照デザインを作る</li>
+<li>その参照デザイン画像を「正解画像」として保存する</li>
+<li>実際のWebアプリのスクリーンショットと比較する</li>
+<li>比較結果を記事に画像として載せる</li>
+</ol>
+<p>つまり、pixel-perfectの対象は本物のYouTubeではなく、<strong>承認済みのWatchFlow参照デザイン</strong>である。</p>
+<h2>テスト結果も画像で載せる</h2>
+<p>読み物として分かりやすくするため、テスト結果も文字だけで終わらせない。</p>
+<p>毎回、少なくとも次を載せる。</p>
 <ul>
-<li>認証/認可: 管理画面でAIが権限境界をどう間違えるか</li>
-<li>テスト粒度: ユニットテスト、統合テスト、E2Eをどう分けるか</li>
-<li>モバイルUI: タッチ操作、狭い画面、入力しやすさ、通信失敗時の状態</li>
-<li>DB設計: migration、インデックス、削除方針、履歴管理</li>
-<li>運用保守: ログ、監視、バックアップ、障害時手順</li>
-<li>コスト: 何を測ればコスト悪化を早く見つけられるか</li>
-<li>SaaS化: AIDD-Specを支援するプロダクトに必要な機能</li>
+<li>ブラウザ操作GIF</li>
+<li>正解デザイン画像</li>
+<li>実アプリのスクリーンショット</li>
+<li>正解画像と実アプリの比較画像</li>
+<li>Playwright HTML reportのスクリーンショット</li>
+<li>ターミナルでのテスト結果スクリーンショット</li>
+<li>CI結果のスクリーンショット</li>
+<li>スコア表の画像</li>
 </ul>
-<h2>6. 記事の形式</h2>
-<p>今後の記事では、できるだけ実験過程を隠さない。</p>
-<p>毎回、以下を載せる。</p>
+<p>記事を読んだ人が、コードを見なくても「何が良くなり、何がまだ足りないか」を分かる状態にする。</p>
+<h2>国際対応とGDPRも見る</h2>
+<p>WatchFlowのUIは日本語ベースで作る。プロンプト、テスト名、サンプルデータ、エラー文、README、記事も日本語にする。</p>
+<p>ただし、将来の国際対応も見る。</p>
+<p>初回から完全なi18n実装を要求するわけではないが、次の観点は採点対象に入れる。</p>
 <ul>
-<li>実際にCodexへ渡した日本語プロンプト</li>
-<li>実行コマンド</li>
-<li>Codexの出力ログ</li>
-<li>生成されたファイルやコード</li>
-<li>バイブコーディング版の操作GIF</li>
-<li>指示を見直した版の操作GIF</li>
-<li>ブラウザコンソールの結果</li>
-<li>監査スクリプトの出力</li>
-<li>見つかった欠陥</li>
-<li>修正プロンプト</li>
-<li>修正後のdiff</li>
-<li>再検証結果</li>
-<li>最初から渡すべきだった情報</li>
-<li>AIDD-Specへの反映</li>
+<li>UI文言を後から辞書化できるか</li>
+<li>日付、数値、再生回数、通貨、タイムゾーンを局所化できるか</li>
+<li>CookieやlocalStorageを使うなら、目的が説明されているか</li>
+<li>閲覧履歴、コメント、課金状態、認証状態のデータ分類があるか</li>
+<li>GDPR観点で、同意、削除要求、データエクスポート、保持期間の設計余地があるか</li>
 </ul>
-<p>読んでいて少し長く感じるかもしれない。しかし、ここを省略すると「AIで作れました」という軽い記事になってしまう。</p>
-<p>この連載で残したいのは、成功体験だけではない。失敗、警告、迷い、修正、再検証まで含めた実験記録だ。</p>
-<h2>7. この連載の読み方</h2>
-<p>おすすめは、第1回から順番に読むことだ。</p>
-<p>各回は独立して読めるようにするが、後の回ほど前回の学びを前提にする。</p>
-<p>たとえば、第2回のAccessibility Contractで「操作できるだけでは足りない」と分かる。第3回のPerformance Budgetで「見た目が良いだけでは足りない」と分かる。第4回のSecurity Baselineで「フォームが動くだけでは足りない」と分かる。</p>
-<p>このように、毎回ひとつずつ「AIに最初から渡すべき情報」を増やしていく。</p>
-<p>最終的には、AIに渡す共通説明書として、AI Task Packetの形にまとめる。</p>
-<h2>8. まず覚えておきたいこと</h2>
-<p>第1回の結論はシンプルだ。</p>
-<blockquote>AIに雑に頼むと、かなり良いものが速く出る。だからこそ危ない。</blockquote>
-<p>見た目が良いと、人間は安心してしまう。だが、実務で必要なのは見た目だけではない。</p>
-<p>AIに頼む前に、少なくとも次を決めておくべきだ。</p>
+<p>動画アプリは、見た目よりもデータの扱いが重い。ここを最初から評価対象にする。</p>
+<h2>公開GitHubリポジトリ前提にする</h2>
+<p>WatchFlowは、記事を読んだ人が実際に動かせる公開リポジトリにする前提で作る。</p>
+<p>そのため、次もスコア対象にする。</p>
 <ul>
-<li>何を満たせば仕様OKか</li>
-<li>どんな状態を表示するか</li>
-<li>どんな情報を扱うか</li>
-<li>どんな操作を許すか</li>
-<li>どのコマンドで検証するか</li>
-<li>どんな証拠を残すか</li>
+<li>READMEのセットアップ手順</li>
+<li><code>pnpm install</code> からの再現性</li>
+<li>Node.jsバージョン固定</li>
+<li>lockfile</li>
+<li>GitHub Actions</li>
+<li>Dependabot</li>
+<li>Playwright report artifact</li>
+<li>test-results artifact</li>
+<li>ライセンス</li>
+<li>YouTube非公式であることの明記</li>
+<li>外部APIや秘密情報に依存しないこと</li>
 </ul>
-<p>これが、この連載で作っていくAIDD-Specの出発点である。</p>
-<h2>9. 次回予告</h2>
-<p>次回は、FAQ検索アプリを題材にする。</p>
-<p>まずCodexに「FAQ検索アプリをいい感じに作って」と頼む。できあがったアプリをブラウザで操作し、GIFで記録する。そのうえで、検索欄、結果リスト、no results表示、キーボード操作、アクセシビリティの関係を監査する。</p>
-<p>そして、雑な指示で抜けたものを、指示を見直したAI Task Packetに戻す。</p>
-<p>第2回のテーマは、こうだ。</p>
-<blockquote>見た目は動いているFAQ検索アプリでも、支援技術やキーボード操作まで考えると何が足りないのか。</blockquote>
-<p>ここから、AIDD-Spec最初の具体要素である Accessibility Contract を作っていく。</p></article><nav class="chapter-nav" aria-label="前後の記事"><span></span><a class="next" href="2026-06-27-accessibility-contract-vibe-faq.html"><span>次の記事</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a></nav></main></div></body></html>
+<p>公開リポジトリで無料で使える機能は、使うべきなら正しく使う。使わないなら、なぜ使わないかを記録する。</p>
+<h2>Trial 001でCodexに渡すプロンプト</h2>
+<p>初回は、Next.jsという組織制約だけは固定する。その他はかなり広めに渡し、Codexがどこまで自律的に作るかを見る。</p>
+<pre><code>/path/to/project-root/ に、Next.js + TypeScriptで日本語UIのYouTube風動画視聴Webアプリ「WatchFlow」を作ってください。
+
+目的は、YouTubeそのものをコピーすることではなく、動画視聴サービスとしてプロフェッショナル品質に近づけるためのAI駆動開発実験です。
+
+必須条件:
+- UI、サンプルデータ、エラー文、テスト名、READMEは日本語ベースにしてください。
+- Next.js App Routerを使ってください。
+- TypeScript strictを前提にしてください。
+- package manager、Node.jsバージョン、lockfile、依存バージョン方針が再現可能になるようにしてください。
+- YouTubeのロゴ、商標、実データ、実APIは使わないでください。
+- 独自名 WatchFlow と独自の参照デザインで作ってください。
+- 公開GitHubリポジトリで配布し、記事を読んだ人がローカルで動かせる前提にしてください。
+
+最低限ほしい画面:
+- ホーム
+- 検索結果
+- 動画詳細/再生画面
+- チャンネル概要
+- コメント欄
+- 関連動画
+- エラー状態
+
+最低限ほしいローカルモック:
+- 動画一覧API
+- 検索API
+- コメントAPI
+- 認証状態モック anonymous / logged_in / premium / session_expired
+- 課金状態モック free / premium / payment_failed
+- 動画メディアの正常/遅延/404/失敗モード
+
+動画再生まわりで確認したいこと:
+- poster表示
+- 再生/一時停止
+- シーク
+- 音量/ミュート
+- 字幕またはキャプションの設計余地
+- バッファリング表示
+- 動画取得失敗時のエラー表示
+- リトライ
+- キーボード操作
+- アクセシブルな操作名
+
+テストと自動化:
+- Unit Testを用意してください。
+- Component TestまたはTesting Libraryベースのテストを用意してください。
+- PlaywrightでChromium/Firefox/WebKitのE2Eを用意してください。
+- Visual Regression用のスクリーンショット基準を用意してください。
+- テスト結果やHTML reportをCI artifactとして保存できるようにしてください。
+- GitHub Actionsを用意してください。
+- Dependabotを設定してください。
+
+設計:
+- 1ファイル巨大実装にしないでください。
+- design tokens、共有UI、feature単位のコンポーネント、API client、mock adapterを分けてください。
+- 動画プレイヤーはClient Componentとして責務を分けてください。
+- loading / empty / error / offline / timeout / retry状態を設計してください。
+- 国際対応を視野に入れ、UI文言、日付、数値、再生回数、通貨、タイムゾーンを後から差し替えやすくしてください。
+- GDPR観点として、閲覧履歴、コメント、課金状態、Cookie/storage、同意、削除要求、データエクスポート、保持期間を設計メモに残してください。
+
+成果物:
+- README.md
+- docs/decisions/ に技術選定理由
+- docs/testing.md
+- docs/privacy-gdpr-readiness.md
+- docs/score-self-review.md
+- GitHub Actions設定
+- Dependabot設定
+
+最後に、実行したコマンド、成功/失敗したテスト、既知の制約、次に改善すべき点を日本語で報告してください。</code></pre>
+<p>このプロンプトは、完璧な指示ではない。むしろTrial 001として、どこまで足りないかを見るための出発点である。</p>
+<h2>第1回で作った標準ファイル</h2>
+<p>今回の準備として、次を作った。</p>
+<pre><code>/path/to/project-root/standards/watchflow-100-point-rubric-v0.1.md
+/path/to/project-root/standards/watchflow-nextjs-technical-contract-v0.1.md
+/path/to/project-root/experiments/watchflow-trial-001/PROMPT.md
+/path/to/project-root/experiments/watchflow-trial-001/README.md</code></pre>
+<p>これらは公開リポジトリに載せる前提の文書であり、個人ユーザー名を含む絶対パスは出さない。</p>
+<h2>次回やること</h2>
+<p>次回は、実際にTrial 001をCodexに投げる。</p>
+<p>その後、以下を記事に載せる。</p>
+<ul>
+<li>生成されたWatchFlowアプリ</li>
+<li>操作GIF</li>
+<li>正解デザイン画像との比較</li>
+<li>Playwright HTML report画像</li>
+<li>Unit Test / E2E / Visual Regression結果</li>
+<li>CI設定の有無</li>
+<li>Dependabot設定の有無</li>
+<li>100点ルーブリックでの初回スコア</li>
+<li>失点理由</li>
+<li>Trial 002に追加するAI Task Packet差分</li>
+</ul>
+<h2>まとめ</h2>
+<p>このシリーズでは、AIに「いい感じに作って」と頼むだけでは終わらせない。</p>
+<p>毎回、失点を記録し、なぜ失点したのかを考え、次の指示に変換する。</p>
+<pre><code>雑な生成
+  → 操作キャプチャ
+  → 画像比較
+  → テスト
+  → 採点
+  → 失点理由
+  → AIDD-Spec更新
+  → 再生成</code></pre>
+<p>このループを、100点または100試行まで続ける。</p>
+<p>WatchFlowは、YouTube風アプリを作る企画ではない。Next.js、モックバックエンド、動画再生、通信制御、テスト自動化、デザインシステム、公開リポジトリ運用を通して、AI駆動開発に必要な共通説明書を作るための実験である。</p></article><nav class="chapter-nav" aria-label="前後の記事"><span></span><a class="next" href="2026-06-27-accessibility-contract-vibe-faq.html"><span>次の記事</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a></nav></main></div></body></html>
