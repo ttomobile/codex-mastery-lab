@@ -17,6 +17,7 @@ SERIES_ORDER = [
     '2026-06-27-watchflow-trial-001.md',
     '2026-06-27-watchflow-trial-002.md',
     '2026-06-27-watchflow-trial-003.md',
+    '2026-06-27-watchflow-trial-004.md',
 ]
 
 PAST_ARTICLES_ORDER = [
