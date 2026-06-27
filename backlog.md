@@ -1,5 +1,20 @@
 # Codex Mastery Lab Backlog
 
+## North Star: AIDD-Spec / AI駆動開発の世界標準
+
+- [ ] AIDD-Spec v0.1: 建築図面に相当する標準成果物体系を定義する
+- [ ] 書籍企画: 「AI駆動開発時代の設計図面」章立てを毎週更新する
+- [ ] Product Brief テンプレートとCodex検証
+- [ ] AI-Ready Requirement Spec テンプレートとCodex検証
+- [ ] Design Contract: 画面/状態/アクセシビリティ設計テンプレート
+- [ ] System Contract: API/DB/権限/外部連携テンプレート
+- [ ] Non-Functional Contract: 性能/可用性/セキュリティ/コスト/運用テンプレート
+- [ ] AI Task Packet: Codexに渡す最小単位の標準化
+- [ ] Verification Evidence: 「できた」の証拠標準
+- [ ] Learning Log: 失敗を標準とプロンプトに還元する仕組み
+- [ ] AIDD Control Plane SaaS MVP仕様
+- [ ] AIDD Control Plane MVPプロトタイプ
+
 ## Phase 0: 安定運用の土台
 
 - [ ] Codex CLI の sandbox / full-auto / danger-full-access の挙動比較
