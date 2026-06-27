@@ -107,8 +107,8 @@ Smoke testの結果:
 
 ```text
 GET /health => 200 {"ok":true,"status":"healthy"}
-POST /api/contact valid => 201 {"ok":true,"message":"Contact request received","contact":{"name":"Taro Test","email":"taro@example.com","company":"AIDD Lab"}}
-POST /api/contact invalid => 422 {"ok":false,"errors":["name is required","email must be valid","message is required"]}
+POST /api/contact valid => 201 {"ok":true,"message":"問い合わせを受け付けました","contact":{"name":"山田 太郎","email":"taro@example.com","company":"AIDD Lab"}}
+POST /api/contact invalid => 422 {"ok":false,"errors":["氏名は必須です","メールアドレスの形式が正しくありません","相談内容は必須です"]}
 ```
 
 ここまでは「動く」。しかし、静的監査はこうなった。
@@ -225,7 +225,7 @@ standard_update:
 実行コマンド:
 
 ```bash
-codex exec --sandbox danger-full-access "Read experiments/2026-06-27-contact-api-threat-model/AI_TASK_PACKET_v0.4.md. Implement exactly that packet. Keep all changes inside experiments/2026-06-27-contact-api-threat-model/fixed-api. Do not install dependencies. Then run the verification commands if possible and report results. Then exit."
+codex exec --sandbox danger-full-access "experiments/2026-06-27-contact-api-threat-model/AI_TASK_PACKET_v0.4.md を読んで、その内容どおりに実装してください。変更は experiments/2026-06-27-contact-api-threat-model/fixed-api 内に閉じ込めてください。依存パッケージはインストールしないでください。可能であれば検証コマンドを実行し、結果を報告してから終了してください。"
 ```
 
 ## 9. 修正後の結果

@@ -127,8 +127,8 @@ python3 experiments/2026-06-27-contact-api-threat-model/smoke_contact_api.py exp
 python3 experiments/2026-06-27-contact-api-threat-model/audit_contact_api.py experiments/2026-06-27-contact-api-threat-model/vibe-api</code></pre>
 <p>Smoke testの結果:</p>
 <pre><code>GET /health =&gt; 200 {&quot;ok&quot;:true,&quot;status&quot;:&quot;healthy&quot;}
-POST /api/contact valid =&gt; 201 {&quot;ok&quot;:true,&quot;message&quot;:&quot;Contact request received&quot;,&quot;contact&quot;:{&quot;name&quot;:&quot;Taro Test&quot;,&quot;email&quot;:&quot;taro@example.com&quot;,&quot;company&quot;:&quot;AIDD Lab&quot;}}
-POST /api/contact invalid =&gt; 422 {&quot;ok&quot;:false,&quot;errors&quot;:[&quot;name is required&quot;,&quot;email must be valid&quot;,&quot;message is required&quot;]}</code></pre>
+POST /api/contact valid =&gt; 201 {&quot;ok&quot;:true,&quot;message&quot;:&quot;問い合わせを受け付けました&quot;,&quot;contact&quot;:{&quot;name&quot;:&quot;山田 太郎&quot;,&quot;email&quot;:&quot;taro@example.com&quot;,&quot;company&quot;:&quot;AIDD Lab&quot;}}
+POST /api/contact invalid =&gt; 422 {&quot;ok&quot;:false,&quot;errors&quot;:[&quot;氏名は必須です&quot;,&quot;メールアドレスの形式が正しくありません&quot;,&quot;相談内容は必須です&quot;]}</code></pre>
 <p>ここまでは「動く」。しかし、静的監査はこうなった。</p>
 <pre><code>合格: server.js が存在する
 合格: Node.js標準のhttpモジュールを使っている
@@ -221,7 +221,7 @@ standard_update:
 ## 検証証拠
 `fixed-api/` 内に `SECURITY_OPERATIONS.md` を作る。</code></pre>
 <p>実行コマンド:</p>
-<pre><code>codex exec --sandbox danger-full-access &quot;Read experiments/2026-06-27-contact-api-threat-model/AI_TASK_PACKET_v0.4.md. Implement exactly that packet. Keep all changes inside experiments/2026-06-27-contact-api-threat-model/fixed-api. Do not install dependencies. Then run the verification commands if possible and report results. Then exit.&quot;</code></pre>
+<pre><code>codex exec --sandbox danger-full-access &quot;experiments/2026-06-27-contact-api-threat-model/AI_TASK_PACKET_v0.4.md を読んで、その内容どおりに実装してください。変更は experiments/2026-06-27-contact-api-threat-model/fixed-api 内に閉じ込めてください。依存パッケージはインストールしないでください。可能であれば検証コマンドを実行し、結果を報告してから終了してください。&quot;</code></pre>
 <h2>9. 修正後の結果</h2>
 <p>Codexは <code>fixed-api/</code> に2ファイルを作った。</p>
 <pre><code>server.js

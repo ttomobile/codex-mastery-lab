@@ -82,7 +82,7 @@ Codex CLI:      codex-cli 0.142.3
 ```text
 このgitリポジトリ内で、`experiments/2026-06-27-performance-budget-vibe-gallery/vibe-app` に小さな静的SaaSプロダクトギャラリーを作ってください。
 HTML、CSS、素のJavaScriptだけを使ってください。日本語のプロダクト紹介ページとして、ヒーロー、6つの機能カード、簡単な図解、導入効果の声、小さな絞り込みUIを入れてください。
-Keep it simple. Do not install dependencies. Do not modify files outside that vibe-app directory. Then exit.
+シンプルにしてください。依存パッケージはインストールしないでください。`vibe-app` ディレクトリの外は変更しないでください。完了したら終了してください。
 ```
 
 実行コマンド:
@@ -102,10 +102,10 @@ app.js       31 lines
 Codexの最終報告はこうだった。
 
 ```text
-Built the static SaaS gallery landing page under vibe-app.
-It includes the hero, six visual product cards, testimonial strip, and vanilla JS category filter.
+静的SaaSギャラリーを `vibe-app` に作りました。
+ヒーロー、6つのビジュアルなプロダクトカード、導入効果の声、素のJavaScriptによるカテゴリ絞り込みを含めました。
 依存パッケージはインストールせず、外部アセットも参照せず、変更は `vibe-app` 内に限定しました。
-Verification: checked the created file set and confirmed there are no http, @import, or url(...) external references.
+検証: 作成ファイル一式を確認し、http、@import、url(...) の外部参照がないことを確認しました。
 ```
 
 ここで面白いのは、Codexがかなり良い判断をしていることだ。外部画像やCDNを使わず、CSSだけでビジュアルを作った。雑プロンプトとしては優秀である。しかし、後工程で見ると別の問題が出る。
@@ -158,11 +158,11 @@ SIZES: html=6958 css=10154 js=906 total=18018 css_lines=605
 
 ```yaml
 category: Performance / Lighthouse Proxy
-finding: Visual static page had no explicit performance budget evidence and CSS grew to 605 lines despite being a tiny app.
+finding: 小さな静的ページにもかかわらず、Performance Budgetの証拠がなく、CSSが605行まで増えていた。
 severity: medium
 observed_by: audit_static_performance.py
-ideal_state: Every AI-generated UI packet carries measurable budgets for total bytes, CSS/JS size, asset source policy, motion fallback, and evidence file.
-fix_instruction: Add Performance Budget Contract and Asset Policy to the AI Task Packet; require PERFORMANCE_BUDGET.md and static audit output.
+ideal_state: AI生成UIのTask Packetには、合計バイト数、CSS/JSサイズ、アセット取得方針、motion fallback、証跡ファイルなど、測定可能な予算が含まれている。
+fix_instruction: AI Task PacketにPerformance Budget契約とAsset Policyを追加し、PERFORMANCE_BUDGET.md と静的監査出力を必須にする。
 needed_upstream_info:
   - Performance Budget
   - Asset Policy
@@ -172,10 +172,10 @@ standard_update:
   document: aidd-spec-ai-task-packet-standard-v0.1.md
   field: performance_budget_contract + asset_policy
 codex_prompt_delta: |
-  Keep total static bytes <= 32KB, CSS <= 12KB and <= 360 lines, JS <= 5KB. Avoid external assets/CDNs/url(). Include reduced-motion fallback and PERFORMANCE_BUDGET.md with measured sizes.
+  静的ファイル合計は32KB以下、CSSは12KB以下かつ360行以下、JSは5KB以下にする。外部アセット/CDN/url()を避ける。reduced-motion fallbackを入れ、実測サイズ付きのPERFORMANCE_BUDGET.mdを作る。
 verification:
   command: python3 experiments/2026-06-27-performance-budget-vibe-gallery/audit_static_performance.py experiments/2026-06-27-performance-budget-vibe-gallery/fixed-app
-  expected: pass
+  expected: 合格
 ```
 
 このfindingから逆算すると、AI Task Packetには少なくとも以下が必要になる。
@@ -194,25 +194,25 @@ verification:
 次に、Codexへ改善版のTask Packetを渡した。要点は以下である。
 
 ```markdown
-# AI Task Packet v0.2: Performance-Budgeted Static SaaS Gallery
+# AI Task Packet v0.2: Performance Budget付き静的SaaSギャラリー
 
-## Performance Budget Contract
+## Performance Budget契約
 - `index.html + styles.css + app.js` の静的ファイル合計は32KB以下にする。
-- `styles.css` must be <= 12KB and <= 360 lines.
-- `app.js` must be <= 5KB.
-- Avoid external network assets: no `http://`, `https://`, CSS `@import`, or `url(...)` references.
-- Use CSS/simple inline SVG/semantic HTML instead of remote raster images.
-- Bound expensive paint effects.
-- If transitions are used, include a `@media (prefers-reduced-motion: reduce)` fallback.
+- `styles.css` は12KB以下、かつ360行以下にする。
+- `app.js` は5KB以下にする。
+- 外部ネットワーク資産を避ける。`http://`、`https://`、CSS `@import`、`url(...)` 参照を使わない。
+- リモート画像ではなく、CSS、単純なインラインSVG、意味のあるHTMLを使う。
+- 重くなりやすい描画効果を上限内に抑える。
+- transitionを使う場合は、`@media (prefers-reduced-motion: reduce)` の代替を入れる。
 
-## Verification Evidence
-Create a short `PERFORMANCE_BUDGET.md` inside `fixed-app/` containing budget values, actual measured sizes, commands run, and trade-offs.
+## 検証証拠
+`fixed-app/` の中に短い `PERFORMANCE_BUDGET.md` を作り、予算値、実測サイズ、実行したコマンド、トレードオフを記録する。
 ```
 
 実行コマンド:
 
 ```bash
-codex exec --sandbox danger-full-access "Read experiments/2026-06-27-performance-budget-vibe-gallery/AI_TASK_PACKET_v0.2.md. Implement exactly that packet. Keep all changes inside experiments/2026-06-27-performance-budget-vibe-gallery/fixed-app. Do not install dependencies. Then run the verification commands if possible and report results. Then exit."
+codex exec --sandbox danger-full-access "experiments/2026-06-27-performance-budget-vibe-gallery/AI_TASK_PACKET_v0.2.md を読んで、その内容どおりに実装してください。変更は experiments/2026-06-27-performance-budget-vibe-gallery/fixed-app 内に閉じ込めてください。依存パッケージはインストールしないでください。可能であれば検証コマンドを実行し、結果を報告してから終了してください。"
 ```
 
 ## 9. 修正後の結果

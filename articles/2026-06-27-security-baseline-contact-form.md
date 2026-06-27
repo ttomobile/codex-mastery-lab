@@ -231,28 +231,28 @@ verification:
 改善版では、Codexに次の条件を渡した。
 
 ```markdown
-## Security Contract
-- Treat name, email, budget, company size, and message as user-controlled input.
-- Render user-controlled values only through safe text APIs such as `textContent`; do not use `innerHTML`, `outerHTML`, or `insertAdjacentHTML` for submitted values.
-- Do not use `fetch`, `XMLHttpRequest`, or `navigator.sendBeacon`; this is a static no-network demo.
-- Do not use `localStorage`, `sessionStorage`, or `indexedDB`; PII must not be persisted in browser storage.
-- Do not log submitted form values to console.
-- Add explicit length constraints: name max 80, email max 120, message max 600.
+## セキュリティ契約
+- 氏名、メールアドレス、予算、会社規模、相談内容はすべてユーザー入力として扱う。
+- ユーザー入力値を表示するときは `textContent` などの安全なテキストAPIだけを使う。送信値の描画に `innerHTML`、`outerHTML`、`insertAdjacentHTML` を使わない。
+- `fetch`、`XMLHttpRequest`、`navigator.sendBeacon` を使わない。この実験はネットワーク送信しない静的デモである。
+- `localStorage`、`sessionStorage`、`indexedDB` を使わない。PIIをブラウザストレージに永続化しない。
+- 送信されたフォーム値を `console` に出力しない。
+- 明示的な文字数制約を追加する。例: 氏名は最大80文字、メールアドレスは最大120文字、相談内容は最大600文字。
 
-## Privacy / Data Classification Contract
-- Add `data-classification` attributes to PII/business-sensitive fields.
-- Add visible helper text explaining this is a no-network preview and that data is retained in memory only until refresh.
-- Add a required privacy consent checkbox named `privacyConsent` before previewing.
-- Add `data-static-demo="true"` to the form.
+## プライバシー / データ分類契約
+- PIIまたは業務上重要なフィールドに `data-classification` 属性を付ける。
+- このフォームが静的デモであり、入力値は画面更新までメモリ上にだけ残り、ネットワーク送信されないことを見える補足文として表示する。
+- プレビュー前に必須のプライバシー同意チェックボックス `privacyConsent` を追加する。
+- フォームに `data-static-demo="true"` を追加する。
 
-## Verification Evidence
-Create `SECURITY_PRIVACY.md` inside `fixed-app/`.
+## 検証証拠
+`fixed-app/` の中に `SECURITY_PRIVACY.md` を作る。
 ```
 
 実行コマンド:
 
 ```bash
-codex exec --sandbox danger-full-access "Read experiments/2026-06-27-security-baseline-contact-form/AI_TASK_PACKET_v0.3.md. Implement exactly that packet. Keep all changes inside experiments/2026-06-27-security-baseline-contact-form/fixed-app. Do not install dependencies. Then run the verification commands if possible and report results. Then exit."
+codex exec --sandbox danger-full-access "experiments/2026-06-27-security-baseline-contact-form/AI_TASK_PACKET_v0.3.md を読んで、その内容どおりに実装してください。変更は experiments/2026-06-27-security-baseline-contact-form/fixed-app 内に閉じ込めてください。依存パッケージはインストールしないでください。可能であれば検証コマンドを実行し、結果を報告してから終了してください。"
 ```
 
 ## 9. 修正後の結果

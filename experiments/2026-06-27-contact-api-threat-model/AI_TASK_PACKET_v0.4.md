@@ -1,48 +1,48 @@
-# AI Task Packet v0.4: Contact API Security / Operations Contract
+# AI Task Packet v0.4: 問い合わせAPIのセキュリティ / 運用契約
 
-## Scope
-- Target paths: `experiments/2026-06-27-contact-api-threat-model/fixed-api/`
-- Forbidden paths: everything outside `fixed-api/`
-- Dependencies policy: no npm install; use built-in Node.js modules only.
+## スコープ
+- 対象パス: `experiments/2026-06-27-contact-api-threat-model/fixed-api/`
+- 禁止パス: `fixed-api/` の外すべて
+- 依存方針: `npm install` はしない。Node.js標準モジュールだけを使う。
 
-## Product intent
-Create a tiny demo-ready contact form HTTP API that can be reviewed by security and operations teams, not merely a working endpoint.
+## プロダクト意図
+単に動くendpointではなく、セキュリティ担当者と運用担当者がレビューできる、小さなデモ用問い合わせHTTP APIを作る。
 
-## Functional requirements
-- `GET /health` returns JSON health status.
-- `POST /api/contact` accepts JSON: `name`, `email`, `company`, `message`.
-- Validate required fields and length limits.
-- Return consistent JSON success/error responses.
+## 機能要件
+- `GET /health` はJSONのヘルスステータスを返す。
+- `POST /api/contact` はJSONの `name`, `email`, `company`, `message` を受け取る。
+- 必須項目と文字数上限を検証する。
+- 成功/エラーのJSONレスポンス形式を一貫させる。
 
-## Non-goals
-- Do not persist submissions to disk, DB, browser storage, or external services.
-- Do not send email.
-- Do not add authentication or sessions.
-- Do not install dependencies.
+## 非目標
+- 問い合わせ内容をディスク、DB、ブラウザストレージ、外部サービスへ永続化しない。
+- メール送信しない。
+- 認証やセッションを追加しない。
+- 依存パッケージをインストールしない。
 
-## Security Contract
-- Treat `name`, `email`, `company`, `message` as user-controlled; `name`, `email`, and `message` are PII or potentially confidential.
-- Require `Content-Type: application/json` for POST.
-- Set a small explicit request body limit.
-- Add browser-origin protection: reject disallowed `Origin` values. Use an `ALLOWED_ORIGINS` environment variable and document the default behavior for local demo.
-- Add a simple CSRF demo control: require `X-CSRF-Token` to match `CSRF_TOKEN` environment variable for browser-origin POST requests. For this experiment, default both to a local demo token and document that this is not production auth.
-- Add a tiny in-memory per-IP rate limit for `POST /api/contact`; return `429` when exceeded.
-- Do not log raw request bodies or PII fields.
+## セキュリティ契約
+- `name`, `email`, `company`, `message` はすべてユーザー入力として扱う。特に `name`, `email`, `message` はPIIまたは機密情報になり得る。
+- POSTでは `Content-Type: application/json` を必須にする。
+- 小さく明示的なリクエストbodyサイズ上限を設定する。
+- ブラウザOrigin保護を追加する。許可されていない `Origin` は拒否する。`ALLOWED_ORIGINS` 環境変数で許可Originを管理し、ローカルデモ時の既定値も文書化する。
+- 簡易CSRFデモ制御を追加する。ブラウザ由来のPOSTでは `X-CSRF-Token` が `CSRF_TOKEN` 環境変数と一致することを要求する。この実験ではローカルデモ用トークンを既定値にしてよいが、本番認証ではないことを文書化する。
+- `POST /api/contact` に小さなインメモリIP別rate limitを追加し、超過時は `429` を返す。
+- 生のリクエストbodyやPII項目をログ出力しない。
 
-## Operations Contract
-- Generate or propagate a request id for every response via `X-Request-Id`.
-- Produce audit logs containing only non-PII metadata: request id, method, path, status code, and rate-limit/validation/security decision.
-- Add explicit retention policy: submissions are not persisted; only current request memory is used.
-- Add consistent error response contract: `{ ok: false, error: { code, message, requestId } }`.
+## 運用契約
+- すべてのレスポンスに `X-Request-Id` でrequest idを生成または伝播する。
+- 監査ログは非PIIメタデータだけにする。含めるのは request id、method、path、status code、rate-limit/validation/security の判断結果。
+- 保持方針を明示する。問い合わせ内容は永続化せず、現在のリクエスト処理中のメモリだけで扱う。
+- エラーレスポンス契約を統一する: `{ ok: false, error: { code, message, requestId } }`。
 
-## Data Classification
+## データ分類
 - `name`: `pii.name`
 - `email`: `pii.email`
 - `company`: `business.company_name`
 - `message`: `pii_or_confidential.free_text`
 
-## Quality Gate
-Run and save these commands:
+## 品質ゲート
+以下のコマンドを実行し、結果を保存する。
 
 ```bash
 node --check experiments/2026-06-27-contact-api-threat-model/fixed-api/server.js
@@ -50,16 +50,16 @@ python3 experiments/2026-06-27-contact-api-threat-model/smoke_contact_api.py exp
 python3 experiments/2026-06-27-contact-api-threat-model/audit_contact_api.py experiments/2026-06-27-contact-api-threat-model/fixed-api
 ```
 
-## Verification Evidence
-Create `SECURITY_OPERATIONS.md` inside `fixed-api/` containing:
-- Data classification table
-- CSRF / Origin policy
-- Rate limit policy
-- Audit logging policy
-- Retention/no-persistence policy
-- Error response contract
-- Verification commands and expected results
+## 検証証拠
+`fixed-api/` の中に `SECURITY_OPERATIONS.md` を作り、以下を含める。
+- データ分類表
+- CSRF / Origin方針
+- rate limit方針
+- 監査ログ方針
+- 保持/no-persistence方針
+- エラーレスポンス契約
+- 検証コマンドと期待結果
 
-## Prompt delta log
-Previous failure: the vibe API worked, but had no CSRF/origin policy, rate limit, request id, audit log, retention evidence, data classification, or evidence file.
-Added instruction: make security/operations controls and evidence first-class deliverables.
+## プロンプト差分ログ
+前回の失敗: バイブ版APIは動いたが、CSRF/Origin方針、rate limit、request id、監査ログ、保持証跡、データ分類、証跡ファイルがなかった。
+追加した指示: セキュリティ/運用の制御と証拠を、最初から成果物として扱う。

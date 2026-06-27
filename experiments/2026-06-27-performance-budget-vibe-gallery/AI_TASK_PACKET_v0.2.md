@@ -1,49 +1,50 @@
-# AI Task Packet v0.2: Performance-Budgeted Static SaaS Gallery
+# AI Task Packet v0.2: Performance Budget付き静的SaaSギャラリー
 
-## Scope
-Implement the same tiny static SaaS product gallery landing page as the vibe app, but under:
+## スコープ
+バイブ版と同じ小さな静的SaaSプロダクトギャラリーを、以下の場所に改善版として実装する。
 
 ```text
 experiments/2026-06-27-performance-budget-vibe-gallery/fixed-app/
 ```
 
-Use only HTML, CSS, and vanilla JavaScript. Do not install dependencies. Do not modify files outside `fixed-app/` except you may read `audit_static_performance.py`.
+HTML、CSS、素のJavaScriptだけを使う。依存パッケージはインストールしない。`fixed-app/` の外は変更しない。ただし `audit_static_performance.py` は読んでよい。
 
-## Functional Requirements
-- Hero section with clear product story.
-- 6 feature/product cards.
-- A testimonial/proof section.
-- Small category filter interaction using vanilla JS.
-- Works as static files served by `python3 -m http.server`.
+## 機能要件
+- プロダクトの価値が伝わるヒーローセクションを作る。
+- 6つの機能/プロダクトカードを置く。
+- 導入効果やお客様の声のセクションを置く。
+- 素のJavaScriptで小さなカテゴリ絞り込みを実装する。
+- `python3 -m http.server` で配信できる静的ファイルとして動く。
+- UI文言は日本語にする。
 
-## Performance Budget Contract
-- Total static bytes for `index.html + styles.css + app.js` must be <= 32KB.
-- `styles.css` must be <= 12KB and <= 360 lines.
-- `app.js` must be <= 5KB.
-- Avoid external network assets: no `http://`, `https://`, CSS `@import`, or `url(...)` references.
-- Use CSS/simple inline SVG/semantic HTML instead of remote raster images.
-- If images are used, every `<img>` must have explicit `width` and `height`; below-fold images must use `loading="lazy"`.
-- Bound expensive paint effects: avoid excessive `box-shadow`, `backdrop-filter`, `filter`, `transition`, and `transform` declarations.
-- If transitions are used, include a `@media (prefers-reduced-motion: reduce)` fallback.
+## Performance Budget契約
+- `index.html + styles.css + app.js` の静的ファイル合計は32KB以下にする。
+- `styles.css` は12KB以下、かつ360行以下にする。
+- `app.js` は5KB以下にする。
+- 外部ネットワーク資産を避ける。`http://`、`https://`、CSS `@import`、`url(...)` 参照を使わない。
+- リモート画像ではなく、CSS、単純なインラインSVG、意味のあるHTMLを使う。
+- 画像を使う場合、すべての `<img>` に明示的な `width` と `height` を付ける。折り返し以降の画像は `loading="lazy"` を使う。
+- 重くなりやすい描画効果を抑える。過剰な `box-shadow`、`backdrop-filter`、`filter`、`transition`、`transform` 宣言を避ける。
+- transitionを使う場合は、`@media (prefers-reduced-motion: reduce)` の代替を入れる。
 
-## Asset Policy
-- No third-party fonts.
-- No CDN.
-- No tracking pixels or analytics.
-- Decorative visuals must be local and lightweight.
+## アセット方針
+- サードパーティフォントを使わない。
+- CDNを使わない。
+- トラッキングピクセルやanalyticsを入れない。
+- 装飾ビジュアルはローカルで軽量にする。
 
-## Verification Evidence
-Create a short `PERFORMANCE_BUDGET.md` inside `fixed-app/` containing:
-- Budget values.
-- Actual measured sizes.
-- Commands run.
-- Any known trade-offs.
+## 検証証拠
+`fixed-app/` の中に短い `PERFORMANCE_BUDGET.md` を作り、以下を含める。
+- 予算値。
+- 実測サイズ。
+- 実行したコマンド。
+- 既知のトレードオフ。
 
-Run if possible:
+可能であれば以下を実行する。
 
 ```bash
 node --check experiments/2026-06-27-performance-budget-vibe-gallery/fixed-app/app.js
 python3 experiments/2026-06-27-performance-budget-vibe-gallery/audit_static_performance.py experiments/2026-06-27-performance-budget-vibe-gallery/fixed-app
 ```
 
-The static audit should pass.
+静的監査が合格すること。
