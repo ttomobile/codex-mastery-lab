@@ -1,0 +1,42 @@
+# Codex Mastery Lab Backlog
+
+## Phase 0: 安定運用の土台
+
+- [ ] Codex CLI の sandbox / full-auto / danger-full-access の挙動比較
+- [ ] 小規模repoでの TDD ワークフロー: RED→Codex→GREEN→人間レビュー
+- [ ] HermesからCodexを呼ぶ時のPTY/非PTY/バックグラウンド実行の安定性
+- [ ] M4 Mac mini 16GBで安全な並列Codex数の測定
+- [ ] Codex実行ログを記事素材として自動整理する仕組み
+
+## Phase 1: 開発品質
+
+- [ ] 仕様書からテストを先に作らせるプロンプト
+- [ ] 既存コード読解→設計メモ→実装の分割プロンプト
+- [ ] 「小さなPR」単位にCodexを閉じ込める方法
+- [ ] Codexによるリファクタリングの事故パターン集
+- [ ] コードレビュー専用Codexプロンプト
+- [ ] セキュリティ観点レビューをCodexに担当させる方法
+
+## Phase 2: システム開発
+
+- [ ] FastAPI + SQLite の小さなSaaSをCodex主導で作る
+- [ ] Next.js + API の縦切り実装をCodexに任せる
+- [ ] CLIツール開発でのCodex活用
+- [ ] テストカバレッジを下げずに機能追加する運用
+- [ ] GitHub Issue→ブランチ→実装→テスト→PR文面の自動化
+
+## Phase 3: 複数エージェント/継続改善
+
+- [ ] 2つのCodexに実装案を競わせる
+- [ ] Codex実装をHermesがレビューする二段構え
+- [ ] 失敗ログから「次回のCodexプロンプト」を改善する
+- [ ] 毎晩マイクロアプリを1つ作らせる実験
+- [ ] 実験からReusable Skillを作る
+
+## Phase 4: 記事化/収益化
+
+- [ ] note無料記事: Codexを安定運用する基本設計
+- [ ] 有料級記事: CodexをCTO補佐として使う開発OS
+- [ ] 図解: Codex/Hermes/Git/Test/Review の責務分担
+- [ ] チェックリストPDF化
+- [ ] 1週間分の実験を統合したマガジン構成
