@@ -1,0 +1,23 @@
+## fixed node syntax check
+## fixed static security audit
+APP: experiments/2026-06-27-security-baseline-contact-form/fixed-app
+SIZES: total_static_bytes=13061 html=5197 css=5291 js=2573
+PASS: Required app files exist: index.html, styles.css, app.js
+PASS: Lead form exists with stable id
+PASS: Email field uses type=email
+PASS: Required fields are declared
+PASS: Text inputs/textarea have explicit maxlength constraints
+PASS: Company size is constrained by select options
+PASS: Budget is constrained by select options
+PASS: Privacy consent checkbox is required before preview
+PASS: PII fields carry data-classification markers
+PASS: Form fields reference privacy/retention help text
+PASS: Form explicitly declares static-demo/no-network behavior
+PASS: User-controlled values are not rendered with HTML injection APIs
+PASS: User-controlled preview is rendered with textContent or equivalent safe text API
+PASS: No network submission APIs are used in the static demo
+PASS: PII is not persisted to browser storage
+PASS: No console logging of form/PII data
+PASS: SECURITY_PRIVACY.md evidence file exists
+PASS: Security/privacy evidence covers classification, PII, retention, no-network, verification
+SUMMARY: 18 passed / 0 failed

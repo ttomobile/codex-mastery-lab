@@ -1,0 +1,9 @@
+Done. Created the static SaaS demo request form in:
+
+[experiments/2026-06-27-security-baseline-contact-form/vibe-app/index.html](/Users/tto/codex-mastery-lab/experiments/2026-06-27-security-baseline-contact-form/vibe-app/index.html)  
+[experiments/2026-06-27-security-baseline-contact-form/vibe-app/styles.css](/Users/tto/codex-mastery-lab/experiments/2026-06-27-security-baseline-contact-form/vibe-app/styles.css)  
+[experiments/2026-06-27-security-baseline-contact-form/vibe-app/app.js](/Users/tto/codex-mastery-lab/experiments/2026-06-27-security-baseline-contact-form/vibe-app/app.js)
+
+It includes name, email, company size, budget, message, and a recent submissions preview panel. No dependencies installed, and no files outside `vibe-app` were modified by me.
+
+Verification run: `node --check experiments/2026-06-27-security-baseline-contact-form/vibe-app/app.js` passed.

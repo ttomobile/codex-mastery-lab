@@ -1,0 +1,13 @@
+Implemented the packet inside `experiments/2026-06-27-security-baseline-contact-form/fixed-app` only.
+
+Created:
+- `index.html`
+- `styles.css`
+- `app.js`
+- `SECURITY_PRIVACY.md`
+
+Verification results:
+- `node --check experiments/2026-06-27-security-baseline-contact-form/fixed-app/app.js`: exit 0
+- `python3 experiments/2026-06-27-security-baseline-contact-form/audit_static_security.py experiments/2026-06-27-security-baseline-contact-form/fixed-app`: exit 0, `SUMMARY: 18 passed / 0 failed`
+
+No dependencies installed.

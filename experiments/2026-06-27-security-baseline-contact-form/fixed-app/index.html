@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NorthstarOps Demo Request</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">NorthstarOps</p>
+          <h1 id="page-title">Book a focused SaaS workflow demo</h1>
+          <p class="lede">
+            See how revenue, support, and implementation teams coordinate customer handoffs in one clean operating layer.
+          </p>
+          <div class="proof-grid" aria-label="Product highlights">
+            <div>
+              <strong>42%</strong>
+              <span>faster onboarding cycles</span>
+            </div>
+            <div>
+              <strong>18k</strong>
+              <span>customer workflows tracked</span>
+            </div>
+            <div>
+              <strong>99.9%</strong>
+              <span>platform availability target</span>
+            </div>
+          </div>
+        </div>
+
+        <form
+          class="contact-form"
+          id="lead-form"
+          data-static-demo="true"
+          aria-describedby="privacy-retention-note"
+        >
+          <div class="form-heading">
+            <p class="eyebrow">Demo request</p>
+            <h2>Tell us what you need</h2>
+          </div>
+
+          <label for="name">Name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            autocomplete="name"
+            maxlength="80"
+            required
+            data-classification="pii.name"
+            aria-describedby="privacy-retention-note"
+            placeholder="Jordan Lee"
+          >
+
+          <label for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            maxlength="120"
+            required
+            data-classification="pii.email"
+            aria-describedby="privacy-retention-note"
+            placeholder="jordan@company.com"
+          >
+
+          <div class="split-fields">
+            <div class="field-group">
+              <label for="company-size">Company size</label>
+              <select
+                id="company-size"
+                name="companySize"
+                required
+                data-classification="business.company_size"
+                aria-describedby="privacy-retention-note"
+              >
+                <option value="">Select size</option>
+                <option value="1-25">1-25</option>
+                <option value="26-100">26-100</option>
+                <option value="101-500">101-500</option>
+                <option value="501-2000">501-2,000</option>
+                <option value="2001-plus">2,001+</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label for="budget">Budget</label>
+              <select
+                id="budget"
+                name="budget"
+                required
+                data-classification="business.budget"
+                aria-describedby="privacy-retention-note"
+              >
+                <option value="">Select range</option>
+                <option value="under-10k">Under $10k</option>
+                <option value="10k-25k">$10k-$25k</option>
+                <option value="25k-75k">$25k-$75k</option>
+                <option value="75k-plus">$75k+</option>
+              </select>
+            </div>
+          </div>
+
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            maxlength="600"
+            required
+            data-classification="pii_or_confidential.free_text"
+            aria-describedby="privacy-retention-note"
+            placeholder="What workflow or customer handoff problem should we cover?"
+          ></textarea>
+
+          <label class="consent-field" for="privacy-consent">
+            <input
+              id="privacy-consent"
+              name="privacyConsent"
+              type="checkbox"
+              required
+              aria-describedby="privacy-retention-note"
+            >
+            <span>I understand this preview stores my entries in memory only until refresh.</span>
+          </label>
+
+          <button type="submit">Preview submission</button>
+          <p class="form-note" id="privacy-retention-note">
+            No network request is sent. This static preview retains entries in memory only and clears them on refresh.
+          </p>
+        </form>
+      </section>
+
+      <section class="submissions" aria-labelledby="submissions-title">
+        <div>
+          <p class="eyebrow">Recent submissions</p>
+          <h2 id="submissions-title">Lead preview</h2>
+        </div>
+        <div id="empty-state" class="empty-state">
+          Submitted demo requests will appear here.
+        </div>
+        <div id="submission-list" class="submission-list" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

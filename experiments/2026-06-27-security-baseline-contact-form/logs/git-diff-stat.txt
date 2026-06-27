@@ -1,0 +1,4 @@
+ backlog.md                                         |   4 +-
+ book/outline.md                                    |   1 +
+ .../aidd-spec-ai-task-packet-standard-v0.1.md      | 102 ++++++++++++++++++++-
+ 3 files changed, 103 insertions(+), 4 deletions(-)

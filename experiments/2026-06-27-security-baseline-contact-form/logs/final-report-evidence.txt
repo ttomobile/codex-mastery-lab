@@ -1,0 +1,33 @@
+# Final Report Evidence: Security Baseline Contact Form
+
+## Theme
+問い合わせフォームのPII/Data Classification/Consent/RetentionをSecurity BaselineからAI Task Packetへ逆算する。
+
+## Key outputs
+- Article: `/Users/tto/codex-mastery-lab/articles/2026-06-27-security-baseline-contact-form.md`
+- Experiment: `/Users/tto/codex-mastery-lab/experiments/2026-06-27-security-baseline-contact-form/`
+- Standard update: `/Users/tto/codex-mastery-lab/standards/aidd-spec-ai-task-packet-standard-v0.1.md`
+- Assets:
+  - `/Users/tto/codex-mastery-lab/assets/2026-06-27-security-baseline-reverse-chain.svg`
+  - `/Users/tto/codex-mastery-lab/assets/2026-06-27-security-baseline-comparison.svg`
+
+## Verification summary
+Vibe app:
+- `node --check`: passed
+- static security audit: `11 passed / 7 failed`
+
+Fixed app:
+- `node --check`: passed
+- static security audit: `18 passed / 0 failed`
+- HTTP check: status 200, static marker true, consent true
+
+## Main upstream fields added
+- `security_contract.safe_rendering`
+- `security_contract.prohibited_browser_apis`
+- `security_contract.logging_policy`
+- `privacy_contract.pii_fields`
+- `privacy_contract.business_sensitive_fields`
+- `privacy_contract.consent_required`
+- `privacy_contract.retention_policy`
+- `privacy_contract.storage_policy`
+- `verification_evidence.files_to_attach: SECURITY_PRIVACY.md`

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NorthstarOps Demo Request</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">NorthstarOps</p>
+          <h1 id="page-title">Book a focused SaaS workflow demo</h1>
+          <p class="lede">
+            See how revenue, support, and implementation teams coordinate customer handoffs in one clean operating layer.
+          </p>
+          <div class="proof-grid" aria-label="Product highlights">
+            <div>
+              <strong>42%</strong>
+              <span>faster onboarding cycles</span>
+            </div>
+            <div>
+              <strong>18k</strong>
+              <span>customer workflows tracked</span>
+            </div>
+            <div>
+              <strong>99.9%</strong>
+              <span>platform availability target</span>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form" id="lead-form">
+          <div class="form-heading">
+            <p class="eyebrow">Demo request</p>
+            <h2>Tell us what you need</h2>
+          </div>
+
+          <label>
+            <span>Name</span>
+            <input id="name" name="name" type="text" autocomplete="name" required placeholder="Jordan Lee">
+          </label>
+
+          <label>
+            <span>Email</span>
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="jordan@company.com">
+          </label>
+
+          <div class="split-fields">
+            <label>
+              <span>Company size</span>
+              <select id="company-size" name="companySize" required>
+                <option value="">Select size</option>
+                <option>1-25</option>
+                <option>26-100</option>
+                <option>101-500</option>
+                <option>501-2,000</option>
+                <option>2,001+</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Budget</span>
+              <select id="budget" name="budget" required>
+                <option value="">Select range</option>
+                <option>Under $10k</option>
+                <option>$10k-$25k</option>
+                <option>$25k-$75k</option>
+                <option>$75k+</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            <span>Message</span>
+            <textarea id="message" name="message" rows="5" required placeholder="What workflow or customer handoff problem should we cover?"></textarea>
+          </label>
+
+          <button type="submit">Preview submission</button>
+          <p class="form-note">This static demo keeps submissions in your browser session only.</p>
+        </form>
+      </section>
+
+      <section class="submissions" aria-labelledby="submissions-title">
+        <div>
+          <p class="eyebrow">Recent submissions</p>
+          <h2 id="submissions-title">Lead preview</h2>
+        </div>
+        <div id="empty-state" class="empty-state">
+          Submitted demo requests will appear here.
+        </div>
+        <div id="submission-list" class="submission-list" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

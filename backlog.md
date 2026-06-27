@@ -13,7 +13,7 @@
 - [ ] System Contract: API/DB/権限/外部連携テンプレート
 - [x] Non-Functional Contract: Performance Budget / Asset Policy をAI Task Packetへ反映する（2026-06-27 performance-budget-vibe-gallery）
 - [ ] Non-Functional Contract: 性能/可用性/セキュリティ/コスト/運用テンプレート
-- [ ] AI Task Packet: Codexに渡す最小単位の標準化
+- [x] AI Task Packet: Codexに渡す最小単位の標準化（2026-06-27: Accessibility / Performance / Security-Privacy の3カテゴリをv0.1へ反映）
 - [ ] Verification Evidence: 「できた」の証拠標準
 - [ ] Learning Log: 失敗を標準とプロンプトに還元する仕組み
 - [ ] AIDD Control Plane SaaS MVP仕様
@@ -49,6 +49,8 @@
 - [ ] 次回候補: FAQ検索アプリに axe / Lighthouse / Playwright の軽量監査を追加し、静的監査では拾えない問題を比較する
 - [x] 次回候補: 同じFAQ題材で「Performance Budget」を事前に渡すとCLS/LCP系の欠陥が減るか検証する（2026-06-27: 静的SaaSギャラリーでPerformance Budget Contractを検証。次は実Lighthouse接続）
 - [ ] 次回候補: 追加依存を最小化して Lighthouse / axe / Playwright のうち1つを実行し、静的監査とのズレを比較する
+- [x] 次回候補: 問い合わせフォームの Security Baseline / Privacy Contract を静的監査で検証する（2026-06-27 security-baseline-contact-form）
+- [ ] 次回候補: 同じ問い合わせフォームで、サーバーAPIを足した場合の CSRF / rate limit / audit log / retention を逆算する
 
 - [ ] 2つのCodexに実装案を競わせる
 - [ ] Codex実装をHermesがレビューする二段構え

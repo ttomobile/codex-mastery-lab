@@ -33,6 +33,15 @@ accessibility_contract:
 security_contract:
   data_classification: string
   input_validation: []
+  safe_rendering: []
+  prohibited_browser_apis: []
+  logging_policy: string
+privacy_contract:
+  pii_fields: []
+  business_sensitive_fields: []
+  consent_required: boolean
+  retention_policy: string
+  storage_policy: string
 performance_budget_contract:
   total_static_bytes: string
   css_budget: string
@@ -167,7 +176,67 @@ verification_evidence:
     - static performance audit output
 ```
 
-## 5. AI Task Packetテンプレート Lite
+## 5. Security / Privacy Baseline実験から追加した項目
+
+### 5.1 `security_contract.safe_rendering`
+
+フォームや検索UIのようにユーザー入力をDOMへ戻すUIでは、XSS対策をAIの暗黙判断に任せない。AI Task Packetには、ユーザー制御値を `textContent` などの安全なテキストAPIでのみ描画し、`innerHTML` / `outerHTML` / `insertAdjacentHTML` を禁止する条件を書く。
+
+例:
+
+```yaml
+security_contract:
+  safe_rendering:
+    - Submitted user-controlled values must be rendered with textContent or equivalent safe text APIs
+    - Do not use innerHTML, outerHTML, or insertAdjacentHTML for submitted values
+  input_validation:
+    - name maxlength=80
+    - email type=email maxlength=120
+    - message maxlength=600
+```
+
+### 5.2 `security_contract.prohibited_browser_apis`
+
+静的プロトタイプであるにもかかわらず、AIが送信・保存・ログを実装すると、PIIの扱いが曖昧になる。許可される送信先や保存先がない場合は、禁止APIを明示する。
+
+例:
+
+```yaml
+security_contract:
+  prohibited_browser_apis:
+    - fetch
+    - XMLHttpRequest
+    - navigator.sendBeacon
+    - localStorage
+    - sessionStorage
+    - indexedDB
+  logging_policy: "Do not console.log submitted PII or business-sensitive values"
+```
+
+### 5.3 `privacy_contract`
+
+リード獲得フォーム、問い合わせフォーム、プロフィール編集など、PIIを扱うUIでは、Privacy/Data Classificationを後工程の監査証跡として残す。DOM上の `data-classification` と証拠ファイルの両方で確認できる状態を標準とする。
+
+例:
+
+```yaml
+privacy_contract:
+  pii_fields:
+    - name: pii.name
+    - email: pii.email
+    - message: pii_or_confidential.free_text
+  business_sensitive_fields:
+    - companySize: business.company_size
+    - budget: business.budget
+  consent_required: true
+  retention_policy: "in-memory only until refresh for static prototype"
+  storage_policy: "no browser persistent storage"
+verification_evidence:
+  files_to_attach:
+    - SECURITY_PRIVACY.md
+```
+
+## 6. AI Task Packetテンプレート Lite
 
 ```markdown
 # AI Task Packet: <task name>
@@ -199,6 +268,22 @@ verification_evidence:
 - Keyboard interactions:
 - Focus evidence:
 - Live regions:
+
+## Security Contract
+
+- Data classification:
+- Input validation:
+- Safe rendering:
+- Prohibited browser APIs:
+- Logging policy:
+
+## Privacy Contract
+
+- PII fields:
+- Business-sensitive fields:
+- Consent required:
+- Retention policy:
+- Storage policy:
 
 ## Performance Budget Contract
 
@@ -232,16 +317,17 @@ Run these commands and include results:
 - Known limitations:
 ```
 
-## 5. Control Plane機能仮説
+## 7. Control Plane機能仮説
 
 AIDD Control Planeでは、AI Task Packetを自由記述ではなくフォームとして生成する。
 
 - UI種別を「検索」「一覧」「フォーム」「認証」「決済」などから選ぶ
 - UI種別に応じて Accessibility Contract の必須項目を自動提示する
 - `aria-controls` / `aria-describedby` / live region / list semantics を静的監査する
+- フォームUIでは PII/Data Classification、retention、consent、no-network/no-storage を必須入力にする
 - Codex実行ログ、監査結果、修正プロンプトを Learning Log に自動保存する
 
-## 6. 今日の検証結果との対応
+## 8. 今日の検証結果との対応
 
 2026-06-27 の FAQ検索アプリ実験では、雑プロンプト版で以下が抜けた。
 
@@ -253,3 +339,13 @@ AIDD Control Planeでは、AI Task Packetを自由記述ではなくフォーム
 - 再実行可能な静的監査コマンド
 
 AI Task Packet v0.1にこれらを事前に入れると、fixed-appでは静的監査がすべてPASSした。
+
+2026-06-27 の問い合わせフォームSecurity Baseline実験では、雑プロンプト版で以下が抜けた。
+
+- free-text入力の `maxlength`
+- privacy consent
+- `data-classification` によるPII/業務データ分類
+- no-network / no-storage / retention の明示
+- `SECURITY_PRIVACY.md` による監査証跡
+
+AI Task Packet v0.3に Security Contract / Privacy Contract / Verification Evidence を事前に入れると、fixed-appでは静的セキュリティ監査が `18 passed / 0 failed` になった。
