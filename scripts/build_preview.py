@@ -12,32 +12,74 @@ ASSETS = ROOT / 'assets'
 OUT = ROOT / 'preview'
 OUT_ASSETS = OUT / 'assets'
 
+SERIES_ORDER = [
+    '001-series-roadmap.md',
+    '2026-06-27-accessibility-contract-vibe-faq.md',
+    '2026-06-27-performance-budget-vibe-gallery.md',
+    '2026-06-27-security-baseline-contact-form.md',
+    '2026-06-27-contact-api-threat-model.md',
+]
+
 CSS = """
-:root { color-scheme: light; --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1; --accent:#1d4ed8; --code:#0f172a; }
+:root {
+  color-scheme: light;
+  --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
+  --accent:#1d4ed8; --accent2:#7c3aed; --code:#0f172a; --soft:#eef4ff;
+}
 * { box-sizing: border-box; }
-body { margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:var(--bg); color:var(--fg); line-height:1.78; }
-.layout { display:grid; grid-template-columns: 280px minmax(0, 1fr); min-height:100vh; }
-aside { position:sticky; top:0; height:100vh; overflow:auto; padding:24px; background:#0b1220; color:#e5eefc; }
-aside h1 { font-size:18px; line-height:1.35; margin:0 0 20px; }
-aside a { color:#c7d7ff; text-decoration:none; display:block; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.08); font-size:14px; }
-aside a:hover { color:#fff; }
-main { max-width: 940px; padding: 48px 42px 80px; }
-article { background:var(--card); padding:42px 48px; border:1px solid var(--line); border-radius:22px; box-shadow:0 18px 50px rgba(15,23,42,.08); }
-h1 { font-size: 34px; line-height:1.25; margin: 0 0 22px; letter-spacing:-.02em; }
-h2 { font-size: 25px; margin: 44px 0 14px; padding-top:8px; border-top:1px solid #edf1f7; }
-h3 { font-size: 19px; margin: 28px 0 10px; }
+html { scroll-behavior: smooth; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif; background:var(--bg); color:var(--fg); line-height:1.82; }
+a { color: var(--accent); }
+.layout { display:grid; grid-template-columns: 300px minmax(0, 1fr); min-height:100vh; }
+aside { position:sticky; top:0; height:100vh; overflow:auto; padding:22px; background:#0b1220; color:#e5eefc; }
+.brand { font-weight:800; line-height:1.35; margin:0 0 16px; font-size:18px; letter-spacing:-.01em; }
+.series-note { color:#9fb4d8; font-size:12px; margin:0 0 18px; }
+.chapter-link { color:#c7d7ff; text-decoration:none; display:block; padding:10px 10px; border:1px solid rgba(255,255,255,.08); border-radius:12px; margin:8px 0; font-size:14px; background:rgba(255,255,255,.03); }
+.chapter-link:hover, .chapter-link.current { color:#fff; background:rgba(59,130,246,.22); border-color:rgba(147,197,253,.45); }
+.chapter-num { color:#93c5fd; font-weight:700; font-size:12px; display:block; margin-bottom:2px; }
+main { max-width: 980px; padding: 42px 34px 80px; }
+article { background:var(--card); padding:42px 48px; border:1px solid var(--line); border-radius:24px; box-shadow:0 18px 50px rgba(15,23,42,.08); }
+h1 { font-size: clamp(28px, 5vw, 42px); line-height:1.24; margin: 0 0 22px; letter-spacing:-.03em; }
+h2 { font-size: clamp(22px, 3vw, 28px); margin: 46px 0 14px; padding-top:10px; border-top:1px solid #edf1f7; }
+h3 { font-size: 20px; margin: 30px 0 10px; }
 p { margin: 14px 0; }
 blockquote { margin: 18px 0; padding: 14px 18px; border-left: 4px solid var(--accent); background:#eff6ff; color:#1e3a8a; border-radius: 10px; }
 pre { background:var(--code); color:#e2e8f0; padding:18px; border-radius:14px; overflow:auto; line-height:1.55; font-size:13px; }
 code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 p code, li code { background:#eef2ff; color:#1e3a8a; padding:2px 5px; border-radius:5px; }
-img { max-width:100%; border:1px solid var(--line); border-radius:14px; background:white; margin:18px 0; }
-table { border-collapse: collapse; width:100%; margin:18px 0; font-size:14px; }
-th, td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; }
+img { max-width:100%; border:1px solid var(--line); border-radius:14px; background:white; margin:18px 0; height:auto; }
+table { border-collapse: collapse; width:100%; margin:18px 0; font-size:14px; display:block; overflow-x:auto; }
+th, td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; min-width:120px; }
 th { background:#f1f5f9; }
 .meta { color:var(--muted); font-size:14px; margin-bottom:24px; }
-.home article { max-width:860px; }
-@media (max-width: 850px) { .layout { grid-template-columns:1fr; } aside { position:relative; height:auto; } main { padding:20px; } article { padding:26px 20px; } }
+.hero { background:linear-gradient(135deg,#eff6ff,#faf5ff); border:1px solid #dbeafe; border-radius:24px; padding:28px; margin-bottom:22px; }
+.chapter-nav { display:flex; gap:12px; justify-content:space-between; margin:24px 0; }
+.chapter-nav a { flex:1; text-decoration:none; background:var(--soft); border:1px solid var(--line); border-radius:14px; padding:14px; color:#17315f; }
+.chapter-nav .next { text-align:right; }
+.chapter-nav span { display:block; color:var(--muted); font-size:12px; }
+.home-grid { display:grid; gap:14px; padding:0; list-style:none; }
+.home-grid li a { display:block; padding:18px; background:#fff; border:1px solid var(--line); border-radius:16px; text-decoration:none; box-shadow:0 8px 24px rgba(15,23,42,.05); }
+.mobile-index { display:none; background:#0b1220; padding:12px 16px; position:sticky; top:0; z-index:10; }
+.mobile-index details { color:#e5eefc; }
+.mobile-index summary { cursor:pointer; font-weight:700; }
+.mobile-index a { color:#c7d7ff; display:block; padding:8px 0; }
+@media (max-width: 900px) {
+  .layout { display:block; }
+  aside { display:none; }
+  .mobile-index { display:block; }
+  main { padding:16px; max-width:none; }
+  article { padding:24px 18px; border-radius:18px; }
+  .chapter-nav { flex-direction:column; }
+  .chapter-nav .next { text-align:left; }
+  pre { font-size:12px; padding:14px; }
+}
+@media (max-width: 480px) {
+  body { line-height:1.75; }
+  main { padding:10px; }
+  article { padding:20px 14px; border-radius:14px; }
+  h1 { font-size:28px; }
+  h2 { font-size:22px; }
+}
 """
 
 def slug(path: Path) -> str:
@@ -106,7 +148,7 @@ def md_to_html(md: str) -> str:
         if m:
             close_lists()
             src = m.group(2).replace('../assets/', 'assets/')
-            out.append(f'<p><img src="{html.escape(src)}" alt="{html.escape(m.group(1))}"></p>')
+            out.append(f'<p><img src="{html.escape(src)}" alt="{html.escape(m.group(1))}" loading="lazy"></p>')
             continue
         m = re.match(r'^- \[([ x])\]\s+(.*)$', line)
         if m:
@@ -128,31 +170,75 @@ def md_to_html(md: str) -> str:
     flush_table(); close_lists()
     return '\n'.join(out)
 
-def page(title: str, body: str, links: list[tuple[str,str]], cls='') -> str:
-    nav = '\n'.join(f'<a href="{href}">{html.escape(text)}</a>' for text,href in links)
-    return f'''<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><style>{CSS}</style></head><body><div class="layout {cls}"><aside><h1>Codex Mastery Lab<br>AIDD-Spec Preview</h1>{nav}</aside><main>{body}</main></div></body></html>'''
+def chapter_label(i: int, title: str) -> str:
+    return f'第{i:02d}回｜{title}'
+
+def nav_html(items, current_href=None):
+    return '\n'.join(
+        f'<a class="chapter-link {"current" if href == current_href else ""}" href="{href}"><span class="chapter-num">第{i:02d}回</span>{html.escape(title)}</a>'
+        for i, (_, title, href) in enumerate(items, start=1)
+    )
+
+def mobile_nav(items):
+    links = '\n'.join(f'<a href="{href}">第{i:02d}回｜{html.escape(title)}</a>' for i, (_, title, href) in enumerate(items, start=1))
+    return f'<div class="mobile-index"><details><summary>連載目次を開く</summary>{links}</details></div>'
+
+def prev_next(items, index):
+    parts = ['<nav class="chapter-nav" aria-label="前後の記事">']
+    if index > 0:
+        _, title, href = items[index-1]
+        parts.append(f'<a class="prev" href="{href}"><span>前の記事</span>{html.escape(title)}</a>')
+    else:
+        parts.append('<span></span>')
+    if index < len(items)-1:
+        _, title, href = items[index+1]
+        parts.append(f'<a class="next" href="{href}"><span>次の記事</span>{html.escape(title)}</a>')
+    else:
+        parts.append('<span></span>')
+    parts.append('</nav>')
+    return ''.join(parts)
+
+def page(title: str, body: str, items, current_href=None, cls='') -> str:
+    nav = nav_html(items, current_href)
+    mob = mobile_nav(items)
+    return f'''<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><style>{CSS}</style></head><body>{mob}<div class="layout {cls}"><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">スマホ対応プレビュー / 順番に読める連載版</p>{nav}</aside><main>{body}</main></div></body></html>'''
+
+def article_title(path: Path) -> str:
+    for line in path.read_text(encoding='utf-8').splitlines():
+        if line.startswith('# '):
+            return line[2:].strip()
+    return path.stem
+
+def ordered_articles():
+    result = []
+    seen = set()
+    for name in SERIES_ORDER:
+        p = ARTICLES / name
+        if p.exists():
+            result.append(p); seen.add(p.name)
+    # Keep old intro out of the main route if 001 exists; it is superseded.
+    for p in sorted(ARTICLES.glob('*.md')):
+        if p.name not in seen and not p.name.startswith('2026-06-27-codex-mastery-lab-start'):
+            result.append(p)
+    return result
 
 def main():
+    if OUT.exists():
+        shutil.rmtree(OUT)
     OUT.mkdir(parents=True, exist_ok=True)
     OUT_ASSETS.mkdir(parents=True, exist_ok=True)
     for asset in list(ASSETS.glob('2026-06-27*.svg')) + list(ASSETS.glob('2026-06-27*.gif')) + list(ASSETS.glob('2026-06-27*.console.txt')):
         shutil.copy2(asset, OUT_ASSETS / asset.name)
-    articles = sorted(ARTICLES.glob('2026-06-27*.md'), key=lambda p: p.name)
-    links = []
-    rendered = []
-    for p in articles:
-        title = p.read_text(encoding='utf-8').splitlines()[0].lstrip('# ').strip()
-        href = slug(p)
-        links.append((title, href))
-        rendered.append((p, title, href))
-    home_list = ''.join(f'<li><a href="{href}">{html.escape(title)}</a></li>' for _,title,href in rendered)
-    home = '<article><h1>Codex Mastery Lab Preview</h1><p class="meta">Generated local preview for note drafts. Use the sidebar or list below.</p><ul>'+home_list+'</ul></article>'
-    (OUT/'index.html').write_text(page('Codex Mastery Lab Preview', home, links, 'home'), encoding='utf-8')
-    for p,title,href in rendered:
+    articles = ordered_articles()
+    items = [(p, article_title(p), slug(p)) for p in articles]
+    home_list = ''.join(f'<li><a href="{href}"><strong>第{i:02d}回</strong><br>{html.escape(title)}</a></li>' for i, (_,title,href) in enumerate(items, start=1))
+    home = '<article class="hero"><h1>Codex Mastery Lab Preview</h1><p class="meta">AI駆動開発時代の共通説明書を作る連載。第1回から順番に読めます。</p><ul class="home-grid">'+home_list+'</ul></article>'
+    (OUT/'index.html').write_text(page('Codex Mastery Lab Preview', home, items, None, 'home'), encoding='utf-8')
+    for idx, (p,title,href) in enumerate(items):
         md = p.read_text(encoding='utf-8')
-        body = f'<article>{md_to_html(md)}</article>'
-        (OUT/href).write_text(page(title, body, links), encoding='utf-8')
-    print(f'Wrote {len(rendered)} articles to {OUT}')
+        body = f'{prev_next(items, idx)}<article>{md_to_html(md)}</article>{prev_next(items, idx)}'
+        (OUT/href).write_text(page(title, body, items, href), encoding='utf-8')
+    print(f'Wrote {len(items)} articles to {OUT}')
 
 if __name__ == '__main__':
     main()

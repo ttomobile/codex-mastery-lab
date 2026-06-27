@@ -1,0 +1,214 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第1回｜AIに「いい感じに作って」と頼む前に必要な共通説明書を作る</title><style>
+:root {
+  color-scheme: light;
+  --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
+  --accent:#1d4ed8; --accent2:#7c3aed; --code:#0f172a; --soft:#eef4ff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif; background:var(--bg); color:var(--fg); line-height:1.82; }
+a { color: var(--accent); }
+.layout { display:grid; grid-template-columns: 300px minmax(0, 1fr); min-height:100vh; }
+aside { position:sticky; top:0; height:100vh; overflow:auto; padding:22px; background:#0b1220; color:#e5eefc; }
+.brand { font-weight:800; line-height:1.35; margin:0 0 16px; font-size:18px; letter-spacing:-.01em; }
+.series-note { color:#9fb4d8; font-size:12px; margin:0 0 18px; }
+.chapter-link { color:#c7d7ff; text-decoration:none; display:block; padding:10px 10px; border:1px solid rgba(255,255,255,.08); border-radius:12px; margin:8px 0; font-size:14px; background:rgba(255,255,255,.03); }
+.chapter-link:hover, .chapter-link.current { color:#fff; background:rgba(59,130,246,.22); border-color:rgba(147,197,253,.45); }
+.chapter-num { color:#93c5fd; font-weight:700; font-size:12px; display:block; margin-bottom:2px; }
+main { max-width: 980px; padding: 42px 34px 80px; }
+article { background:var(--card); padding:42px 48px; border:1px solid var(--line); border-radius:24px; box-shadow:0 18px 50px rgba(15,23,42,.08); }
+h1 { font-size: clamp(28px, 5vw, 42px); line-height:1.24; margin: 0 0 22px; letter-spacing:-.03em; }
+h2 { font-size: clamp(22px, 3vw, 28px); margin: 46px 0 14px; padding-top:10px; border-top:1px solid #edf1f7; }
+h3 { font-size: 20px; margin: 30px 0 10px; }
+p { margin: 14px 0; }
+blockquote { margin: 18px 0; padding: 14px 18px; border-left: 4px solid var(--accent); background:#eff6ff; color:#1e3a8a; border-radius: 10px; }
+pre { background:var(--code); color:#e2e8f0; padding:18px; border-radius:14px; overflow:auto; line-height:1.55; font-size:13px; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+p code, li code { background:#eef2ff; color:#1e3a8a; padding:2px 5px; border-radius:5px; }
+img { max-width:100%; border:1px solid var(--line); border-radius:14px; background:white; margin:18px 0; height:auto; }
+table { border-collapse: collapse; width:100%; margin:18px 0; font-size:14px; display:block; overflow-x:auto; }
+th, td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; min-width:120px; }
+th { background:#f1f5f9; }
+.meta { color:var(--muted); font-size:14px; margin-bottom:24px; }
+.hero { background:linear-gradient(135deg,#eff6ff,#faf5ff); border:1px solid #dbeafe; border-radius:24px; padding:28px; margin-bottom:22px; }
+.chapter-nav { display:flex; gap:12px; justify-content:space-between; margin:24px 0; }
+.chapter-nav a { flex:1; text-decoration:none; background:var(--soft); border:1px solid var(--line); border-radius:14px; padding:14px; color:#17315f; }
+.chapter-nav .next { text-align:right; }
+.chapter-nav span { display:block; color:var(--muted); font-size:12px; }
+.home-grid { display:grid; gap:14px; padding:0; list-style:none; }
+.home-grid li a { display:block; padding:18px; background:#fff; border:1px solid var(--line); border-radius:16px; text-decoration:none; box-shadow:0 8px 24px rgba(15,23,42,.05); }
+.mobile-index { display:none; background:#0b1220; padding:12px 16px; position:sticky; top:0; z-index:10; }
+.mobile-index details { color:#e5eefc; }
+.mobile-index summary { cursor:pointer; font-weight:700; }
+.mobile-index a { color:#c7d7ff; display:block; padding:8px 0; }
+@media (max-width: 900px) {
+  .layout { display:block; }
+  aside { display:none; }
+  .mobile-index { display:block; }
+  main { padding:16px; max-width:none; }
+  article { padding:24px 18px; border-radius:18px; }
+  .chapter-nav { flex-direction:column; }
+  .chapter-nav .next { text-align:left; }
+  pre { font-size:12px; padding:14px; }
+}
+@media (max-width: 480px) {
+  body { line-height:1.75; }
+  main { padding:10px; }
+  article { padding:20px 14px; border-radius:14px; }
+  h1 { font-size:28px; }
+  h2 { font-size:22px; }
+}
+</style></head><body><div class="mobile-index"><details><summary>連載目次を開く</summary><a href="001-series-roadmap.html">第01回｜第1回｜AIに「いい感じに作って」と頼む前に必要な共通説明書を作る</a>
+<a href="2026-06-27-accessibility-contract-vibe-faq.html">第02回｜雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a href="2026-06-27-performance-budget-vibe-gallery.html">第03回｜「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a href="2026-06-27-security-baseline-contact-form.html">第04回｜問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
+<a href="2026-06-27-contact-api-threat-model.html">第05回｜問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a></details></div><div class="layout "><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">スマホ対応プレビュー / 順番に読める連載版</p><a class="chapter-link current" href="001-series-roadmap.html"><span class="chapter-num">第01回</span>第1回｜AIに「いい感じに作って」と頼む前に必要な共通説明書を作る</a>
+<a class="chapter-link " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">第02回</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">第03回</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a class="chapter-link " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">第04回</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
+<a class="chapter-link " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">第05回</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><span></span><a class="next" href="2026-06-27-accessibility-contract-vibe-faq.html"><span>次の記事</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a></nav><article><h1>第1回｜AIに「いい感じに作って」と頼む前に必要な共通説明書を作る</h1>
+<blockquote>2026-06-27 / Codex Mastery Lab 連載リスタート版  </blockquote>
+<blockquote>想定読了時間: 約10分  </blockquote>
+<blockquote>種別: Concept / Roadmap / Book</blockquote>
+<p><img src="assets/2026-06-27-series-roadmap.svg" alt="AIDD-Spec連載ロードマップ" loading="lazy"></p>
+<h2>1. この連載でやりたいこと</h2>
+<p>この連載では、Codexの便利な使い方を紹介するだけでは終わらない。</p>
+<p>目的はもっと大きい。</p>
+<blockquote>AIにWebアプリやスマホアプリを作らせる時代に、最初に何を伝えれば、あとから困らない成果物が出てくるのかを検証し続ける。</blockquote>
+<p>最近のAIコーディングは本当に速い。Codexに「FAQ検索アプリを作って」「問い合わせフォームを作って」と頼むと、数分でそれっぽいものが出てくる。見た目も悪くない。動きもする。はじめて見た人なら「もうこれでいいのでは」と感じるかもしれない。</p>
+<p>しかし、実際の開発では「画面が表示された」だけでは終わらない。</p>
+<ul>
+<li>仕様を満たしているか</li>
+<li>エラー時にどう動くか</li>
+<li>キーボードだけで操作できるか</li>
+<li>スマホで見やすいか</li>
+<li>セキュリティ上危なくないか</li>
+<li>個人情報をどう扱うか</li>
+<li>パフォーマンスは悪くないか</li>
+<li>後から直しやすい構成か</li>
+<li>テストや監査の証拠が残っているか</li>
+<li>運用保守で何を見ればよいか</li>
+</ul>
+<p>こうした観点が抜けていると、最初は速くても後で手戻りが増える。</p>
+<p>料理で例えるなら、完成写真だけ見て「この料理を再現して」と言われるようなものだ。写真だけでも雰囲気は分かる。でも、材料、分量、火加減、手順、失敗しやすいポイントがなければ、毎回同じ味にはならない。</p>
+<p>AI開発でも同じだ。AIに渡すべきなのは、ふわっとした完成イメージだけではない。再現できる説明書が必要になる。</p>
+<p>この連載では、その説明書を仮に <strong>AIDD-Spec</strong> と呼ぶ。</p>
+<p>AIDD は AI-Driven Development の略で、AIDD-Spec は「AI駆動開発のための標準仕様」という意味だ。</p>
+<h2>2. なぜ今これを検証するのか</h2>
+<p>AIにコードを書かせる記事はすでにたくさんある。</p>
+<p>「このプロンプトを使うと爆速」</p>
+<p>「AIで1日でSaaSを作った」</p>
+<p>「Cursor/Codex/Claude Codeで開発が変わった」</p>
+<p>こうした記事は面白いし、実際に役立つものもある。ただし、多くは成功例に寄りがちだ。</p>
+<p>一方で、実務で本当に知りたいのは次のようなことだ。</p>
+<ul>
+<li>雑に頼むと何が抜けるのか</li>
+<li>どの欠陥はあとから直しにくいのか</li>
+<li>AIに最初から何を伝えれば欠陥が減るのか</li>
+<li>テストや監査の証拠をどう残せばよいのか</li>
+<li>駆け出しエンジニアでもレビューできる形にするには何が必要か</li>
+<li>チームでAI開発を使うなら、どの成果物を標準化すべきか</li>
+</ul>
+<p>ここを検証しないままAI開発を進めると、表面上は速いのに、裏側では品質の借金が増える。</p>
+<p>たとえば問い合わせフォームをAIに作らせる。見た目はきれい。入力もできる。送信ボタンもある。だが、個人情報を保存してよいのか、ログに出してよいのか、同意チェックが必要なのか、保存期間は何日なのか、誰が見るのか、という情報が抜けている。</p>
+<p>この状態で「できました」と言われても、実務では困る。</p>
+<p>だからこの連載では、最初からきれいな正解を作らない。まずはあえて雑に作らせる。そこから欠陥を見つける。欠陥を直すための指示を考える。そして、その指示を出すには前段で何を決めておくべきだったのかを逆算する。</p>
+<h2>3. 検証の基本ループ</h2>
+<p>この連載の基本ループは次の通り。</p>
+<pre><code>1. Codexに日本語の雑なプロンプトで小さなアプリを作らせる
+2. できたものをブラウザで操作し、GIFで記録する
+3. 仕様・アクセシビリティ・性能・セキュリティなどから監査する
+4. 欠陥を記録する
+5. 理想状態を定義する
+6. 修正プロンプトを作る
+7. 指示を見直した版をCodexに作らせる
+8. 修正版もブラウザで操作し、GIFで記録する
+9. 再監査する
+10. 何を最初から伝えるべきだったかを逆算する
+11. AIDD-Specに追加する
+12. 記事として公開できる形にまとめる</code></pre>
+<p>ポイントは、AIを責めることではない。</p>
+<p>Codexがうまく作れなかったなら、それはCodexの限界かもしれない。しかし同時に、こちらが渡した説明が足りなかった可能性もある。</p>
+<p>この連載では、AIの失敗を「次に渡す説明書を改善する材料」として扱う。</p>
+<h2>4. 何を標準化したいのか</h2>
+<p>AIDD-Specで標準化したいものは、単なるプロンプト集ではない。</p>
+<p>プロンプトだけを集めても、状況が変わると使えなくなる。必要なのは、AIに渡す情報の型だ。</p>
+<p>現時点では、以下のような成果物を考えている。</p>
+<table>
+<tr><th>分類</th><th>成果物</th><th>何のためにあるか</th></tr>
+<tr><td>要件</td><td>AI-Ready Requirement Spec</td><td>AIが実装できる粒度まで要件を分解する</td></tr>
+<tr><td>画面</td><td>Design Contract</td><td>画面状態、文言、アクセシビリティ、モバイル対応を明確にする</td></tr>
+<tr><td>API</td><td>API Contract</td><td>エンドポイント、入力、出力、エラー、認可を明確にする</td></tr>
+<tr><td>データ</td><td>Data Classification</td><td>個人情報や機密情報の扱いを明確にする</td></tr>
+<tr><td>非機能</td><td>Performance Budget</td><td>速度、サイズ、Lighthouse目標などを決める</td></tr>
+<tr><td>セキュリティ</td><td>Security Baseline</td><td>最低限守るべき安全基準を決める</td></tr>
+<tr><td>実装指示</td><td>AI Task Packet</td><td>Codexに1回渡す作業単位を定義する</td></tr>
+<tr><td>証拠</td><td>Verification Evidence</td><td>「できた」と言える証拠を残す</td></tr>
+<tr><td>学習</td><td>Learning Log</td><td>失敗を次回の指示に反映する</td></tr>
+</table>
+<p>これらは全部を最初から完璧に作る必要はない。</p>
+<p>むしろ、毎回の実験で「この情報がないと困った」と分かったものを少しずつ追加していく。</p>
+<h2>5. 第2回以降でやること</h2>
+<p>すでに初期実験として、いくつかの題材を試している。</p>
+<p>第2回では、FAQ検索アプリを扱う。雑に作ると見た目は悪くないが、検索欄と結果リストの関係、リスト構造、キーボード操作、アクセシビリティの証拠が抜けた。そこから Accessibility Contract を逆算する。</p>
+<p>第3回では、SaaSギャラリー画面を扱う。「プレミアムでビジュアルに」と頼むと、CSSや装飾は増える。そこで Performance Budget と Asset Policy を考える。</p>
+<p>第4回では、問い合わせフォームを扱う。個人情報や営業情報を受け取る画面では、見た目だけでなく、同意、保存方針、ログ出力、ブラウザAPIの禁止事項を考える必要がある。</p>
+<p>第5回では、問い合わせAPIを扱う。APIが動くだけでは不十分で、CSRF、Origin制限、rate limit、request id、監査ログ、エラー形式、保存期間が必要になる。</p>
+<p>その先では、次のようなテーマを扱う予定だ。</p>
+<ul>
+<li>認証/認可: 管理画面でAIが権限境界をどう間違えるか</li>
+<li>テスト粒度: ユニットテスト、統合テスト、E2Eをどう分けるか</li>
+<li>モバイルUI: タッチ操作、狭い画面、入力しやすさ、通信失敗時の状態</li>
+<li>DB設計: migration、インデックス、削除方針、履歴管理</li>
+<li>運用保守: ログ、監視、バックアップ、障害時手順</li>
+<li>コスト: 何を測ればコスト悪化を早く見つけられるか</li>
+<li>SaaS化: AIDD-Specを支援するプロダクトに必要な機能</li>
+</ul>
+<h2>6. 記事の形式</h2>
+<p>今後の記事では、できるだけ実験過程を隠さない。</p>
+<p>毎回、以下を載せる。</p>
+<ul>
+<li>実際にCodexへ渡した日本語プロンプト</li>
+<li>実行コマンド</li>
+<li>Codexの出力ログ</li>
+<li>生成されたファイルやコード</li>
+<li>バイブコーディング版の操作GIF</li>
+<li>指示を見直した版の操作GIF</li>
+<li>ブラウザコンソールの結果</li>
+<li>監査スクリプトの出力</li>
+<li>見つかった欠陥</li>
+<li>修正プロンプト</li>
+<li>修正後のdiff</li>
+<li>再検証結果</li>
+<li>最初から渡すべきだった情報</li>
+<li>AIDD-Specへの反映</li>
+</ul>
+<p>読んでいて少し長く感じるかもしれない。しかし、ここを省略すると「AIで作れました」という軽い記事になってしまう。</p>
+<p>この連載で残したいのは、成功体験だけではない。失敗、警告、迷い、修正、再検証まで含めた実験記録だ。</p>
+<h2>7. この連載の読み方</h2>
+<p>おすすめは、第1回から順番に読むことだ。</p>
+<p>各回は独立して読めるようにするが、後の回ほど前回の学びを前提にする。</p>
+<p>たとえば、第2回のAccessibility Contractで「操作できるだけでは足りない」と分かる。第3回のPerformance Budgetで「見た目が良いだけでは足りない」と分かる。第4回のSecurity Baselineで「フォームが動くだけでは足りない」と分かる。</p>
+<p>このように、毎回ひとつずつ「AIに最初から渡すべき情報」を増やしていく。</p>
+<p>最終的には、AIに渡す共通説明書として、AI Task Packetの形にまとめる。</p>
+<h2>8. まず覚えておきたいこと</h2>
+<p>第1回の結論はシンプルだ。</p>
+<blockquote>AIに雑に頼むと、かなり良いものが速く出る。だからこそ危ない。</blockquote>
+<p>見た目が良いと、人間は安心してしまう。だが、実務で必要なのは見た目だけではない。</p>
+<p>AIに頼む前に、少なくとも次を決めておくべきだ。</p>
+<ul>
+<li>何を満たせば仕様OKか</li>
+<li>どんな状態を表示するか</li>
+<li>どんな情報を扱うか</li>
+<li>どんな操作を許すか</li>
+<li>どのコマンドで検証するか</li>
+<li>どんな証拠を残すか</li>
+</ul>
+<p>これが、この連載で作っていくAIDD-Specの出発点である。</p>
+<h2>9. 次回予告</h2>
+<p>次回は、FAQ検索アプリを題材にする。</p>
+<p>まずCodexに「FAQ検索アプリをいい感じに作って」と頼む。できあがったアプリをブラウザで操作し、GIFで記録する。そのうえで、検索欄、結果リスト、no results表示、キーボード操作、アクセシビリティの関係を監査する。</p>
+<p>そして、雑な指示で抜けたものを、指示を見直したAI Task Packetに戻す。</p>
+<p>第2回のテーマは、こうだ。</p>
+<blockquote>見た目は動いているFAQ検索アプリでも、支援技術やキーボード操作まで考えると何が足りないのか。</blockquote>
+<p>ここから、AIDD-Spec最初の具体要素である Accessibility Contract を作っていく。</p></article><nav class="chapter-nav" aria-label="前後の記事"><span></span><a class="next" href="2026-06-27-accessibility-contract-vibe-faq.html"><span>次の記事</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a></nav></main></div></body></html>

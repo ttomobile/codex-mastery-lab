@@ -1,43 +1,86 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</title><style>
-:root { color-scheme: light; --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1; --accent:#1d4ed8; --code:#0f172a; }
+:root {
+  color-scheme: light;
+  --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
+  --accent:#1d4ed8; --accent2:#7c3aed; --code:#0f172a; --soft:#eef4ff;
+}
 * { box-sizing: border-box; }
-body { margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:var(--bg); color:var(--fg); line-height:1.78; }
-.layout { display:grid; grid-template-columns: 280px minmax(0, 1fr); min-height:100vh; }
-aside { position:sticky; top:0; height:100vh; overflow:auto; padding:24px; background:#0b1220; color:#e5eefc; }
-aside h1 { font-size:18px; line-height:1.35; margin:0 0 20px; }
-aside a { color:#c7d7ff; text-decoration:none; display:block; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.08); font-size:14px; }
-aside a:hover { color:#fff; }
-main { max-width: 940px; padding: 48px 42px 80px; }
-article { background:var(--card); padding:42px 48px; border:1px solid var(--line); border-radius:22px; box-shadow:0 18px 50px rgba(15,23,42,.08); }
-h1 { font-size: 34px; line-height:1.25; margin: 0 0 22px; letter-spacing:-.02em; }
-h2 { font-size: 25px; margin: 44px 0 14px; padding-top:8px; border-top:1px solid #edf1f7; }
-h3 { font-size: 19px; margin: 28px 0 10px; }
+html { scroll-behavior: smooth; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif; background:var(--bg); color:var(--fg); line-height:1.82; }
+a { color: var(--accent); }
+.layout { display:grid; grid-template-columns: 300px minmax(0, 1fr); min-height:100vh; }
+aside { position:sticky; top:0; height:100vh; overflow:auto; padding:22px; background:#0b1220; color:#e5eefc; }
+.brand { font-weight:800; line-height:1.35; margin:0 0 16px; font-size:18px; letter-spacing:-.01em; }
+.series-note { color:#9fb4d8; font-size:12px; margin:0 0 18px; }
+.chapter-link { color:#c7d7ff; text-decoration:none; display:block; padding:10px 10px; border:1px solid rgba(255,255,255,.08); border-radius:12px; margin:8px 0; font-size:14px; background:rgba(255,255,255,.03); }
+.chapter-link:hover, .chapter-link.current { color:#fff; background:rgba(59,130,246,.22); border-color:rgba(147,197,253,.45); }
+.chapter-num { color:#93c5fd; font-weight:700; font-size:12px; display:block; margin-bottom:2px; }
+main { max-width: 980px; padding: 42px 34px 80px; }
+article { background:var(--card); padding:42px 48px; border:1px solid var(--line); border-radius:24px; box-shadow:0 18px 50px rgba(15,23,42,.08); }
+h1 { font-size: clamp(28px, 5vw, 42px); line-height:1.24; margin: 0 0 22px; letter-spacing:-.03em; }
+h2 { font-size: clamp(22px, 3vw, 28px); margin: 46px 0 14px; padding-top:10px; border-top:1px solid #edf1f7; }
+h3 { font-size: 20px; margin: 30px 0 10px; }
 p { margin: 14px 0; }
 blockquote { margin: 18px 0; padding: 14px 18px; border-left: 4px solid var(--accent); background:#eff6ff; color:#1e3a8a; border-radius: 10px; }
 pre { background:var(--code); color:#e2e8f0; padding:18px; border-radius:14px; overflow:auto; line-height:1.55; font-size:13px; }
 code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 p code, li code { background:#eef2ff; color:#1e3a8a; padding:2px 5px; border-radius:5px; }
-img { max-width:100%; border:1px solid var(--line); border-radius:14px; background:white; margin:18px 0; }
-table { border-collapse: collapse; width:100%; margin:18px 0; font-size:14px; }
-th, td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; }
+img { max-width:100%; border:1px solid var(--line); border-radius:14px; background:white; margin:18px 0; height:auto; }
+table { border-collapse: collapse; width:100%; margin:18px 0; font-size:14px; display:block; overflow-x:auto; }
+th, td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; min-width:120px; }
 th { background:#f1f5f9; }
 .meta { color:var(--muted); font-size:14px; margin-bottom:24px; }
-.home article { max-width:860px; }
-@media (max-width: 850px) { .layout { grid-template-columns:1fr; } aside { position:relative; height:auto; } main { padding:20px; } article { padding:26px 20px; } }
-</style></head><body><div class="layout "><aside><h1>Codex Mastery Lab<br>AIDD-Spec Preview</h1><a href="2026-06-27-accessibility-contract-vibe-faq.html">雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
-<a href="2026-06-27-codex-mastery-lab-start.html">Codexを「最強の開発相棒」に育てる：M4 Mac miniで始める継続検証ラボ</a>
-<a href="2026-06-27-contact-api-threat-model.html">問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
-<a href="2026-06-27-performance-budget-vibe-gallery.html">「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
-<a href="2026-06-27-security-baseline-contact-form.html">問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a></aside><main><article><h1>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</h1>
+.hero { background:linear-gradient(135deg,#eff6ff,#faf5ff); border:1px solid #dbeafe; border-radius:24px; padding:28px; margin-bottom:22px; }
+.chapter-nav { display:flex; gap:12px; justify-content:space-between; margin:24px 0; }
+.chapter-nav a { flex:1; text-decoration:none; background:var(--soft); border:1px solid var(--line); border-radius:14px; padding:14px; color:#17315f; }
+.chapter-nav .next { text-align:right; }
+.chapter-nav span { display:block; color:var(--muted); font-size:12px; }
+.home-grid { display:grid; gap:14px; padding:0; list-style:none; }
+.home-grid li a { display:block; padding:18px; background:#fff; border:1px solid var(--line); border-radius:16px; text-decoration:none; box-shadow:0 8px 24px rgba(15,23,42,.05); }
+.mobile-index { display:none; background:#0b1220; padding:12px 16px; position:sticky; top:0; z-index:10; }
+.mobile-index details { color:#e5eefc; }
+.mobile-index summary { cursor:pointer; font-weight:700; }
+.mobile-index a { color:#c7d7ff; display:block; padding:8px 0; }
+@media (max-width: 900px) {
+  .layout { display:block; }
+  aside { display:none; }
+  .mobile-index { display:block; }
+  main { padding:16px; max-width:none; }
+  article { padding:24px 18px; border-radius:18px; }
+  .chapter-nav { flex-direction:column; }
+  .chapter-nav .next { text-align:left; }
+  pre { font-size:12px; padding:14px; }
+}
+@media (max-width: 480px) {
+  body { line-height:1.75; }
+  main { padding:10px; }
+  article { padding:20px 14px; border-radius:14px; }
+  h1 { font-size:28px; }
+  h2 { font-size:22px; }
+}
+</style></head><body><div class="mobile-index"><details><summary>連載目次を開く</summary><a href="001-series-roadmap.html">第01回｜第1回｜AIに「いい感じに作って」と頼む前に必要な共通説明書を作る</a>
+<a href="2026-06-27-accessibility-contract-vibe-faq.html">第02回｜雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a href="2026-06-27-performance-budget-vibe-gallery.html">第03回｜「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a href="2026-06-27-security-baseline-contact-form.html">第04回｜問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
+<a href="2026-06-27-contact-api-threat-model.html">第05回｜問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a></details></div><div class="layout "><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">スマホ対応プレビュー / 順番に読める連載版</p><a class="chapter-link " href="001-series-roadmap.html"><span class="chapter-num">第01回</span>第1回｜AIに「いい感じに作って」と頼む前に必要な共通説明書を作る</a>
+<a class="chapter-link " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">第02回</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">第03回</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a class="chapter-link current" href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">第04回</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
+<a class="chapter-link " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">第05回</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-06-27-performance-budget-vibe-gallery.html"><span>前の記事</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a><a class="next" href="2026-06-27-contact-api-threat-model.html"><span>次の記事</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a></nav><article><h1>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</h1>
 <blockquote>2026-06-27 / Codex Mastery Lab 日次ドラフト  </blockquote>
 <blockquote>想定読了時間: 約10分  </blockquote>
 <blockquote>種別: Experiment / Failure / Template</blockquote>
-<p><img src="assets/2026-06-27-security-baseline-reverse-chain.svg" alt="Security Baseline reverse chain"></p>
+<p><img src="assets/2026-06-27-security-baseline-reverse-chain.svg" alt="Security Baseline reverse chain" loading="lazy"></p>
 <h2>操作キャプチャ</h2>
 <p>バイブコーディング版を実際にブラウザで操作したGIF。</p>
-<p><img src="assets/2026-06-27-security-vibe-demo.gif" alt="バイブコーディング版フォームの操作GIF"></p>
+<p><img src="assets/2026-06-27-security-vibe-demo.gif" alt="バイブコーディング版フォームの操作GIF" loading="lazy"></p>
 <p>指示を見直した版を実際にブラウザで操作したGIF。</p>
-<p><img src="assets/2026-06-27-security-fixed-demo.gif" alt="指示見直し版フォームの操作GIF"></p>
+<p><img src="assets/2026-06-27-security-fixed-demo.gif" alt="指示見直し版フォームの操作GIF" loading="lazy"></p>
+<h2>前回の振り返り</h2>
+<p>前回はSaaSギャラリーを題材に、見た目を良くする指示だけでは Performance Budget や Asset Policy が成果物に残りにくいことを確認した。動いているかどうかだけでなく、後から性能を確認できる証拠が必要だと分かった。</p>
+<p>今回のテーマは問い合わせフォームである。フォームは見た目が整っていると安心しがちだが、名前、メール、予算、相談内容などを扱う以上、個人情報や営業情報をどう扱うかを最初に決める必要がある。</p>
+<h2>今回やること</h2>
+<p>Codexに日本語で問い合わせフォームを作らせる。バイブ版と修正版をブラウザで操作してGIFで比較し、PII分類、同意、保存方針、ログ方針を Security / Privacy Baseline としてAI Task Packetへ戻す。</p>
 <h2>1. 今日の問い</h2>
 <p>前回までに、FAQ検索UIではアクセシビリティ契約、SaaSギャラリーではPerformance BudgetをAI Task Packetへ戻した。今日の問いは、フォームである。</p>
 <blockquote>Codexに「B2B SaaSの問い合わせフォームをいい感じに作って」と雑に頼んだとき、後工程のSecurity / Privacy監査が読むべきPII分類、入力制約、保存方針、同意、証拠ファイルは成果物に残るのか？</blockquote>
@@ -143,7 +186,7 @@ SUMMARY: 11 passed / 7 failed</code></pre>
 <li><code>SECURITY_PRIVACY.md</code> がない</li>
 </ul>
 <p>つまり、実装判断は悪くない。しかし、監査証跡として読めない。これはAI時代の危険な失敗である。「良い実装だったから安全」ではなく、「なぜ安全と言えるのかを後工程が再確認できない」状態だからだ。</p>
-<p><img src="assets/2026-06-27-security-baseline-comparison.svg" alt="Security audit comparison"></p>
+<p><img src="assets/2026-06-27-security-baseline-comparison.svg" alt="Security audit comparison" loading="lazy"></p>
 <h2>7. 欠陥から理想状態を定義する</h2>
 <p>代表findingをAIDD-Spec標準形式で書く。</p>
 <pre><code>category: Privacy / Data Classification
@@ -294,4 +337,4 @@ verification_evidence:
 <p>次は、同じ問い合わせフォームにサーバーAPIを足した場合を検証したい。静的フォームでは no-network / no-storage を禁止すればよかった。しかし、実サービスでは送信先がある。そうなると、CSRF、rate limit、server-side validation、audit log、retention、削除要求、メール通知、権限境界が出てくる。</p>
 <p>今日の結論は明確だ。</p>
 <blockquote>フォームのSecurity Baselineは、実装後レビューのチェックリストではなく、AI Task Packetに事前に渡すべき共通説明書である。</blockquote>
-<p>Codexがたまたま安全なDOM APIを選んだことを喜ぶだけでは足りない。後工程が読める証拠に変換し、次回から最初に渡す。それがAIDD-Specの逆算プロセスである。</p></article></main></div></body></html>
+<p>Codexがたまたま安全なDOM APIを選んだことを喜ぶだけでは足りない。後工程が読める証拠に変換し、次回から最初に渡す。それがAIDD-Specの逆算プロセスである。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-06-27-performance-budget-vibe-gallery.html"><span>前の記事</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a><a class="next" href="2026-06-27-contact-api-threat-model.html"><span>次の記事</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a></nav></main></div></body></html>

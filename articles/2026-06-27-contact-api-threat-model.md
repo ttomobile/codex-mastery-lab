@@ -6,6 +6,16 @@
 
 ![Contact API reverse chain](../assets/2026-06-27-contact-api-reverse-chain.svg)
 
+## 前回の振り返り
+
+前回は問い合わせフォームUIを題材に、フォームが動くだけでは個人情報の扱いが曖昧になることを確認した。名前、メール、会社規模、予算、相談内容を扱うなら、PII分類、同意、保存方針、ログ方針を最初から決める必要がある。
+
+今回は一段だけ本番に近づけて、フォームの送信先になるAPIを扱う。APIは画面よりも見えにくいが、攻撃や濫用、運用トラブルの入口になりやすい。
+
+## 今回やること
+
+Codexに日本語で問い合わせAPIを作らせる。バイブ版と修正版を比較し、CSRF、Origin制限、rate limit、request id、監査ログ、エラー形式、保存期間を API Security / Operations Contract としてAI Task Packetへ戻す。
+
 ## 1. 今日の問い
 
 前回は問い合わせフォームUIの PII / Security Baseline を扱った。そこで見えたのは、Codexが `textContent` を使うなど実装判断としてはかなり良い一方で、後工程が読むべき `data-classification`、consent、retention、証拠ファイルが抜ける、という問題だった。
