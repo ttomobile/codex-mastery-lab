@@ -2,6 +2,9 @@
 
 ## North Star: AIDD-Spec / AI駆動開発の世界標準
 
+- [ ] Reverse Engineering Methodology: 雑バイブコーディング成果物を監査し、後工程から前工程成果物を逆算する
+- [ ] Vibe-coded sample appを1つ作り、監査カテゴリを通して欠陥を洗い出す
+- [ ] 監査結果からAI Task Packet v0.1を逆算する
 - [ ] AIDD-Spec v0.1: 建築図面に相当する標準成果物体系を定義する
 - [ ] 書籍企画: 「AI駆動開発時代の設計図面」章立てを毎週更新する
 - [ ] Product Brief テンプレートとCodex検証
