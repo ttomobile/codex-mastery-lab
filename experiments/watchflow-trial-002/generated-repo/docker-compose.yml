@@ -1,0 +1,33 @@
+services:
+  mock-api:
+    image: node:22-alpine
+    working_dir: /workspace
+    command: ["sh", "-lc", "echo 'mock-api placeholder: app/api Route Handler と同じ契約で 4010 に分離予定' && sleep infinity"]
+    ports:
+      - "4010:4010"
+    volumes:
+      - ./:/workspace:ro
+  mock-media:
+    image: node:22-alpine
+    working_dir: /workspace
+    command: ["sh", "-lc", "echo 'mock-media placeholder: public/mock-media と /api/media 契約を 4020 に分離予定' && sleep infinity"]
+    ports:
+      - "4020:4020"
+    volumes:
+      - ./:/workspace:ro
+  mock-auth:
+    image: node:22-alpine
+    working_dir: /workspace
+    command: ["sh", "-lc", "echo 'mock-auth placeholder: anonymous/logged_in/premium/session_expired を 4030 に分離予定' && sleep infinity"]
+    ports:
+      - "4030:4030"
+    volumes:
+      - ./:/workspace:ro
+  mock-billing:
+    image: node:22-alpine
+    working_dir: /workspace
+    command: ["sh", "-lc", "echo 'mock-billing placeholder: free/premium/payment_failed を 4040 に分離予定' && sleep infinity"]
+    ports:
+      - "4040:4040"
+    volumes:
+      - ./:/workspace:ro

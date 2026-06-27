@@ -1,0 +1,9 @@
+
+> watchflow@0.1.0 test:e2e /path/to/project-root/experiments/watchflow-trial-002/generated-repo
+> playwright test
+
+[WebServer] Invalid project directory provided, no such directory: /path/to/project-root/experiments/watchflow-trial-002/generated-repo/--hostname
+Error: Process from config.webServer was not able to start. Exit code: 1
+
+ ELIFECYCLE  Command failed with exit code 1.
+exit=1

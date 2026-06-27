@@ -1,0 +1,23 @@
+
+Running 17 tests using 5 workers
+
+  ✓   1 [chromium] › e2e/visual.spec.ts:20:7 › WatchFlow Visual Regression › 検索空状態の基準スクリーンショット (515ms)
+  ✓   4 [chromium] › e2e/visual.spec.ts:9:7 › WatchFlow Visual Regression › 動画詳細画面の基準スクリーンショット (952ms)
+  ✓   3 [chromium] › e2e/visual.spec.ts:14:7 › WatchFlow Visual Regression › モバイルホーム画面の基準スクリーンショット (1.1s)
+  ✓   5 [chromium] › e2e/visual.spec.ts:4:7 › WatchFlow Visual Regression › ホーム画面の基準スクリーンショット (1.1s)
+  ✓   2 [chromium] › e2e/visual.spec.ts:25:7 › WatchFlow Visual Regression › エラー状態の基準スクリーンショット (1.2s)
+  ✓   7 [chromium] › e2e/watchflow.spec.ts:13:7 › WatchFlow E2E › 検索結果の空状態を表示できる (431ms)
+  ✓   9 [chromium] › e2e/watchflow.spec.ts:30:7 › WatchFlow E2E › 認証と課金の失敗状態を表示できる (255ms)
+  ✓   8 [chromium] › e2e/watchflow.spec.ts:18:7 › WatchFlow E2E › 動画取得失敗時にリトライ導線を表示する (493ms)
+  ✓  10 [chromium] › e2e/watchflow.spec.ts:36:7 › WatchFlow E2E › オフライン状態とタイムアウト状態を表示できる (492ms)
+  ✓   6 [chromium] › e2e/watchflow.spec.ts:5:7 › WatchFlow E2E › ホームから動画詳細へ移動できる (1.3s)
+  ✓  13 [webkit] › e2e/watchflow.spec.ts:13:7 › WatchFlow E2E › 検索結果の空状態を表示できる (607ms)
+  ✓  15 [webkit] › e2e/watchflow.spec.ts:30:7 › WatchFlow E2E › 認証と課金の失敗状態を表示できる (603ms)
+  ✓  14 [webkit] › e2e/watchflow.spec.ts:18:7 › WatchFlow E2E › 動画取得失敗時にリトライ導線を表示する (872ms)
+  ✓  16 [webkit] › e2e/watchflow.spec.ts:36:7 › WatchFlow E2E › オフライン状態とタイムアウト状態を表示できる (523ms)
+  ✓  12 [webkit] › e2e/watchflow.spec.ts:5:7 › WatchFlow E2E › ホームから動画詳細へ移動できる (1.5s)
+  ✓  11 [chromium] › e2e/watchflow.spec.ts:43:7 › WatchFlow E2E › 基本ページで axe 違反がない (2.0s)
+  ✓  17 [webkit] › e2e/watchflow.spec.ts:43:7 › WatchFlow E2E › 基本ページで axe 違反がない (1.8s)
+
+  17 passed (6.0s)
+exit=0

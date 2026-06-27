@@ -1,0 +1,177 @@
+
+Running 17 tests using 5 workers
+
+  ✓   1 [chromium] › e2e/visual.spec.ts:4:7 › WatchFlow Visual Regression › ホーム画面の基準スクリーンショット (792ms)
+  ✘   5 [chromium] › e2e/visual.spec.ts:14:7 › WatchFlow Visual Regression › モバイルホーム画面の基準スクリーンショット (989ms)
+  ✘   3 [chromium] › e2e/visual.spec.ts:20:7 › WatchFlow Visual Regression › 検索空状態の基準スクリーンショット (1.0s)
+  ✘   2 [chromium] › e2e/visual.spec.ts:25:7 › WatchFlow Visual Regression › エラー状態の基準スクリーンショット (1.0s)
+  ✓   7 [chromium] › e2e/watchflow.spec.ts:13:7 › WatchFlow E2E › 検索結果の空状態を表示できる (464ms)
+  ✓   9 [chromium] › e2e/watchflow.spec.ts:30:7 › WatchFlow E2E › 認証と課金の失敗状態を表示できる (371ms)
+  ✓   8 [chromium] › e2e/watchflow.spec.ts:18:7 › WatchFlow E2E › 動画取得失敗時にリトライ導線を表示する (545ms)
+  ✓  10 [chromium] › e2e/watchflow.spec.ts:36:7 › WatchFlow E2E › オフライン状態とタイムアウト状態を表示できる (259ms)
+  ✓   6 [chromium] › e2e/watchflow.spec.ts:5:7 › WatchFlow E2E › ホームから動画詳細へ移動できる (1.3s)
+  ✘   4 [chromium] › e2e/visual.spec.ts:9:7 › WatchFlow Visual Regression › 動画詳細画面の基準スクリーンショット (2.3s)
+  ✓  13 [webkit] › e2e/watchflow.spec.ts:13:7 › WatchFlow E2E › 検索結果の空状態を表示できる (962ms)
+  ✓  15 [webkit] › e2e/watchflow.spec.ts:30:7 › WatchFlow E2E › 認証と課金の失敗状態を表示できる (752ms)
+  ✓  14 [webkit] › e2e/watchflow.spec.ts:18:7 › WatchFlow E2E › 動画取得失敗時にリトライ導線を表示する (968ms)
+  ✓  16 [webkit] › e2e/watchflow.spec.ts:36:7 › WatchFlow E2E › オフライン状態とタイムアウト状態を表示できる (516ms)
+  ✓  11 [chromium] › e2e/watchflow.spec.ts:43:7 › WatchFlow E2E › 基本ページで axe 違反がない (2.3s)
+  ✓  17 [webkit] › e2e/watchflow.spec.ts:43:7 › WatchFlow E2E › 基本ページで axe 違反がない (1.9s)
+  ✘  12 [webkit] › e2e/watchflow.spec.ts:5:7 › WatchFlow E2E › ホームから動画詳細へ移動できる (6.1s)
+
+
+  1) [chromium] › e2e/visual.spec.ts:9:7 › WatchFlow Visual Regression › 動画詳細画面の基準スクリーンショット ────────
+
+    Error: expect(page).toHaveScreenshot(expected) failed
+
+      Expected an image 1280px by 1555px, received 1280px by 1561px. 42335 pixels (ratio 0.03 of all image pixels) are different.
+
+      Snapshot: watch-detail.png
+
+    Call log:
+      - Expect "toHaveScreenshot(watch-detail.png)" with timeout 5000ms
+        - verifying given screenshot expectation
+      - taking page screenshot
+        - disabled all CSS animations
+      - waiting for fonts to load...
+      - fonts loaded
+      - Expected an image 1280px by 1555px, received 1280px by 1561px. 42335 pixels (ratio 0.03 of all image pixels) are different.
+      - waiting 100ms before taking screenshot
+      - taking page screenshot
+        - disabled all CSS animations
+      - waiting for fonts to load...
+      - fonts loaded
+      - captured a stable screenshot
+      - Expected an image 1280px by 1555px, received 1280px by 1561px. 42335 pixels (ratio 0.03 of all image pixels) are different.
+
+
+       9 |   test("動画詳細画面の基準スクリーンショット", async ({ page }) => {
+      10 |     await page.goto("/watch/vf-001");
+    > 11 |     await expect(page).toHaveScreenshot("watch-detail.png", { fullPage: true, maxDiffPixelRatio: 0.02 });
+         |                        ^
+      12 |   });
+      13 |
+      14 |   test("モバイルホーム画面の基準スクリーンショット", async ({ page }) => {
+        at /path/to/project-root/experiments/watchflow-trial-002/generated-repo/e2e/visual.spec.ts:11:24
+
+    attachment #1: watch-detail (image/png) ────────────────────────────────────────────────────────
+    Expected: e2e/visual.spec.ts-snapshots/watch-detail-chromium-darwin.png
+    Received: test-results/visual-WatchFlow-Visual-Regression-動画詳細画面の基準スクリーンショット-chromium/watch-detail-actual.png
+    Diff:     test-results/visual-WatchFlow-Visual-Regression-動画詳細画面の基準スクリーンショット-chromium/watch-detail-diff.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/visual-WatchFlow-Visual-Regression-動画詳細画面の基準スクリーンショット-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/visual-WatchFlow-Visual-Regression-動画詳細画面の基準スクリーンショット-chromium/error-context.md
+
+  2) [chromium] › e2e/visual.spec.ts:14:7 › WatchFlow Visual Regression › モバイルホーム画面の基準スクリーンショット ────
+
+    Error: A snapshot doesn't exist at /path/to/project-root/experiments/watchflow-trial-002/generated-repo/e2e/visual.spec.ts-snapshots/home-mobile-chromium-darwin.png, writing actual.
+
+      15 |     await page.setViewportSize({ width: 390, height: 844 });
+      16 |     await page.goto("/");
+    > 17 |     await expect(page).toHaveScreenshot("home-mobile.png", { fullPage: true, maxDiffPixelRatio: 0.02 });
+         |     ^
+      18 |   });
+      19 |
+      20 |   test("検索空状態の基準スクリーンショット", async ({ page }) => {
+        at /path/to/project-root/experiments/watchflow-trial-002/generated-repo/e2e/visual.spec.ts:17:5
+
+    attachment #1: home-mobile (image/png) ─────────────────────────────────────────────────────────
+    Expected: e2e/visual.spec.ts-snapshots/home-mobile-chromium-darwin.png
+    Received: test-results/visual-WatchFlow-Visual-Regression-モバイルホーム画面の基準スクリーンショット-chromium/home-mobile-actual.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/visual-WatchFlow-Visual-Regression-モバイルホーム画面の基準スクリーンショット-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/visual-WatchFlow-Visual-Regression-モバイルホーム画面の基準スクリーンショット-chromium/error-context.md
+
+  3) [chromium] › e2e/visual.spec.ts:20:7 › WatchFlow Visual Regression › 検索空状態の基準スクリーンショット ────────
+
+    Error: A snapshot doesn't exist at /path/to/project-root/experiments/watchflow-trial-002/generated-repo/e2e/visual.spec.ts-snapshots/search-empty-chromium-darwin.png, writing actual.
+
+      20 |   test("検索空状態の基準スクリーンショット", async ({ page }) => {
+      21 |     await page.goto("/search?q=存在しない動画");
+    > 22 |     await expect(page).toHaveScreenshot("search-empty.png", { fullPage: true, maxDiffPixelRatio: 0.02 });
+         |     ^
+      23 |   });
+      24 |
+      25 |   test("エラー状態の基準スクリーンショット", async ({ page }) => {
+        at /path/to/project-root/experiments/watchflow-trial-002/generated-repo/e2e/visual.spec.ts:22:5
+
+    attachment #1: search-empty (image/png) ────────────────────────────────────────────────────────
+    Expected: e2e/visual.spec.ts-snapshots/search-empty-chromium-darwin.png
+    Received: test-results/visual-WatchFlow-Visual-Regression-検索空状態の基準スクリーンショット-chromium/search-empty-actual.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/visual-WatchFlow-Visual-Regression-検索空状態の基準スクリーンショット-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/visual-WatchFlow-Visual-Regression-検索空状態の基準スクリーンショット-chromium/error-context.md
+
+  4) [chromium] › e2e/visual.spec.ts:25:7 › WatchFlow Visual Regression › エラー状態の基準スクリーンショット ────────
+
+    Error: A snapshot doesn't exist at /path/to/project-root/experiments/watchflow-trial-002/generated-repo/e2e/visual.spec.ts-snapshots/state-error-chromium-darwin.png, writing actual.
+
+      25 |   test("エラー状態の基準スクリーンショット", async ({ page }) => {
+      26 |     await page.goto("/states?auth=session_expired&billing=payment_failed&network=offline");
+    > 27 |     await expect(page).toHaveScreenshot("state-error.png", { fullPage: true, maxDiffPixelRatio: 0.02 });
+         |     ^
+      28 |   });
+      29 | });
+      30 |
+        at /path/to/project-root/experiments/watchflow-trial-002/generated-repo/e2e/visual.spec.ts:27:5
+
+    attachment #1: state-error (image/png) ─────────────────────────────────────────────────────────
+    Expected: e2e/visual.spec.ts-snapshots/state-error-chromium-darwin.png
+    Received: test-results/visual-WatchFlow-Visual-Regression-エラー状態の基準スクリーンショット-chromium/state-error-actual.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/visual-WatchFlow-Visual-Regression-エラー状態の基準スクリーンショット-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/visual-WatchFlow-Visual-Regression-エラー状態の基準スクリーンショット-chromium/error-context.md
+
+  5) [webkit] › e2e/watchflow.spec.ts:5:7 › WatchFlow E2E › ホームから動画詳細へ移動できる ────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('button', { name: '再生' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for getByRole('button', { name: '再生' })
+
+
+       8 |     await page.getByRole("link", { name: /小さな動画サービスを設計する/ }).first().click();
+       9 |     await expect(page.getByRole("heading", { name: /小さな動画サービスを設計する/ })).toBeVisible();
+    > 10 |     await expect(page.getByRole("button", { name: "再生" })).toBeVisible();
+         |                                                            ^
+      11 |   });
+      12 |
+      13 |   test("検索結果の空状態を表示できる", async ({ page }) => {
+        at /path/to/project-root/experiments/watchflow-trial-002/generated-repo/e2e/watchflow.spec.ts:10:60
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/watchflow-WatchFlow-E2E-ホームから動画詳細へ移動できる-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/watchflow-WatchFlow-E2E-ホームから動画詳細へ移動できる-webkit/error-context.md
+
+  5 failed
+    [chromium] › e2e/visual.spec.ts:9:7 › WatchFlow Visual Regression › 動画詳細画面の基準スクリーンショット ─────────
+    [chromium] › e2e/visual.spec.ts:14:7 › WatchFlow Visual Regression › モバイルホーム画面の基準スクリーンショット ─────
+    [chromium] › e2e/visual.spec.ts:20:7 › WatchFlow Visual Regression › 検索空状態の基準スクリーンショット ─────────
+    [chromium] › e2e/visual.spec.ts:25:7 › WatchFlow Visual Regression › エラー状態の基準スクリーンショット ─────────
+    [webkit] › e2e/watchflow.spec.ts:5:7 › WatchFlow E2E › ホームから動画詳細へ移動できる ─────────────────────────
+  12 passed (10.4s)
+exit=1
