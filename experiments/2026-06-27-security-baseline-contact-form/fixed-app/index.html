@@ -11,22 +11,22 @@
       <section class="hero" aria-labelledby="page-title">
         <div class="hero-copy">
           <p class="eyebrow">NorthstarOps</p>
-          <h1 id="page-title">Book a focused SaaS workflow demo</h1>
+          <h1 id="page-title">SaaS業務フローのデモを予約する</h1>
           <p class="lede">
-            See how revenue, support, and implementation teams coordinate customer handoffs in one clean operating layer.
+            営業、サポート、導入支援のチームが、顧客対応の引き継ぎを一つの画面で整理できることを確認します。
           </p>
-          <div class="proof-grid" aria-label="Product highlights">
+          <div class="proof-grid" aria-label="プロダクトの特徴">
             <div>
               <strong>42%</strong>
-              <span>faster onboarding cycles</span>
+              <span>導入サイクルを短縮</span>
             </div>
             <div>
               <strong>18k</strong>
-              <span>customer workflows tracked</span>
+              <span>顧客ワークフローを可視化</span>
             </div>
             <div>
               <strong>99.9%</strong>
-              <span>platform availability target</span>
+              <span>稼働率目標</span>
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@
         >
           <div class="form-heading">
             <p class="eyebrow">デモ依頼</p>
-            <h2>Tell us what you need</h2>
+            <h2>相談したい内容を入力してください</h2>
           </div>
 
           <label for="name">氏名</label>
@@ -52,7 +52,7 @@
             required
             data-classification="pii.name"
             aria-describedby="privacy-retention-note"
-            placeholder="Jordan Lee"
+            placeholder="山田 太郎"
           >
 
           <label for="email">メールアドレス</label>
@@ -65,7 +65,7 @@
             required
             data-classification="pii.email"
             aria-describedby="privacy-retention-note"
-            placeholder="jordan@company.com"
+            placeholder="taro@example.com"
           >
 
           <div class="split-fields">
@@ -78,12 +78,12 @@
                 data-classification="business.company_size"
                 aria-describedby="privacy-retention-note"
               >
-                <option value="">Select size</option>
-                <option value="1-25">1-25</option>
-                <option value="26-100">26-100</option>
-                <option value="101-500">101-500</option>
-                <option value="501-2000">501-2,000</option>
-                <option value="2001-plus">2,001+</option>
+                <option value="">会社規模を選択</option>
+                <option value="1-25">1〜25名</option>
+                <option value="26-100">26〜100名</option>
+                <option value="101-500">101〜500名</option>
+                <option value="501-2000">501〜2,000名</option>
+                <option value="2001-plus">2,001名以上</option>
               </select>
             </div>
 
@@ -96,11 +96,11 @@
                 data-classification="business.budget"
                 aria-describedby="privacy-retention-note"
               >
-                <option value="">Select range</option>
-                <option value="under-10k">Under $10k</option>
-                <option value="10k-25k">$10k-$25k</option>
+                <option value="">予算を選択</option>
+                <option value="under-10k">月10万円未満</option>
+                <option value="10k-25k">月10万〜25万円</option>
                 <option value="25k-75k">月25万〜75万円</option>
-                <option value="75k-plus">$75k+</option>
+                <option value="75k-plus">月75万円以上</option>
               </select>
             </div>
           </div>
@@ -114,7 +114,7 @@
             required
             data-classification="pii_or_confidential.free_text"
             aria-describedby="privacy-retention-note"
-            placeholder="What workflow or customer handoff problem should we cover?"
+            placeholder="例: AI開発プロセスの標準化について相談したいです。"
           ></textarea>
 
           <label class="consent-field" for="privacy-consent">
@@ -125,12 +125,12 @@
               required
               aria-describedby="privacy-retention-note"
             >
-            <span>I understand this preview stores my entries in memory only until refresh.</span>
+            <span>このプレビューでは、入力内容が画面更新までメモリ上にだけ保持されることを理解しました。</span>
           </label>
 
-          <button type="submit">Preview submission</button>
+          <button type="submit">入力内容をプレビュー</button>
           <p class="form-note" id="privacy-retention-note">
-            No network request is sent. This static preview retains entries in memory only and clears them on refresh.
+            ネットワーク送信は行いません。この静的プレビューは入力内容をメモリ上にだけ保持し、画面更新で消去します。
           </p>
         </form>
       </section>

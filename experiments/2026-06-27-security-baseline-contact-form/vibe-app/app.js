@@ -2,6 +2,32 @@ const form = document.querySelector("#lead-form");
 const submissionList = document.querySelector("#submission-list");
 const emptyState = document.querySelector("#empty-state");
 const submissions = [];
+const validationMessages = {
+  name: "氏名を入力してください。",
+  email: "有効なメールアドレスを入力してください。",
+  companySize: "会社規模を選択してください。",
+  budget: "予算を選択してください。",
+  message: "相談内容を入力してください。",
+};
+
+function applyJapaneseValidationMessages() {
+  form.querySelectorAll("input, select, textarea").forEach((field) => {
+    const update = () => {
+      if (field.validity.valueMissing) {
+        field.setCustomValidity(validationMessages[field.name] || "この項目を入力してください。");
+      } else if (field.validity.typeMismatch && field.type === "email") {
+        field.setCustomValidity("有効なメールアドレスを入力してください。");
+      } else {
+        field.setCustomValidity("");
+      }
+    };
+    field.addEventListener("invalid", update);
+    field.addEventListener("input", update);
+    field.addEventListener("change", update);
+  });
+}
+
+applyJapaneseValidationMessages();
 
 function getFormValue(formData, fieldName) {
   return String(formData.get(fieldName) || "").trim();
@@ -65,7 +91,7 @@ form.addEventListener("submit", (event) => {
     budget: getFormValue(formData, "budget"),
     message: getFormValue(formData, "message"),
     isoTime: now.toISOString(),
-    displayTime: now.toLocaleString([], {
+    displayTime: now.toLocaleString("ja-JP", {
       dateStyle: "medium",
       timeStyle: "short",
     }),

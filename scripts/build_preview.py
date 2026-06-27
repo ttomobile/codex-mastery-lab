@@ -44,9 +44,12 @@ h2 { font-size: clamp(22px, 3vw, 28px); margin: 46px 0 14px; padding-top:10px; b
 h3 { font-size: 20px; margin: 30px 0 10px; }
 p { margin: 14px 0; }
 blockquote { margin: 18px 0; padding: 14px 18px; border-left: 4px solid var(--accent); background:#eff6ff; color:#1e3a8a; border-radius: 10px; }
-pre { background:var(--code); color:#e2e8f0; padding:18px; border-radius:14px; overflow:auto; line-height:1.55; font-size:13px; }
-code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-p code, li code { background:#eef2ff; color:#1e3a8a; padding:2px 5px; border-radius:5px; }
+pre { background:var(--code); color:#e2e8f0; padding:18px; border-radius:14px; overflow:auto; line-height:1.55; font-size:13px; white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; }
+pre code { white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow-wrap:anywhere; word-break:break-word; }
+p code, li code { background:#eef2ff; color:#1e3a8a; padding:2px 5px; border-radius:5px; white-space:normal; }
+ul, ol { padding-left:1.45em; }
+li { overflow-wrap:anywhere; }
 img { max-width:100%; border:1px solid var(--line); border-radius:14px; background:white; margin:18px 0; height:auto; }
 table { border-collapse: collapse; width:100%; margin:18px 0; font-size:14px; display:block; overflow-x:auto; }
 th, td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; min-width:120px; }

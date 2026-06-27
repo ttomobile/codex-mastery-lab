@@ -1,5 +1,5 @@
 対象アプリ: experiments/2026-06-27-security-baseline-contact-form/vibe-app
-サイズ: total_static_bytes=10617 html=3550 css=4889 js=2178
+サイズ: total_static_bytes=11879 html=3767 css=4889 js=3223
 合格: 必要ファイル index.html / styles.css / app.js が存在する
 合格: 問い合わせフォームに安定したidがある
 合格: メール欄が type=email になっている

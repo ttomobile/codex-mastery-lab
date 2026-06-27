@@ -1,5 +1,5 @@
 対象アプリ: experiments/2026-06-27-security-baseline-contact-form/fixed-app
-サイズ: total_static_bytes=13140 html=5276 css=5291 js=2573
+サイズ: total_static_bytes=14549 html=5558 css=5291 js=3700
 合格: 必要ファイル index.html / styles.css / app.js が存在する
 合格: 問い合わせフォームに安定したidがある
 合格: メール欄が type=email になっている

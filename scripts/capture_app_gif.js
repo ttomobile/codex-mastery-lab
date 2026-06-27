@@ -68,8 +68,14 @@ async function interact(page, frameDir) {
       } catch {}
     }
     const selects = page.locator('select');
-    if (await safeCount(selects)) {
-      try { await selects.first().selectOption({ index: 1 }); } catch {}
+    const selectCount = await safeCount(selects);
+    for (let i = 0; i < selectCount; i++) {
+      try { await selects.nth(i).selectOption({ index: 1 }); } catch {}
+    }
+    const checkboxes = page.locator('input[type="checkbox"]');
+    const checkboxCount = await safeCount(checkboxes);
+    for (let i = 0; i < checkboxCount; i++) {
+      try { await checkboxes.nth(i).check(); } catch {}
     }
     await sleep(700);
     await captureFrame(page, frameDir, idx++, 'form-filled');
