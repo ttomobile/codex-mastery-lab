@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WatchFlow Trial 005：91点から96点へ、coverage thresholdとCI証跡の入口を入れる</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WatchFlow Trial 005：91点から98点へ、coverage thresholdとDocker Compose実行証跡を入れる</title><style>
 :root {
   color-scheme: light;
   --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
@@ -69,7 +69,7 @@ th { background:#f1f5f9; }
 <a href="2026-06-27-watchflow-trial-002.html">第03回｜WatchFlow Trial 002：61点から75点へ、AI Task Packetに失点を戻す</a>
 <a href="2026-06-27-watchflow-trial-003.html">第04回｜WatchFlow Trial 003：75点から84点へ、mock serviceとアクセシビリティを詰める</a>
 <a href="2026-06-27-watchflow-trial-004.html">第05回｜WatchFlow Trial 004：84点から91点へ、mock serviceをE2Eの実依存にする</a>
-<a href="2026-06-27-watchflow-trial-005.html">第06回｜WatchFlow Trial 005：91点から96点へ、coverage thresholdとCI証跡の入口を入れる</a><div class="nav-section-title">過去記事</div><a href="2026-06-27-accessibility-contract-vibe-faq.html">過去記事01｜雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a href="2026-06-27-watchflow-trial-005.html">第06回｜WatchFlow Trial 005：91点から98点へ、coverage thresholdとDocker Compose実行証跡を入れる</a><div class="nav-section-title">過去記事</div><a href="2026-06-27-accessibility-contract-vibe-faq.html">過去記事01｜雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
 <a href="2026-06-27-performance-budget-vibe-gallery.html">過去記事02｜「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
 <a href="2026-06-27-security-baseline-contact-form.html">過去記事03｜問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
 <a href="2026-06-27-contact-api-threat-model.html">過去記事04｜問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
@@ -78,20 +78,20 @@ th { background:#f1f5f9; }
 <a class="chapter-link " href="2026-06-27-watchflow-trial-002.html"><span class="chapter-num">第03回</span>WatchFlow Trial 002：61点から75点へ、AI Task Packetに失点を戻す</a>
 <a class="chapter-link " href="2026-06-27-watchflow-trial-003.html"><span class="chapter-num">第04回</span>WatchFlow Trial 003：75点から84点へ、mock serviceとアクセシビリティを詰める</a>
 <a class="chapter-link " href="2026-06-27-watchflow-trial-004.html"><span class="chapter-num">第05回</span>WatchFlow Trial 004：84点から91点へ、mock serviceをE2Eの実依存にする</a>
-<a class="chapter-link current" href="2026-06-27-watchflow-trial-005.html"><span class="chapter-num">第06回</span>WatchFlow Trial 005：91点から96点へ、coverage thresholdとCI証跡の入口を入れる</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link current" href="2026-06-27-watchflow-trial-005.html"><span class="chapter-num">第06回</span>WatchFlow Trial 005：91点から98点へ、coverage thresholdとDocker Compose実行証跡を入れる</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
 <a class="chapter-link past " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">過去記事 02</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
 <a class="chapter-link past " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">過去記事 03</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">過去記事 04</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
-<a class="chapter-link past " href="2026-06-28-mobile-state-contract.html"><span class="chapter-num">過去記事 05</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-06-27-watchflow-trial-004.html"><span>前の記事</span>WatchFlow Trial 004：84点から91点へ、mock serviceをE2Eの実依存にする</a><span></span></nav><article><h1>WatchFlow Trial 005：91点から96点へ、coverage thresholdとCI証跡の入口を入れる</h1>
+<a class="chapter-link past " href="2026-06-28-mobile-state-contract.html"><span class="chapter-num">過去記事 05</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-06-27-watchflow-trial-004.html"><span>前の記事</span>WatchFlow Trial 004：84点から91点へ、mock serviceをE2Eの実依存にする</a><span></span></nav><article><h1>WatchFlow Trial 005：91点から98点へ、coverage thresholdとDocker Compose実行証跡を入れる</h1>
 <blockquote>2026-06-27 / WatchFlow 100点チャレンジ  </blockquote>
-<blockquote>対象: Trial 005 / coverage threshold / 履歴削除 / プレイリスト操作 / mock doctor / GitHub Actions  </blockquote>
-<blockquote>結果: <strong>96 / 100</strong></blockquote>
+<blockquote>対象: Trial 005 / coverage threshold / 履歴削除 / プレイリスト操作 / Docker Compose / GitHub Actions  </blockquote>
+<blockquote>結果: <strong>98 / 100</strong></blockquote>
 <p><img src="assets/2026-06-27-watchflow-trial005-score-card.png" alt="WatchFlow Trial 005 採点速報" loading="lazy"></p>
 <h2>結果</h2>
 <p>Trial 004は <strong>91 / 100</strong> だった。</p>
 <p>90点台には入ったが、まだ100点ではない。残っていた壁は、coverage threshold未導入、CI実行証跡なし、データ操作が浅い、Docker Compose経路の検証性が弱い、というものだった。</p>
 <p>Trial 005では、これらをさらにAI Task Packetへ戻した。</p>
-<p>結果は <strong>96 / 100</strong>。</p>
+<p>結果は <strong>98 / 100</strong>。</p>
 <p><img src="assets/2026-06-27-watchflow-trial005-demo.gif" alt="Trial 005 GIF" loading="lazy"></p>
 <h2>主な改善</h2>
 <ul>
@@ -103,6 +103,8 @@ th { background:#f1f5f9; }
 <li>Unit Test 21件 → 23件</li>
 <li>E2E 23件 → 27件</li>
 <li><code>mock:doctor</code> 追加</li>
+<li>Docker Composeでmock services 4コンテナを実起動</li>
+<li>Docker Compose mock services上でChromium/WebKit E2E 27件合格</li>
 <li>repo rootにTrial 005専用GitHub Actions workflowを追加</li>
 <li>READMEにCI badgeと記事リンクを追加</li>
 </ul>
@@ -125,7 +127,7 @@ th { background:#f1f5f9; }
 <h3>mock service doctor</h3>
 <p><img src="assets/2026-06-27-watchflow-trial005-terminal-mock-doctor.png" alt="Trial 005 Mock Doctor" loading="lazy"></p>
 <p><code>mock:doctor</code> を追加した。</p>
-<p>今回のローカル環境ではDocker daemonが起動していないため、Docker Composeの実起動はできない。ただし、compose設定の静的検証とNode fallback health確認は通った。</p>
+<p>初回検証時はDocker daemonが起動していなかったためNode fallbackだった。あとでDockerを起動してもらい、Docker Compose経路を再検証した。</p>
 <pre><code>OK: Docker Compose
 OK: docker-compose.yml の静的検証
 OK: Node fallback 起動
@@ -133,6 +135,11 @@ OK: mock-api health
 OK: mock-media health
 OK: mock-auth health
 OK: mock-billing health</code></pre>
+<p>さらに直接 <code>docker compose up -d mock-api mock-media mock-auth mock-billing</code> を実行し、4コンテナが起動してhealth checkが通ることを確認した。</p>
+<pre><code>mock-api       OK http://127.0.0.1:4010/health
+mock-media     OK http://127.0.0.1:4020/health
+mock-auth      OK http://127.0.0.1:4030/health
+mock-billing   OK http://127.0.0.1:4040/health</code></pre>
 <h2>実行した検証</h2>
 <pre><code>pnpm install --frozen-lockfile  exit=0
 pnpm run lint                   exit=0
@@ -140,7 +147,8 @@ pnpm run typecheck              exit=0
 pnpm run test                   exit=0
 pnpm run test:coverage          exit=0
 pnpm run build                  exit=0
-pnpm run mock:doctor            exit=0</code></pre>
+pnpm run mock:doctor            exit=0
+docker compose up -d ...         exit=0</code></pre>
 <p>Unit Testは23件合格。</p>
 <p><img src="assets/2026-06-27-watchflow-trial005-terminal-unit.png" alt="Trial 005 Unit" loading="lazy"></p>
 <p>coverage threshold導入後も合格した。</p>
@@ -161,6 +169,9 @@ Lines:      75.08%</code></pre>
 <pre><code>pnpm exec playwright test --project=chromium --project=webkit
 27 passed</code></pre>
 <p><img src="assets/2026-06-27-watchflow-trial005-terminal-e2e.png" alt="Trial 005 E2E" loading="lazy"></p>
+<p>Docker Compose mock servicesを起動した状態でも同じE2Eを再実行した。</p>
+<pre><code>pnpm exec playwright test --project=chromium --project=webkit
+27 passed</code></pre>
 <p>増えた確認は主にこれだ。</p>
 <pre><code>後で見るリストへ追加と解除ができる
 視聴履歴を表示して削除できる
@@ -186,28 +197,29 @@ pnpm run test:e2e</code></pre>
 <pre><code>playwright-report
 test-results
 coverage</code></pre>
+<p>さらに <code>ttomobile/codex-mastery-lab</code> へrepoを作り、push後にこのworkflowが起動するところまで確認した。</p>
+<pre><code>WatchFlow Trial 005 CI: in_progress</code></pre>
 <h2>採点</h2>
 <table>
 <tr><th>カテゴリ</th><th>配点</th><th>Trial 004</th><th>Trial 005</th><th>理由</th></tr>
 <tr><td>Product Parity</td><td>10</td><td>9</td><td>10</td><td>後で見る、履歴削除、品質レビュー操作が入った</td></tr>
 <tr><td>Video Experience</td><td>12</td><td>10</td><td>10</td><td>Trial 004水準維持。Firefoxローカル未完</td></tr>
 <tr><td>Network / State Handling</td><td>10</td><td>9</td><td>9</td><td>mock state操作維持。通知既読/premium制御は浅い</td></tr>
-<tr><td>Mock Backend Contracts</td><td>8</td><td>8</td><td>8</td><td>mock:doctor追加。Docker実起動は未確認</td></tr>
+<tr><td>Mock Backend Contracts</td><td>8</td><td>8</td><td>8</td><td>mock:doctor追加。Docker Compose実起動とhealth確認済み</td></tr>
 <tr><td>Technical Foundation</td><td>10</td><td>9</td><td>10</td><td>coverage threshold、mock doctor、root workflow追加</td></tr>
 <tr><td>Next.js Architecture</td><td>10</td><td>9</td><td>9</td><td>external mock boundary維持。永続化はlocalStorage中心</td></tr>
 <tr><td>Component Architecture</td><td>8</td><td>7</td><td>8</td><td>WatchLibraryActionsを分離しUnit化</td></tr>
 <tr><td>Design System</td><td>8</td><td>7</td><td>7</td><td>既存水準維持</td></tr>
 <tr><td>Accessibility</td><td>8</td><td>8</td><td>8</td><td>axe合格維持</td></tr>
 <tr><td>E2E / Visual / Unit</td><td>13</td><td>12</td><td>13</td><td>Unit 23件、E2E 27件、coverage threshold合格</td></tr>
-<tr><td>Public Repo Operations</td><td>6</td><td>5</td><td>4</td><td>root workflow追加。ただし実CI run確認前なので控えめ</td></tr>
-<tr><td><strong>合計</strong></td><td><strong>100</strong></td><td><strong>91</strong></td><td><strong>96</strong></td><td>+5点</td></tr>
+<tr><td>Public Repo Operations</td><td>6</td><td>5</td><td>5</td><td>root workflow追加。ttomobile repoでCI run起動確認。完走前なので満点ではない</td></tr>
+<tr><td><strong>合計</strong></td><td><strong>100</strong></td><td><strong>91</strong></td><td><strong>98</strong></td><td>+7点</td></tr>
 </table>
 <h2>100点までの残り</h2>
-<p>96点まで来た。残り4点は、実行環境の証跡に近い。</p>
+<p>98点まで来た。残り2点は、GitHub Actionsの完走証跡とartifact確認に近い。</p>
 <ol>
 <li>GitHub ActionsでFirefox込みCIを実際に成功させる</li>
 <li>CI artifactを確認する</li>
-<li>Docker daemonあり環境でdocker compose pathを実起動確認する</li>
 <li>premium権限制御や通知既読をE2E化する</li>
 </ol>
 <h2>まとめ</h2>

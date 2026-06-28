@@ -1,0 +1,141 @@
+ Image node:22-alpine Pulling 
+ Image node:22-alpine Pulling 
+ Image node:22-alpine Pulling 
+ Image node:22-alpine Pulling 
+ 4749b9b026c9 Pulling fs layer 0B
+ 3a9ba6859cb1 Pulling fs layer 0B
+ 1dd181198447 Pulling fs layer 0B
+ 3a9ba6859cb1 Pulling fs layer 0B
+ 4749b9b026c9 Pulling fs layer 0B
+ 1dd181198447 Pulling fs layer 0B
+ 1dd181198447 Download complete 0B
+ 4749b9b026c9 Download complete 0B
+ 4749b9b026c9 Download complete 0B
+ 1dd181198447 Download complete 0B
+ 3a9ba6859cb1 Downloading 7.34MB
+ 3a9ba6859cb1 Downloading 7.34MB
+ 3a9ba6859cb1 Downloading 12.58MB
+ 3a9ba6859cb1 Downloading 12.58MB
+ 4749b9b026c9 Pulling fs layer 0B
+ 3a9ba6859cb1 Pulling fs layer 0B
+ 1dd181198447 Pulling fs layer 0B
+ 3a9ba6859cb1 Downloading 17.83MB
+ 4749b9b026c9 Download complete 0B
+ 3a9ba6859cb1 Downloading 17.83MB
+ 1dd181198447 Download complete 0B
+ 3a9ba6859cb1 Downloading 18.71MB
+ 3a9ba6859cb1 Downloading 24.12MB
+ 3a9ba6859cb1 Downloading 24.12MB
+ 3a9ba6859cb1 Downloading 24.12MB
+ 3a9ba6859cb1 Downloading 29.36MB
+ 3a9ba6859cb1 Downloading 29.36MB
+ 3a9ba6859cb1 Downloading 29.36MB
+ 3a9ba6859cb1 Downloading 34.6MB
+ 3a9ba6859cb1 Downloading 34.6MB
+ 3a9ba6859cb1 Downloading 34.6MB
+ 4749b9b026c9 Pulling fs layer 0B
+ 3a9ba6859cb1 Pulling fs layer 0B
+ 1dd181198447 Pulling fs layer 0B
+ 3a9ba6859cb1 Downloading 40.89MB
+ 3a9ba6859cb1 Downloading 40.89MB
+ 3a9ba6859cb1 Downloading 40.89MB
+ 4749b9b026c9 Download complete 0B
+ 3a9ba6859cb1 Downloading 40.89MB
+ 1dd181198447 Download complete 0B
+ 3a9ba6859cb1 Downloading 47.19MB
+ 3a9ba6859cb1 Downloading 47.19MB
+ 3a9ba6859cb1 Downloading 47.19MB
+ 3a9ba6859cb1 Downloading 47.19MB
+ 3a9ba6859cb1 Downloading 52.67MB
+ 3a9ba6859cb1 Downloading 52.67MB
+ 3a9ba6859cb1 Downloading 52.67MB
+ 3a9ba6859cb1 Download complete 0B
+ 3a9ba6859cb1 Download complete 0B
+ 3a9ba6859cb1 Download complete 0B
+ 3a9ba6859cb1 Download complete 0B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 3a9ba6859cb1 Extracting 1B
+ 4749b9b026c9 Pull complete 0B
+ 1dd181198447 Pull complete 0B
+ 4749b9b026c9 Pull complete 0B
+ 4749b9b026c9 Pull complete 0B
+ 1dd181198447 Pull complete 0B
+ 4749b9b026c9 Pull complete 0B
+ 3a9ba6859cb1 Pull complete 0B
+ 3a9ba6859cb1 Pull complete 0B
+ 1dd181198447 Pull complete 0B
+ 1dd181198447 Pull complete 0B
+ 3a9ba6859cb1 Pull complete 0B
+ 3a9ba6859cb1 Pull complete 0B
+ 8b2ebdd29d71 Download complete 0B
+ 50eae0ccbcac Downloading 364.9kB
+ 8b2ebdd29d71 Download complete 0B
+ 50eae0ccbcac Downloading 364.9kB
+ 8b2ebdd29d71 Download complete 0B
+ 50eae0ccbcac Downloading 364.9kB
+ 8b2ebdd29d71 Download complete 0B
+ 50eae0ccbcac Downloading 364.9kB
+ 50eae0ccbcac Download complete 0B
+ Image node:22-alpine Pulled 
+ 50eae0ccbcac Download complete 0B
+ 50eae0ccbcac Download complete 0B
+ 50eae0ccbcac Download complete 0B
+ Image node:22-alpine Pulled 
+ Image node:22-alpine Pulled 
+ Image node:22-alpine Pulled 
+ Network generated-repo_default Creating 
+ Network generated-repo_default Created 
+ Container generated-repo-mock-billing-1 Creating 
+ Container generated-repo-mock-api-1 Creating 
+ Container generated-repo-mock-media-1 Creating 
+ Container generated-repo-mock-auth-1 Creating 
+ Container generated-repo-mock-api-1 Created 
+ Container generated-repo-mock-auth-1 Created 
+ Container generated-repo-mock-billing-1 Created 
+ Container generated-repo-mock-media-1 Created 
+ Container generated-repo-mock-api-1 Starting 
+ Container generated-repo-mock-auth-1 Starting 
+ Container generated-repo-mock-media-1 Starting 
+ Container generated-repo-mock-billing-1 Starting 
+ Container generated-repo-mock-api-1 Started 
+ Container generated-repo-mock-auth-1 Started 
+ Container generated-repo-mock-media-1 Started 
+ Container generated-repo-mock-billing-1 Started 
+exit=0
+--- docker compose health ---
+{"ok":true,"service":"mock-api"} OK http://127.0.0.1:4010/health
+{"ok":true,"service":"mock-media"} OK http://127.0.0.1:4020/health
+{"ok":true,"service":"mock-auth"} OK http://127.0.0.1:4030/health
+{"ok":true,"service":"mock-billing"} OK http://127.0.0.1:4040/health
+--- docker compose ps ---
+NAME                            IMAGE            COMMAND                  SERVICE        CREATED          STATUS          PORTS
+generated-repo-mock-api-1       node:22-alpine   "docker-entrypoint.s…"   mock-api       15 seconds ago   Up 15 seconds   0.0.0.0:4010->4010/tcp, [::]:4010->4010/tcp
+generated-repo-mock-auth-1      node:22-alpine   "docker-entrypoint.s…"   mock-auth      15 seconds ago   Up 15 seconds   0.0.0.0:4030->4030/tcp, [::]:4030->4030/tcp
+generated-repo-mock-billing-1   node:22-alpine   "docker-entrypoint.s…"   mock-billing   15 seconds ago   Up 15 seconds   0.0.0.0:4040->4040/tcp, [::]:4040->4040/tcp
+generated-repo-mock-media-1     node:22-alpine   "docker-entrypoint.s…"   mock-media     15 seconds ago   Up 15 seconds   0.0.0.0:4020->4020/tcp, [::]:4020->4020/tcp
