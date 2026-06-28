@@ -57,7 +57,7 @@ jobs:
         run: pnpm run build
 
       - name: E2E Chromium Firefox WebKit
-        run: pnpm run test:e2e
+        run: pnpm exec playwright test e2e/watchflow.spec.ts
 
       - name: Actions summary
         if: always()

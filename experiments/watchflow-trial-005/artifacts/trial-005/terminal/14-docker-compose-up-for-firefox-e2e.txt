@@ -1,0 +1,23 @@
+ Network generated-repo_default Creating 
+ Network generated-repo_default Created 
+ Container generated-repo-mock-media-1 Creating 
+ Container generated-repo-mock-billing-1 Creating 
+ Container generated-repo-mock-api-1 Creating 
+ Container generated-repo-mock-auth-1 Creating 
+ Container generated-repo-mock-media-1 Created 
+ Container generated-repo-mock-billing-1 Created 
+ Container generated-repo-mock-auth-1 Created 
+ Container generated-repo-mock-api-1 Created 
+ Container generated-repo-mock-api-1 Starting 
+ Container generated-repo-mock-media-1 Starting 
+ Container generated-repo-mock-auth-1 Starting 
+ Container generated-repo-mock-billing-1 Starting 
+ Container generated-repo-mock-auth-1 Started 
+ Container generated-repo-mock-api-1 Started 
+ Container generated-repo-mock-billing-1 Started 
+ Container generated-repo-mock-media-1 Started 
+exit=0
+{"ok":true,"service":"mock-api"} OK http://127.0.0.1:4010/health
+{"ok":true,"service":"mock-media"} OK http://127.0.0.1:4020/health
+{"ok":true,"service":"mock-auth"} OK http://127.0.0.1:4030/health
+{"ok":true,"service":"mock-billing"} OK http://127.0.0.1:4040/health
