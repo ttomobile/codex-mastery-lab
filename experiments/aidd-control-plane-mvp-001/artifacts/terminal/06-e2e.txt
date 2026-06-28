@@ -1,0 +1,10 @@
+$ playwright test
+[WebServer] $ next dev
+
+Running 2 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/aidd-workflow.spec.ts:4:3 › AIDD Control Plane MVP › 主要ワークフローでPacket PreviewとRunbookが更新される (651ms)
+  ✓  2 [chromium] › e2e/aidd-workflow.spec.ts:33:3 › AIDD Control Plane MVP › 状態切替でfailure contractの表示を確認できる (503ms)
+
+  2 passed (3.6s)
+exit=0

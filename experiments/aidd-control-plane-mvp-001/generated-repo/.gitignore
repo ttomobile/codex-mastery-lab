@@ -1,7 +1,7 @@
 node_modules/
-test-results/
-playwright-report/
 .next/
 coverage/
+playwright-report/
+test-results/
 *.tsbuildinfo
 .DS_Store
