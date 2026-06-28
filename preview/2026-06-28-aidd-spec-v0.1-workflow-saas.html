@@ -1,0 +1,307 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</title><style>
+:root {
+  color-scheme: light;
+  --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
+  --accent:#1d4ed8; --accent2:#7c3aed; --code:#0f172a; --soft:#eef4ff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif; background:var(--bg); color:var(--fg); line-height:1.82; }
+a { color: var(--accent); }
+.layout { display:grid; grid-template-columns: 300px minmax(0, 1fr); min-height:100vh; }
+aside { position:sticky; top:0; height:100vh; overflow:auto; padding:22px; background:#0b1220; color:#e5eefc; }
+.brand { font-weight:800; line-height:1.35; margin:0 0 16px; font-size:18px; letter-spacing:-.01em; }
+.series-note { color:#9fb4d8; font-size:12px; margin:0 0 18px; }
+.chapter-link { color:#c7d7ff; text-decoration:none; display:block; padding:10px 10px; border:1px solid rgba(255,255,255,.08); border-radius:12px; margin:8px 0; font-size:14px; background:rgba(255,255,255,.03); }
+.chapter-link:hover, .chapter-link.current { color:#fff; background:rgba(59,130,246,.22); border-color:rgba(147,197,253,.45); }
+.chapter-num { color:#93c5fd; font-weight:700; font-size:12px; display:block; margin-bottom:2px; }
+.nav-section-title { color:#93c5fd; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; margin:18px 0 8px; }
+.chapter-link.past { color:#d7e1f7; background:rgba(255,255,255,.02); }
+.chapter-link.past .chapter-num { color:#a8b6d8; }
+main { max-width: 980px; padding: 42px 34px 80px; }
+article { background:var(--card); padding:42px 48px; border:1px solid var(--line); border-radius:24px; box-shadow:0 18px 50px rgba(15,23,42,.08); }
+h1 { font-size: clamp(28px, 5vw, 42px); line-height:1.24; margin: 0 0 22px; letter-spacing:-.03em; }
+h2 { font-size: clamp(22px, 3vw, 28px); margin: 46px 0 14px; padding-top:10px; border-top:1px solid #edf1f7; }
+h3 { font-size: 20px; margin: 30px 0 10px; }
+p { margin: 14px 0; }
+blockquote { margin: 18px 0; padding: 14px 18px; border-left: 4px solid var(--accent); background:#eff6ff; color:#1e3a8a; border-radius: 10px; }
+pre { background:var(--code); color:#e2e8f0; padding:18px; border-radius:14px; overflow:auto; line-height:1.55; font-size:13px; white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; }
+pre code { white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow-wrap:anywhere; word-break:break-word; }
+p code, li code { background:#eef2ff; color:#1e3a8a; padding:2px 5px; border-radius:5px; white-space:normal; }
+ul, ol { padding-left:1.45em; }
+li { overflow-wrap:anywhere; }
+img { max-width:100%; border:1px solid var(--line); border-radius:14px; background:white; margin:18px 0; height:auto; }
+table { border-collapse: collapse; width:100%; margin:18px 0; font-size:14px; display:block; overflow-x:auto; }
+th, td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; min-width:120px; }
+th { background:#f1f5f9; }
+.meta { color:var(--muted); font-size:14px; margin-bottom:24px; }
+.hero { background:linear-gradient(135deg,#eff6ff,#faf5ff); border:1px solid #dbeafe; border-radius:24px; padding:28px; margin-bottom:22px; }
+.chapter-nav { display:flex; gap:12px; justify-content:space-between; margin:24px 0; }
+.chapter-nav a { flex:1; text-decoration:none; background:var(--soft); border:1px solid var(--line); border-radius:14px; padding:14px; color:#17315f; }
+.chapter-nav .next { text-align:right; }
+.chapter-nav span { display:block; color:var(--muted); font-size:12px; }
+.home-grid { display:grid; gap:14px; padding:0; list-style:none; }
+.home-grid li a { display:block; padding:18px; background:#fff; border:1px solid var(--line); border-radius:16px; text-decoration:none; box-shadow:0 8px 24px rgba(15,23,42,.05); }
+.mobile-index { display:none; background:#0b1220; padding:12px 16px; position:sticky; top:0; z-index:10; }
+.mobile-index details { color:#e5eefc; }
+.mobile-index summary { cursor:pointer; font-weight:700; }
+.mobile-index a { color:#c7d7ff; display:block; padding:8px 0; }
+@media (max-width: 900px) {
+  .layout { display:block; }
+  aside { display:none; }
+  .mobile-index { display:block; }
+  main { padding:16px; max-width:none; }
+  article { padding:24px 18px; border-radius:18px; }
+  .chapter-nav { flex-direction:column; }
+  .chapter-nav .next { text-align:left; }
+  pre { font-size:12px; padding:14px; }
+}
+@media (max-width: 480px) {
+  body { line-height:1.75; }
+  main { padding:10px; }
+  article { padding:20px 14px; border-radius:14px; }
+  h1 { font-size:28px; }
+  h2 { font-size:22px; }
+}
+</style></head><body><div class="mobile-index"><details><summary>目次を開く</summary><div class="nav-section-title">WatchFlow 100点チャレンジ</div><a href="001-series-roadmap.html">第01回｜WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
+<a href="2026-06-27-watchflow-trial-001.html">第02回｜WatchFlow Trial 001：雑プロンプトからNext.js動画アプリはどこまで作れるか</a>
+<a href="2026-06-27-watchflow-trial-002.html">第03回｜WatchFlow Trial 002：61点から75点へ、AI Task Packetに失点を戻す</a>
+<a href="2026-06-27-watchflow-trial-003.html">第04回｜WatchFlow Trial 003：75点から84点へ、mock serviceとアクセシビリティを詰める</a>
+<a href="2026-06-27-watchflow-trial-004.html">第05回｜WatchFlow Trial 004：84点から91点へ、mock serviceをE2Eの実依存にする</a>
+<a href="2026-06-27-watchflow-trial-005.html">第06回｜WatchFlow Trial 005：91点から100点へ、Firefox/CI/artifactまで通して実験を閉じる</a><div class="nav-section-title">過去記事</div><a href="2026-06-27-accessibility-contract-vibe-faq.html">過去記事01｜雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a href="2026-06-27-performance-budget-vibe-gallery.html">過去記事02｜「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a href="2026-06-27-security-baseline-contact-form.html">過去記事03｜問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
+<a href="2026-06-27-contact-api-threat-model.html">過去記事04｜問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
+<a href="2026-06-28-agents-skill-explained.html">過去記事05｜AGENTS.mdとaidd-app-clone-lab skillは何に効いたのか：100点化手順を読み解く</a>
+<a href="2026-06-28-aidd-app-clone-lab-proof.html">過去記事06｜WatchFlow 100点ナレッジを別アプリに移植する：StudyStreamとDrillSwipeで再実証</a>
+<a href="2026-06-28-aidd-spec-v0.1-workflow-saas.html">過去記事07｜AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</a>
+<a href="2026-06-28-mobile-state-contract.html">過去記事08｜スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a></details></div><div class="layout "><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">WatchFlow本編と過去記事を分けて読めるプレビュー</p><div class="nav-section-title">WatchFlow 100点チャレンジ</div><a class="chapter-link " href="001-series-roadmap.html"><span class="chapter-num">第01回</span>WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-001.html"><span class="chapter-num">第02回</span>WatchFlow Trial 001：雑プロンプトからNext.js動画アプリはどこまで作れるか</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-002.html"><span class="chapter-num">第03回</span>WatchFlow Trial 002：61点から75点へ、AI Task Packetに失点を戻す</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-003.html"><span class="chapter-num">第04回</span>WatchFlow Trial 003：75点から84点へ、mock serviceとアクセシビリティを詰める</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-004.html"><span class="chapter-num">第05回</span>WatchFlow Trial 004：84点から91点へ、mock serviceをE2Eの実依存にする</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-005.html"><span class="chapter-num">第06回</span>WatchFlow Trial 005：91点から100点へ、Firefox/CI/artifactまで通して実験を閉じる</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link past " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">過去記事 02</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a class="chapter-link past " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">過去記事 03</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
+<a class="chapter-link past " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">過去記事 04</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
+<a class="chapter-link past " href="2026-06-28-agents-skill-explained.html"><span class="chapter-num">過去記事 05</span>AGENTS.mdとaidd-app-clone-lab skillは何に効いたのか：100点化手順を読み解く</a>
+<a class="chapter-link past " href="2026-06-28-aidd-app-clone-lab-proof.html"><span class="chapter-num">過去記事 06</span>WatchFlow 100点ナレッジを別アプリに移植する：StudyStreamとDrillSwipeで再実証</a>
+<a class="chapter-link past current" href="2026-06-28-aidd-spec-v0.1-workflow-saas.html"><span class="chapter-num">過去記事 07</span>AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</a>
+<a class="chapter-link past " href="2026-06-28-mobile-state-contract.html"><span class="chapter-num">過去記事 08</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-06-28-aidd-app-clone-lab-proof.html"><span>前の記事</span>WatchFlow 100点ナレッジを別アプリに移植する：StudyStreamとDrillSwipeで再実証</a><a class="next" href="2026-06-28-mobile-state-contract.html"><span>次の記事</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a></nav><article><h1>AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</h1>
+<blockquote>2026-06-28 / Codex Mastery Lab  </blockquote>
+<blockquote>対象: AIDD-Spec v0.1 / AI Task Packet / Verification Evidence / AIDD Control Plane MVP  </blockquote>
+<blockquote>結論: <strong>業界標準の完成版ではないが、標準仕様として議論・検証できるv0.1ドラフトと、AIエージェント実演の最小証跡ができた</strong></blockquote>
+<h2>先に正直な結論</h2>
+<p>前回までの成果は、まだ「新しい業界標準の設計ドキュメント」そのものではなかった。</p>
+<p>できていたのは、WatchFlow、StudyStream、DrillSwipeを通じて見えた実験手順とナレッジだった。</p>
+<p>そこで今回は、記事やAGENTS.mdではなく、仕様書として読める形にまとめ直した。</p>
+<p>追加した中心ファイルはこれだ。</p>
+<pre><code>standards/aidd-spec-v0.1.md
+standards/templates/ai-task-packet-template-v0.1.md
+standards/templates/verification-evidence-template-v0.1.md
+standards/aidd-control-plane-mvp-v0.1.md
+standards/live-build-runbook-001.md</code></pre>
+<p>ただし、これで「業界標準が完成した」とは言わない。</p>
+<p>正確には、<strong>AIDD-Spec v0.1 draft</strong> ができた。つまり、これから複数の実験・記事・SaaS化を通じて磨くための、最初の標準仕様である。</p>
+<h2>AIDD-Spec v0.1とは何か</h2>
+<p>AIDD-Specは、AIエージェントと人間が同じ説明を読み、同じ完了条件でWeb/モバイルシステムを作るための標準仕様である。</p>
+<p>今回のv0.1では、次を定義した。</p>
+<table>
+<tr><th>項目</th><th>内容</th></tr>
+<tr><td>目的</td><td>AIエージェントに渡す入力、出力、検証証跡、レビュー記録、学習ログを標準化する</td></tr>
+<tr><td>適用範囲</td><td>Web/モバイルアプリ、SaaS MVP、AIエージェント実装、レビュー、検証</td></tr>
+<tr><td>成果物モデル</td><td>Product / Requirement / Experience / System / Non-Functional / Implementation / Evidence の7層</td></tr>
+<tr><td>AI Task Packet</td><td>AIエージェントへ渡す標準入力</td></tr>
+<tr><td>Verification Evidence</td><td>実行ログ、CI、artifact、スクリーンショットなどの完了証拠</td></tr>
+<tr><td>Conformance Levels</td><td>L0からL4までの準拠レベル</td></tr>
+<tr><td>AIDD Control Plane</td><td>その流れをSaaS化する方向性</td></tr>
+</table>
+<h2>一番大事な考え方</h2>
+<p>AIDD-Specは「AIに良い感じにお願いするテンプレート」ではない。</p>
+<p>AIに渡す前に、少なくとも次を明確にする。</p>
+<ul>
+<li>何を作るか</li>
+<li>何を作らないか</li>
+<li>どの状態を持つか</li>
+<li>どの失敗状態を持つか</li>
+<li>どのファイルを出すか</li>
+<li>どのコマンドで検証するか</li>
+<li>どの証跡を残すか</li>
+<li>人間が何をレビューするか</li>
+<li>次回どの学びを戻すか</li>
+</ul>
+<p>これを1つの最小単位にしたものが、AI Task Packetである。</p>
+<h2>Conformance Levels</h2>
+<p>v0.1では準拠度を5段階にした。</p>
+<table>
+<tr><th>Level</th><th>名前</th><th>条件</th></tr>
+<tr><td>L0</td><td>Vibe Output</td><td>AIが生成しただけ。検証証拠なし</td></tr>
+<tr><td>L1</td><td>Buildable</td><td>構文/型/buildなど最低限が通る</td></tr>
+<tr><td>L2</td><td>Testable</td><td>unit/E2Eまたは静的監査で主要条件を検証できる</td></tr>
+<tr><td>L3</td><td>Contract-Verified</td><td>状態/失敗/API/mockを契約として検証できる</td></tr>
+<tr><td>L4</td><td>CI-Evidenced</td><td>CI success、artifact、review、learning logが揃う</td></tr>
+</table>
+<p>WatchFlow/StudyStream/DrillSwipeのような公開実験はL4を目標にする。</p>
+<p>一方、ライブ配信中に誰でも追える最初の実演では、まずL2を狙うのがよい。重すぎると視聴者が追えないからだ。</p>
+<h2>今回の実演: IssueBrief Lite</h2>
+<p>AIDD-Spec v0.1に沿った入力を作り、Codexに渡して、本当に期待したものが出るかを試した。</p>
+<p>実験ディレクトリ:</p>
+<pre><code>experiments/aidd-spec-v0.1-validation-001/</code></pre>
+<p>AI Task Packet:</p>
+<pre><code>experiments/aidd-spec-v0.1-validation-001/AI_TASK_PACKET.md</code></pre>
+<p>Codexへ渡したPrompt:</p>
+<pre><code>experiments/aidd-spec-v0.1-validation-001/CODEX_PROMPT.md</code></pre>
+<p>作らせたものは <code>IssueBrief Lite</code> という静的Webアプリである。</p>
+<p>目的は、AIに開発タスクを渡す前に、目的・非ゴール・状態・検証条件を1画面で整理すること。</p>
+<h2>なぜLite実験にしたか</h2>
+<p>ここでいきなりNext.js + CI + 3ブラウザまでやると、ライブ配信や読者の再現には重い。</p>
+<p>まず確認したかったのは、AIDD-Specに沿った入力を渡すことで、AIが次を守れるかである。</p>
+<ul>
+<li>指定ファイルを作る</li>
+<li>日本語UIにする</li>
+<li>empty/loading/success/error/offline/timeoutを入れる</li>
+<li>form labelやaria-liveを入れる</li>
+<li>外部通信をしない</li>
+<li>静的検査コマンドを用意する</li>
+<li>review-recordとlearning-logを残す</li>
+</ul>
+<p>つまり、今回はL2 Liteの検証である。</p>
+<h2>Codexに渡した入力の要点</h2>
+<p>AI Task Packetでは、次を明示した。</p>
+<table>
+<tr><th>入力項目</th><th>意味</th></tr>
+<tr><td>Product Brief</td><td>IssueBrief Liteが何のためのアプリか</td></tr>
+<tr><td>Non-goals</td><td>API送信、ログイン、DB保存、frameworkを作らない</td></tr>
+<tr><td>Scope</td><td>出力すべきファイルパス</td></tr>
+<tr><td>State Contract</td><td>empty/loading/success/error/offline/timeout</td></tr>
+<tr><td>Failure Contract</td><td>API未接続、ログイン不要、課金非ゴール、mediaなし</td></tr>
+<tr><td>Accessibility Contract</td><td>label、keyboard、aria-live、ul/li、focus</td></tr>
+<tr><td>Quality Gates</td><td><code>npm run lint:static</code> と <code>npm run test:contract</code></td></tr>
+<tr><td>Verification Evidence</td><td>ログ、review record、learning log</td></tr>
+</table>
+<h2>Codexの出力</h2>
+<p>Codexは指定通り、次のファイルを作った。</p>
+<pre><code>generated-repo/app.js
+generated-repo/docs/learning-log.md
+generated-repo/docs/product-brief.md
+generated-repo/docs/review-record.md
+generated-repo/index.html
+generated-repo/package.json
+generated-repo/scripts/static-contract-check.mjs
+generated-repo/styles.css</code></pre>
+<p>この時点では、まだ「成功」とは言わない。</p>
+<p>AIDD-Specでは、AIの自己申告ではなく、Verification Evidenceを見る。</p>
+<h2>検証結果</h2>
+<p>生成後、こちらで独立検証した。</p>
+<pre><code>cd experiments/aidd-spec-v0.1-validation-001/generated-repo
+npm run lint:static
+npm run test:contract</code></pre>
+<p>結果:</p>
+<pre><code>lint:static passed: 静的ファイルと外部通信禁止ルールを確認しました。
+exit=0
+
+test:contract passed: AIDD-Spec L2 Liteの必須契約を確認しました。
+exit=0</code></pre>
+<p>さらに、独立検査で次を確認した。</p>
+<pre><code>independent_leaks_or_external_urls 0
+missing_required_tokens []</code></pre>
+<p>ブラウザでも開き、入力後にレビュー画面の状態が「送信準備OK」へ変わることを確認した。</p>
+<h2>今回言えること / 言えないこと</h2>
+<p>言えること:</p>
+<ul>
+<li>AIDD-Spec v0.1に沿ったAI Task Packetを渡すと、Codexは期待した出力構造をかなり正確に作れた</li>
+<li>Non-goalsにより、外部API、ログイン、DB、frameworkへのscope creepを防げた</li>
+<li>State Contractにより、empty/loading/success/error/offline/timeoutが出力に入った</li>
+<li>Quality Gatesを指定したため、検証コマンドが生成され、実行できた</li>
+<li>Verification Evidenceとしてログとreview/learning文書を残せた</li>
+</ul>
+<p>言えないこと:</p>
+<ul>
+<li>AIDD-Specが完成した業界標準である、とはまだ言えない</li>
+<li>どんなAIエージェントでも同じ品質を出せる、とはまだ言えない</li>
+<li>L4レベルのCI/artifactまでこのLite実験で確認した、とは言えない</li>
+<li>SaaS MVPが完成した、とは言えない</li>
+</ul>
+<p>今回言えるのは、<strong>v0.1 draftとして、仕様→入力→AI実行→検証証跡の最小ループが回った</strong> ということだ。</p>
+<h2>AIDD Control Planeにする</h2>
+<p>次に作るべきSaaSは、AIDD Control Planeである。</p>
+<p>これはAIコーディングエージェントそのものではない。</p>
+<p>主価値は、次の流れを誰でも辿れるようにすることにある。</p>
+<pre><code>Product Brief
+  -&gt; AI Task Packet
+  -&gt; Agent Runbook
+  -&gt; Verification Evidence
+  -&gt; Review Record
+  -&gt; Learning Log
+  -&gt; Spec Improvement</code></pre>
+<p>MVPで作る機能はこうなる。</p>
+<table>
+<tr><th>機能</th><th>目的</th></tr>
+<tr><td>Product Brief Builder</td><td>何を作るかを短く固定する</td></tr>
+<tr><td>AI Task Packet Builder</td><td>AIへ渡す入力を作る</td></tr>
+<tr><td>Contract Checker</td><td>必須項目の不足を検出する</td></tr>
+<tr><td>Agent Runbook Generator</td><td>Codex等へ渡すコマンドを生成する</td></tr>
+<tr><td>Evidence Collector</td><td>実行ログとartifactを紐づける</td></tr>
+<tr><td>Review Record</td><td>結果を採点する</td></tr>
+<tr><td>Learning Log</td><td>次回改善点を残す</td></tr>
+</table>
+<p>設計ファイル:</p>
+<pre><code>standards/aidd-control-plane-mvp-v0.1.md</code></pre>
+<h2>ライブ配信について</h2>
+<p>ユーザーの要求は「そのワークフローを誰でも辿れるSaaSを開発していく様子をライブ配信」だった。</p>
+<p>ここは制約を明確にしておく。</p>
+<p>Hermesだけでは、外部配信プラットフォームで実際に配信開始することはできない。配信先アカウント、OBS、ストリームキー、画面共有権限が必要だからだ。</p>
+<p>その代わり、配信でそのまま辿れるRunbookを作った。</p>
+<pre><code>standards/live-build-runbook-001.md</code></pre>
+<p>Runbookには次を入れた。</p>
+<ul>
+<li>配信タイトル案</li>
+<li>配信の目的</li>
+<li>配信前チェック</li>
+<li>AIDD-Specを見せる順序</li>
+<li>AI Task Packetを見せる順序</li>
+<li>Codex実行コマンド</li>
+<li>検証コマンド</li>
+<li>SaaS MVPとして何を作るか</li>
+<li>次回に作る画面</li>
+</ul>
+<h2>配信で見せる流れ</h2>
+<p>配信では、以下の順に見せる。</p>
+<pre><code>1. AIDD-Spec v0.1を見る
+2. AI Task Packetを見る
+3. Codexへ渡す
+4. 出力されたIssueBrief Liteを見る
+5. npm run lint:static / test:contractを実行する
+6. Verification Evidenceを見る
+7. AIDD Control Plane MVPの設計を見る
+8. 次回、SaaSの最初の画面を作る</code></pre>
+<p>ここまでで、AIDD-Specの考え方を「記事上の概念」ではなく「実行できる流れ」として見せられる。</p>
+<h2>次にやるべきこと</h2>
+<p>次回は、AIDD Control Plane MVP自体をNext.jsで作り始める。</p>
+<p>最初のAI Task Packetは次の範囲に絞る。</p>
+<pre><code>/projects/new
+/packets/new
+/packets/:id/runbook
+/packets/:id/review</code></pre>
+<p>最初の合格条件は次でよい。</p>
+<ul>
+<li>Product Briefを入力できる</li>
+<li>AI Task Packet YAMLを生成できる</li>
+<li>必須項目不足を表示できる</li>
+<li>Codexへ渡すRunbookを生成できる</li>
+<li>Review RecordとLearning Logの雛形を作れる</li>
+</ul>
+<p>これはまだSaaS完成ではない。</p>
+<p>しかし、AIDD-Specに沿った開発ワークフローを、SaaSの画面に落とし込む最初の一歩になる。</p>
+<h2>まとめ</h2>
+<p>今回、当初の目的に対して一歩進めた。</p>
+<p>前回まで:</p>
+<pre><code>WatchFlow/StudyStream/DrillSwipeで、100点化手順の材料を集めた</code></pre>
+<p>今回:</p>
+<pre><code>AIDD-Spec v0.1 draftとして仕様書化した
+AI Task PacketとVerification Evidenceのテンプレートを作った
+CodexにSpec準拠入力を渡して、L2 Liteの出力を検証した
+AIDD Control Plane MVPの設計とライブ配信Runbookを作った</code></pre>
+<p>まだ完成した業界標準ではない。</p>
+<p>しかし、これでようやく、AIDD-Specを「思想」ではなく、<strong>入力、出力、検証、レビュー、学習ログまで含む標準仕様</strong> として扱い始められる状態になった。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-06-28-aidd-app-clone-lab-proof.html"><span>前の記事</span>WatchFlow 100点ナレッジを別アプリに移植する：StudyStreamとDrillSwipeで再実証</a><a class="next" href="2026-06-28-mobile-state-contract.html"><span>次の記事</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a></nav></main></div></body></html>

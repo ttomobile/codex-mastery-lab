@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IssueBrief Lite</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace" aria-labelledby="app-title">
+        <div class="intro">
+          <p class="eyebrow">AIDD-Spec v0.1 Validation 001</p>
+          <h1 id="app-title">IssueBrief Lite</h1>
+          <p>
+            小さな開発タスクをAIへ渡す前に、目的・非ゴール・状態・検証条件を1画面で整理します。
+          </p>
+        </div>
+
+        <form id="task-form" class="task-form" novalidate>
+          <div id="error-summary" class="error-summary" tabindex="-1" hidden>
+            <h2>入力エラー</h2>
+            <p id="error-summary-text">必須項目を入力してください。</p>
+          </div>
+
+          <div class="field">
+            <label for="task-name">タスク名</label>
+            <input id="task-name" name="taskName" type="text" autocomplete="off" placeholder="例: 週次レビュー画面の改善">
+          </div>
+
+          <div class="field">
+            <label for="user-problem">ユーザー課題</label>
+            <textarea id="user-problem" name="userProblem" rows="4" placeholder="誰が、何に困っていて、何を判断したいかを書きます。"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="non-goals">非ゴール</label>
+            <textarea id="non-goals" name="nonGoals" rows="4" placeholder="今回作らないことを1行ずつ書きます。"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="verification-commands">検証コマンド</label>
+            <textarea id="verification-commands" name="verificationCommands" rows="4" placeholder="例: npm run lint:static"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="evidence-notes">証跡メモ</label>
+            <textarea id="evidence-notes" name="evidenceNotes" rows="3" placeholder="残すログ、レビュー観点、注意点を書きます。"></textarea>
+          </div>
+
+          <div class="action-row" aria-label="状態切替と解析">
+            <button id="analyze-button" type="button">解析中を表示</button>
+            <button id="offline-toggle" type="button" aria-pressed="false">オフライン切替</button>
+            <button id="timeout-toggle" type="button" aria-pressed="false">タイムアウト切替</button>
+            <button id="error-toggle" type="button" aria-pressed="false">エラー切替</button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="review-panel" aria-labelledby="review-title">
+        <h2 id="review-title">レビュー画面</h2>
+
+        <section class="status-card" aria-labelledby="status-title">
+          <h3 id="status-title">状態</h3>
+          <p id="state-message" class="state-message" aria-live="polite">
+            空の状態です。まずタスク名とユーザー課題を入力してください。
+          </p>
+        </section>
+
+        <section class="shortage-card" aria-labelledby="shortage-title">
+          <h3 id="shortage-title">不足しているAIDD-Spec項目</h3>
+          <ul id="shortage-list">
+            <li>タスク名が未入力です。</li>
+            <li>ユーザー課題が未入力です。</li>
+            <li>非ゴールが未入力です。</li>
+            <li>検証コマンドが未入力です。</li>
+          </ul>
+        </section>
+
+        <section class="preview-card" aria-labelledby="preview-title">
+          <h3 id="preview-title">AI Task Packet風プレビュー</h3>
+          <pre id="packet-preview">task_id: ""
+product_brief:
+  name: ""
+  user_problem: ""
+  non_goals: []
+quality_gates:
+  required_commands: []
+verification_evidence:
+  notes: ""</pre>
+        </section>
+
+        <section class="failure-card" aria-labelledby="failure-title">
+          <h3 id="failure-title">失敗状態の説明</h3>
+          <ul>
+            <li>API: 外部APIを使わないため、API未接続として扱います。</li>
+            <li>認証: ログイン不要で使えます。</li>
+            <li>課金: 課金機能は非ゴールです。</li>
+            <li>メディア: 画像や動画の外部取得は行いません。</li>
+          </ul>
+        </section>
+      </aside>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

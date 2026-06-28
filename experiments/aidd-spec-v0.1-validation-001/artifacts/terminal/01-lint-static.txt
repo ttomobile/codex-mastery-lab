@@ -1,0 +1,6 @@
+
+> issuebrief-lite@0.1.0 lint:static
+> node scripts/static-contract-check.mjs --lint
+
+lint:static passed: 静的ファイルと外部通信禁止ルールを確認しました。
+exit=0

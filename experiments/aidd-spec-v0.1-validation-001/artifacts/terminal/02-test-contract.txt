@@ -1,0 +1,6 @@
+
+> issuebrief-lite@0.1.0 test:contract
+> node scripts/static-contract-check.mjs
+
+test:contract passed: AIDD-Spec L2 Liteの必須契約を確認しました。
+exit=0

@@ -1,0 +1,10 @@
+{
+  "name": "issuebrief-lite",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint:static": "node scripts/static-contract-check.mjs --lint",
+    "test:contract": "node scripts/static-contract-check.mjs"
+  }
+}

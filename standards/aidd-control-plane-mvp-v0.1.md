@@ -1,0 +1,147 @@
+# AIDD Control Plane MVP Design v0.1
+
+> AIDD-Specに沿ったAIエージェント開発ワークフローを、誰でも辿れるSaaSにするためのMVP設計。
+
+## 1. Product Vision
+
+AIDD Control Planeは、AIにコードを書かせるだけのSaaSではない。
+
+主価値は、AI駆動開発で必要な入力・出力・検証証跡・レビュー・学習ログを一つの流れとして扱うことにある。
+
+```text
+Product Brief
+  -> AI Task Packet
+  -> Agent Run
+  -> Verification Evidence
+  -> Review Record
+  -> Learning Log
+  -> Spec Improvement
+```
+
+## 2. MVPで解く問題
+
+AIエージェント活用時の初期問題は次である。
+
+- 依頼文が曖昧
+- 非ゴールがない
+- 状態設計がない
+- テスト条件がない
+- 完了証拠が残らない
+- 失敗が次回の指示に戻らない
+
+MVPではこの流れをフォームとチェックリストで標準化する。
+
+## 3. MVP機能
+
+| 機能 | 目的 | v0.1範囲 |
+| --- | --- | --- |
+| Product Brief Builder | 何を作るかを短く固定する | name/user_problem/non_goals |
+| AI Task Packet Builder | AIへ渡す入力を作る | YAML/Markdown出力 |
+| Contract Checker | 必須項目の不足を検出する | static validation |
+| Agent Runbook Generator | Codex等へ渡すコマンドを生成する | prompt + command |
+| Evidence Collector | 実行ログとartifactを紐づける | 手動アップロード/パス入力 |
+| Review Record | 結果を採点する | pass/fail/findings |
+| Learning Log | 次回改善点を残す | spec_updates_needed |
+
+## 4. 初期データモデル
+
+```ts
+type Project = {
+  id: string;
+  name: string;
+  description: string;
+  createdAt: string;
+};
+
+type AITaskPacket = {
+  id: string;
+  projectId: string;
+  specVersion: "AIDD-Spec v0.1";
+  conformanceTarget: "L0" | "L1" | "L2" | "L3" | "L4";
+  productBrief: ProductBrief;
+  experienceContract: ExperienceContract;
+  qualityGates: QualityGate[];
+  expectedOutput: ExpectedOutput;
+};
+
+type VerificationEvidence = {
+  id: string;
+  taskPacketId: string;
+  commandLogs: CommandLog[];
+  reports: EvidenceFile[];
+  screenshots: EvidenceFile[];
+  ciRuns: CiRun[];
+};
+
+type ReviewRecord = {
+  id: string;
+  taskPacketId: string;
+  score: number;
+  passed: boolean;
+  findings: Finding[];
+  remainingRisks: string[];
+};
+
+type LearningLog = {
+  id: string;
+  taskPacketId: string;
+  whatWorked: string[];
+  whatFailed: string[];
+  specUpdatesNeeded: string[];
+};
+```
+
+## 5. 初期画面
+
+1. Dashboard
+2. New Project
+3. AI Task Packet Builder
+4. Packet Preview
+5. Agent Runbook
+6. Evidence Upload
+7. Review Dashboard
+8. Learning Log
+
+## 6. MVP Tech Stack
+
+- Next.js + TypeScript
+- pnpm
+- Local JSON persistence for first demo
+- Later: Postgres/Supabase or SQLite/Turso
+- Playwright for workflow E2E
+- GitHub Actions for CI
+
+## 7. ライブ配信で実演する順序
+
+1. AIDD-Spec v0.1を見せる
+2. AI Task Packetをフォームで作る構想を説明する
+3. まず手動YAMLでIssueBrief LiteをCodexへ渡す
+4. Codex出力を検証する
+5. その流れをSaaSの画面に落とす
+6. MVPの最初の画面をAIエージェントに作らせる
+7. Verification Evidenceを保存する
+8. Review Recordを書く
+9. Learning Logから次回タスクを作る
+
+## 8. 受け入れ条件
+
+MVP v0.1は次を満たせば成功とする。
+
+- Product Briefを入力できる
+- AI Task Packet Markdown/YAMLを生成できる
+- 必須項目不足を表示できる
+- Codexへ渡すRunbookを生成できる
+- Evidence/Review/Learning Logの雛形を作れる
+- 1つのサンプルタスクでEnd-to-Endの流れを説明できる
+
+## 9. 今後のSaaS化
+
+v0.2以降で追加する。
+
+- JSON Schema validation
+- GitHub Actions連携
+- Artifact upload API
+- 複数AIエージェント比較
+- Spec diff / improvement proposal
+- Team review workflow
+- Template marketplace
