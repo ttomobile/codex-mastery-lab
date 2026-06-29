@@ -21,6 +21,12 @@ SERIES_ORDER = [
     '2026-06-27-watchflow-trial-005.md',
 ]
 
+CONTROL_PLANE_ORDER = [
+    '2026-06-28-aidd-control-plane-mvp-001.md',
+    '2026-06-28-aidd-control-plane-mvp-002.md',
+    '2026-06-28-aidd-control-plane-mvp-003.md',
+]
+
 PAST_ARTICLES_ORDER = [
     '2026-06-27-accessibility-contract-vibe-faq.md',
     '2026-06-27-performance-budget-vibe-gallery.md',
@@ -187,21 +193,26 @@ def md_to_html(md: str) -> str:
 def chapter_label(i: int, title: str) -> str:
     return f'第{i:02d}回｜{title}'
 
-def nav_html(series_items, past_items, current_href=None):
+def nav_html(series_items, control_items, past_items, current_href=None):
     series = '\n'.join(
         f'<a class="chapter-link {"current" if href == current_href else ""}" href="{href}"><span class="chapter-num">第{i:02d}回</span>{html.escape(title)}</a>'
         for i, (_, title, href) in enumerate(series_items, start=1)
+    )
+    control = '\n'.join(
+        f'<a class="chapter-link {"current" if href == current_href else ""}" href="{href}"><span class="chapter-num">MVP {i:02d}</span>{html.escape(title)}</a>'
+        for i, (_, title, href) in enumerate(control_items, start=1)
     )
     past = '\n'.join(
         f'<a class="chapter-link past {"current" if href == current_href else ""}" href="{href}"><span class="chapter-num">過去記事 {i:02d}</span>{html.escape(title)}</a>'
         for i, (_, title, href) in enumerate(past_items, start=1)
     )
-    return f'<div class="nav-section-title">WatchFlow 100点チャレンジ</div>{series}<div class="nav-section-title">過去記事</div>{past}'
+    return f'<div class="nav-section-title">WatchFlow 100点チャレンジ</div>{series}<div class="nav-section-title">AIDD Control Plane SaaS化</div>{control}<div class="nav-section-title">過去記事</div>{past}'
 
-def mobile_nav(series_items, past_items):
+def mobile_nav(series_items, control_items, past_items):
     series = '\n'.join(f'<a href="{href}">第{i:02d}回｜{html.escape(title)}</a>' for i, (_, title, href) in enumerate(series_items, start=1))
+    control = '\n'.join(f'<a href="{href}">MVP{i:02d}｜{html.escape(title)}</a>' for i, (_, title, href) in enumerate(control_items, start=1))
     past = '\n'.join(f'<a href="{href}">過去記事{i:02d}｜{html.escape(title)}</a>' for i, (_, title, href) in enumerate(past_items, start=1))
-    return f'<div class="mobile-index"><details><summary>目次を開く</summary><div class="nav-section-title">WatchFlow 100点チャレンジ</div>{series}<div class="nav-section-title">過去記事</div>{past}</details></div>'
+    return f'<div class="mobile-index"><details><summary>目次を開く</summary><div class="nav-section-title">WatchFlow 100点チャレンジ</div>{series}<div class="nav-section-title">AIDD Control Plane SaaS化</div>{control}<div class="nav-section-title">過去記事</div>{past}</details></div>'
 
 def prev_next(items, index):
     parts = ['<nav class="chapter-nav" aria-label="前後の記事">']
@@ -218,10 +229,10 @@ def prev_next(items, index):
     parts.append('</nav>')
     return ''.join(parts)
 
-def page(title: str, body: str, series_items, past_items, current_href=None, cls='') -> str:
-    nav = nav_html(series_items, past_items, current_href)
-    mob = mobile_nav(series_items, past_items)
-    return f'''<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><style>{CSS}</style></head><body>{mob}<div class="layout {cls}"><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">WatchFlow本編と過去記事を分けて読めるプレビュー</p>{nav}</aside><main>{body}</main></div></body></html>'''
+def page(title: str, body: str, series_items, control_items, past_items, current_href=None, cls='') -> str:
+    nav = nav_html(series_items, control_items, past_items, current_href)
+    mob = mobile_nav(series_items, control_items, past_items)
+    return f'''<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><style>{CSS}</style></head><body>{mob}<div class="layout {cls}"><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">WatchFlow本編、AIDD Control Plane SaaS化、過去記事を分けて読めるプレビュー</p>{nav}</aside><main>{body}</main></div></body></html>'''
 
 def article_title(path: Path) -> str:
     for line in path.read_text(encoding='utf-8').splitlines():
@@ -239,12 +250,13 @@ def ordered_group(names):
 
 def ordered_articles():
     series = ordered_group(SERIES_ORDER)
+    control = ordered_group(CONTROL_PLANE_ORDER)
     past = ordered_group(PAST_ARTICLES_ORDER)
-    seen = {p.name for p in series + past}
+    seen = {p.name for p in series + control + past}
     for p in sorted(ARTICLES.glob('*.md')):
         if p.name not in seen and not p.name.startswith('2026-06-27-codex-mastery-lab-start'):
             past.append(p)
-    return series, past
+    return series, control, past
 
 def main():
     if OUT.exists():
@@ -254,22 +266,28 @@ def main():
     asset_patterns = ['2026-06-27*.svg', '2026-06-27*.gif', '2026-06-27*.png', '2026-06-27*.console.txt', '2026-06-28*.svg', '2026-06-28*.gif', '2026-06-28*.png', '2026-06-28*.console.txt', '2026-06-29*.svg', '2026-06-29*.gif', '2026-06-29*.png', '2026-06-29*.console.txt']
     for asset in [p for pattern in asset_patterns for p in ASSETS.glob(pattern)]:
         shutil.copy2(asset, OUT_ASSETS / asset.name)
-    series_articles, past_articles = ordered_articles()
+    series_articles, control_articles, past_articles = ordered_articles()
     series_items = [(p, article_title(p), slug(p)) for p in series_articles]
+    control_items = [(p, article_title(p), slug(p)) for p in control_articles]
     past_items = [(p, article_title(p), slug(p)) for p in past_articles]
-    all_items = series_items + past_items
+    all_items = series_items + control_items + past_items
     series_list = ''.join(f'<li><a href="{href}"><strong>第{i:02d}回</strong><br>{html.escape(title)}</a></li>' for i, (_,title,href) in enumerate(series_items, start=1))
+    control_list = ''.join(f'<li><a href="{href}"><strong>MVP {i:02d}</strong><br>{html.escape(title)}</a></li>' for i, (_,title,href) in enumerate(control_items, start=1))
     past_list = ''.join(f'<li><a href="{href}"><strong>過去記事 {i:02d}</strong><br>{html.escape(title)}</a></li>' for i, (_,title,href) in enumerate(past_items, start=1))
-    home = '<article class="hero"><h1>Codex Mastery Lab Preview</h1><p class="meta">WatchFlow 100点チャレンジを本編として読み、以前の記事は過去記事として参照できます。</p><h2>WatchFlow 100点チャレンジ</h2><ul class="home-grid">'+series_list+'</ul><h2>過去記事</h2><ul class="home-grid">'+past_list+'</ul></article>'
-    (OUT/'index.html').write_text(page('Codex Mastery Lab Preview', home, series_items, past_items, None, 'home'), encoding='utf-8')
+    home = '<article class="hero"><h1>Codex Mastery Lab Preview</h1><p class="meta">WatchFlow本編、AIDD Control Plane SaaS化シリーズ、過去記事を分けて参照できます。</p><h2>WatchFlow 100点チャレンジ</h2><ul class="home-grid">'+series_list+'</ul><h2>AIDD Control Plane SaaS化</h2><ul class="home-grid">'+control_list+'</ul><h2>過去記事</h2><ul class="home-grid">'+past_list+'</ul></article>'
+    (OUT/'index.html').write_text(page('Codex Mastery Lab Preview', home, series_items, control_items, past_items, None, 'home'), encoding='utf-8')
     for idx, (p,title,href) in enumerate(series_items):
         md = p.read_text(encoding='utf-8')
         body = f'{prev_next(series_items, idx)}<article>{md_to_html(md)}</article>{prev_next(series_items, idx)}'
-        (OUT/href).write_text(page(title, body, series_items, past_items, href), encoding='utf-8')
+        (OUT/href).write_text(page(title, body, series_items, control_items, past_items, href), encoding='utf-8')
+    for idx, (p,title,href) in enumerate(control_items):
+        md = p.read_text(encoding='utf-8')
+        body = f'{prev_next(control_items, idx)}<article>{md_to_html(md)}</article>{prev_next(control_items, idx)}'
+        (OUT/href).write_text(page(title, body, series_items, control_items, past_items, href), encoding='utf-8')
     for idx, (p,title,href) in enumerate(past_items):
         md = p.read_text(encoding='utf-8')
         body = f'{prev_next(past_items, idx)}<article>{md_to_html(md)}</article>{prev_next(past_items, idx)}'
-        (OUT/href).write_text(page(title, body, series_items, past_items, href), encoding='utf-8')
+        (OUT/href).write_text(page(title, body, series_items, control_items, past_items, href), encoding='utf-8')
     print(f'Wrote {len(all_items)} articles to {OUT}')
 
 if __name__ == '__main__':
