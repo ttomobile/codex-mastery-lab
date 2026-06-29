@@ -1,0 +1,11 @@
+$ playwright test
+[WebServer] $ next dev
+
+Running 3 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/evidence-collector.spec.ts:3:1 › サンプル証跡を入れるとreadyでreadiness scoreが100になる (482ms)
+  ✓  2 [chromium] › e2e/evidence-collector.spec.ts:18:1 › 必須ログを消すとmissing_logsになる (277ms)
+  ✓  3 [chromium] › e2e/evidence-collector.spec.ts:28:1 › スクリーンショットを消すとmissing_screenshotsになる (285ms)
+
+  3 passed (3.9s)
+exit=0
