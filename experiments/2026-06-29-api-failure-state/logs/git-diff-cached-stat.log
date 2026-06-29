@@ -1,0 +1,61 @@
+ articles/2026-06-29-api-failure-state.md           | 394 +++++++++++++++++++++
+ ...-api-failure-state-fixed-api-states.console.txt |   1 +
+ ...26-06-29-api-failure-state-fixed-api-states.gif | Bin 0 -> 125814 bytes
+ .../2026-06-29-api-failure-state-fixed.console.txt |   1 +
+ assets/2026-06-29-api-failure-state-fixed.gif      | Bin 0 -> 107363 bytes
+ .../2026-06-29-api-failure-state-reverse-chain.svg |  30 ++
+ .../2026-06-29-api-failure-state-vibe.console.txt  |   1 +
+ assets/2026-06-29-api-failure-state-vibe.gif       | Bin 0 -> 98448 bytes
+ backlog.md                                         |   1 +
+ book/outline.md                                    |   1 +
+ .../AI_TASK_PACKET_v0.6.md                         |  60 ++++
+ experiments/2026-06-29-api-failure-state/PLAN.md   |  32 ++
+ .../audit_api_failure_state.py                     |  51 +++
+ .../capture_api_failure_gif.js                     |  66 ++++
+ .../fixed-app/API_FAILURE_STATE_EVIDENCE.md        |  29 ++
+ .../fixed-app/index.html                           |  60 ++++
+ .../fixed-app/script.js                            | 280 +++++++++++++++
+ .../fixed-app/style.css                            | 282 +++++++++++++++
+ .../logs/codex-fixed.log                           |  18 +
+ .../logs/codex-vibe.log                            |  11 +
+ .../2026-06-29-api-failure-state/logs/env.txt      |  12 +
+ .../logs/fixed-verification.log                    |  27 ++
+ .../logs/git-diff-stat-before-commit.log           |  23 ++
+ .../logs/git-status-before-commit.log              |  41 +++
+ .../logs/preview-build.log                         |   1 +
+ .../logs/vibe-verification.log                     |  23 ++
+ .../2026-06-29-api-failure-state/prompt-fixed.txt  |  69 ++++
+ .../2026-06-29-api-failure-state/prompt-vibe.txt   |  12 +
+ .../vibe-app/index.html                            |  46 +++
+ .../vibe-app/script.js                             | 133 +++++++
+ .../vibe-app/styles.css                            | 231 ++++++++++++
+ logs/2026-06-29-api-failure-state-env.txt          |  12 +
+ preview/001-series-roadmap.html                    |   6 +-
+ ...2026-06-27-accessibility-contract-vibe-faq.html |   6 +-
+ preview/2026-06-27-contact-api-threat-model.html   |   6 +-
+ ...2026-06-27-performance-budget-vibe-gallery.html |   6 +-
+ .../2026-06-27-security-baseline-contact-form.html |   6 +-
+ preview/2026-06-27-watchflow-trial-001.html        |   6 +-
+ preview/2026-06-27-watchflow-trial-002.html        |   6 +-
+ preview/2026-06-27-watchflow-trial-003.html        |   6 +-
+ preview/2026-06-27-watchflow-trial-004.html        |   6 +-
+ preview/2026-06-27-watchflow-trial-005.html        |   6 +-
+ preview/2026-06-28-agents-skill-explained.html     |   6 +-
+ preview/2026-06-28-aidd-app-clone-lab-proof.html   |   6 +-
+ preview/2026-06-28-aidd-control-plane-mvp-001.html |   6 +-
+ preview/2026-06-28-aidd-control-plane-mvp-002.html |   6 +-
+ .../2026-06-28-aidd-spec-v0.1-workflow-saas.html   |   6 +-
+ preview/2026-06-28-mobile-state-contract.html      |   8 +-
+ preview/2026-06-29-api-failure-state.html          | 364 +++++++++++++++++++
+ ...-api-failure-state-fixed-api-states.console.txt |   1 +
+ ...26-06-29-api-failure-state-fixed-api-states.gif | Bin 0 -> 125814 bytes
+ .../2026-06-29-api-failure-state-fixed.console.txt |   1 +
+ .../assets/2026-06-29-api-failure-state-fixed.gif  | Bin 0 -> 107363 bytes
+ .../2026-06-29-api-failure-state-reverse-chain.svg |  30 ++
+ .../2026-06-29-api-failure-state-vibe.console.txt  |   1 +
+ .../assets/2026-06-29-api-failure-state-vibe.gif   | Bin 0 -> 98448 bytes
+ preview/index.html                                 |   6 +-
+ scripts/build_preview.py                           |   2 +-
+ .../aidd-spec-ai-task-packet-standard-v0.1.md      |  45 +++
+ .../templates/ai-task-packet-template-v0.1.md      |   7 +
+ 60 files changed, 2467 insertions(+), 36 deletions(-)

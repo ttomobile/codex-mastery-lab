@@ -1,0 +1,23 @@
+ backlog.md                                         |  1 +
+ book/outline.md                                    |  1 +
+ preview/001-series-roadmap.html                    |  6 ++-
+ ...2026-06-27-accessibility-contract-vibe-faq.html |  6 ++-
+ preview/2026-06-27-contact-api-threat-model.html   |  6 ++-
+ ...2026-06-27-performance-budget-vibe-gallery.html |  6 ++-
+ .../2026-06-27-security-baseline-contact-form.html |  6 ++-
+ preview/2026-06-27-watchflow-trial-001.html        |  6 ++-
+ preview/2026-06-27-watchflow-trial-002.html        |  6 ++-
+ preview/2026-06-27-watchflow-trial-003.html        |  6 ++-
+ preview/2026-06-27-watchflow-trial-004.html        |  6 ++-
+ preview/2026-06-27-watchflow-trial-005.html        |  6 ++-
+ preview/2026-06-28-agents-skill-explained.html     |  6 ++-
+ preview/2026-06-28-aidd-app-clone-lab-proof.html   |  6 ++-
+ preview/2026-06-28-aidd-control-plane-mvp-001.html |  6 ++-
+ preview/2026-06-28-aidd-control-plane-mvp-002.html |  6 ++-
+ .../2026-06-28-aidd-spec-v0.1-workflow-saas.html   |  6 ++-
+ preview/2026-06-28-mobile-state-contract.html      |  8 ++--
+ preview/index.html                                 |  6 ++-
+ scripts/build_preview.py                           |  2 +-
+ .../aidd-spec-ai-task-packet-standard-v0.1.md      | 45 ++++++++++++++++++++++
+ .../templates/ai-task-packet-template-v0.1.md      |  7 ++++
+ 22 files changed, 124 insertions(+), 36 deletions(-)

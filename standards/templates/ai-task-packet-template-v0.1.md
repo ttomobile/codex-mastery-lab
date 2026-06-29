@@ -43,6 +43,13 @@ system_contract:
   mock_services: []
   endpoints: []
   state_control: ""
+api_failure_state_contract:
+  boundary_function: ""
+  scenarios: []
+  timeout_policy: ""
+  retry_policy: ""
+  state_preservation_policy: ""
+  user_message_contract: ""
 quality_gates:
   required_commands: []
   required_artifacts: []

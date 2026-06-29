@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>読書ログ同期ビューア</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">API同期プレビュー</p>
+          <h1>読書ログ同期ビューア</h1>
+          <p class="lead">
+            読書ログAPIから取得した一覧を確認し、タイトルやメモで素早く絞り込めます。
+          </p>
+        </div>
+        <div class="sync-panel" aria-live="polite">
+          <span class="sync-dot" id="syncDot"></span>
+          <span id="syncText">APIに接続中...</span>
+        </div>
+      </header>
+
+      <section class="toolbar" aria-label="読書ログ検索">
+        <label for="searchInput">検索</label>
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="タイトル、著者、メモで検索"
+          autocomplete="off"
+        />
+        <p id="resultSummary" class="result-summary">読み込み中です</p>
+      </section>
+
+      <section id="logList" class="log-list" aria-label="読書ログ一覧"></section>
+
+      <section id="emptyState" class="empty-state" hidden>
+        <h2>該当する読書ログがありません</h2>
+        <p>検索語を短くするか、別のキーワードで試してください。</p>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

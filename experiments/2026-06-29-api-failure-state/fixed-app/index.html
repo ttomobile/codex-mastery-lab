@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>読書ログ同期ビューア</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero" aria-labelledby="app-title">
+        <div>
+          <p class="eyebrow">API Failure State Contract</p>
+          <h1 id="app-title">読書ログ同期ビューア</h1>
+          <p class="lead">APIから取得した読書ログを確認し、失敗時も検索語と既存データを保持したまま再試行できます。</p>
+        </div>
+        <div class="sync-summary" aria-label="同期概要">
+          <span id="summary-count">0件</span>
+          <span id="summary-time">未同期</span>
+        </div>
+      </section>
+
+      <section class="controls" aria-labelledby="controls-title">
+        <h2 id="controls-title">デモ制御</h2>
+        <div class="control-grid">
+          <label class="field">
+            <span>検索</span>
+            <input id="search-input" type="search" placeholder="タイトル・著者・メモで検索" autocomplete="off">
+          </label>
+
+          <fieldset class="scenario-picker">
+            <legend>API scenario</legend>
+            <label><input type="radio" name="scenario" value="success" data-scenario="success" checked> 成功</label>
+            <label><input type="radio" name="scenario" value="offline" data-scenario="offline"> オフライン</label>
+            <label><input type="radio" name="scenario" value="timeout" data-scenario="timeout"> タイムアウト</label>
+            <label><input type="radio" name="scenario" value="server-error" data-scenario="server-error"> サーバーエラー</label>
+          </fieldset>
+
+          <button id="retry-button" class="primary-button" type="button">再試行</button>
+        </div>
+      </section>
+
+      <section class="status-panel" aria-labelledby="status-title">
+        <h2 id="status-title">同期状態</h2>
+        <p id="live-status" class="live-status" aria-live="polite">読み込み前です。</p>
+        <div id="message-area" class="message-area" role="status"></div>
+      </section>
+
+      <section class="logs-section" aria-labelledby="logs-title">
+        <div class="section-heading">
+          <h2 id="logs-title">読書ログ一覧</h2>
+          <p id="list-note">同期後に一覧を表示します。</p>
+        </div>
+        <ul id="reading-list" class="reading-list" aria-busy="false"></ul>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

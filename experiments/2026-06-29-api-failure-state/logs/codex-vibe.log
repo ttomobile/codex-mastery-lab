@@ -1,0 +1,11 @@
+作成しました。変更は指定通り `experiments/2026-06-29-api-failure-state/vibe-app` 配下のみです。
+
+追加ファイル:
+- [index.html](/path/to/project-root/experiments/2026-06-29-api-failure-state/vibe-app/index.html)
+- [styles.css](/path/to/project-root/experiments/2026-06-29-api-failure-state/vibe-app/styles.css)
+- [script.js](/path/to/project-root/experiments/2026-06-29-api-failure-state/vibe-app/script.js)
+
+内容は、日本語UIの「読書ログ同期ビューア」で、API読込風の同期表示、読書ログ一覧、タイトル・著者・メモ検索、同期状態バッジ、スマホ対応レイアウトを入れています。
+
+検証:
+- `node --check experiments/2026-06-29-api-failure-state/vibe-app/script.js` 成功しました。

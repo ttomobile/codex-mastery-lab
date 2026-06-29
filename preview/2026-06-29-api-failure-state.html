@@ -1,0 +1,364 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</title><style>
+:root {
+  color-scheme: light;
+  --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
+  --accent:#1d4ed8; --accent2:#7c3aed; --code:#0f172a; --soft:#eef4ff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif; background:var(--bg); color:var(--fg); line-height:1.82; }
+a { color: var(--accent); }
+.layout { display:grid; grid-template-columns: 300px minmax(0, 1fr); min-height:100vh; }
+aside { position:sticky; top:0; height:100vh; overflow:auto; padding:22px; background:#0b1220; color:#e5eefc; }
+.brand { font-weight:800; line-height:1.35; margin:0 0 16px; font-size:18px; letter-spacing:-.01em; }
+.series-note { color:#9fb4d8; font-size:12px; margin:0 0 18px; }
+.chapter-link { color:#c7d7ff; text-decoration:none; display:block; padding:10px 10px; border:1px solid rgba(255,255,255,.08); border-radius:12px; margin:8px 0; font-size:14px; background:rgba(255,255,255,.03); }
+.chapter-link:hover, .chapter-link.current { color:#fff; background:rgba(59,130,246,.22); border-color:rgba(147,197,253,.45); }
+.chapter-num { color:#93c5fd; font-weight:700; font-size:12px; display:block; margin-bottom:2px; }
+.nav-section-title { color:#93c5fd; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; margin:18px 0 8px; }
+.chapter-link.past { color:#d7e1f7; background:rgba(255,255,255,.02); }
+.chapter-link.past .chapter-num { color:#a8b6d8; }
+main { max-width: 980px; padding: 42px 34px 80px; }
+article { background:var(--card); padding:42px 48px; border:1px solid var(--line); border-radius:24px; box-shadow:0 18px 50px rgba(15,23,42,.08); }
+h1 { font-size: clamp(28px, 5vw, 42px); line-height:1.24; margin: 0 0 22px; letter-spacing:-.03em; }
+h2 { font-size: clamp(22px, 3vw, 28px); margin: 46px 0 14px; padding-top:10px; border-top:1px solid #edf1f7; }
+h3 { font-size: 20px; margin: 30px 0 10px; }
+p { margin: 14px 0; }
+blockquote { margin: 18px 0; padding: 14px 18px; border-left: 4px solid var(--accent); background:#eff6ff; color:#1e3a8a; border-radius: 10px; }
+pre { background:var(--code); color:#e2e8f0; padding:18px; border-radius:14px; overflow:auto; line-height:1.55; font-size:13px; white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; }
+pre code { white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow-wrap:anywhere; word-break:break-word; }
+p code, li code { background:#eef2ff; color:#1e3a8a; padding:2px 5px; border-radius:5px; white-space:normal; }
+ul, ol { padding-left:1.45em; }
+li { overflow-wrap:anywhere; }
+img { max-width:100%; border:1px solid var(--line); border-radius:14px; background:white; margin:18px 0; height:auto; }
+table { border-collapse: collapse; width:100%; margin:18px 0; font-size:14px; display:block; overflow-x:auto; }
+th, td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; min-width:120px; }
+th { background:#f1f5f9; }
+.meta { color:var(--muted); font-size:14px; margin-bottom:24px; }
+.hero { background:linear-gradient(135deg,#eff6ff,#faf5ff); border:1px solid #dbeafe; border-radius:24px; padding:28px; margin-bottom:22px; }
+.chapter-nav { display:flex; gap:12px; justify-content:space-between; margin:24px 0; }
+.chapter-nav a { flex:1; text-decoration:none; background:var(--soft); border:1px solid var(--line); border-radius:14px; padding:14px; color:#17315f; }
+.chapter-nav .next { text-align:right; }
+.chapter-nav span { display:block; color:var(--muted); font-size:12px; }
+.home-grid { display:grid; gap:14px; padding:0; list-style:none; }
+.home-grid li a { display:block; padding:18px; background:#fff; border:1px solid var(--line); border-radius:16px; text-decoration:none; box-shadow:0 8px 24px rgba(15,23,42,.05); }
+.mobile-index { display:none; background:#0b1220; padding:12px 16px; position:sticky; top:0; z-index:10; }
+.mobile-index details { color:#e5eefc; }
+.mobile-index summary { cursor:pointer; font-weight:700; }
+.mobile-index a { color:#c7d7ff; display:block; padding:8px 0; }
+@media (max-width: 900px) {
+  .layout { display:block; }
+  aside { display:none; }
+  .mobile-index { display:block; }
+  main { padding:16px; max-width:none; }
+  article { padding:24px 18px; border-radius:18px; }
+  .chapter-nav { flex-direction:column; }
+  .chapter-nav .next { text-align:left; }
+  pre { font-size:12px; padding:14px; }
+}
+@media (max-width: 480px) {
+  body { line-height:1.75; }
+  main { padding:10px; }
+  article { padding:20px 14px; border-radius:14px; }
+  h1 { font-size:28px; }
+  h2 { font-size:22px; }
+}
+</style></head><body><div class="mobile-index"><details><summary>目次を開く</summary><div class="nav-section-title">WatchFlow 100点チャレンジ</div><a href="001-series-roadmap.html">第01回｜WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
+<a href="2026-06-27-watchflow-trial-001.html">第02回｜WatchFlow Trial 001：雑プロンプトからNext.js動画アプリはどこまで作れるか</a>
+<a href="2026-06-27-watchflow-trial-002.html">第03回｜WatchFlow Trial 002：61点から75点へ、AI Task Packetに失点を戻す</a>
+<a href="2026-06-27-watchflow-trial-003.html">第04回｜WatchFlow Trial 003：75点から84点へ、mock serviceとアクセシビリティを詰める</a>
+<a href="2026-06-27-watchflow-trial-004.html">第05回｜WatchFlow Trial 004：84点から91点へ、mock serviceをE2Eの実依存にする</a>
+<a href="2026-06-27-watchflow-trial-005.html">第06回｜WatchFlow Trial 005：91点から100点へ、Firefox/CI/artifactまで通して実験を閉じる</a><div class="nav-section-title">過去記事</div><a href="2026-06-27-accessibility-contract-vibe-faq.html">過去記事01｜雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a href="2026-06-27-performance-budget-vibe-gallery.html">過去記事02｜「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a href="2026-06-27-security-baseline-contact-form.html">過去記事03｜問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
+<a href="2026-06-27-contact-api-threat-model.html">過去記事04｜問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
+<a href="2026-06-28-agents-skill-explained.html">過去記事05｜AGENTS.mdとaidd-app-clone-lab skillは何に効いたのか：100点化手順を読み解く</a>
+<a href="2026-06-28-aidd-app-clone-lab-proof.html">過去記事06｜WatchFlow 100点ナレッジを別アプリに移植する：StudyStreamとDrillSwipeで再実証</a>
+<a href="2026-06-28-aidd-control-plane-mvp-001.html">過去記事07｜AIDD Control Plane MVP 001：AIDD-SpecをSaaSの画面に落とし込む最初の実装</a>
+<a href="2026-06-28-aidd-control-plane-mvp-002.html">過去記事08｜AIDD Control Plane MVP 002：AI Task PacketをJSON Contract Checkerで検査する</a>
+<a href="2026-06-28-aidd-spec-v0.1-workflow-saas.html">過去記事09｜AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</a>
+<a href="2026-06-28-mobile-state-contract.html">過去記事10｜スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a>
+<a href="2026-06-29-api-failure-state.html">過去記事11｜「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a></details></div><div class="layout "><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">WatchFlow本編と過去記事を分けて読めるプレビュー</p><div class="nav-section-title">WatchFlow 100点チャレンジ</div><a class="chapter-link " href="001-series-roadmap.html"><span class="chapter-num">第01回</span>WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-001.html"><span class="chapter-num">第02回</span>WatchFlow Trial 001：雑プロンプトからNext.js動画アプリはどこまで作れるか</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-002.html"><span class="chapter-num">第03回</span>WatchFlow Trial 002：61点から75点へ、AI Task Packetに失点を戻す</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-003.html"><span class="chapter-num">第04回</span>WatchFlow Trial 003：75点から84点へ、mock serviceとアクセシビリティを詰める</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-004.html"><span class="chapter-num">第05回</span>WatchFlow Trial 004：84点から91点へ、mock serviceをE2Eの実依存にする</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-005.html"><span class="chapter-num">第06回</span>WatchFlow Trial 005：91点から100点へ、Firefox/CI/artifactまで通して実験を閉じる</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link past " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">過去記事 02</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a class="chapter-link past " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">過去記事 03</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
+<a class="chapter-link past " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">過去記事 04</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
+<a class="chapter-link past " href="2026-06-28-agents-skill-explained.html"><span class="chapter-num">過去記事 05</span>AGENTS.mdとaidd-app-clone-lab skillは何に効いたのか：100点化手順を読み解く</a>
+<a class="chapter-link past " href="2026-06-28-aidd-app-clone-lab-proof.html"><span class="chapter-num">過去記事 06</span>WatchFlow 100点ナレッジを別アプリに移植する：StudyStreamとDrillSwipeで再実証</a>
+<a class="chapter-link past " href="2026-06-28-aidd-control-plane-mvp-001.html"><span class="chapter-num">過去記事 07</span>AIDD Control Plane MVP 001：AIDD-SpecをSaaSの画面に落とし込む最初の実装</a>
+<a class="chapter-link past " href="2026-06-28-aidd-control-plane-mvp-002.html"><span class="chapter-num">過去記事 08</span>AIDD Control Plane MVP 002：AI Task PacketをJSON Contract Checkerで検査する</a>
+<a class="chapter-link past " href="2026-06-28-aidd-spec-v0.1-workflow-saas.html"><span class="chapter-num">過去記事 09</span>AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</a>
+<a class="chapter-link past " href="2026-06-28-mobile-state-contract.html"><span class="chapter-num">過去記事 10</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a>
+<a class="chapter-link past current" href="2026-06-29-api-failure-state.html"><span class="chapter-num">過去記事 11</span>「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-06-28-mobile-state-contract.html"><span>前の記事</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a><span></span></nav><article><h1>「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</h1>
+<blockquote>2026-06-29 / Codex Mastery Lab 日次ドラフト  </blockquote>
+<blockquote>想定読了時間: 約10分  </blockquote>
+<blockquote>種別: Experiment / Template / Failure  </blockquote>
+<blockquote>将来の書籍章: 第6章 Design Contract、第7章 System Contract、第9章 AI Task Packet、第10章 Verification Evidence、第12章 雑プロンプト vs AI Task Packet</blockquote>
+<p><img src="assets/2026-06-29-api-failure-state-reverse-chain.svg" alt="API Failure State reverse chain" loading="lazy"></p>
+<h2>前回の振り返り</h2>
+<p>前回はスマホフォームを題材にした。Codexに「スマホでも使いやすそう」と頼むだけでも、レスポンシブな見た目、visible label、必須属性、送信後の表示までは作れた。しかし、必須入力ごとの <code>aria-describedby</code>、エラー/成功/空状態の分離、送信後の結果領域focus、<code>:focus-visible</code>、<code>prefers-reduced-motion</code>、状態設計の証拠ファイルは抜けた。</p>
+<p>そこで AIDD-Spec の AI Task Packet に Mobile Interaction Contract と State Design を足した。学びは単純だった。「スマホ対応」と書くだけでは、後工程が検査できない。何px幅で、どのタップ領域で、エラー時にどこへ戻すのかまで、チェックリストとして渡す必要がある。</p>
+<p>今回は画面とAPIの境目を見る。APIは、成功すれば一覧が出る。しかし現場で困るのは、成功しなかったときだ。</p>
+<h2>今回やること</h2>
+<p>今日の題材は、日本語UIの「読書ログ同期ビューア」である。APIから読書ログ一覧を取得する雰囲気の小さな静的Webアプリを作る。読書ログには、タイトル、著者、読了日、メモ、同期状態を出す。検索入力でタイトルやメモを絞り込めるようにする。</p>
+<p>検証したい問いはこれだ。</p>
+<blockquote>Codexに「APIから一覧を読み込む画面」を雑に頼んだとき、offline / timeout / server error / retry / 入力保持 / 証拠ファイルは残るのか？</blockquote>
+<p>Webアプリでは「APIから取る」と言うだけで、それっぽい画面はできる。だが、後工程のレビュー担当や運用担当は、それでは判断できない。オフラインなら何を表示するのか。タイムアウトは何秒か。サーバーエラーで検索語は消えるのか。再試行ボタンはあるのか。エラーメッセージは利用者が次に何をすればよいか分かるのか。</p>
+<p>料理のレシピで言えば、「煮込む」とだけ書かれていて、火加減、時間、焦げたときの戻し方がない状態に近い。成功時の皿だけを見るなら問題ないが、毎日の調理では失敗しやすいポイントが必要になる。API連携UIも同じで、成功画面だけでは説明書として足りない。</p>
+<h2>仮説</h2>
+<p>今回の仮説は次の通り。</p>
+<blockquote>Codexは雑プロンプトでも、API読込風の遅延、一覧表示、検索、同期済み表示までは作れる。しかし、offline / timeout / server error を利用者が操作できるデモ制御、AbortControllerまたは明示的なtimeout、再試行、エラー時の入力保持、API_FAILURE_STATE_EVIDENCE.md は、AI Task Packetに明示しない限り抜けやすい。</blockquote>
+<p>監査カテゴリは3つに絞った。</p>
+<ol>
+<li>Requirement Fit / State Design</li>
+<li>API Contract / Operations</li>
+<li>Build / Console / Verification Evidence</li>
+</ol>
+<h2>実験環境</h2>
+<pre><code>実行日時: 2026-06-29 09:01:49 JST
+Machine: Apple M4 Mac mini / 16GB RAM / 256GB SSD
+OS: macOS 26.5.1 / Build 25F80
+Codex CLI: codex-cli 0.142.3
+Disk: 228Gi total / 133Gi available
+Repo: /path/to/project-root
+Experiment: /path/to/project-root/experiments/2026-06-29-api-failure-state</code></pre>
+<p>実験前の <code>git status --short</code> では、前日からの未整理ディレクトリ <code>experiments/aidd-control-plane-mvp-003/</code> が残っていた。今日の実験は <code>experiments/2026-06-29-api-failure-state/</code> に閉じ、既存の未整理物とは混ぜない方針にした。</p>
+<h2>Step 1: Codexに雑に作らせる</h2>
+<p>実際にCodexへ渡した雑プロンプトはこれである。</p>
+<pre><code>このgitリポジトリ内で、experiments/2026-06-29-api-failure-state/vibe-app に、日本語UIの小さな静的Webアプリを作ってください。
+
+アプリは「読書ログ同期ビューア」です。
+- APIから読書ログ一覧を読み込んで表示する雰囲気にしてください
+- 検索入力で本のタイトルやメモを絞り込めるようにしてください
+- 読書ログにはタイトル、著者、読了日、メモ、同期状態を表示してください
+- vanilla HTML/CSS/JavaScriptのみを使ってください
+- 依存パッケージはインストールしないでください
+- UI文言とサンプルデータは日本語にしてください
+- 見た目はシンプルでよいですが、スマホでも読めるようにしてください
+- 変更は vibe-app ディレクトリ内だけに閉じてください
+- 可能なら node --check も実行して終了してください</code></pre>
+<p>実行コマンドは次の形にした。日本語プロンプトを直接シェルに埋め込まず、ファイルから読む方式である。</p>
+<pre><code>codex exec --sandbox danger-full-access &quot;$(python3 -c &#x27;from pathlib import Path; print(Path(&quot;experiments/2026-06-29-api-failure-state/prompt-vibe.txt&quot;).read_text())&#x27;)&quot; \
+  | tee experiments/2026-06-29-api-failure-state/logs/codex-vibe.log</code></pre>
+<p>Codexが作ったファイルは3つだった。</p>
+<pre><code>vibe-app/index.html
+vibe-app/styles.css
+vibe-app/script.js</code></pre>
+<p>良かった点は多い。<code>lang=&quot;ja&quot;</code> と viewport があり、検索入力もある。読書ログは <code>textContent</code> 中心で描画され、外部資産もない。<code>node --check</code> も成功した。見た目も、読書ログのカード一覧として自然だった。</p>
+<p>ただし、コードを読むと「APIから取得する雰囲気」は <code>setTimeout</code> で読込っぽくしているだけだった。offline、timeout、server error、retry の仕様はない。つまり、成功時の体験だけを見れば合格に見えるが、失敗時の説明書がない。</p>
+<h2>Step 2: バイブ版をブラウザで操作する</h2>
+<p>操作GIFはこれである。</p>
+<p><img src="assets/2026-06-29-api-failure-state-vibe.gif" alt="vibe app gif" loading="lazy"></p>
+<p>キャプチャとコンソール確認は以下で実行した。</p>
+<pre><code>node scripts/capture_app_gif.js \
+  experiments/2026-06-29-api-failure-state/vibe-app \
+  assets/2026-06-29-api-failure-state-vibe.gif</code></pre>
+<p>ブラウザコンソールは静かだった。</p>
+<pre><code>No console messages captured.</code></pre>
+<p>見た目は悪くない。検索すると件数が変わり、カードも読みやすい。ここで「できた」と判断してしまうのが、AI駆動開発の怖いところだ。後工程は、成功画面だけではなく、壊れ方と戻し方を知りたい。</p>
+<h2>Step 3: 静的監査を作る</h2>
+<p>今回の監査スクリプト <code>audit_api_failure_state.py</code> では、次をチェックした。</p>
+<ul>
+<li><code>index.html</code> / <code>style.css</code> または <code>styles.css</code> / <code>script.js</code> があるか</li>
+<li><code>lang=&quot;ja&quot;</code> と viewport があるか</li>
+<li>API境界が関数として分離されているか</li>
+<li>loading / empty / success / error の状態文言があるか</li>
+<li>offline / timeout / server error を扱うか</li>
+<li>AbortController または明示的なtimeout制御があるか</li>
+<li>再試行導線があるか</li>
+<li>状態切替用のテスト/デモ制御があるか</li>
+<li><code>aria-live</code> があるか</li>
+<li>エラー時に検索入力や既存データを消さない方針があるか</li>
+<li>外部ネットワーク資産を使っていないか</li>
+<li><code>console.log</code> で利用者入力を出していないか</li>
+<li><code>API_FAILURE_STATE_EVIDENCE.md</code> があるか</li>
+</ul>
+<p>実行コマンド:</p>
+<pre><code>node --check experiments/2026-06-29-api-failure-state/vibe-app/script.js
+python3 experiments/2026-06-29-api-failure-state/audit_api_failure_state.py \
+  experiments/2026-06-29-api-failure-state/vibe-app</code></pre>
+<p>結果はこうなった。</p>
+<pre><code>合格: index.html / style.css / script.js が存在する
+合格: 日本語UIで lang=ja と viewport がある
+合格: API境界が関数として分離されている
+不合格: loading / empty / success / error の状態文言がある
+不合格: offline 状態を扱う
+合格: timeout 状態を扱う
+合格: server error / API失敗 状態を扱う
+合格: AbortController または明示的なタイムアウト制御がある
+不合格: 再試行ボタンまたは retry 導線がある
+不合格: 状態切替用のテスト/デモ制御がある
+合格: aria-live で状態変化を伝える
+合格: エラー時に検索入力や既存データを消さない方針がある
+合格: 外部ネットワーク資産を使っていない
+合格: console.log で利用者入力を出していない
+不合格: API_FAILURE_STATE_EVIDENCE.md がある
+不合格: 証拠ファイルに失敗状態/検証コマンド/既知制約がある
+SUMMARY: 10 passed / 6 failed</code></pre>
+<p>ここで注意したいのは、今回の静的監査が少し甘いことだ。<code>timeout</code> や <code>server error</code> は、文字列がたまたまメモや <code>setTimeout</code> に含まれていたため合格になった。これは監査スクリプト側の残課題である。ただ、それでも再試行、デモ制御、offline、証拠ファイルは落ちた。静的監査が甘くても、失敗状態契約が不足していることは見えた。</p>
+<h2>Step 4: 欠陥を標準フォーマットで記録する</h2>
+<p>代表findingは次の通り。</p>
+<pre><code>category: API Failure State / State Design
+finding: バイブ版はAPI読込風の成功状態だけを実装し、offline、timeout、server error、retry、状態切替デモ、失敗時の入力保持方針、証拠ファイルを仕様として持っていなかった。
+severity: high
+observed_by: audit_api_failure_state.py and browser operation
+ideal_state: APIに依存するUIは、成功/空/読み込み/オフライン/タイムアウト/サーバーエラーを利用者が確認でき、再試行と入力保持の方針が画面と証拠ファイルに残っている。
+fix_instruction: API境界関数を分離し、success/offline/timeout/server-errorを切り替えるデモ制御、AbortControllerまたは明示的timeout、再試行ボタン、日本語エラー文言、API_FAILURE_STATE_EVIDENCE.mdを追加する。
+needed_upstream_info:
+  - State Design
+  - API Failure State Contract
+  - Verification Evidence
+standard_update:
+  document: AI Task Packet Standard
+  field: api_failure_state_contract
+codex_prompt_delta: |
+  APIを呼ぶUIでは success/offline/timeout/server-error/empty を状態として定義し、再試行、入力保持、タイムアウト制御、証拠ファイルを必須にする。
+verification:
+  command: python3 experiments/2026-06-29-api-failure-state/audit_api_failure_state.py experiments/2026-06-29-api-failure-state/fixed-app
+  expected: SUMMARY: 16 passed / 0 failed</code></pre>
+<p>もう1つのfindingは、監査そのものに関するものだ。</p>
+<pre><code>category: Verification Evidence
+finding: バイブ版にはAPI失敗状態の証拠ファイルがなく、監査スクリプトも一部文字列一致が甘かった。
+severity: medium
+ideal_state: 証拠ファイルにはオフライン、タイムアウト、サーバーエラー、再試行、検証コマンド、既知制約が残り、監査スクリプトは実挙動に近い確認へ育てる。
+needed_upstream_info:
+  - Verification Evidence
+  - Learning Log
+standard_update:
+  document: AI Task Packet Standard
+  field: verification_evidence.api_failure_state_file</code></pre>
+<h2>Step 5: AI Task Packet v0.6を作る</h2>
+<p>改善版では、Codexに AI Task Packet v0.6 を渡した。要点は次の通り。</p>
+<pre><code>## API Failure Contract
+- API境界関数で success / offline / timeout / server-error を同じ戻り値または例外契約で扱う。
+- timeout は `AbortController` を使うか、明示的な `setTimeout` と `timeout` 判定を持つ。
+- エラー文言は日本語で、利用者が次に押すべき「再試行」が分かる。
+- `console.log` で検索語や読書メモを出さない。
+- 外部ネットワーク資産は使わない。
+
+## Verification Evidence
+`fixed-app/API_FAILURE_STATE_EVIDENCE.md` を日本語で作る。必ず以下を含める。
+- オフライン
+- タイムアウト
+- サーバーエラー
+- 再試行
+- 検証コマンド
+- 既知制約</code></pre>
+<p>実行コマンド:</p>
+<pre><code>codex exec --sandbox danger-full-access &quot;$(python3 -c &#x27;from pathlib import Path; print(Path(&quot;experiments/2026-06-29-api-failure-state/prompt-fixed.txt&quot;).read_text())&#x27;)&quot; \
+  | tee experiments/2026-06-29-api-failure-state/logs/codex-fixed.log</code></pre>
+<p>Codexは <code>fixed-app/</code> に次を作った。</p>
+<pre><code>fixed-app/index.html
+fixed-app/style.css
+fixed-app/script.js
+fixed-app/API_FAILURE_STATE_EVIDENCE.md</code></pre>
+<p>改善版では、画面に <code>success / offline / timeout / server-error</code> のラジオボタンが入り、再試行ボタンが追加された。<code>requestReadingLogs</code> というAPI境界関数も分離された。タイムアウトは <code>AbortController</code> と <code>setTimeout</code> で表現され、エラー時も検索入力と既存データを保持する方針がコードと証拠ファイルに残った。</p>
+<h2>Step 6: 改善版をブラウザで操作する</h2>
+<p>通常操作のGIFはこれである。</p>
+<p><img src="assets/2026-06-29-api-failure-state-fixed.gif" alt="fixed app gif" loading="lazy"></p>
+<p>失敗状態をスマホ幅で切り替えたGIFはこれである。</p>
+<p><img src="assets/2026-06-29-api-failure-state-fixed-api-states.gif" alt="fixed api states gif" loading="lazy"></p>
+<p>専用キャプチャでは、検索後に offline、timeout、server-error、success 復帰を順に操作した。</p>
+<pre><code>node experiments/2026-06-29-api-failure-state/capture_api_failure_gif.js \
+  experiments/2026-06-29-api-failure-state/fixed-app \
+  assets/2026-06-29-api-failure-state-fixed-api-states.gif</code></pre>
+<p>コンソールは静かだった。</p>
+<pre><code>No console messages captured.</code></pre>
+<p>画面はバイブ版より少し実験用に見える。ラジオボタンで失敗状態を切り替えるため、プロダクト本番UIというより検証UIである。しかし、今回の目的は「後工程が確認できる説明書」を作ることなので、このデモ制御は価値がある。実APIがなくても、失敗状態の仕様を先に固定できる。</p>
+<h2>Step 7: 再監査する</h2>
+<p>再実行したコマンド:</p>
+<pre><code>node --check experiments/2026-06-29-api-failure-state/fixed-app/script.js
+python3 experiments/2026-06-29-api-failure-state/audit_api_failure_state.py \
+  experiments/2026-06-29-api-failure-state/fixed-app</code></pre>
+<p>結果:</p>
+<pre><code>合格: index.html / style.css / script.js が存在する
+合格: 日本語UIで lang=ja と viewport がある
+合格: API境界が関数として分離されている
+合格: loading / empty / success / error の状態文言がある
+合格: offline 状態を扱う
+合格: timeout 状態を扱う
+合格: server error / API失敗 状態を扱う
+合格: AbortController または明示的なタイムアウト制御がある
+合格: 再試行ボタンまたは retry 導線がある
+合格: 状態切替用のテスト/デモ制御がある
+合格: aria-live で状態変化を伝える
+合格: エラー時に検索入力や既存データを消さない方針がある
+合格: 外部ネットワーク資産を使っていない
+合格: console.log で利用者入力を出していない
+合格: API_FAILURE_STATE_EVIDENCE.md がある
+合格: 証拠ファイルに失敗状態/検証コマンド/既知制約がある
+SUMMARY: 16 passed / 0 failed</code></pre>
+<p>改善は明確だった。雑プロンプト版は <code>10 passed / 6 failed</code>、AI Task Packet版は <code>16 passed / 0 failed</code> になった。</p>
+<p>ただし、これで完成ではない。今回の監査は静的チェック中心で、実際にPlaywrightのexpectで「offlineを選ぶとこの文言が出る」「timeoutでAbortされる」「server-errorからsuccessへ戻る」とまでは自動化していない。次回以降は、静的監査から機能E2Eへ一段進める必要がある。</p>
+<h2>Step 8: 逆算する</h2>
+<p>今回の欠陥を前工程へ逆算すると、こうなる。</p>
+<table>
+<tr><th>欠陥</th><th>必要だった前工程情報</th><th>AIDD-Spec成果物</th><th>AI Task Packetに入れるべき項目</th></tr>
+<tr><td>API成功状態しかない</td><td>API失敗シナリオ一覧</td><td>State Design / API Contract</td><td>success / empty / offline / timeout / server_error</td></tr>
+<tr><td>再試行導線がない</td><td>復帰操作の仕様</td><td>Experience Contract</td><td>retry button / current scenario reuse</td></tr>
+<tr><td>エラー時に入力保持方針がない</td><td>recovery方針</td><td>State Design</td><td>preserve search inputs and existing data</td></tr>
+<tr><td>証拠ファイルがない</td><td>完了時に残す証拠</td><td>Verification Evidence</td><td>API_FAILURE_STATE_EVIDENCE.md</td></tr>
+<tr><td>監査が甘い</td><td>実挙動テストの必要性</td><td>Test Plan / Learning Log</td><td>Playwright negative tests</td></tr>
+</table>
+<p>つまり、最初からCodexに渡すべきだったものは、単なる「APIから一覧を取る画面」ではなかった。</p>
+<pre><code>APIを呼ぶUIでは、成功状態だけでなく、空状態、読み込み中、オフライン、タイムアウト、サーバーエラーを画面で確認できるようにする。API境界関数をUI描画から分離し、再試行ボタンを置く。エラー時は検索入力と既存データを保持する。状態変化はaria-liveで伝える。検証証拠としてAPI_FAILURE_STATE_EVIDENCE.mdに失敗状態、再試行、検証コマンド、既知制約を日本語で残す。</code></pre>
+<h2>AIDD-Specへの反映</h2>
+<p>更新した標準ドキュメントは次の2つである。</p>
+<ul>
+<li><code>standards/aidd-spec-ai-task-packet-standard-v0.1.md</code></li>
+<li><code>standards/templates/ai-task-packet-template-v0.1.md</code></li>
+</ul>
+<p>追加した項目は <code>api_failure_state_contract</code> である。</p>
+<pre><code>api_failure_state_contract:
+  boundary_function: string
+  scenarios: []
+  timeout_policy: string
+  retry_policy: string
+  state_preservation_policy: string
+  user_message_contract: string</code></pre>
+<p>AIDD Control Planeにするなら、API呼び出しを含むUIタスクでは、success / offline / timeout / server_error / empty をフォームで選ばせる。選んだ状態ごとに、再試行導線、入力保持、エラーメッセージ、timeout制御、証拠ファイルの有無を自動監査する。価値は「AIにコードを書かせる」ことではなく、AIが省きやすい失敗状態を先に説明書へ変えることにある。</p>
+<h2>実務で使うならどうするか</h2>
+<p>実務では、API失敗状態を後回しにしない方がよい。特に以下の画面では、最初のタスクパケットに入れるべきである。</p>
+<ul>
+<li>一覧取得画面</li>
+<li>検索画面</li>
+<li>ダッシュボード</li>
+<li>決済状態確認</li>
+<li>ファイルアップロード</li>
+<li>認証後のプロフィール取得</li>
+</ul>
+<p>「APIはあとでつなぐから」と言って成功画面だけを作ると、あとで失敗状態を足すときにUI構造が合わなくなる。失敗時の文言、再試行、既存データ保持、ローディング表示、空状態は、画面の骨格に関わる。最初から入れる方が、後から足すより安い。</p>
+<h2>今回の学び</h2>
+<p>1つ目の学びは、Codexは「APIから取得する雰囲気」をかなり自然に作るということだ。遅延、一覧、検索、同期済み表示までは雑プロンプトでも出た。</p>
+<p>2つ目の学びは、その自然さが危ないということだ。見た目が自然だと、失敗状態がないことに気づきにくい。ブラウザで触っても、成功経路だけなら気持ちよく動く。</p>
+<p>3つ目の学びは、AI Task Packetに <code>api_failure_state_contract</code> を入れると、Codexの出力が後工程寄りになることだ。改善版は見た目だけでなく、状態切替デモ、再試行、証拠ファイルまで残した。</p>
+<p>最後に、監査スクリプト自体の改善余地も見えた。文字列一致だけでは甘い。次はPlaywrightで実際に状態を切り替え、画面文言と復帰動作を検証する必要がある。</p>
+<h2>明日から使えるチェックリスト</h2>
+<ul>
+<li><input type="checkbox" disabled> APIを呼ぶUIに success / empty / loading / offline / timeout / server error を定義したか</li>
+<li><input type="checkbox" disabled> API境界関数をUI描画から分離したか</li>
+<li><input type="checkbox" disabled> エラー時の再試行ボタンを置いたか</li>
+<li><input type="checkbox" disabled> エラー時に検索入力や既存データを保持するか決めたか</li>
+<li><input type="checkbox" disabled> 利用者向けエラー文言に「次に何をすればよいか」を書いたか</li>
+<li><input type="checkbox" disabled> 状態変化を <code>aria-live</code> などで伝えるか</li>
+<li><input type="checkbox" disabled> 証拠ファイルに失敗状態、検証コマンド、既知制約を残したか</li>
+</ul>
+<h2>次回検証</h2>
+<p>次回は、今回の静的監査をPlaywrightの実HTTP/実ブラウザテストへ進めたい。具体的には、状態切替UIまたはmock endpointを使い、offline、timeout、server error、success復帰をE2Eで検証する。静的監査で見えた「合格に見えるが実挙動は確認していない」問題を潰す。</p>
+<h2>付録: 生ログ / 参照ファイル</h2>
+<ul>
+<li>Experiment path: <code>experiments/2026-06-29-api-failure-state/</code></li>
+<li>Vibe Codex log: <code>experiments/2026-06-29-api-failure-state/logs/codex-vibe.log</code></li>
+<li>Fixed Codex log: <code>experiments/2026-06-29-api-failure-state/logs/codex-fixed.log</code></li>
+<li>Vibe verification: <code>experiments/2026-06-29-api-failure-state/logs/vibe-verification.log</code></li>
+<li>Fixed verification: <code>experiments/2026-06-29-api-failure-state/logs/fixed-verification.log</code></li>
+<li>Vibe GIF: <code>assets/2026-06-29-api-failure-state-vibe.gif</code></li>
+<li>Fixed GIF: <code>assets/2026-06-29-api-failure-state-fixed.gif</code></li>
+<li>Fixed API states GIF: <code>assets/2026-06-29-api-failure-state-fixed-api-states.gif</code></li>
+<li>Standards updated: <code>standards/aidd-spec-ai-task-packet-standard-v0.1.md</code>, <code>standards/templates/ai-task-packet-template-v0.1.md</code></li>
+</ul></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-06-28-mobile-state-contract.html"><span>前の記事</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a><span></span></nav></main></div></body></html>

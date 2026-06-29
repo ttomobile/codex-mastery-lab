@@ -1,0 +1,41 @@
+ M backlog.md
+ M book/outline.md
+ M preview/001-series-roadmap.html
+ M preview/2026-06-27-accessibility-contract-vibe-faq.html
+ M preview/2026-06-27-contact-api-threat-model.html
+ M preview/2026-06-27-performance-budget-vibe-gallery.html
+ M preview/2026-06-27-security-baseline-contact-form.html
+ M preview/2026-06-27-watchflow-trial-001.html
+ M preview/2026-06-27-watchflow-trial-002.html
+ M preview/2026-06-27-watchflow-trial-003.html
+ M preview/2026-06-27-watchflow-trial-004.html
+ M preview/2026-06-27-watchflow-trial-005.html
+ M preview/2026-06-28-agents-skill-explained.html
+ M preview/2026-06-28-aidd-app-clone-lab-proof.html
+ M preview/2026-06-28-aidd-control-plane-mvp-001.html
+ M preview/2026-06-28-aidd-control-plane-mvp-002.html
+ M preview/2026-06-28-aidd-spec-v0.1-workflow-saas.html
+ M preview/2026-06-28-mobile-state-contract.html
+ M preview/index.html
+ M scripts/build_preview.py
+ M standards/aidd-spec-ai-task-packet-standard-v0.1.md
+ M standards/templates/ai-task-packet-template-v0.1.md
+?? articles/2026-06-29-api-failure-state.md
+?? assets/2026-06-29-api-failure-state-fixed-api-states.console.txt
+?? assets/2026-06-29-api-failure-state-fixed-api-states.gif
+?? assets/2026-06-29-api-failure-state-fixed.console.txt
+?? assets/2026-06-29-api-failure-state-fixed.gif
+?? assets/2026-06-29-api-failure-state-reverse-chain.svg
+?? assets/2026-06-29-api-failure-state-vibe.console.txt
+?? assets/2026-06-29-api-failure-state-vibe.gif
+?? experiments/2026-06-29-api-failure-state/
+?? experiments/aidd-control-plane-mvp-003/
+?? logs/2026-06-29-api-failure-state-env.txt
+?? preview/2026-06-29-api-failure-state.html
+?? preview/assets/2026-06-29-api-failure-state-fixed-api-states.console.txt
+?? preview/assets/2026-06-29-api-failure-state-fixed-api-states.gif
+?? preview/assets/2026-06-29-api-failure-state-fixed.console.txt
+?? preview/assets/2026-06-29-api-failure-state-fixed.gif
+?? preview/assets/2026-06-29-api-failure-state-reverse-chain.svg
+?? preview/assets/2026-06-29-api-failure-state-vibe.console.txt
+?? preview/assets/2026-06-29-api-failure-state-vibe.gif

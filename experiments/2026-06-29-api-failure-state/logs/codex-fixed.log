@@ -1,0 +1,18 @@
+作成完了しました。追加したファイルは以下です。
+
+- [index.html](/path/to/project-root/experiments/2026-06-29-api-failure-state/fixed-app/index.html)
+- [style.css](/path/to/project-root/experiments/2026-06-29-api-failure-state/fixed-app/style.css)
+- [script.js](/path/to/project-root/experiments/2026-06-29-api-failure-state/fixed-app/script.js)
+- [API_FAILURE_STATE_EVIDENCE.md](/path/to/project-root/experiments/2026-06-29-api-failure-state/fixed-app/API_FAILURE_STATE_EVIDENCE.md)
+
+Quality Gateも実行済みです。
+
+```bash
+node --check experiments/2026-06-29-api-failure-state/fixed-app/script.js
+# exit 0
+
+python3 experiments/2026-06-29-api-failure-state/audit_api_failure_state.py experiments/2026-06-29-api-failure-state/fixed-app
+# SUMMARY: 16 passed / 0 failed
+```
+
+`fixed-app` 配下だけを新規作成し、依存追加やrepo root設定変更はしていません。

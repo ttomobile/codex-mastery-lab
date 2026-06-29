@@ -60,6 +60,13 @@ api_operations_contract:
   audit_log_policy: string
   error_response_contract: string
   retention_evidence: string
+api_failure_state_contract:
+  boundary_function: string
+  scenarios: []
+  timeout_policy: string
+  retry_policy: string
+  state_preservation_policy: string
+  user_message_contract: string
 performance_budget_contract:
   total_static_bytes: string
   css_budget: string
@@ -354,6 +361,35 @@ verification_evidence:
     - logs/fixed-audit.log
 ```
 
+### 7.4 `api_failure_state_contract`
+
+APIを呼ぶ画面では、成功時の一覧表示だけでは後工程のレビューに耐えない。2026-06-29 の読書ログ同期ビューア実験では、雑プロンプト版が「APIから取得する雰囲気」は作ったが、オフライン、タイムアウト、サーバーエラー、再試行、失敗時の検索入力保持、証拠ファイルが抜けた。
+
+API失敗状態は、実APIが未接続の静的プロトタイプでも先に設計できる。AIDD-Specでは、UIがAPIに依存するタスクに以下を入れる。
+
+```yaml
+api_failure_state_contract:
+  boundary_function: "requestReadingLogs or equivalent adapter separates API behavior from rendering"
+  scenarios:
+    - success
+    - offline
+    - timeout
+    - server_error
+    - empty
+  timeout_policy: "Use AbortController or explicit timeout branch and show a Japanese timeout message."
+  retry_policy: "Provide a visible retry button that reuses the current scenario/request context."
+  state_preservation_policy: "On error, preserve search inputs and already loaded data unless the task explicitly says otherwise."
+  user_message_contract: "Messages explain what happened and what the user can do next; do not expose raw stack traces."
+verification_evidence:
+  files_to_attach:
+    - API_FAILURE_STATE_EVIDENCE.md
+  logs_to_save:
+    - logs/vibe-verification.log
+    - logs/fixed-verification.log
+```
+
+Control Plane化する場合は、API呼び出しを含むUIタスクで success / offline / timeout / server_error / empty のチェックボックスを必須化し、再試行導線、入力保持、エラーメッセージ、タイムアウト制御、証拠ファイルを自動監査する。
+
 ## 8. AI Task Packetテンプレート Lite
 
 ```markdown
@@ -426,6 +462,15 @@ verification_evidence:
 - Audit log policy:
 - Error response contract:
 - Retention evidence:
+
+## API Failure State Contract
+
+- Boundary function:
+- Scenarios:
+- Timeout policy:
+- Retry policy:
+- State preservation policy:
+- User message contract:
 
 ## Performance Budget Contract
 

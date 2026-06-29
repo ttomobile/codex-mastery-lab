@@ -1,0 +1,23 @@
+===== node --check vibe =====
+===== audit vibe =====
+合格: index.html / style.css / script.js が存在する
+合格: 日本語UIで lang=ja と viewport がある
+合格: API境界が関数として分離されている
+不合格: loading / empty / success / error の状態文言がある
+不合格: offline 状態を扱う
+合格: timeout 状態を扱う
+合格: server error / API失敗 状態を扱う
+合格: AbortController または明示的なタイムアウト制御がある
+不合格: 再試行ボタンまたは retry 導線がある
+不合格: 状態切替用のテスト/デモ制御がある
+合格: aria-live で状態変化を伝える
+合格: エラー時に検索入力や既存データを消さない方針がある
+合格: 外部ネットワーク資産を使っていない
+合格: console.log で利用者入力を出していない
+不合格: API_FAILURE_STATE_EVIDENCE.md がある
+不合格: 証拠ファイルに失敗状態/検証コマンド/既知制約がある
+SUMMARY: 10 passed / 6 failed
+===== capture vibe =====
+GIF: assets/2026-06-29-api-failure-state-vibe.gif
+Console log: /path/to/project-root/assets/2026-06-29-api-failure-state-vibe.console.txt
+Frames: /var/folders/ms/6xxkg8rj0hb9v2ddb4xyr5b80000gn/T/aidd-gif-IU3i1f

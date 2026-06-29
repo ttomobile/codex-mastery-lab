@@ -54,6 +54,7 @@
 - [ ] 次回候補: 問い合わせAPIで Origin拒否 / CSRF拒否 / rate limit 429 のnegative testを実HTTPで自動化する
 - [x] 次回候補: スマホフォームの Mobile Interaction Contract / State Design を雑プロンプトとAI Task Packetで比較する（2026-06-28 mobile-state-contract）
 - [ ] 次回候補: UIの状態設計とAPI失敗状態をつなぎ、フォーム送信失敗時の復帰設計を検証する
+- [x] 次回候補: APIから取得するUIで offline / timeout / server error / retry をAI Task Packetに入れると欠陥が減るか検証する（2026-06-29 api-failure-state）
 - [ ] 次回候補: SECURITY_OPERATIONS.mdをAIDD Control Planeのフォーム項目から生成するMVPを作る
 
 - [ ] 2つのCodexに実装案を競わせる
