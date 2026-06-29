@@ -1,0 +1,13 @@
+$ playwright test
+[WebServer] $ next dev
+
+Running 3 tests using 1 worker
+
+[WebServer]  ⚠ Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+  ✓  1 [chromium] › e2e/intake-wizard.spec.ts:3:1 › 初期empty stateが表示される (377ms)
+  ✓  2 [chromium] › e2e/intake-wizard.spec.ts:12:1 › サンプルアプリを入力するとready stateになり生成結果が表示される (326ms)
+  ✓  3 [chromium] › e2e/intake-wizard.spec.ts:25:1 › 主要機能を削除するとinsufficient stateとmissing fieldsが表示される (316ms)
+
+  3 passed (4.0s)
+exit=0

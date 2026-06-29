@@ -6,7 +6,7 @@ import re
 import shutil
 from pathlib import Path
 
-ROOT = Path('/Users/tto/codex-mastery-lab')
+ROOT = Path(__file__).resolve().parents[1]
 ARTICLES = ROOT / 'articles'
 ASSETS = ROOT / 'assets'
 OUT = ROOT / 'preview'
@@ -25,6 +25,7 @@ CONTROL_PLANE_ORDER = [
     '2026-06-28-aidd-control-plane-mvp-001.md',
     '2026-06-28-aidd-control-plane-mvp-002.md',
     '2026-06-28-aidd-control-plane-mvp-003.md',
+    '2026-06-29-aidd-control-plane-mvp-004.md',
 ]
 
 PAST_ARTICLES_ORDER = [
