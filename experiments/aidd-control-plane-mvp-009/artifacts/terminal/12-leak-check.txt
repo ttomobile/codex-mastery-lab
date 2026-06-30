@@ -1,0 +1,1 @@
+leak check passed for article, preview, committed text artifacts

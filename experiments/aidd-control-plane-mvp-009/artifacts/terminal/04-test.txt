@@ -1,0 +1,11 @@
+$ vitest run
+
+ RUN  v3.2.6 <repo>/experiments/aidd-control-plane-mvp-009/generated-repo
+
+ ✓ tests/intake.test.ts (18 tests) 5ms
+
+ Test Files  1 passed (1)
+      Tests  18 passed (18)
+   Start at  20:46:26
+   Duration  198ms (transform 37ms, setup 0ms, collect 36ms, tests 5ms, environment 0ms, prepare 29ms)
+

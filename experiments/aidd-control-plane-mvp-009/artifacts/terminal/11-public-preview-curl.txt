@@ -1,0 +1,15 @@
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Tue, 30 Jun 2026 11:48:19 GMT
+Content-type: image/png
+Content-Length: 5732343
+Last-Modified: Tue, 30 Jun 2026 11:46:53 GMT
+
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Tue, 30 Jun 2026 11:48:19 GMT
+Content-type: image/png
+Content-Length: 645872
+Last-Modified: Tue, 30 Jun 2026 11:46:55 GMT
+
+public preview curl ok
