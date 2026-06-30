@@ -1,0 +1,14 @@
+
+> aidd-control-plane-mvp-008@0.1.0 test
+> vitest run
+
+
+ RUN  v3.2.6 HOME_DIR/codex-mastery-lab/experiments/aidd-control-plane-mvp-008/generated-repo
+
+ ✓ tests/intake.test.ts (16 tests) 5ms
+
+ Test Files  1 passed (1)
+      Tests  16 passed (16)
+   Start at  18:36:47
+   Duration  190ms (transform 32ms, setup 0ms, collect 33ms, tests 5ms, environment 0ms, prepare 24ms)
+
