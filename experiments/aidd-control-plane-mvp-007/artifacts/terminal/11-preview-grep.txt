@@ -1,0 +1,8 @@
+<p><img src="assets/aidd-control-plane-mvp007-terminal-evidence.png" alt="AIDD Control Plane MVP 007 terminal evidence" loading="lazy"></p>
+preview article and assets ok
+ 2753553 preview/assets/aidd-control-plane-mvp007-empty.png
+ 1847315 preview/assets/aidd-control-plane-mvp007-ready.png
+ 2088581 preview/assets/aidd-control-plane-mvp007-failure.png
+ 1905889 preview/assets/aidd-control-plane-mvp007-evidence-missing.png
+  646240 preview/assets/aidd-control-plane-mvp007-terminal-evidence.png
+ 9241578 total
