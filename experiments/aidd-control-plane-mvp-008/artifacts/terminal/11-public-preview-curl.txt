@@ -1,0 +1,15 @@
+--- curl preview article ---
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane MVP 008：テスト結果を「証拠つき」にする Artifact Evidence Binder</title><style>
+<a href="2026-06-30-aidd-control-plane-mvp-008.html">MVP08｜AIDD Control Plane MVP 008：テスト結果を「証拠つき」にする Artifact Evidence Binder</a><div class="nav-section-title">過去記事</div><a href="2026-06-27-accessibility-contract-vibe-faq.html">過去記事01｜雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link current" href="2026-06-30-aidd-control-plane-mvp-008.html"><span class="chapter-num">MVP 08</span>AIDD Control Plane MVP 008：テスト結果を「証拠つき」にする Artifact Evidence Binder</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link past " href="2026-06-30-playwright-api-state.html"><span class="chapter-num">過去記事 10</span>Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-06-30-aidd-control-plane-mvp-007.html"><span>前の記事</span>AIDD Control Plane MVP 007：失敗ログを次回のAI依頼書へ戻す Review &amp; Learning Log</a><span></span></nav><article><h1>AIDD Control Plane MVP 008：テスト結果を「証拠つき」にする Artifact Evidence Binder</h1>
+  -&gt; Artifact Evidence Binder
+<tr><td>Artifact Evidence Binder</td><td>terminal log、画像、CI URL、report URLが同じ実行単位で揃うか</td><td>「テストは通ったらしい」を証拠つきにするため</td></tr>
+<p>初期状態では、まだterminal evidenceもscreenshot evidenceもCI URLも登録されていない。画面では <code>Artifact Evidence Binder: empty</code> として表示し、どの証跡が足りないかを明示する。</p>
+<p><img src="assets/aidd-control-plane-mvp008-terminal-evidence.png" alt="AIDD Control Plane MVP 008 terminal evidence" loading="lazy"></p>
+<p>MVP 008では、Artifact Evidence Binderを追加し、terminal evidence、screenshot evidence、CI run URL、CI artifact URL、Playwright report URLを束ねられるようにした。</p>
+--- curl preview assets ---
+aidd-control-plane-mvp008-empty.png 3758595 bytes
+aidd-control-plane-mvp008-valid.png 2159185 bytes
+aidd-control-plane-mvp008-failure.png 3012912 bytes
+aidd-control-plane-mvp008-terminal-evidence.png 646816 bytes
