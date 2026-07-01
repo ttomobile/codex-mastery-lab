@@ -1,0 +1,7 @@
+install: pass
+lint: pass
+typecheck: pass
+test: pass
+build: pass
+doctor:aidd: pass
+e2e: pass (27 tests / chromium, firefox, webkit)

@@ -33,6 +33,7 @@ CONTROL_PLANE_ORDER = [
     '2026-06-30-aidd-control-plane-mvp-009.md',
     '2026-06-30-aidd-control-plane-mvp-010.md',
     '2026-07-01-aidd-control-plane-mvp-011.md',
+    '2026-07-01-aidd-control-plane-mvp-012.md',
 ]
 
 PAST_ARTICLES_ORDER = [
