@@ -1,0 +1,14 @@
+$ pnpm run test
+$ vitest run
+
+ RUN  v3.2.6 WORKSPACE/codex-mastery-lab/experiments/aidd-control-plane-mvp-013/generated-repo
+
+ ✓ tests/intake.test.ts (22 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  22 passed (22)
+   Start at  04:42:57
+   Duration  207ms (transform 38ms, setup 0ms, collect 36ms, tests 7ms, environment 0ms, prepare 33ms)
+
+
+[exit_code] 0

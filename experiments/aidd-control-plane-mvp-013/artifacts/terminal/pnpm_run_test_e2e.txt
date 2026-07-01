@@ -1,0 +1,12 @@
+$ pnpm run test:e2e
+$ playwright test
+[WebServer] $ next dev
+
+Running 27 tests using 1 worker
+
+[WebServer]  ⚠ Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+  ✓   1 [chromium] › e2e/intake-wizard.spec.ts:3:1 › 初期empty stateが表示される (444ms)
+  ✓   2 [chromium] › e2e/intake-wizard.spec.ts:27:1 › Mock CI Evidence Connectorでvalid failure timeoutを切り替えられる (823ms)
+  ✘   3 [chromium] › e2e/intake-wizard.spec.ts:42:1 › テンプレートを選択して未適用failure stateを表示できる (16.9m)
+[ELIFECYCLE] Command failed.

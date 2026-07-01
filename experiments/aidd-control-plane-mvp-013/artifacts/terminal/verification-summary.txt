@@ -1,0 +1,90 @@
+MVP 013 verification summary
+--- pnpm_run_build.txt
+   Generating static pages (1/4)
+   Generating static pages (2/4)
+   Generating static pages (3/4)
+ ✓ Generating static pages (4/4)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                    15.1 kB         118 kB
+└ ○ /_not-found                            990 B         104 kB
++ First Load JS shared by all             103 kB
+  ├ chunks/200-1998766b6b8b0ee0.js       46.4 kB
+  ├ chunks/63a43dd3-edd57edb24fe378b.js  54.2 kB
+  └ other shared chunks (total)           1.9 kB
+
+
+○  (Static)  prerendered as static content
+
+
+[exit_code] 0
+--- pnpm_run_doctor_aidd.txt
+$ pnpm run doctor:aidd
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+checked files: 12
+checked scripts: lint, typecheck, test, build, test:e2e, doctor:aidd, capture:mvp012
+checked states: empty, loading, success, error, offline, timeout, auth, billing, media_error
+checked templates: 動画サービス風, 学習支援, 予約管理, 社内申請
+
+[exit_code] 0
+--- pnpm_run_lint.txt
+$ pnpm run lint
+✓ Lockfile passes supply-chain policies (verified 2d ago)
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+Done in 410ms using pnpm v11.9.0
+$ eslint . --max-warnings=0
+
+[exit_code] 0
+--- pnpm_run_mock_doctor.txt
+$ pnpm run mock:doctor
+[ERR_PNPM_NO_SCRIPT] Missing script: mock:doctor
+
+Command "mock:doctor" not found.
+
+[exit_code] 1
+--- pnpm_run_test.txt
+$ pnpm run test
+$ vitest run
+
+ RUN  v3.2.6 WORKSPACE/codex-mastery-lab/experiments/aidd-control-plane-mvp-013/generated-repo
+
+ ✓ tests/intake.test.ts (22 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  22 passed (22)
+   Start at  04:42:57
+   Duration  207ms (transform 38ms, setup 0ms, collect 36ms, tests 7ms, environment 0ms, prepare 33ms)
+
+
+[exit_code] 0
+--- pnpm_run_typecheck.txt
+$ pnpm run typecheck
+$ tsc --noEmit
+
+[exit_code] 0
+--- verification-summary.txt
+$ pnpm run test
+$ vitest run
+
+ RUN  v3.2.6 WORKSPACE/codex-mastery-lab/experiments/aidd-control-plane-mvp-013/generated-repo
+
+ ✓ tests/intake.test.ts (22 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  22 passed (22)
+   Start at  04:42:57
+   Duration  207ms (transform 38ms, setup 0ms, collect 36ms, tests 7ms, environment 0ms, prepare 33ms)
+
+
+[exit_code] 0
+--- pnpm_run_typecheck.txt
+$ pnpm run typecheck
+$ tsc --noEmit
+
+[exit_code] 0
+--- verification-summary.txt

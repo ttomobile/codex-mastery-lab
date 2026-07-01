@@ -1,0 +1,6 @@
+$ pnpm run mock:doctor
+[ERR_PNPM_NO_SCRIPT] Missing script: mock:doctor
+
+Command "mock:doctor" not found.
+
+[exit_code] 1

@@ -1,0 +1,9 @@
+$ pnpm run doctor:aidd
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+checked files: 12
+checked scripts: lint, typecheck, test, build, test:e2e, doctor:aidd, capture:mvp012
+checked states: empty, loading, success, error, offline, timeout, auth, billing, media_error
+checked templates: 動画サービス風, 学習支援, 予約管理, 社内申請
+
+[exit_code] 0

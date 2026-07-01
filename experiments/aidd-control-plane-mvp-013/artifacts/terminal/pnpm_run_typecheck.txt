@@ -1,0 +1,4 @@
+$ pnpm run typecheck
+$ tsc --noEmit
+
+[exit_code] 0
