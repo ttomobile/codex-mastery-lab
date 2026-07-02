@@ -4,7 +4,8 @@ import { existsSync } from "node:fs";
 const healthUrl = "http://127.0.0.1:4100/health";
 const stateUrl = "http://127.0.0.1:4100/state";
 const controlUrl = "http://127.0.0.1:4100/__control/state";
-const scenarios = ["success", "empty_roster", "offline", "timeout", "battle_win", "battle_lose", "party_invalid", "gacha_result", "payment_failed", "auth_anonymous", "auth_premium"];
+const servicePorts = { api: 4100, media: 4101, auth: 4102, billing: 4103 };
+const scenarios = ["success", "empty_roster", "offline", "timeout", "battle_win", "battle_lose", "party_invalid", "gacha_result", "media_failure", "payment_failed", "auth_anonymous", "auth_premium"];
 
 function run(command, args, options = {}) {
   return spawnSync(command, args, {
@@ -39,6 +40,12 @@ try {
 
 const health = await getJson(healthUrl);
 printResult("/health", health.ok === true, health.scenario);
+
+for (const [service, port] of Object.entries(servicePorts)) {
+  const serviceHealth = await getJson(`http://127.0.0.1:${port}/health`);
+  const serviceState = await getJson(`http://127.0.0.1:${port}/state`);
+  printResult(`${service} /health /state`, serviceHealth.ok === true && serviceState.scenario, `${serviceState.scenario}`);
+}
 
 for (const scenario of scenarios) {
   const controlled = await getJson(controlUrl, {

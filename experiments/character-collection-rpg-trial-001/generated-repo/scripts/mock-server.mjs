@@ -3,6 +3,7 @@ import { createState, scenarios, serviceStateForScenario } from "./mock-data.mjs
 
 const port = Number(process.env.PORT ?? 4100);
 const host = process.env.HOST ?? "127.0.0.1";
+const serviceName = process.env.SERVICE_NAME ?? "mock-api";
 let currentScenario = "success";
 let currentState = createState(currentScenario);
 
@@ -32,7 +33,7 @@ const server = createServer(async (request, response) => {
   const url = new URL(request.url ?? "/", `http://${request.headers.host}`);
 
   if (url.pathname === "/health") {
-    sendJson(response, 200, { ok: true, service: "mock-sagaforge", scenario: currentScenario });
+    sendJson(response, 200, { ok: true, service: serviceName, scenario: currentScenario });
     return;
   }
 
@@ -108,5 +109,5 @@ const server = createServer(async (request, response) => {
 });
 
 server.listen(port, host, () => {
-  console.log(`mock-sagaforge listening on http://${host}:${port}`);
+  console.log(`${serviceName} listening on http://${host}:${port}`);
 });

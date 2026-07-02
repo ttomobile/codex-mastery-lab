@@ -1,0 +1,2 @@
+articles/2026-07-03-character-collection-rpg-trial-005.md: OK
+preview/2026-07-03-character-collection-rpg-trial-005.html: OK

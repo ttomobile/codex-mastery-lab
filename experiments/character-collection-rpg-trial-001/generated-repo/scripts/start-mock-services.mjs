@@ -2,12 +2,16 @@ import { spawn, spawnSync } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 
 const pidFile = ".sagaforge-mock-services.json";
-const healthUrl = "http://127.0.0.1:4100/health";
-
+const services = [
+  { name: "mock-api", port: "4100" },
+  { name: "mock-media", port: "4101" },
+  { name: "mock-auth", port: "4102" },
+  { name: "mock-billing", port: "4103" }
+];
 async function isHealthy() {
   try {
-    const response = await fetch(healthUrl);
-    return response.ok;
+    const results = await Promise.all(services.map((service) => fetch(`http://127.0.0.1:${service.port}/health`).then((response) => response.ok)));
+    return results.every(Boolean);
   } catch {
     return false;
   }
@@ -29,7 +33,7 @@ function canUseDockerCompose() {
 
 async function startWithDocker() {
   console.log("mock services mode: docker compose");
-  const result = spawnSync("docker", ["compose", "up", "-d", "mock-sagaforge"], { stdio: "inherit" });
+  const result = spawnSync("docker", ["compose", "up", "-d", "mock-api", "mock-media", "mock-auth", "mock-billing"], { stdio: "inherit" });
   if (result.status !== 0) throw new Error("docker compose によるmock service起動に失敗しました");
   writeFileSync(pidFile, JSON.stringify({ mode: "docker" }, null, 2));
   await waitForHealth();
@@ -42,13 +46,16 @@ async function startWithNode() {
     if (existing.mode === "node" && (await isHealthy())) return;
   }
 
-  const child = spawn("node", ["scripts/mock-server.mjs"], {
-    detached: true,
-    stdio: "ignore",
-    env: { ...process.env, PORT: "4100" }
+  const processes = services.map((service) => {
+    const child = spawn("node", ["scripts/mock-server.mjs"], {
+      detached: true,
+      stdio: "ignore",
+      env: { ...process.env, PORT: service.port, SERVICE_NAME: service.name }
+    });
+    child.unref();
+    return { name: service.name, pid: child.pid };
   });
-  child.unref();
-  writeFileSync(pidFile, JSON.stringify({ mode: "node", processes: [{ name: "mock-sagaforge", pid: child.pid }] }, null, 2));
+  writeFileSync(pidFile, JSON.stringify({ mode: "node", processes }, null, 2));
   await waitForHealth();
 }
 

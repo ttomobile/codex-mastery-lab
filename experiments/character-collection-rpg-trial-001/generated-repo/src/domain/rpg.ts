@@ -7,6 +7,7 @@ export type MockScenario =
   | "battle_lose"
   | "party_invalid"
   | "gacha_result"
+  | "media_failure"
   | "payment_failed"
   | "auth_anonymous"
   | "auth_premium";
@@ -158,7 +159,7 @@ export function createRecruitFromSeed(seed: string): Character {
 export function resolveScenarioServices(scenario: MockScenario) {
   return {
     api: scenario === "offline" ? "offline" : scenario === "timeout" ? "timeout" : "online",
-    media: scenario === "offline" ? "unavailable" : "placeholder_ready",
+    media: scenario === "offline" ? "unavailable" : scenario === "media_failure" ? "render_failed" : "placeholder_ready",
     auth: scenario === "auth_premium" ? "premium" : scenario === "auth_anonymous" ? "anonymous" : "guest",
     billing: scenario === "payment_failed" ? "payment_failed" : "sandbox_ready"
   };

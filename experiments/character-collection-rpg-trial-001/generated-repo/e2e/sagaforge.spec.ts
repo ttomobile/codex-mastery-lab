@@ -1,3 +1,4 @@
+import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type APIRequestContext } from "@playwright/test";
 
 const mockBaseUrl = "http://127.0.0.1:4100";
@@ -54,6 +55,29 @@ test("payment_failedでは幻晶画面に決済失敗を表示し加入を止め
   await page.getByRole("button", { name: "幻晶" }).click();
   await expect(page.getByTestId("failure-panel")).toContainText("mock決済が失敗");
   await expect(page.getByRole("button", { name: "加入不可" })).toBeDisabled();
+});
+
+test("media_failureでは演出素材の失敗を戦闘と幻晶に表示する", async ({ page, request }) => {
+  await setScenario(request, "media_failure");
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "戦闘" }).click();
+  await expect(page.getByTestId("failure-panel")).toContainText("mock media取得に失敗");
+  await expect(page.getByTestId("battle-screen")).toContainText("ログとHPで進行を継続");
+
+  await page.getByRole("button", { name: "幻晶" }).click();
+  await expect(page.getByTestId("gacha-screen")).toContainText("結果カードだけ安全に表示");
+});
+
+test("主要画面でaxeの重大なアクセシビリティ違反がない", async ({ page, request }) => {
+  await setScenario(request, "success");
+  await page.goto("/");
+
+  for (const tab of ["ホーム", "編成", "戦闘", "幻晶", "育成", "状態"]) {
+    await page.getByRole("button", { name: tab }).click();
+    const results = await new AxeBuilder({ page }).disableRules(["color-contrast"]).analyze();
+    expect(results.violations, `${tab} のaxe違反`).toEqual([]);
+  }
 });
 
 test("auth状態で育成枠の表示が切り替わる", async ({ page, request }) => {

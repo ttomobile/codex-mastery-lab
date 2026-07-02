@@ -1,0 +1,4 @@
+api: mock-api OK scenario=success
+media: mock-media OK scenario=success
+auth: mock-auth OK scenario=success
+billing: mock-billing OK scenario=success

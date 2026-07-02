@@ -1,5 +1,5 @@
 services:
-  mock-sagaforge:
+  mock-api:
     image: node:22-alpine
     working_dir: /workspace
     command: ["node", "scripts/mock-server.mjs"]
@@ -8,5 +8,42 @@ services:
     environment:
       PORT: "4100"
       HOST: "0.0.0.0"
+      SERVICE_NAME: "mock-api"
+    volumes:
+      - .:/workspace:ro
+  mock-media:
+    image: node:22-alpine
+    working_dir: /workspace
+    command: ["node", "scripts/mock-server.mjs"]
+    ports:
+      - "4101:4101"
+    environment:
+      PORT: "4101"
+      HOST: "0.0.0.0"
+      SERVICE_NAME: "mock-media"
+    volumes:
+      - .:/workspace:ro
+  mock-auth:
+    image: node:22-alpine
+    working_dir: /workspace
+    command: ["node", "scripts/mock-server.mjs"]
+    ports:
+      - "4102:4102"
+    environment:
+      PORT: "4102"
+      HOST: "0.0.0.0"
+      SERVICE_NAME: "mock-auth"
+    volumes:
+      - .:/workspace:ro
+  mock-billing:
+    image: node:22-alpine
+    working_dir: /workspace
+    command: ["node", "scripts/mock-server.mjs"]
+    ports:
+      - "4103:4103"
+    environment:
+      PORT: "4103"
+      HOST: "0.0.0.0"
+      SERVICE_NAME: "mock-billing"
     volumes:
       - .:/workspace:ro

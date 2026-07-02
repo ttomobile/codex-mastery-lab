@@ -136,7 +136,7 @@ export default function Page() {
   const nextBattle = state ? advanceBattleTurn(state.battle, partyMembers) : null;
   const commandPreview = state ? previewBattleCommand(state.battle, partyMembers, battleCommand) : null;
   const canBattle = readiness.valid && state?.scenario !== "party_invalid";
-  const isFailure = state?.scenario === "offline" || state?.scenario === "timeout" || state?.scenario === "payment_failed" || Boolean(error);
+  const isFailure = state?.scenario === "offline" || state?.scenario === "timeout" || state?.scenario === "payment_failed" || state?.scenario === "media_failure" || Boolean(error);
 
   return (
     <main className="app-shell">
@@ -168,7 +168,7 @@ export default function Page() {
             {activeTab === "party" ? <PartyScreen roster={localRoster} party={localParty} onSwap={persistSwap} members={partyMembers} readiness={readiness} canBattle={canBattle} /> : null}
             {activeTab === "quest" ? <QuestScreen quests={state.quests} /> : null}
             {activeTab === "battle" ? <BattleScreen state={state} nextBattle={nextBattle} commandPreview={commandPreview} command={battleCommand} onCommand={setBattleCommand} canBattle={canBattle} /> : null}
-            {activeTab === "gacha" ? <GachaScreen results={gachaResults} billing={state.services.billing} roster={localRoster} onRecruit={persistRecruit} /> : null}
+            {activeTab === "gacha" ? <GachaScreen results={gachaResults} billing={state.services.billing} media={state.services.media} roster={localRoster} onRecruit={persistRecruit} /> : null}
             {activeTab === "training" ? <TrainingScreen roster={localRoster} auth={state.services.auth} onTrain={persistTrain} /> : null}
             {activeTab === "state" ? <StateScreen state={state} onChange={changeScenario} /> : null}
           </div>
@@ -294,9 +294,11 @@ function BattleScreen({
 }) {
   const resolved = state.scenario === "battle_win" || state.scenario === "battle_lose";
   const visibleBattle = commandPreview ?? nextBattle;
+  const mediaFailed = state.services.media === "render_failed";
   return (
     <section className="screen" data-testid="battle-screen">
       {!canBattle ? <FailurePanel scenario="party_invalid" message="前衛と支援の組み合わせが不足しています。" /> : null}
+      {mediaFailed ? <FailurePanel scenario="media_failure" message="戦闘背景と敵演出のmock media取得に失敗しました。ログとHPで進行を継続します。" /> : null}
       {canBattle ? (
         <>
           <div className="battle-stage" role="img" aria-label="星紋遠征隊と晶狼の戦闘シーン" style={{ backgroundImage: `linear-gradient(180deg, rgba(9,11,20,.08), rgba(9,11,20,.86)), url(${asset("battle-ruins.png")})` }}>
@@ -305,7 +307,7 @@ function BattleScreen({
                 <span key={label}>{label}</span>
               ))}
             </div>
-            <div className="enemy-portrait" style={{ backgroundImage: `url(${asset("crystal-guardian.png")})` }}>
+            <div className={`enemy-portrait ${mediaFailed ? "media-broken" : ""}`} style={{ backgroundImage: mediaFailed ? "none" : `url(${asset("crystal-guardian.png")})` }}>
               <span>{state.battle.enemyName}</span>
             </div>
             <div className="skill-flash">星紋連携</div>
@@ -339,20 +341,24 @@ function BattleScreen({
 function GachaScreen({
   results,
   billing,
+  media,
   roster,
   onRecruit
 }: {
   results: ReturnType<typeof mapGachaResults>;
   billing: string;
+  media: string;
   roster: Character[];
   onRecruit: (seed: string) => Promise<void>;
 }) {
   const canRecruit = canRecruitFromGacha(billing);
+  const mediaFailed = media === "render_failed";
   return (
     <section className="screen" data-testid="gacha-screen">
-      <div className="summon-stage" role="img" aria-label="幻晶召喚のオリジナル演出" style={{ backgroundImage: `linear-gradient(180deg, rgba(5,8,18,.06), rgba(5,8,18,.76)), url(${asset("summon-altar.png")})` }}>
+      <div className={`summon-stage ${mediaFailed ? "media-broken" : ""}`} role="img" aria-label="幻晶召喚のオリジナル演出" style={{ backgroundImage: mediaFailed ? "linear-gradient(180deg, #2a1435, #0b1020)" : `linear-gradient(180deg, rgba(5,8,18,.06), rgba(5,8,18,.76)), url(${asset("summon-altar.png")})` }}>
         <div className="summon-orb">幻晶解放</div>
       </div>
+      {mediaFailed ? <FailurePanel scenario="media_failure" message="召喚演出のmock media取得に失敗しました。結果カードだけ安全に表示します。" /> : null}
       {billing === "payment_failed" ? <FailurePanel scenario="payment_failed" message="幻晶購入のmock決済が失敗しました。無料演出だけ表示します。" /> : null}
       <div className="result-grid">
         {results.map((result, index) => (
@@ -405,6 +411,7 @@ function StateScreen({ state, onChange }: { state: MockState; onChange: (scenari
     "battle_lose",
     "party_invalid",
     "gacha_result",
+    "media_failure",
     "payment_failed",
     "auth_anonymous",
     "auth_premium"
