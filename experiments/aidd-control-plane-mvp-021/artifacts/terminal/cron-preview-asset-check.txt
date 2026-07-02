@@ -1,0 +1,10 @@
+AIDD Control Plane SaaS化: OK
+MVP 21: OK
+aidd-control-plane-mvp021-empty.png: OK
+aidd-control-plane-mvp021-valid.png: OK
+aidd-control-plane-mvp021-failure.png: OK
+aidd-control-plane-mvp021-terminal-evidence.png: OK
+aidd-control-plane-mvp021-empty.png: exists=True size=82667
+aidd-control-plane-mvp021-valid.png: exists=True size=78799
+aidd-control-plane-mvp021-failure.png: exists=True size=78717
+aidd-control-plane-mvp021-terminal-evidence.png: exists=True size=76399

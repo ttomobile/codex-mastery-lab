@@ -1,0 +1,6 @@
+index classification: OK
+article sections: OK
+aidd-control-plane-mvp021-empty.png: 82667 bytes
+aidd-control-plane-mvp021-valid.png: 78799 bytes
+aidd-control-plane-mvp021-failure.png: 78717 bytes
+aidd-control-plane-mvp021-terminal-evidence.png: 76399 bytes

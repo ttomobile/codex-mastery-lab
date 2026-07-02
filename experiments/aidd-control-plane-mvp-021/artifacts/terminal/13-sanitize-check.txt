@@ -1,1 +1,1 @@
-sanitize passed: no local path, host, or tailnet markers in article/preview/terminal logs
+sanitize passed: no local path, host, or private network markers in article/preview/terminal logs
