@@ -51,6 +51,7 @@ MVPではこの流れをフォームとチェックリストで標準化する�
 | Fixture-driven Mock CI Service | CI証跡の外部境界をfixtureとmock service contractで再現する | empty / valid / failure / timeout / rate_limit fixture、Docker Compose経路、Node fallback経路、`/health` / `/state` / `/__control/state`、同一contract検査 |
 | CI Workflow Artifact Auditor | GitHub Actions workflowが品質gateとartifact保存をVerification Evidenceとして残すか静的監査する | lint / typecheck / test / build / doctor:aidd / mock:doctor / 3ブラウザE2E、coverage / playwright-report / test-results / terminal evidence artifact、Review FindingとAI Task Packet Deltaへの変換 |
 | Spec Update Proposal Queue | Review FindingとLearning Logを標準更新候補へ変換し、AIDD-Spec / Control Plane標準 / AI Task Packet / Codex prompt deltaへ戻す | empty / valid / failure、対象標準文書、target field、priority、acceptance criteria、verification command、不足候補の検出 |
+| AI Task Packet Delta Apply Preview | Spec Update Proposalを採用した場合に、次回AI Task Packet / Codex prompt / Verification Planがどう変わるかを採用前にレビューする | empty / valid / failure、target packet section、before/after summary、added acceptance criteria、verification commands、Codex prompt patch、rollback condition、不足差分の検出 |
 
 ## 4. 初期データモデル
 

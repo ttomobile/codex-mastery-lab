@@ -1,0 +1,9 @@
+AIDD Control Plane MVP 018 verification summary
+pnpm install --frozen-lockfile: pass
+pnpm run lint: pass
+pnpm run typecheck: pass
+pnpm run test: pass (31 tests)
+pnpm run build: pass
+pnpm run test:e2e: pass (Chromium / Firefox / WebKit, 39 tests)
+pnpm run doctor:aidd: pass
+pnpm run capture:mvp018: pass
