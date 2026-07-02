@@ -1,0 +1,6 @@
+$ gh api repos/:owner/:repo/actions/runs/28623614814/artifacts --jq '.artifacts[] | {name: .name, size_in_bytes: .size_in_bytes, expired: .expired}'
+
+{"expired":false,"name":"character-rpg-trial006-terminal-evidence","size_in_bytes":24305}
+{"expired":false,"name":"character-rpg-trial006-test-results","size_in_bytes":168}
+{"expired":false,"name":"character-rpg-trial006-playwright-report","size_in_bytes":224087}
+{"expired":false,"name":"character-rpg-trial006-coverage","size_in_bytes":20041}

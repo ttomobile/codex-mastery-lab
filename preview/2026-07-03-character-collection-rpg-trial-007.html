@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane Dogfood 003：キャラ収集RPGに「操作すると変わる」を入れる</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane Dogfood 007：RPGプロトタイプをCI artifact込みで100点へ収束させる</title><style>
 :root {
   color-scheme: light;
   --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
@@ -131,11 +131,11 @@ th { background:#f1f5f9; }
 <a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-020.html"><span class="chapter-num">MVP 20</span>AIDD Control Plane MVP 020：採用した改善だけを次回AI Task Packet Markdownへ書き出す</a>
 <a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-021.html"><span class="chapter-num">MVP 21</span>AIDD Control Plane MVP 021：採用済みdeltaをファイルへ反映する前に、適用計画を作る</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
 <a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-002.html"><span class="chapter-num">Dogfood 02</span>AIDD Control Plane Dogfood 002：画像素材と戦闘シーンを入れて、キャラ収集RPGを“遊べそう”に近づける</a>
-<a class="chapter-link current" href="2026-07-03-character-collection-rpg-trial-003.html"><span class="chapter-num">Dogfood 03</span>AIDD Control Plane Dogfood 003：キャラ収集RPGに「操作すると変わる」を入れる</a>
+<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-003.html"><span class="chapter-num">Dogfood 03</span>AIDD Control Plane Dogfood 003：キャラ収集RPGに「操作すると変わる」を入れる</a>
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-004.html"><span class="chapter-num">Dogfood 04</span>AIDD Control Plane Dogfood 004：キャラ収集RPGの操作をmock backendへ保存する</a>
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-005.html"><span class="chapter-num">Dogfood 05</span>AIDD Control Plane Dogfood 005：RPGプロトタイプを4つのmock serviceとaxe検査まで進める</a>
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-006.html"><span class="chapter-num">Dogfood 06</span>AIDD Control Plane Dogfood 006：RPGプロトタイプをroot CI artifactへ載せる</a>
-<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-007.html"><span class="chapter-num">Dogfood 07</span>AIDD Control Plane Dogfood 007：RPGプロトタイプをCI artifact込みで100点へ収束させる</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link current" href="2026-07-03-character-collection-rpg-trial-007.html"><span class="chapter-num">Dogfood 07</span>AIDD Control Plane Dogfood 007：RPGプロトタイプをCI artifact込みで100点へ収束させる</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
 <a class="chapter-link past " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">過去記事 02</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
 <a class="chapter-link past " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">過去記事 03</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">過去記事 04</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
@@ -144,115 +144,112 @@ th { background:#f1f5f9; }
 <a class="chapter-link past " href="2026-06-28-aidd-spec-v0.1-workflow-saas.html"><span class="chapter-num">過去記事 07</span>AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</a>
 <a class="chapter-link past " href="2026-06-28-mobile-state-contract.html"><span class="chapter-num">過去記事 08</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-29-api-failure-state.html"><span class="chapter-num">過去記事 09</span>「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a>
-<a class="chapter-link past " href="2026-06-30-playwright-api-state.html"><span class="chapter-num">過去記事 10</span>Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-02-character-collection-rpg-trial-002.html"><span>前の記事</span>AIDD Control Plane Dogfood 002：画像素材と戦闘シーンを入れて、キャラ収集RPGを“遊べそう”に近づける</a><a class="next" href="2026-07-03-character-collection-rpg-trial-004.html"><span>次の記事</span>AIDD Control Plane Dogfood 004：キャラ収集RPGの操作をmock backendへ保存する</a></nav><article><h1>AIDD Control Plane Dogfood 003：キャラ収集RPGに「操作すると変わる」を入れる</h1>
+<a class="chapter-link past " href="2026-06-30-playwright-api-state.html"><span class="chapter-num">過去記事 10</span>Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-03-character-collection-rpg-trial-006.html"><span>前の記事</span>AIDD Control Plane Dogfood 006：RPGプロトタイプをroot CI artifactへ載せる</a><span></span></nav><article><h1>AIDD Control Plane Dogfood 007：RPGプロトタイプをCI artifact込みで100点へ収束させる</h1>
 <blockquote>2026-07-03 / Codex Mastery Lab  </blockquote>
-<blockquote>対象: AIDD Control Plane Dogfood / キャラ収集RPG / user-action contract  </blockquote>
-<blockquote>結果: <strong>戦闘コマンド、編成交替、育成、召喚加入を追加し、18本の3ブラウザE2Eが通った</strong></blockquote>
+<blockquote>対象: AIDD Control Plane Dogfood / キャラ収集ターン制RPG / GitHub Actions成功確認・artifact API確認  </blockquote>
+<blockquote>結果: <strong>root CIのsuccessとcoverage / playwright-report / test-results / terminal evidence artifactを確認し、自己採点を100/100へ更新した</strong></blockquote>
+<p><img src="assets/2026-07-03-character-collection-rpg-trial-007-ci-artifacts.png" alt="Trial 007 CI artifact evidence" loading="lazy"></p>
 <h2>前回の振り返り</h2>
-<p>Trial 002では、完全オリジナルの画像素材を入れて、キャラ収集RPGプロトタイプの画面密度を上げた。</p>
-<p>できたことは次の通り。</p>
-<pre><code>ホーム用キービジュアル
-編成用隊員ビジュアル
-戦闘背景
-敵ボス画像
-召喚背景
-失敗状態の維持
-3ブラウザE2Eの維持</code></pre>
-<p>ただし、まだ弱点があった。</p>
-<p><strong>見た目は遊べそうだが、操作感は薄い。</strong></p>
-<p>そこで今回は、AIDD Control PlaneがAI Task Packetへ渡すべき条件として、<code>user-action contract</code> を追加する。</p>
-<h2>今回の仮説</h2>
-<p>アプリの品質をAIへ頼むとき、「画面を作って」だけでは足りない。</p>
-<p>キャラ収集RPGなら、少なくとも次のような操作が必要になる。</p>
-<pre><code>戦闘でコマンドを選ぶ
-編成で隊員を入れ替える
-育成で数値が上がる
-召喚結果を名簿へ反映する</code></pre>
-<p>これは本物のIPを真似る話ではない。  </p>
-<p><strong>ユーザー操作が状態に反映される体験パターン</strong> を、商標非利用で検証する話だ。</p>
-<h2>実装した操作</h2>
-<p>今回追加した操作は4つ。</p>
+<p>Trial 006では、キャラ収集ターン制RPGプロトタイプのroot GitHub Actions workflowを追加した。</p>
+<pre><code>.github/workflows/character-collection-rpg-trial006-ci.yml</code></pre>
+<p>workflowの中では、generated repoをworking directoryにして次のgateを実行するようにした。</p>
+<pre><code>pnpm install --frozen-lockfile
+pnpm exec playwright install --with-deps
+pnpm run lint
+pnpm run typecheck
+pnpm run test
+pnpm run test:coverage
+pnpm run build
+pnpm run doctor:playwright
+pnpm run mock:doctor
+pnpm run test:e2e</code></pre>
+<p>ただし、Trial 006の記事時点では「workflowを追加した」段階であり、GitHub Actions上の成功とartifact APIの中身までは記事化していなかった。app-clone labの100点条件では、ここを曖昧にしない。</p>
+<h2>今回の目的</h2>
+<p>Trial 007では、アプリ機能を増やさず、検証証跡の最後の穴を埋めた。</p>
+<pre><code>- GitHub Actionsのrunがsuccessか確認する
+- job内の主要stepがsuccessか確認する
+- coverage / playwright-report / test-results / terminal evidence artifactが存在するか確認する
+- docs/score-self-review.mdをCI成功込みの最終評価へ更新する
+- preview連載順へTrial 007を追加する</code></pre>
+<p>AIDD Control Plane Dogfoodとしての意味は、単に「ゲーム画面が作れた」ではない。作りたいアプリの曖昧な願望を、第三者が検証できるAI Task Packetと証跡へ変換できたかを見る。</p>
+<h2>GitHub Actions確認結果</h2>
+<p>確認したrunは次の通り。</p>
+<pre><code>workflow: Character Collection RPG Trial 006 CI
+run id: 28623614814
+conclusion: success
+url: https://github.com/ttostudio/codex-mastery-lab/actions/runs/28623614814</code></pre>
+<p><code>gh run view</code>では、1つのjobが成功していた。</p>
 <table>
-<tr><th>画面</th><th>追加した操作</th><th>検証したこと</th></tr>
-<tr><td>戦闘</td><td><code>通常攻撃</code> / <code>防御</code> / <code>星紋技</code></td><td>選択中コマンドと戦闘ログが変わる</td></tr>
-<tr><td>編成</td><td>控え隊員との交替</td><td>隊列表示に <code>リク</code> が入る</td></tr>
-<tr><td>育成</td><td><code>強化</code></td><td>Lv.42がLv.43へ上がる</td></tr>
-<tr><td>幻晶</td><td><code>名簿に迎える</code></td><td>名簿が4名から5名へ増える</td></tr>
+<tr><th>job</th><th>result</th></tr>
+<tr><td>lint typecheck test build e2e</td><td>success</td></tr>
 </table>
-<h2>戦闘コマンド</h2>
-<p><img src="assets/2026-07-03-sagaforge-trial-003-battle-command.png" alt="SagaForge Trial 003 戦闘コマンド" loading="lazy"></p>
-<p>戦闘画面に、3つのコマンドを追加した。</p>
-<pre><code>通常攻撃
-防御
-星紋技</code></pre>
-<p><code>星紋技</code> を押すと、選択中表示とログが変わる。</p>
-<p>ここで大事なのは、単なるボタン追加ではなく、E2Eで次を確認していること。</p>
-<pre><code>選択中: 星紋技
-星紋技を選択: 敵へ...点、被害...点の予測。</code></pre>
-<p>つまり、UIイベントが実際の画面状態へ反映されている。</p>
-<h2>編成交替</h2>
-<p><img src="assets/2026-07-03-sagaforge-trial-003-party-swap.png" alt="SagaForge Trial 003 編成交替" loading="lazy"></p>
-<p>編成画面では、控え隊員 <code>リク</code> と交替できるようにした。</p>
-<p>E2Eでは、3枠目の交替ボタンを押したあと、隊列表示に <code>リク</code> が入ることを確認している。</p>
-<pre><code>現在の隊列: アステル / ミナト / リク</code></pre>
-<p>これにより、編成画面は「見せるだけ」から「入れ替えを試せる」画面になった。</p>
-<h2>育成</h2>
-<p><img src="assets/2026-07-03-sagaforge-trial-003-training.png" alt="SagaForge Trial 003 育成" loading="lazy"></p>
-<p>育成画面では、<code>強化</code> ボタンでレベルと戦力が上がる。</p>
-<p>E2Eでは、<code>アステル</code> の表示が次のように変わることを確認した。</p>
-<pre><code>Lv.42
-↓
-Lv.43</code></pre>
-<p>この小さな変化が重要だ。  </p>
-<p>AIにアプリを作らせると、「強化ボタンはあるが何も変わらない」状態になりやすい。AIDD Control Plane側では、ボタンの存在だけでなく、押した後の状態変化まで条件にする必要がある。</p>
-<h2>召喚結果を名簿へ反映</h2>
-<p><img src="assets/2026-07-03-sagaforge-trial-003-gacha-recruit.png" alt="SagaForge Trial 003 召喚加入" loading="lazy"></p>
-<p>幻晶画面では、召喚結果の先頭候補を <code>名簿に迎える</code> できるようにした。</p>
-<p>E2Eでは、名簿数が変わることを確認している。</p>
-<pre><code>現在の名簿: 4名
-↓
-現在の名簿: 5名</code></pre>
-<p>今回も本物の課金、公式確率、公式キャラは扱っていない。  </p>
-<p>扱ったのは、あくまで「結果を所持リストへ反映する」という体験パターンだけだ。</p>
-<h2>検証結果</h2>
-<p><img src="assets/2026-07-03-sagaforge-trial-003-terminal-evidence.png" alt="SagaForge Trial 003 terminal evidence" loading="lazy"></p>
-<p>ローカル検証は以下の通り。</p>
+<p>主要stepもsuccessだった。</p>
 <table>
-<tr><th>command</th><th>result</th></tr>
-<tr><td><code>pnpm run lint</code></td><td>pass</td></tr>
-<tr><td><code>pnpm run typecheck</code></td><td>pass</td></tr>
-<tr><td><code>pnpm run test</code></td><td>9 tests passed</td></tr>
-<tr><td><code>pnpm run test:coverage</code></td><td>pass / statements 95.23%</td></tr>
-<tr><td><code>pnpm run build</code></td><td>pass</td></tr>
-<tr><td><code>pnpm run doctor:playwright</code></td><td>Chromium / Firefox / WebKit OK</td></tr>
-<tr><td><code>pnpm run mock:doctor</code></td><td>Docker Compose経路でpass</td></tr>
-<tr><td><code>pnpm run test:e2e</code></td><td>18 tests passed</td></tr>
+<tr><th>step</th><th>result</th></tr>
+<tr><td>Install dependencies</td><td>success</td></tr>
+<tr><td>Install Playwright browsers</td><td>success</td></tr>
+<tr><td>Lint</td><td>success</td></tr>
+<tr><td>Typecheck</td><td>success</td></tr>
+<tr><td>Test</td><td>success</td></tr>
+<tr><td>Coverage</td><td>success</td></tr>
+<tr><td>Build</td><td>success</td></tr>
+<tr><td>Playwright Doctor</td><td>success</td></tr>
+<tr><td>Mock Doctor</td><td>success</td></tr>
+<tr><td>E2E Chromium Firefox WebKit</td><td>success</td></tr>
+<tr><td>Upload coverage</td><td>success</td></tr>
+<tr><td>Upload playwright-report</td><td>success</td></tr>
+<tr><td>Upload test-results</td><td>success</td></tr>
+<tr><td>Upload terminal evidence</td><td>success</td></tr>
 </table>
-<p>E2Eは6シナリオ × 3ブラウザ。</p>
-<pre><code>Chromium
-Firefox
-WebKit</code></pre>
-<p>全部通った。</p>
-<h2>AIDD Control Planeへ戻すルール</h2>
-<p>今回の学びは、<code>user-action contract</code> としてAIDD Control Planeへ戻せる。</p>
-<pre><code>user_action_contract:
-  required_actions:
-    - battle_command_selection
-    - party_member_swap
-    - training_level_up
-    - gacha_result_to_roster
-  verification:
-    - action_changes_visible_state
-    - e2e_controls_action
-    - failure_states_remain_available
-    - three_browser_matrix_passes</code></pre>
-<p>初心者向けに言うと、これは「ボタンを置いたか」ではなく、<strong>押したあとに何が変わるかを書くチェックリスト</strong> だ。</p>
+<h2>artifact API確認結果</h2>
+<p>GitHub artifact APIでは、必要な4種類がすべて存在し、<code>expired=false</code>だった。</p>
+<table>
+<tr><th>artifact</th><th>size</th><th>expired</th></tr>
+<tr><td>character-rpg-trial006-terminal-evidence</td><td>24,305 bytes</td><td>false</td></tr>
+<tr><td>character-rpg-trial006-test-results</td><td>168 bytes</td><td>false</td></tr>
+<tr><td>character-rpg-trial006-playwright-report</td><td>224,087 bytes</td><td>false</td></tr>
+<tr><td>character-rpg-trial006-coverage</td><td>20,041 bytes</td><td>false</td></tr>
+</table>
+<p>この確認で、Trial 006のroot CI workflowは「書かれているだけ」ではなく、実際にGitHub Actionsで走り、証跡を保存していることが分かった。</p>
+<h2>score-self-reviewの更新</h2>
+<p><code>generated-repo/docs/score-self-review.md</code>を更新し、CI success欄を次の状態へ変えた。</p>
+<pre><code>CI success: root GitHub Actions run 28623614814 が conclusion: success。
+artifact APIでcoverage / playwright-report / test-results / terminal evidenceの4 artifactを確認。</code></pre>
+<p>最終点は100/100にした。</p>
+<p>ただし、ここは言い方に注意する。これは「最初のCodex生成が一発で100点だった」という意味ではない。Trial 001〜007で不足を観測し、次のように順番に補った結果だ。</p>
+<table>
+<tr><th>trial</th><th>補ったもの</th></tr>
+<tr><td>Trial 001</td><td>商標非利用のRPG体験パターン、基本画面、初期記事</td></tr>
+<tr><td>Trial 002</td><td>original visual assetsと画面密度</td></tr>
+<tr><td>Trial 003</td><td>battle / reward / failure stateの見える証跡</td></tr>
+<tr><td>Trial 004</td><td>mock backend contractの整理</td></tr>
+<tr><td>Trial 005</td><td>4 service mock、media failure、billing/auth state、axe、3ブラウザE2E</td></tr>
+<tr><td>Trial 006</td><td>root GitHub Actions workflowとartifact保存</td></tr>
+<tr><td>Trial 007</td><td>CI successとartifact API確認、100点自己採点</td></tr>
+</table>
+<h2>AIDD-Spec / AIDD Control Planeへの学び</h2>
+<p>今回の差分は小さいが、標準化には重要だった。</p>
+<pre><code>observed_gap:
+  finding: workflowを追加しただけではCI証跡として不十分
+  risk: ローカルでは通ったが、第三者がGitHub Actions artifactで再確認できない
+ideal_state:
+  - root workflowがsuccessである
+  - coverage / playwright-report / test-results / terminal evidenceがartifactとして保存される
+  - artifact APIで存在と期限切れでないことを確認する
+standard_update:
+  document: Verification Evidence
+  field: ci_artifact_confirmation_required
+codex_prompt_delta: |
+  root GitHub Actionsのrun結果をgh run viewで確認し、artifact APIでcoverage、playwright-report、test-results、terminal evidenceを列挙してから100点と判断する。
+verification:
+  command: gh run view &lt;run-id&gt; &amp;&amp; gh api repos/:owner/:repo/actions/runs/&lt;run-id&gt;/artifacts
+  expected: conclusion success and required artifacts present</code></pre>
+<p>料理で言えば、完成写真だけで「できました」と言わず、材料表、手順、温度、味見結果、保存容器まで残すようなものだ。AIDD Control Planeが扱うべきなのは、AIに作らせる指示だけでなく、作った後に信じてよいかを判断する証跡一式だと再確認できた。</p>
+<h2>今回保存したterminal evidence</h2>
+<pre><code>experiments/character-collection-rpg-trial-001/artifacts/character-collection-rpg-trial-007/terminal/
+  00-verification-summary.txt
+  01-gh-run-view.txt
+  02-gh-artifacts.txt
+  03-capture-ci-card.txt</code></pre>
 <h2>次回</h2>
-<p>次の課題は、画面内stateから一歩進めること。</p>
-<p>Trial 004候補：</p>
-<pre><code>mock backendへ編成保存
-mock backendへ育成結果保存
-リロード後も名簿追加が残る
-auth anonymous / premiumで使える操作を変える
-課金失敗時に召喚加入を止める</code></pre>
-<p>今回で、プロトタイプは「見た目が遊べそう」から「操作すると変わる」へ進んだ。AIDD Control Planeの価値も、見た目の指示ではなく、検証可能な操作契約をAI Task Packetへ変換するところにある。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-02-character-collection-rpg-trial-002.html"><span>前の記事</span>AIDD Control Plane Dogfood 002：画像素材と戦闘シーンを入れて、キャラ収集RPGを“遊べそう”に近づける</a><a class="next" href="2026-07-03-character-collection-rpg-trial-004.html"><span>次の記事</span>AIDD Control Plane Dogfood 004：キャラ収集RPGの操作をmock backendへ保存する</a></nav></main></div></body></html>
+<p>Trial 008では、100点へ収束したRPG dogfoodをAIDD Control Plane側へ戻す。具体的には、今回の「CI artifact確認」をSaaS画面のVerification Evidence Reader / Artifact Evidence Binderで扱える形へ変換し、次のアプリ案にも再利用できるテンプレートにする。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-03-character-collection-rpg-trial-006.html"><span>前の記事</span>AIDD Control Plane Dogfood 006：RPGプロトタイプをroot CI artifactへ載せる</a><span></span></nav></main></div></body></html>

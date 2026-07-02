@@ -9,9 +9,9 @@
 - Accessibility: `@axe-core/playwright`で主要画面の構造的なaxe違反がないことをE2E内で確認。
 - 3 browser E2E: Chromium / Firefox / WebKitで30 tests passed。
 - Docker Compose: 4 serviceのDocker Compose起動、`/health`、`/state`を確認済み。
-- CI success: 本Trialはローカルdogfood継続回として実施。root GitHub Actions成功証跡は未取得。
-- Publishable article: `articles/2026-07-03-character-collection-rpg-trial-005.md`、preview、assetsを追加。
+- CI success: root GitHub Actions `Character Collection RPG Trial 006 CI` の run `28623614814` が `conclusion: success`。artifact APIでcoverage / playwright-report / test-results / terminal evidenceの4 artifactが存在し、expired=falseであることを確認。
+- Publishable article: `articles/2026-07-03-character-collection-rpg-trial-007.md`、preview、terminal evidenceを追加。
 
-## 暫定点
+## 最終点
 
-94/100。ローカルの品質ゲート、4 service mock、Docker Compose、media failure、axe、3ブラウザE2E、記事・画像証跡は揃った。一方、root GitHub Actions成功とartifact API確認までは未実施のため、100点扱いにはしない。
+100/100。ローカルの品質ゲート、4 service mock、Docker Compose、media failure、axe、3ブラウザE2E、記事・画像証跡に加えて、root GitHub Actions成功とartifact API確認まで揃ったため、100点クラスへ収束した。ただし、これは初回生成が一発で100点だったという意味ではない。Trial 001〜007で、mock contract、visual asset contract、3ブラウザE2E、root CI、artifact確認を段階的に補った結果である。
