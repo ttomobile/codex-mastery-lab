@@ -1,0 +1,7 @@
+index_has_mvp020 True
+article_exists True
+aidd-control-plane-mvp020-empty.png True 10870399 True
+aidd-control-plane-mvp020-valid.png True 11365502 True
+aidd-control-plane-mvp020-failure.png True 11174525 True
+aidd-control-plane-mvp020-terminal-evidence.png True 88797 True
+series_label True

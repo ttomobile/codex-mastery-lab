@@ -1,0 +1,10 @@
+AIDD Control Plane MVP 020 terminal evidence
+pnpm install --frozen-lockfile: pass
+pnpm run lint: pass
+pnpm run typecheck: pass
+pnpm run test: pass
+pnpm run build: pass
+pnpm run mock:doctor: pass
+pnpm run test:e2e: pass (Chromium / Firefox / WebKit)
+pnpm run doctor:aidd: pass
+pnpm run capture:mvp020: pass
