@@ -2,9 +2,13 @@
 
 MVP 018では、Spec Update Proposalを次回AI Task Packet差分として採用した場合に、before / after、追加acceptance criteria、verification command、Codex prompt patch、rollback conditionを見える化しました。
 
+## 読者の悩み
+
 今回のMVP 019で扱った詰まりは、その次です。
 
 > 差分プレビューは見えた。でも、それを本当に次回AI依頼へ入れてよいのか、誰が・なぜ判断したのかが残らない。
+
+AI開発では、失敗から学んだことを次回プロンプトへ入れたくなります。ただし、すべての改善候補をそのまま混ぜると、「採用したルール」「今回は見送るルール」「まだ調査中のメモ」が同じ依頼文に入ってしまいます。
 
 料理のレシピ改善でいえば、「次は塩を足す」「この調味料は今回は見送る」「もう少し試してから決める」が同じメモ欄に混ざっている状態です。AIへ渡す依頼文では、この混ざり方が危険です。採用済みの改善だけを次回の依頼へ入れ、却下や保留は理由つきで残す必要があります。
 
@@ -114,7 +118,7 @@ Delta Decision Reviewでempty valid failureを切り替え、採用済みdelta�
 | verification commandがある | 採用後に何で確認するか | 次回AI依頼が実行証跡につながるため |
 | rejected prevention noteがある | 却下理由と再発防止が残るか | 同じ曖昧な提案を繰り返さないため |
 
-## SaaS / AIDD-Specへの接続
+## AIDD-Spec / AIDD Control Plane SaaSへの接続
 
 MVP 019で、AIDD Control Planeの改善ループは次に近づきました。
 

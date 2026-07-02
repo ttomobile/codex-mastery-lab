@@ -136,8 +136,10 @@ th { background:#f1f5f9; }
 <a class="chapter-link past " href="2026-06-29-api-failure-state.html"><span class="chapter-num">過去記事 09</span>「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-30-playwright-api-state.html"><span class="chapter-num">過去記事 10</span>Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-02-aidd-control-plane-mvp-018.html"><span>前の記事</span>AIDD Control Plane MVP 018：標準更新候補を「次回AI Task Packet差分」として採用前レビューする</a><span></span></nav><article><h1>AIDD Control Plane MVP 019：改善差分を「採用・却下・保留」に分けて次回AI依頼へ進める</h1>
 <p>MVP 018では、Spec Update Proposalを次回AI Task Packet差分として採用した場合に、before / after、追加acceptance criteria、verification command、Codex prompt patch、rollback conditionを見える化しました。</p>
+<h2>読者の悩み</h2>
 <p>今回のMVP 019で扱った詰まりは、その次です。</p>
 <blockquote>差分プレビューは見えた。でも、それを本当に次回AI依頼へ入れてよいのか、誰が・なぜ判断したのかが残らない。</blockquote>
+<p>AI開発では、失敗から学んだことを次回プロンプトへ入れたくなります。ただし、すべての改善候補をそのまま混ぜると、「採用したルール」「今回は見送るルール」「まだ調査中のメモ」が同じ依頼文に入ってしまいます。</p>
 <p>料理のレシピ改善でいえば、「次は塩を足す」「この調味料は今回は見送る」「もう少し試してから決める」が同じメモ欄に混ざっている状態です。AIへ渡す依頼文では、この混ざり方が危険です。採用済みの改善だけを次回の依頼へ入れ、却下や保留は理由つきで残す必要があります。</p>
 <h2>今回の仮説</h2>
 <p>今回の仮説は次です。</p>
@@ -210,7 +212,7 @@ pnpm run capture:mvp019: pass</code></pre>
 <tr><td>verification commandがある</td><td>採用後に何で確認するか</td><td>次回AI依頼が実行証跡につながるため</td></tr>
 <tr><td>rejected prevention noteがある</td><td>却下理由と再発防止が残るか</td><td>同じ曖昧な提案を繰り返さないため</td></tr>
 </table>
-<h2>SaaS / AIDD-Specへの接続</h2>
+<h2>AIDD-Spec / AIDD Control Plane SaaSへの接続</h2>
 <p>MVP 019で、AIDD Control Planeの改善ループは次に近づきました。</p>
 <pre><code>Verification Evidence
   -&gt; Review Record
