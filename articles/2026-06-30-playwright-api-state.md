@@ -54,7 +54,7 @@ Repo: /path/to/project-root
 Experiment: /path/to/project-root/experiments/2026-06-30-playwright-api-state
 ```
 
-最初に `codex` がPATHに見つからず、`/path/to/home/.local/bin/codex` には存在することを確認した。cron実行ではPATHが普段のシェルと違うため、以後は絶対パスでCodex CLIを呼んだ。これも運用上の学びである。
+最初に `codex` がPATHに見つからず、ユーザー領域にあるCodex CLIを確認した。cron実行ではPATHが普段のシェルと違うため、以後は実行パスを明示してCodex CLIを呼んだ。これも運用上の学びである。
 
 ## Step 1: Codexに雑に作らせる
 

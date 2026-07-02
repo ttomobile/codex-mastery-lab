@@ -1,0 +1,6 @@
+curl preview verification
+<li>UIセクション：<code>Delta Decision Review</code></li>
+aidd-control-plane-mvp019-empty.png 10759958 bytes
+aidd-control-plane-mvp019-valid.png 11182544 bytes
+aidd-control-plane-mvp019-failure.png 11063960 bytes
+aidd-control-plane-mvp019-terminal-evidence.png 100270 bytes

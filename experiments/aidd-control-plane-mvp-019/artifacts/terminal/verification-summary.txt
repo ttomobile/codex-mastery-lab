@@ -1,0 +1,11 @@
+AIDD Control Plane MVP 019 terminal evidence
+codex exec --sandbox danger-full-access: failed (codex command not found)
+pnpm install --frozen-lockfile: pass
+pnpm run lint: pass
+pnpm run typecheck: pass
+pnpm run test: pass (34 tests)
+pnpm run build: pass
+pnpm run mock:doctor: pass
+pnpm run test:e2e: pass (Chromium / Firefox / WebKit, 42 tests)
+pnpm run doctor:aidd: pass
+pnpm run capture:mvp019: pass
