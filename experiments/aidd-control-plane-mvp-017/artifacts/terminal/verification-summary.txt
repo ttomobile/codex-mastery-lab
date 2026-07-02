@@ -1,0 +1,18 @@
+# MVP 017 verification summary
+
+- pnpm install --frozen-lockfile: pass
+- pnpm run lint: pass
+- pnpm run typecheck: pass
+- pnpm run test: pass
+- pnpm run build: pass
+- pnpm run test:e2e: pass（Chromium / Firefox / WebKit、36 tests）
+- pnpm run mock:doctor: pass
+- pnpm run doctor:aidd: pass
+- pnpm run capture:mvp017: pass
+- preview build: pass
+- public preview curl/image check: pass
+
+Notes:
+- Codex実装中にNext.js buildが`/_document`解決で失敗したため、Next.jsを15.5.20へ固定して修正。
+- 初回captureはアプリサーバー未起動で失敗したため、dev server起動後に再実行して4画像を保存。
+- terminal logの公開用ローカルパスは`<workspace>`へサニタイズ済み。

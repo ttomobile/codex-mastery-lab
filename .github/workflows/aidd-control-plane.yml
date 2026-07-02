@@ -1,13 +1,13 @@
-name: AIDD Control Plane MVP 016
+name: AIDD Control Plane MVP 017
 
 on:
   push:
     paths:
-      - "experiments/aidd-control-plane-mvp-016/**"
+      - "experiments/aidd-control-plane-mvp-017/**"
       - ".github/workflows/aidd-control-plane.yml"
   pull_request:
     paths:
-      - "experiments/aidd-control-plane-mvp-016/**"
+      - "experiments/aidd-control-plane-mvp-017/**"
       - ".github/workflows/aidd-control-plane.yml"
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: experiments/aidd-control-plane-mvp-016/generated-repo
+        working-directory: experiments/aidd-control-plane-mvp-017/generated-repo
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -80,7 +80,7 @@ jobs:
         run: |
           mkdir -p ../artifacts/terminal coverage test-results playwright-report
           {
-            echo "AIDD Control Plane MVP 016 terminal evidence"
+            echo "AIDD Control Plane MVP 017 terminal evidence"
             echo "pnpm install --frozen-lockfile"
             echo "pnpm run lint"
             echo "pnpm run typecheck"
@@ -99,7 +99,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coverage
-          path: experiments/aidd-control-plane-mvp-016/generated-repo/coverage
+          path: experiments/aidd-control-plane-mvp-017/generated-repo/coverage
           if-no-files-found: warn
 
       - name: Upload playwright-report
@@ -107,7 +107,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: experiments/aidd-control-plane-mvp-016/generated-repo/playwright-report
+          path: experiments/aidd-control-plane-mvp-017/generated-repo/playwright-report
           if-no-files-found: warn
 
       - name: Upload test-results
@@ -115,7 +115,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: experiments/aidd-control-plane-mvp-016/generated-repo/test-results
+          path: experiments/aidd-control-plane-mvp-017/generated-repo/test-results
           if-no-files-found: warn
 
       - name: Upload experiments terminal evidence
@@ -123,5 +123,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: experiments-terminal-evidence
-          path: experiments/aidd-control-plane-mvp-016/artifacts/terminal
+          path: experiments/aidd-control-plane-mvp-017/artifacts/terminal
           if-no-files-found: warn

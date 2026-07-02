@@ -1,0 +1,10 @@
+## curl preview verification
+<li>UIセクション：<code>Spec Update Proposal Queue</code></li>
+<p><img src="assets/aidd-control-plane-mvp017-terminal-evidence.png" alt="MVP017 terminal evidence" loading="lazy"></p>
+Spec Update Proposal Queueでempty valid failureを切り替え、Codex prompt deltaを確認できる
+  -&gt; Spec Update Proposal Queue
+<p>AIDD Control Planeは、別のコーディングエージェントを作るのではなく、AIに渡す前後の情報を整えるSaaSです。今回のSpec Update Proposal Queueは、その中心にある「学びを標準へ戻す」部分です。</p>
+aidd-control-plane-mvp017-empty.png  10590226
+aidd-control-plane-mvp017-valid.png  11897454
+aidd-control-plane-mvp017-failure.png  10738595
+aidd-control-plane-mvp017-terminal-evidence.png    64461

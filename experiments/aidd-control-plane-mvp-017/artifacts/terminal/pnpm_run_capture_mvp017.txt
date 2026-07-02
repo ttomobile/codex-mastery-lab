@@ -1,0 +1,2 @@
+## pnpm run capture:mvp017
+$ node scripts/capture-mvp017.mjs

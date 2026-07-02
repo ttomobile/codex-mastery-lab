@@ -1,0 +1,12 @@
+## pnpm run test
+$ vitest run
+
+ RUN  v3.2.6 <workspace>/experiments/aidd-control-plane-mvp-017/generated-repo
+
+ ✓ tests/intake.test.ts (28 tests) 20ms
+
+ Test Files  1 passed (1)
+      Tests  28 passed (28)
+   Start at  20:27:53
+   Duration  413ms (transform 97ms, setup 0ms, collect 102ms, tests 20ms, environment 0ms, prepare 71ms)
+
