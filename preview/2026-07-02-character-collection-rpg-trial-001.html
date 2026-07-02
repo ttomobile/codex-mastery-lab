@@ -1,0 +1,284 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</title><style>
+:root {
+  color-scheme: light;
+  --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
+  --accent:#1d4ed8; --accent2:#7c3aed; --code:#0f172a; --soft:#eef4ff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif; background:var(--bg); color:var(--fg); line-height:1.82; }
+a { color: var(--accent); }
+.layout { display:grid; grid-template-columns: 300px minmax(0, 1fr); min-height:100vh; }
+aside { position:sticky; top:0; height:100vh; overflow:auto; padding:22px; background:#0b1220; color:#e5eefc; }
+.brand { font-weight:800; line-height:1.35; margin:0 0 16px; font-size:18px; letter-spacing:-.01em; }
+.series-note { color:#9fb4d8; font-size:12px; margin:0 0 18px; }
+.chapter-link { color:#c7d7ff; text-decoration:none; display:block; padding:10px 10px; border:1px solid rgba(255,255,255,.08); border-radius:12px; margin:8px 0; font-size:14px; background:rgba(255,255,255,.03); }
+.chapter-link:hover, .chapter-link.current { color:#fff; background:rgba(59,130,246,.22); border-color:rgba(147,197,253,.45); }
+.chapter-num { color:#93c5fd; font-weight:700; font-size:12px; display:block; margin-bottom:2px; }
+.nav-section-title { color:#93c5fd; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; margin:18px 0 8px; }
+.chapter-link.past { color:#d7e1f7; background:rgba(255,255,255,.02); }
+.chapter-link.past .chapter-num { color:#a8b6d8; }
+main { max-width: 980px; padding: 42px 34px 80px; }
+article { background:var(--card); padding:42px 48px; border:1px solid var(--line); border-radius:24px; box-shadow:0 18px 50px rgba(15,23,42,.08); }
+h1 { font-size: clamp(28px, 5vw, 42px); line-height:1.24; margin: 0 0 22px; letter-spacing:-.03em; }
+h2 { font-size: clamp(22px, 3vw, 28px); margin: 46px 0 14px; padding-top:10px; border-top:1px solid #edf1f7; }
+h3 { font-size: 20px; margin: 30px 0 10px; }
+p { margin: 14px 0; }
+blockquote { margin: 18px 0; padding: 14px 18px; border-left: 4px solid var(--accent); background:#eff6ff; color:#1e3a8a; border-radius: 10px; }
+pre { background:var(--code); color:#e2e8f0; padding:18px; border-radius:14px; overflow:auto; line-height:1.55; font-size:13px; white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; }
+pre code { white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow-wrap:anywhere; word-break:break-word; }
+p code, li code { background:#eef2ff; color:#1e3a8a; padding:2px 5px; border-radius:5px; white-space:normal; }
+ul, ol { padding-left:1.45em; }
+li { overflow-wrap:anywhere; }
+img { max-width:100%; border:1px solid var(--line); border-radius:14px; background:white; margin:18px 0; height:auto; }
+table { border-collapse: collapse; width:100%; margin:18px 0; font-size:14px; display:block; overflow-x:auto; }
+th, td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; min-width:120px; }
+th { background:#f1f5f9; }
+.meta { color:var(--muted); font-size:14px; margin-bottom:24px; }
+.hero { background:linear-gradient(135deg,#eff6ff,#faf5ff); border:1px solid #dbeafe; border-radius:24px; padding:28px; margin-bottom:22px; }
+.chapter-nav { display:flex; gap:12px; justify-content:space-between; margin:24px 0; }
+.chapter-nav a { flex:1; text-decoration:none; background:var(--soft); border:1px solid var(--line); border-radius:14px; padding:14px; color:#17315f; }
+.chapter-nav .next { text-align:right; }
+.chapter-nav span { display:block; color:var(--muted); font-size:12px; }
+.home-grid { display:grid; gap:14px; padding:0; list-style:none; }
+.home-grid li a { display:block; padding:18px; background:#fff; border:1px solid var(--line); border-radius:16px; text-decoration:none; box-shadow:0 8px 24px rgba(15,23,42,.05); }
+.mobile-index { display:none; background:#0b1220; padding:12px 16px; position:sticky; top:0; z-index:10; }
+.mobile-index details { color:#e5eefc; }
+.mobile-index summary { cursor:pointer; font-weight:700; }
+.mobile-index a { color:#c7d7ff; display:block; padding:8px 0; }
+@media (max-width: 900px) {
+  .layout { display:block; }
+  aside { display:none; }
+  .mobile-index { display:block; }
+  main { padding:16px; max-width:none; }
+  article { padding:24px 18px; border-radius:18px; }
+  .chapter-nav { flex-direction:column; }
+  .chapter-nav .next { text-align:left; }
+  pre { font-size:12px; padding:14px; }
+}
+@media (max-width: 480px) {
+  body { line-height:1.75; }
+  main { padding:10px; }
+  article { padding:20px 14px; border-radius:14px; }
+  h1 { font-size:28px; }
+  h2 { font-size:22px; }
+}
+</style></head><body><div class="mobile-index"><details><summary>目次を開く</summary><div class="nav-section-title">WatchFlow 100点チャレンジ</div><a href="001-series-roadmap.html">第01回｜WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
+<a href="2026-06-27-watchflow-trial-001.html">第02回｜WatchFlow Trial 001：雑プロンプトからNext.js動画アプリはどこまで作れるか</a>
+<a href="2026-06-27-watchflow-trial-002.html">第03回｜WatchFlow Trial 002：61点から75点へ、AI Task Packetに失点を戻す</a>
+<a href="2026-06-27-watchflow-trial-003.html">第04回｜WatchFlow Trial 003：75点から84点へ、mock serviceとアクセシビリティを詰める</a>
+<a href="2026-06-27-watchflow-trial-004.html">第05回｜WatchFlow Trial 004：84点から91点へ、mock serviceをE2Eの実依存にする</a>
+<a href="2026-06-27-watchflow-trial-005.html">第06回｜WatchFlow Trial 005：91点から100点へ、Firefox/CI/artifactまで通して実験を閉じる</a><div class="nav-section-title">AIDD Control Plane SaaS化</div><a href="2026-06-28-aidd-control-plane-mvp-001.html">MVP01｜AIDD Control Plane MVP 001：AIDD-SpecをSaaSの画面に落とし込む最初の実装</a>
+<a href="2026-06-28-aidd-control-plane-mvp-002.html">MVP02｜AIDD Control Plane MVP 002：AI Task PacketをJSON Contract Checkerで検査する</a>
+<a href="2026-06-28-aidd-control-plane-mvp-003.html">MVP03｜AIDD Control Plane MVP 003：実行ログとスクリーンショットをVerification Evidenceにまとめる</a>
+<a href="2026-06-29-aidd-control-plane-mvp-004.html">MVP04｜AIDD Control Plane MVP 004：AIに頼む前の質問から、設計書と依頼書を作る</a>
+<a href="2026-06-30-aidd-control-plane-mvp-005.html">MVP05｜AIDD Control Plane MVP 005：アプリ種別テンプレートで、白紙の依頼を減らす</a>
+<a href="2026-06-30-aidd-control-plane-mvp-006.html">MVP06｜AIDD Control Plane MVP 006：AI依頼書と検証ログをつなぐ Verification Run Tracker</a>
+<a href="2026-06-30-aidd-control-plane-mvp-007.html">MVP07｜AIDD Control Plane MVP 007：失敗ログを次回のAI依頼書へ戻す Review &amp; Learning Log</a>
+<a href="2026-06-30-aidd-control-plane-mvp-008.html">MVP08｜AIDD Control Plane MVP 008：テスト結果を「証拠つき」にする Artifact Evidence Binder</a>
+<a href="2026-06-30-aidd-control-plane-mvp-009.html">MVP09｜AIDD Control Plane MVP 009：CIの「通りました」を証拠に変える CI Artifact Importer</a>
+<a href="2026-06-30-aidd-control-plane-mvp-010.html">MVP10｜AIDD Control Plane MVP 010：CIのURLから「何を取りに行くべきか」まで見える化する GitHub Actions Artifact Fetch Plan</a>
+<a href="2026-07-01-aidd-control-plane-mvp-011.html">MVP11｜AIDD Control Plane MVP 011：足りない証跡を次の修正依頼へ変える Evidence Gap Repair Planner</a>
+<a href="2026-07-01-aidd-control-plane-mvp-012.html">MVP12｜AIDD Control Plane MVP 012：CI run URLを貼った後の「証跡が取れたか」をmockで判断する</a>
+<a href="2026-07-02-aidd-control-plane-mvp-013.html">MVP13｜AIDD Control Plane MVP 013：CI証跡判断をUI内mockから独立mock serviceへ切り出そうとして分かった境界線</a>
+<a href="2026-07-02-aidd-control-plane-mvp-014.html">MVP14｜AIDD Control Plane MVP 014：CI証跡を「画面内サンプル」から独立Mock Serviceへ切り出す</a>
+<a href="2026-07-02-aidd-control-plane-mvp-015.html">MVP15｜AIDD Control Plane MVP 015：Mock CI ServiceをfixtureとDocker Compose経路へ進める</a>
+<a href="2026-07-02-aidd-control-plane-mvp-016.html">MVP16｜AIDD Control Plane MVP 016：CI workflowの「artifact保存漏れ」を先に見つける</a>
+<a href="2026-07-02-aidd-control-plane-mvp-017.html">MVP17｜AIDD Control Plane MVP 017：失敗ログを「標準更新候補」に戻すQueueを作った</a>
+<a href="2026-07-02-aidd-control-plane-mvp-018.html">MVP18｜AIDD Control Plane MVP 018：標準更新候補を「次回AI Task Packet差分」として採用前レビューする</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a><div class="nav-section-title">過去記事</div><a href="2026-06-27-accessibility-contract-vibe-faq.html">過去記事01｜雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a href="2026-06-27-performance-budget-vibe-gallery.html">過去記事02｜「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a href="2026-06-27-security-baseline-contact-form.html">過去記事03｜問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
+<a href="2026-06-27-contact-api-threat-model.html">過去記事04｜問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
+<a href="2026-06-28-agents-skill-explained.html">過去記事05｜AGENTS.mdとaidd-app-clone-lab skillは何に効いたのか：100点化手順を読み解く</a>
+<a href="2026-06-28-aidd-app-clone-lab-proof.html">過去記事06｜WatchFlow 100点ナレッジを別アプリに移植する：StudyStreamとDrillSwipeで再実証</a>
+<a href="2026-06-28-aidd-spec-v0.1-workflow-saas.html">過去記事07｜AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</a>
+<a href="2026-06-28-mobile-state-contract.html">過去記事08｜スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a>
+<a href="2026-06-29-api-failure-state.html">過去記事09｜「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a>
+<a href="2026-06-30-playwright-api-state.html">過去記事10｜Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する</a></details></div><div class="layout "><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">WatchFlow本編、AIDD Control Plane SaaS化、過去記事を分けて読めるプレビュー</p><div class="nav-section-title">WatchFlow 100点チャレンジ</div><a class="chapter-link " href="001-series-roadmap.html"><span class="chapter-num">第01回</span>WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-001.html"><span class="chapter-num">第02回</span>WatchFlow Trial 001：雑プロンプトからNext.js動画アプリはどこまで作れるか</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-002.html"><span class="chapter-num">第03回</span>WatchFlow Trial 002：61点から75点へ、AI Task Packetに失点を戻す</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-003.html"><span class="chapter-num">第04回</span>WatchFlow Trial 003：75点から84点へ、mock serviceとアクセシビリティを詰める</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-004.html"><span class="chapter-num">第05回</span>WatchFlow Trial 004：84点から91点へ、mock serviceをE2Eの実依存にする</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-005.html"><span class="chapter-num">第06回</span>WatchFlow Trial 005：91点から100点へ、Firefox/CI/artifactまで通して実験を閉じる</a><div class="nav-section-title">AIDD Control Plane SaaS化</div><a class="chapter-link " href="2026-06-28-aidd-control-plane-mvp-001.html"><span class="chapter-num">MVP 01</span>AIDD Control Plane MVP 001：AIDD-SpecをSaaSの画面に落とし込む最初の実装</a>
+<a class="chapter-link " href="2026-06-28-aidd-control-plane-mvp-002.html"><span class="chapter-num">MVP 02</span>AIDD Control Plane MVP 002：AI Task PacketをJSON Contract Checkerで検査する</a>
+<a class="chapter-link " href="2026-06-28-aidd-control-plane-mvp-003.html"><span class="chapter-num">MVP 03</span>AIDD Control Plane MVP 003：実行ログとスクリーンショットをVerification Evidenceにまとめる</a>
+<a class="chapter-link " href="2026-06-29-aidd-control-plane-mvp-004.html"><span class="chapter-num">MVP 04</span>AIDD Control Plane MVP 004：AIに頼む前の質問から、設計書と依頼書を作る</a>
+<a class="chapter-link " href="2026-06-30-aidd-control-plane-mvp-005.html"><span class="chapter-num">MVP 05</span>AIDD Control Plane MVP 005：アプリ種別テンプレートで、白紙の依頼を減らす</a>
+<a class="chapter-link " href="2026-06-30-aidd-control-plane-mvp-006.html"><span class="chapter-num">MVP 06</span>AIDD Control Plane MVP 006：AI依頼書と検証ログをつなぐ Verification Run Tracker</a>
+<a class="chapter-link " href="2026-06-30-aidd-control-plane-mvp-007.html"><span class="chapter-num">MVP 07</span>AIDD Control Plane MVP 007：失敗ログを次回のAI依頼書へ戻す Review &amp; Learning Log</a>
+<a class="chapter-link " href="2026-06-30-aidd-control-plane-mvp-008.html"><span class="chapter-num">MVP 08</span>AIDD Control Plane MVP 008：テスト結果を「証拠つき」にする Artifact Evidence Binder</a>
+<a class="chapter-link " href="2026-06-30-aidd-control-plane-mvp-009.html"><span class="chapter-num">MVP 09</span>AIDD Control Plane MVP 009：CIの「通りました」を証拠に変える CI Artifact Importer</a>
+<a class="chapter-link " href="2026-06-30-aidd-control-plane-mvp-010.html"><span class="chapter-num">MVP 10</span>AIDD Control Plane MVP 010：CIのURLから「何を取りに行くべきか」まで見える化する GitHub Actions Artifact Fetch Plan</a>
+<a class="chapter-link " href="2026-07-01-aidd-control-plane-mvp-011.html"><span class="chapter-num">MVP 11</span>AIDD Control Plane MVP 011：足りない証跡を次の修正依頼へ変える Evidence Gap Repair Planner</a>
+<a class="chapter-link " href="2026-07-01-aidd-control-plane-mvp-012.html"><span class="chapter-num">MVP 12</span>AIDD Control Plane MVP 012：CI run URLを貼った後の「証跡が取れたか」をmockで判断する</a>
+<a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-013.html"><span class="chapter-num">MVP 13</span>AIDD Control Plane MVP 013：CI証跡判断をUI内mockから独立mock serviceへ切り出そうとして分かった境界線</a>
+<a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-014.html"><span class="chapter-num">MVP 14</span>AIDD Control Plane MVP 014：CI証跡を「画面内サンプル」から独立Mock Serviceへ切り出す</a>
+<a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-015.html"><span class="chapter-num">MVP 15</span>AIDD Control Plane MVP 015：Mock CI ServiceをfixtureとDocker Compose経路へ進める</a>
+<a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-016.html"><span class="chapter-num">MVP 16</span>AIDD Control Plane MVP 016：CI workflowの「artifact保存漏れ」を先に見つける</a>
+<a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-017.html"><span class="chapter-num">MVP 17</span>AIDD Control Plane MVP 017：失敗ログを「標準更新候補」に戻すQueueを作った</a>
+<a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-018.html"><span class="chapter-num">MVP 18</span>AIDD Control Plane MVP 018：標準更新候補を「次回AI Task Packet差分」として採用前レビューする</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link current" href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link past " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">過去記事 02</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a class="chapter-link past " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">過去記事 03</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
+<a class="chapter-link past " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">過去記事 04</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
+<a class="chapter-link past " href="2026-06-28-agents-skill-explained.html"><span class="chapter-num">過去記事 05</span>AGENTS.mdとaidd-app-clone-lab skillは何に効いたのか：100点化手順を読み解く</a>
+<a class="chapter-link past " href="2026-06-28-aidd-app-clone-lab-proof.html"><span class="chapter-num">過去記事 06</span>WatchFlow 100点ナレッジを別アプリに移植する：StudyStreamとDrillSwipeで再実証</a>
+<a class="chapter-link past " href="2026-06-28-aidd-spec-v0.1-workflow-saas.html"><span class="chapter-num">過去記事 07</span>AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</a>
+<a class="chapter-link past " href="2026-06-28-mobile-state-contract.html"><span class="chapter-num">過去記事 08</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a>
+<a class="chapter-link past " href="2026-06-29-api-failure-state.html"><span class="chapter-num">過去記事 09</span>「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a>
+<a class="chapter-link past " href="2026-06-30-playwright-api-state.html"><span class="chapter-num">過去記事 10</span>Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><span></span><span></span></nav><article><h1>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</h1>
+<blockquote>2026-07-02 / Codex Mastery Lab  </blockquote>
+<blockquote>対象: AIDD Control Plane Dogfood / キャラ収集RPG / Next.js / Playwright 3ブラウザ  </blockquote>
+<blockquote>結果: <strong>商標を使わないスマホ向けキャラ収集RPGプロトタイプを、AIDD Control Plane型の依頼書からCodexで生成し、15本の3ブラウザE2Eまで通した</strong></blockquote>
+<h2>読者の悩み</h2>
+<p>AIにこう頼みたくなることがある。</p>
+<pre><code>ロマサガRSみたいなアプリを作って</code></pre>
+<p>でも、この頼み方は危ない。</p>
+<p>理由は2つある。</p>
+<p>1つ目は、実在IPの商標・キャラ・画像・文言をそのまま使ってしまう危険があること。  </p>
+<p>2つ目は、AIが「それっぽい画面」だけを作って、編成、バトル、失敗状態、テスト、証跡が抜けること。</p>
+<p>そこで今回は、AIDD Control Planeをdogfoodする。</p>
+<p>つまり、AIDD Control Planeが目指している</p>
+<pre><code>作りたいものを入力する
+設計書に変換する
+AI依頼書に変換する
+検証計画に変換する
+実装して証跡を残す</code></pre>
+<p>という流れを、実際に <strong>キャラ収集RPGプロトタイプ</strong> で試す。</p>
+<h2>今回の仮説</h2>
+<p>AIDD Control Planeの価値は、アプリを直接生成することではない。</p>
+<p>価値は、雑な依頼を次のような検証可能な依頼へ変えることにある。</p>
+<pre><code>商標を使わず、キャラ収集RPGの体験パターンだけを抽象化する
+ホーム、名簿、編成、遠征、戦闘、幻晶結果、育成を持つ
+empty/offline/timeout/battle_win/battle_lose/party_invalid/payment_failedを検証する
+mock serviceをE2Eから制御する
+Chromium/Firefox/WebKitで確認する</code></pre>
+<p>この形にできれば、「ロマサガRSみたいなアプリ」という曖昧な依頼を、AIが実装しやすく、人間が検証しやすい形にできるはずだ。</p>
+<h2>作ったもの</h2>
+<p>今回作ったプロトタイプ名は <strong>SagaForge Trial 001</strong>。</p>
+<p>実在IPは使わない。画面内では「星紋遠征隊」「幻晶」「裂光の丘」などの独自名を使った。</p>
+<p>主な画面は次の通り。</p>
+<ul>
+<li>ホーム</li>
+<li>名簿</li>
+<li>編成</li>
+<li>遠征</li>
+<li>戦闘</li>
+<li>幻晶結果</li>
+<li>育成</li>
+<li>状態確認</li>
+</ul>
+<h2>ホーム画面</h2>
+<p><img src="assets/2026-07-02-sagaforge-trial-001-home.png" alt="SagaForge Trial 001 ホーム" loading="lazy"></p>
+<p>ホームでは、今日の任務、所持隊員、準備度、幻晶状態が見える。</p>
+<p>ここで重要なのは、見た目だけではなく「準備度」が数値で出ていることだ。</p>
+<p>AIにゲーム風UIを頼むと、カードやボタンは作られる。  </p>
+<p>でも、何をもって出撃可能なのか、どの状態を検証すべきなのかは抜けやすい。</p>
+<p>今回はその判断をドメインロジックに入れた。</p>
+<h2>編成画面</h2>
+<p><img src="assets/2026-07-02-sagaforge-trial-001-party.png" alt="SagaForge Trial 001 編成" loading="lazy"></p>
+<p>編成画面では、前衛・支援などの役割を持つ隊員が表示される。</p>
+<p>今回のAIDD Task Packetでは、単なるキャラ一覧ではなく、<strong>party_invalid</strong> という失敗状態を要求した。</p>
+<p>これにより、E2Eで「編成が不十分なときに戦闘へ進めない」ことを確認できる。</p>
+<h2>戦闘画面</h2>
+<p><img src="assets/2026-07-02-sagaforge-trial-001-battle.png" alt="SagaForge Trial 001 戦闘" loading="lazy"></p>
+<p>戦闘は本格的なゲームロジックではない。  </p>
+<p>ただし、ターン進行、勝利/敗北、ログ表示はある。</p>
+<p>今回の目的は本番ゲームを作ることではなく、AIに渡す依頼の中で</p>
+<pre><code>battle_win
+battle_lose
+party_invalid</code></pre>
+<p>を状態契約として指定し、画面とE2Eで確認できるようにすることだった。</p>
+<h2>幻晶結果画面</h2>
+<p><img src="assets/2026-07-02-sagaforge-trial-001-gacha.png" alt="SagaForge Trial 001 幻晶結果" loading="lazy"></p>
+<p>ガチャ風の結果画面も作った。</p>
+<p>ただし、本物の課金や本物のガチャ確率は扱わない。</p>
+<p>記事でもコードでも、これは <strong>ガチャ風UI</strong> として扱う。  </p>
+<p>本番課金・本番確率・実サービスの表現は非ゴールにした。</p>
+<h2>失敗状態</h2>
+<p><img src="assets/2026-07-02-sagaforge-trial-001-failure.png" alt="SagaForge Trial 001 失敗状態" loading="lazy"></p>
+<p>失敗状態では、編成不備や決済失敗などを表示する。</p>
+<p>ここがAIDD Control Plane的には重要だ。</p>
+<p>「それっぽいアプリ」は、成功画面だけなら作りやすい。  </p>
+<p>でも実際にAI開発で困るのは、失敗状態がないことだ。</p>
+<p>今回のAI Task Packetでは、最初から次の状態を要求した。</p>
+<pre><code>empty_roster
+loading
+success
+offline
+timeout
+battle_win
+battle_lose
+party_invalid
+gacha_result
+payment_failed</code></pre>
+<h2>検証ログ</h2>
+<p><img src="assets/2026-07-02-sagaforge-trial-001-terminal-evidence.png" alt="SagaForge Trial 001 terminal evidence" loading="lazy"></p>
+<p>独立検証では次を実行した。</p>
+<table>
+<tr><th>command</th><th>result</th></tr>
+<tr><td><code>pnpm install --frozen-lockfile</code></td><td>pass</td></tr>
+<tr><td>source/IP leak scan</td><td>pass</td></tr>
+<tr><td><code>pnpm run lint</code></td><td>pass</td></tr>
+<tr><td><code>pnpm run typecheck</code></td><td>pass</td></tr>
+<tr><td><code>pnpm run test</code></td><td>5 tests passed</td></tr>
+<tr><td><code>pnpm run test:coverage</code></td><td>statements 96.29%</td></tr>
+<tr><td><code>pnpm run build</code></td><td>pass</td></tr>
+<tr><td><code>pnpm run mock:doctor</code></td><td>pass</td></tr>
+<tr><td><code>pnpm run doctor:playwright</code></td><td>Chromium / Firefox / WebKit pass</td></tr>
+<tr><td><code>pnpm run test:e2e</code></td><td>15 tests passed</td></tr>
+</table>
+<p>E2Eは5シナリオ × 3ブラウザで通した。</p>
+<pre><code>ホームから編成、遠征、戦闘、幻晶結果まで確認できる
+empty_rosterでは名簿の空状態を表示する
+party_invalidでは戦闘前に編成不備を表示する
+payment_failedでは幻晶画面に決済失敗を表示する
+状態画面からofflineとtimeoutへ切り替えられる</code></pre>
+<h2>失敗と修正</h2>
+<p>最初、CodexはPlaywrightのポートに <code>3000</code> を使った。</p>
+<p>しかし、このMacでは別のNext.jsアプリがすでに <code>3000</code> を使っていた。  </p>
+<p>そのため、Playwrightが違うアプリを見に行き、E2Eが長時間止まった。</p>
+<p>修正は単純だった。</p>
+<pre><code>E2E専用ポートを 3000 から 3141 に変更</code></pre>
+<p>このあと、Chromium単体で5本、さらにChromium/Firefox/WebKitの15本が通った。</p>
+<p>ここから分かることは、AIDD Control Planeに次の項目を入れるべきだということ。</p>
+<pre><code>E2E webServer portは既存プロセスと衝突しない専用ポートにする
+reuseExistingServerで別アプリを掴まないようにする</code></pre>
+<h2>読者が使えるチェックリスト</h2>
+<p>AIに「〇〇風アプリ」を頼む前に、最低限これを決める。</p>
+<table>
+<tr><th>質問</th><th>何を守るためか</th></tr>
+<tr><td>実在IPの何を使わないか？</td><td>商標・公式素材・公式文言の混入を防ぐ</td></tr>
+<tr><td>体験パターンとして抽象化する要素は何か？</td><td>ただのコピーではなく安全なプロトタイプにする</td></tr>
+<tr><td>成功画面以外にどの状態を作るか？</td><td>見た目だけのvibe codeを防ぐ</td></tr>
+<tr><td>E2Eから状態をどう切り替えるか？</td><td>人間が検証できるようにする</td></tr>
+<tr><td>mock serviceはUIから独立しているか？</td><td>状態契約をテスト可能にする</td></tr>
+<tr><td>3ブラウザで見る必要があるか？</td><td>ローカルだけの偶然を減らす</td></tr>
+<tr><td>terminal evidenceとスクショを残すか？</td><td>「できた」の証拠を残す</td></tr>
+</table>
+<h2>AIDD Control Planeへの戻し</h2>
+<p>今回、AIDD Control Planeの価値はかなり分かりやすくなった。</p>
+<p>ユーザーが欲しいのは、単なる設計書ではない。</p>
+<pre><code>自分の「作りたい」を安全で検証可能なAI依頼書に変えること</code></pre>
+<p>今回なら、</p>
+<pre><code>ロマサガRSみたいなアプリ</code></pre>
+<p>を、</p>
+<pre><code>商標を避けたキャラ収集RPGプロトタイプ
+ホーム/名簿/編成/遠征/戦闘/幻晶/育成
+10個の状態契約
+mock service
+3ブラウザE2E
+検証証跡</code></pre>
+<p>に変換した。</p>
+<p>これがAIDD Control Planeの本当の使い道に近い。</p>
+<h2>次回</h2>
+<p>Trial 001では、キャラ収集RPGの骨格と検証ループは作れた。</p>
+<p>次回 Trial 002 では、次を改善する。</p>
+<ul>
+<li>バトル中の選択肢を増やす</li>
+<li>キャラ育成の変化を画面に反映する</li>
+<li>名簿フィルタや編成入れ替えを追加する</li>
+<li>mock serviceをさらに分離する</li>
+<li>AIDD Control Plane側に「IP安全性チェック」を戻す</li>
+</ul>
+<p>この連載では、AIDD Control Planeが本当に役に立つかを、実際のアプリ作りで検証していく。</p></article><nav class="chapter-nav" aria-label="前後の記事"><span></span><span></span></nav></main></div></body></html>

@@ -1,0 +1,11 @@
+services:
+  mock-sagaforge:
+    image: node:22-alpine
+    working_dir: /workspace
+    command: ["node", "scripts/mock-server.mjs"]
+    ports:
+      - "4100:4100"
+    environment:
+      PORT: "4100"
+    volumes:
+      - .:/workspace:ro
