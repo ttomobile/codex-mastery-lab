@@ -1,0 +1,27 @@
+
+> sagaforge-trial-001@0.1.0 test:e2e <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> playwright test
+
+[WebServer]  Container generated-repo-mock-sagaforge-1 Running 
+[WebServer] Docker起動に失敗したためNode fallbackへ切り替えます
+
+Running 15 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/sagaforge.spec.ts:13:5 › ホームから編成、遠征、戦闘、幻晶結果まで確認できる (1.2s)
+  ✓   2 [chromium] › e2e/sagaforge.spec.ts:37:5 › empty_rosterでは名簿の空状態を表示する (576ms)
+  ✓   3 [chromium] › e2e/sagaforge.spec.ts:44:5 › party_invalidでは戦闘前に編成不備を表示する (492ms)
+  ✓   4 [chromium] › e2e/sagaforge.spec.ts:51:5 › payment_failedでは幻晶画面に決済失敗を表示する (782ms)
+  ✓   5 [chromium] › e2e/sagaforge.spec.ts:58:5 › 状態画面からofflineとtimeoutへ切り替えられる (2.1s)
+  ✓   6 [firefox] › e2e/sagaforge.spec.ts:13:5 › ホームから編成、遠征、戦闘、幻晶結果まで確認できる (1.4s)
+  ✓   7 [firefox] › e2e/sagaforge.spec.ts:37:5 › empty_rosterでは名簿の空状態を表示する (308ms)
+  ✓   8 [firefox] › e2e/sagaforge.spec.ts:44:5 › party_invalidでは戦闘前に編成不備を表示する (298ms)
+  ✓   9 [firefox] › e2e/sagaforge.spec.ts:51:5 › payment_failedでは幻晶画面に決済失敗を表示する (365ms)
+  ✓  10 [firefox] › e2e/sagaforge.spec.ts:58:5 › 状態画面からofflineとtimeoutへ切り替えられる (1.8s)
+  ✓  11 [webkit] › e2e/sagaforge.spec.ts:13:5 › ホームから編成、遠征、戦闘、幻晶結果まで確認できる (1.2s)
+  ✓  12 [webkit] › e2e/sagaforge.spec.ts:37:5 › empty_rosterでは名簿の空状態を表示する (393ms)
+  ✓  13 [webkit] › e2e/sagaforge.spec.ts:44:5 › party_invalidでは戦闘前に編成不備を表示する (386ms)
+  ✓  14 [webkit] › e2e/sagaforge.spec.ts:51:5 › payment_failedでは幻晶画面に決済失敗を表示する (458ms)
+  ✓  15 [webkit] › e2e/sagaforge.spec.ts:58:5 › 状態画面からofflineとtimeoutへ切り替えられる (1.8s)
+
+  15 passed (38.1s)
+exit=0

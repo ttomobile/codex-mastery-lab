@@ -44,6 +44,7 @@ CONTROL_PLANE_ORDER = [
 
 DOGFOOD_ORDER = [
     '2026-07-02-character-collection-rpg-trial-001.md',
+    '2026-07-02-character-collection-rpg-trial-002.md',
 ]
 
 PAST_ARTICLES_ORDER = [
@@ -294,6 +295,7 @@ def main():
         '2026-06-29*.svg', '2026-06-29*.gif', '2026-06-29*.png', '2026-06-29*.console.txt',
         'aidd-control-plane-*.png',
         '2026-07-02-sagaforge-trial-001-*.png',
+        '2026-07-02-sagaforge-trial-002-*.png',
     ]
     for asset in [p for pattern in asset_patterns for p in ASSETS.glob(pattern)]:
         shutil.copy2(asset, OUT_ASSETS / asset.name)

@@ -35,6 +35,7 @@ type MockState = {
 };
 
 const mockBaseUrl = process.env.NEXT_PUBLIC_MOCK_BASE_URL ?? "http://127.0.0.1:4100";
+const asset = (name: string) => `/game-assets/${name}`;
 
 const tabs = [
   { id: "home", label: "ホーム" },
@@ -142,14 +143,14 @@ function HomeScreen({ state, readiness }: { state: MockState; readiness: number 
   const hero = state.roster[0];
   return (
     <section className="screen" data-testid="home-screen">
-      <div className="hero-panel">
-        <div className="crest" aria-hidden="true">
-          {hero ? hero.symbol : "星"}
+      <div className="hero-panel premium-hero">
+        <div className="key-art" role="img" aria-label="星紋遠征隊のオリジナル隊員キービジュアル" style={{ backgroundImage: `url(${asset("party-key-art.png")})` }}>
+          <span>{hero ? hero.symbol : "星"}</span>
         </div>
-        <div>
+        <div className="hero-copy">
           <p className="eyebrow">今日の任務</p>
           <h2>裂光の丘を調査</h2>
-          <p>編成、遠征、戦闘、報酬までの流れをmock状態で検証します。</p>
+          <p>オリジナル隊員と幻晶演出を使い、編成、遠征、戦闘、報酬までの流れをmock状態で検証します。</p>
         </div>
       </div>
       <div className="metric-grid">
@@ -194,6 +195,7 @@ function PartyScreen({
         <h2>{canBattle ? "出撃可能な編成" : "編成条件を確認"}</h2>
         <p>{readiness.reason}</p>
       </div>
+      <div className="party-art-strip" role="img" aria-label="出撃前の隊員ビジュアル" style={{ backgroundImage: `url(${asset("party-key-art.png")})` }} />
       <div className="party-grid">
         {members.map((member) => (
           <div className="party-slot" key={member.id}>
@@ -230,14 +232,25 @@ function BattleScreen({ state, nextBattle, canBattle }: { state: MockState; next
       {!canBattle ? <FailurePanel scenario="party_invalid" message="前衛と支援の組み合わせが不足しています。" /> : null}
       {canBattle ? (
         <>
+          <div className="battle-stage" role="img" aria-label="星紋遠征隊と晶狼の戦闘シーン" style={{ backgroundImage: `linear-gradient(180deg, rgba(9,11,20,.08), rgba(9,11,20,.86)), url(${asset("battle-ruins.png")})` }}>
+            <div className="party-silhouettes">
+              {partyMembersLabel(state).map((label) => (
+                <span key={label}>{label}</span>
+              ))}
+            </div>
+            <div className="enemy-portrait" style={{ backgroundImage: `url(${asset("crystal-guardian.png")})` }}>
+              <span>{state.battle.enemyName}</span>
+            </div>
+            <div className="skill-flash">星紋連携</div>
+          </div>
           <div className={`result-banner ${state.scenario === "battle_lose" ? "lose" : "win"}`} data-testid="battle-result">
             {resolved ? (state.scenario === "battle_win" ? "勝利: 星屑報酬を獲得" : "敗北: 再編成が必要") : "交戦中: 次のターンを予測"}
           </div>
           <div className="battle-meter">
-            <span>隊列HP {state.battle.heroHp}</span>
-            <span>{state.battle.enemyName} HP {state.battle.enemyHp}</span>
+            <span><b>隊列HP</b><i style={{ width: `${state.battle.heroHp}%` }} />{state.battle.heroHp}</span>
+            <span><b>{state.battle.enemyName}</b><i className="enemy" style={{ width: `${state.battle.enemyHp}%` }} />{state.battle.enemyHp}</span>
           </div>
-          <ul className="log-list">
+          <ul className="log-list battle-log">
             {(nextBattle?.logs ?? state.battle.logs).map((log) => (
               <li key={log.id}>{log.text}</li>
             ))}
@@ -251,6 +264,9 @@ function BattleScreen({ state, nextBattle, canBattle }: { state: MockState; next
 function GachaScreen({ results, billing }: { results: ReturnType<typeof mapGachaResults>; billing: string }) {
   return (
     <section className="screen" data-testid="gacha-screen">
+      <div className="summon-stage" role="img" aria-label="幻晶召喚のオリジナル演出" style={{ backgroundImage: `linear-gradient(180deg, rgba(5,8,18,.06), rgba(5,8,18,.76)), url(${asset("summon-altar.png")})` }}>
+        <div className="summon-orb">幻晶解放</div>
+      </div>
       {billing === "payment_failed" ? <FailurePanel scenario="payment_failed" message="幻晶購入のmock決済が失敗しました。無料演出だけ表示します。" /> : null}
       <div className="result-grid">
         {results.map((result) => (
@@ -327,6 +343,12 @@ function FailurePanel({ scenario, message }: { scenario: string; message: string
       <p>{message}</p>
     </section>
   );
+}
+
+function partyMembersLabel(state: MockState) {
+  return state.party
+    .map((id) => state.roster.find((character) => character.id === id)?.symbol)
+    .filter((symbol): symbol is string => Boolean(symbol));
 }
 
 function Metric({ label, value }: { label: string; value: string }) {

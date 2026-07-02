@@ -1,0 +1,30 @@
+
+> sagaforge-trial-001@0.1.0 mock:doctor <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> node scripts/doctor-mock-services.mjs
+
+OK: Docker Compose - Docker Compose version v5.1.4
+OK: docker-compose.yml
+
+> sagaforge-trial-001@0.1.0 mock:start <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> node scripts/start-mock-services.mjs
+
+mock services mode: node fallback
+mock service is healthy
+OK: Node fallback 起動
+OK: /health - success
+OK: state success
+OK: state empty_roster
+OK: state offline
+OK: state timeout
+OK: state battle_win
+OK: state battle_lose
+OK: state party_invalid
+OK: state gacha_result
+OK: state payment_failed
+
+> sagaforge-trial-001@0.1.0 mock:stop <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> node scripts/stop-mock-services.mjs
+
+stopped mock-sagaforge pid=51096
+OK: doctor起動分の停止
+exit=0
