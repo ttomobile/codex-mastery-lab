@@ -54,6 +54,7 @@ MVPではこの流れをフォームとチェックリストで標準化する�
 | AI Task Packet Delta Apply Preview | Spec Update Proposalを採用した場合に、次回AI Task Packet / Codex prompt / Verification Planがどう変わるかを採用前にレビューする | empty / valid / failure、target packet section、before/after summary、added acceptance criteria、verification commands、Codex prompt patch、rollback condition、不足差分の検出 |
 | Delta Decision Review | AI Task Packet Deltaを採用 / 却下 / 保留に分け、誰が・いつ・なぜ判断したかをReview Recordとして残す | empty / valid / failure、decision owner、decision reason、decided at、next action、review evidence、rollback confirmed、採用済みdeltaだけを次回packetへ進める |
 | Adopted Delta Markdown Exporter | 採用済みdeltaだけを次回AI Task Packet Markdown / Verification Plan / Codex promptへ書き出す | empty / valid / failure、Markdown section、verification plan patch、Codex prompt patch、rollback condition、review evidence、未採用deltaのLearning Log戻し、未採用delta混入検出 |
+| Packet File Apply Planner | 採用済みdeltaのMarkdown exportを実ファイルへ反映する前に、対象ファイル・追記位置・before/after差分・検証・rollbackを確認する | empty / valid / failure、AI_TASK_PACKET.md / CODEX_PROMPT.md / VERIFICATION_PLAN.md / LEARNING_LOG.md、insert position、verification command、rollback step、review evidence、未採用delta混入検出 |
 
 ## 4. 初期データモデル
 

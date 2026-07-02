@@ -1,0 +1,11 @@
+AIDD Control Plane MVP 021 terminal evidence
+pnpm install --frozen-lockfile: exit 0
+pnpm run lint: exit 0
+pnpm run typecheck: exit 0
+pnpm run test: exit 0
+pnpm run test:coverage: exit 0
+pnpm run build: exit 0
+pnpm run mock:doctor: exit 0
+pnpm run test:e2e: exit 0
+pnpm run doctor:aidd: exit 0
+pnpm run capture:mvp021: exit 0

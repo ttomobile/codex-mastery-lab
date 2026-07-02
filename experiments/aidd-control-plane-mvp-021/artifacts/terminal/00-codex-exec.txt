@@ -1,0 +1,401 @@
+Reading additional input from stdin...
+OpenAI Codex v0.142.3
+--------
+workdir: <repo>/experiments/aidd-control-plane-mvp-021/generated-repo
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: none
+reasoning summaries: none
+session id: 019f2493-53c0-7573-9a5a-a3be57f2a4b5
+--------
+user
+実装対象: AIDD Control Plane MVP 021 - Packet File Apply Planner
+
+作業ディレクトリ: experiments/aidd-control-plane-mvp-021/generated-repo
+
+背景:
+- MVP 020では採用済みdeltaだけをAI Task Packet Markdown / Verification Plan / Codex promptへ書き出した。
+- MVP 021では、書き出したMarkdownを実ファイルへ反映する前の安全な適用計画をUI化する。
+- AIDD-Spec v0.1と standards/aidd-control-plane-mvp-v0.1.md に接続する。
+
+要件:
+1. 日本語UIで `Packet File Apply Planner` を追加する。
+2. 状態切替は `empty` / `valid` / `failure`。
+3. valid状態では採用済みdeltaだけを以下の対象ファイル計画へ含める。
+   - AI_TASK_PACKET.md
+   - CODEX_PROMPT.md
+   - VERIFICATION_PLAN.md
+   - LEARNING_LOG.md
+4. 各ファイル計画に、Markdown見出し、before summary、after summary、insert position、verification command、rollback step、review evidenceを表示する。
+5. 却下/保留deltaはLearning Log戻し対象として表示し、AI依頼本体へ混ぜない。
+6. failure状態では target file不足、insert position不足、before/after差分不足、verification command不足、rollback step不足、review evidence不足、未採用delta混入をReview Findingとして表示する。
+7. Unit test、Playwright E2E、doctor:aidd、capture scriptをMVP 021へ更新する。
+8. `pnpm run capture:mvp021` で以下を保存する。
+   - ../../artifacts/screenshots/aidd-control-plane-mvp021-empty.png
+   - ../../artifacts/screenshots/aidd-control-plane-mvp021-valid.png
+   - ../../artifacts/screenshots/aidd-control-plane-mvp021-failure.png
+   - ../../artifacts/screenshots/aidd-control-plane-mvp021-terminal-evidence.png
+
+検証コマンド:
+```text
+pnpm install --frozen-lockfile
+pnpm run lint
+pnpm run typecheck
+pnpm run test
+pnpm run build
+pnpm run mock:doctor
+pnpm run test:e2e
+pnpm run doctor:aidd
+pnpm run capture:mvp021
+```
+
+制約:
+- UI、テスト名、サンプルデータは日本語を優先する。
+- 実ファイルの自動書き換えはしない。今回は適用前計画の表示まで。
+- runtime生成物はコミットしない。
+codex
+まず既存のMVP 020実装とスクリプト構成を確認します。差分を小さくするため、画面・データ・テスト・captureの既存パターンに合わせてMVP 021を追加します。
+exec
+/bin/zsh -lc 'pwd && rg --files' in <repo>/experiments/aidd-control-plane-mvp-021/generated-repo
+ succeeded in 0ms:
+<repo>/experiments/aidd-control-plane-mvp-021/generated-repo
+src/lib/intake.ts
+pnpm-workspace.yaml
+eslint.config.mjs
+e2e/intake-wizard.spec.ts
+vitest.config.ts
+playwright.config.ts
+docker-compose.yml
+tsconfig.json
+scripts/mock-doctor.mjs
+scripts/capture-mvp019.mjs
+scripts/capture-mvp020.mjs
+scripts/mock-stop.mjs
+scripts/doctor-aidd.mjs
+scripts/capture-mvp017.mjs
+scripts/capture-mvp016.mjs
+scripts/capture-mvp015.mjs
+scripts/mock-start.mjs
+package.json
+next-env.d.ts
+docs/verification-plan.md
+docs/product-brief.md
+docs/review-record.md
+docs/learning-log.md
+tests/intake.test.ts
+next.config.mjs
+app/globals.css
+app/page.tsx
+app/layout.tsx
+pnpm-lock.yaml
+mocks/ci-service/fixtures/failure.json
+mocks/ci-service/fixtures/timeout.json
+mocks/ci-service/fixtures/valid.json
+mocks/ci-service/fixtures/rate_limit.json
+mocks/ci-service/fixtures/empty.json
+mocks/ci-service/server.mjs
+
+exec
+/bin/zsh -lc 'git status --short' in <repo>/experiments/aidd-control-plane-mvp-021/generated-repo
+ succeeded in 0ms:
+?? ../
+
+codex
+`git status` は親ディレクトリ配下が未追跡として見えています。まずこのrepo内の既存ファイルだけを読んで、MVP 020の構造をMVP 021へ拡張します。
+exec
+/bin/zsh -lc "sed -n '1,260p' app/page.tsx" in <repo>/experiments/aidd-control-plane-mvp-021/generated-repo
+ succeeded in 0ms:
+"use client";
+
+import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  APP_TYPES,
+  APP_TYPE_TEMPLATES,
+  QUALITY_GATE_OPTIONS,
+  STATE_CONTRACT_OPTIONS,
+  type AppTypeTemplateId,
+  type DeltaDecisionReviewMode,
+  type AdoptedDeltaMarkdownExportMode,
+  type QualityGate,
+  type SpecUpdateProposalMode,
+  type StateContract,
+  type TaskPacketDeltaApplyPreviewMode,
+  type VerificationRun,
+  buildIntakeDraft,
+  createEmptyTaskPacketDeltaApplyPreview,
+  createEmptyDeltaDecisionReview,
+  createEmptyAdoptedDeltaMarkdownExport,
+  createEvidenceMissingVerificationRun,
+  createEmptyCiWorkflowArtifactAuditor,
+  createEmptySpecUpdateProposalQueue,
+  createFailureVerificationRun,
+  createFailureCiWorkflowArtifactAuditor,
+  createFailureTaskPacketDeltaApplyPreview,
+  createFailureDeltaDecisionReview,
+  createFailureAdoptedDeltaMarkdownExport,
+  createFailureSpecUpdateProposalQueue,
+  createInitialVerificationRun,
+  createSuccessVerificationRun,
+  createValidCiWorkflowArtifactAuditor,
+  createValidTaskPacketDeltaApplyPreview,
+  createValidDeltaDecisionReview,
+  createValidAdoptedDeltaMarkdownExport,
+  createValidSpecUpdateProposalQueue,
+  evaluateCiArtifactImport,
+  evaluateCiWorkflowArtifactAuditor,
+  evaluateTaskPacketDeltaApplyPreview,
+  evaluateDeltaDecisionReview,
+  evaluateAdoptedDeltaMarkdownExport,
+  evaluateEvidenceGapRepairPlan,
+  evaluateGitHubActionsFetchPlan,
+  evaluateArtifactEvidenceBinder,
+  evaluateReadiness,
+  evaluateSpecUpdateProposalQueue,
+  evaluateVerificationRun,
+  generateCodexPrompt,
+  generateLearningLog,
+  generateProductBrief,
+  generateReviewRecord,
+  generateTaskPacket,
+  generateVerificationPlan
+} from "../src/lib/intake";
+import emptyFixture from "../mocks/ci-service/fixtures/empty.json";
+import failureFixture from "../mocks/ci-service/fixtures/failure.json";
+import rateLimitFixture from "../mocks/ci-service/fixtures/rate_limit.json";
+import timeoutFixture from "../mocks/ci-service/fixtures/timeout.json";
+import validFixture from "../mocks/ci-service/fixtures/valid.json";
+
+const initialStateContract: StateContract[] = ["empty", "success", "error"];
+const initialQualityGates: QualityGate[] = ["lint", "typecheck", "test", "build", "e2e", "doctor:aidd"];
+
+const statusLabels = {
+  empty: "empty: 入力待ち",
+  draft: "draft: 下書き",
+  ready: "ready: AIへ渡せます",
+  insufficient: "insufficient: 必須項目が不足"
+};
+
+type MockCiMode = "empty" | "valid" | "failure" | "timeout" | "rate_limit";
+type WorkflowAuditorMode = "empty" | "valid" | "failure";
+
+const mockCiSamples: Record<MockCiMode, {
+  label: string;
+  runUrl: string;
+  owner: string;
+  repo: string;
+  runId: string;
+  commitSha: string;
+  workflow: string;
+  jobs: string[];
+  artifacts: string[];
+  issue: string;
+  repair: string;
+  promptDelta: string;
+  retryAfterSeconds?: number;
+  tokenScopeReview?: string[];
+  manualEvidence?: string[];
+  nextTaskPacketDelta?: string;
+}> = {
+  empty: emptyFixture,
+  valid: validFixture,
+  failure: failureFixture,
+  timeout: timeoutFixture,
+  rate_limit: rateLimitFixture
+};
+
+type MockCiServiceState = {
+  scenario: MockCiMode;
+  ci: (typeof mockCiSamples)[MockCiMode];
+};
+
+const mockCiServiceUrl = process.env.NEXT_PUBLIC_MOCK_CI_SERVICE_URL ?? "http://127.0.0.1:4314";
+
+export default function Home() {
+  const [appName, setAppName] = useState("");
+  const [appType, setAppType] = useState("");
+  const [targetUser, setTargetUser] = useState("");
+  const [userProblem, setUserProblem] = useState("");
+  const [keyFeaturesText, setKeyFeaturesText] = useState("");
+...[trimmed: Codex generated a very large diff; full runtime output intentionally shortened for public artifact]...
++        rollbackStep: "検証コマンドが再現不能な場合、該当項目を削除しReview Findingへ戻す。",
++        reviewEvidence: evidence,
++        includedDeltaIds: adoptedIds,
++        learningLogReturnIds: []
++      },
++      {
++        targetFile: "LEARNING_LOG.md",
++        markdownHeading: "## 未採用delta戻し",
++        beforeSummary: "却下/保留deltaが次回AI依頼本文へ混入しない理由がLearning Logで一覧化されていない。",
++        afterSummary: "却下/保留deltaをLearning Log戻し対象として記録し、AI依頼本文から分離する。",
++        insertPosition: "next_ai_task_packet_deltaの後",
++        verificationCommand: "pnpm run doctor:aidd",
++        rollbackStep: "戻し対象の理由が不足した場合、Learning Log追記を保留してDecision Reviewを補完する。",
++        reviewEvidence: exportPlan.learningLogReturns.join(" / ") || evidence,
++        includedDeltaIds: [],
++        learningLogReturnIds: notAdoptedIds
++      }
++    ]
++  };
++}
++
++export function createFailurePacketFileApplyPlanner(): PacketFileApplyPlanner {
++  const review = createFailureDeltaDecisionReview();
++  return {
++    statusSample: "failure",
++    sourceDecisions: review.decisions,
++    learningLogReturns: [],
++    filePlans: [
++      {
++        targetFile: "",
++        markdownHeading: "## 不完全な採用delta追記",
++        beforeSummary: "",
++        afterSummary: "",
++        insertPosition: "",
++        verificationCommand: "",
++        rollbackStep: "",
++        reviewEvidence: "",
++        includedDeltaIds: ["delta-mvp019-bad-001", "delta-mvp019-bad-002"],
++        learningLogReturnIds: []
++      }
++    ]
++  };
++}
++
++export function evaluatePacketFileApplyPlanner(planner: PacketFileApplyPlanner): PacketFileApplyPlannerReview {
++  const reviewFindings: ReviewFinding[] = [];
++  const adoptedIds = planner.sourceDecisions
++    .filter((decision) => decision.status === "adopted" && decision.includedInNextPacket)
++    .map((decision) => decision.deltaId);
++  const notAdoptedIds = planner.sourceDecisions
++    .filter((decision) => decision.status !== "adopted" || !decision.includedInNextPacket)
++    .map((decision) => decision.deltaId);
++
++  planner.filePlans.forEach((filePlan, index) => {
++    const label = filePlan.targetFile || `file plan ${index + 1}`;
++    if (!filePlan.targetFile.trim()) reviewFindings.push(buildPlannerFinding(`${label}: target file不足`, "target fileをAI_TASK_PACKET.md / CODEX_PROMPT.md / VERIFICATION_PLAN.md / LEARNING_LOG.mdのいずれかに設定する"));
++    if (!filePlan.insertPosition.trim()) reviewFindings.push(buildPlannerFinding(`${label}: insert position不足`, "Markdown見出しの挿入位置を明示する"));
++    if (!filePlan.beforeSummary.trim() || !filePlan.afterSummary.trim()) reviewFindings.push(buildPlannerFinding(`${label}: before/after差分不足`, "before summaryとafter summaryを両方記録する"));
++    if (!filePlan.verificationCommand.trim()) reviewFindings.push(buildPlannerFinding(`${label}: verification command不足`, "適用後に確認するpnpmコマンドを設定する"));
++    if (!filePlan.rollbackStep.trim()) reviewFindings.push(buildPlannerFinding(`${label}: rollback step不足`, "適用を戻す条件と戻し手順を記録する"));
++    if (!filePlan.reviewEvidence.trim()) reviewFindings.push(buildPlannerFinding(`${label}: review evidence不足`, "採用判断のReview Evidenceを紐づける"));
++    const mixedIds = filePlan.includedDeltaIds.filter((deltaId) => notAdoptedIds.includes(deltaId));
++    for (const deltaId of mixedIds) {
++      reviewFindings.push(buildPlannerFinding(`${label}: 未採用delta ${deltaId} が混入しています`, "却下/保留deltaはLearning Log戻し対象へ分離し、AI依頼本文へ混ぜない"));
++    }
++  });
++
++  for (const deltaId of adoptedIds) {
++    const includedInBody = planner.filePlans.some((filePlan) => filePlan.targetFile !== "LEARNING_LOG.md" && filePlan.includedDeltaIds.includes(deltaId));
++    if (!includedInBody) reviewFindings.push(buildPlannerFinding(`採用delta ${deltaId} の対象ファイル計画が不足しています`, "採用済みdeltaをAI_TASK_PACKET.md / CODEX_PROMPT.md / VERIFICATION_PLAN.mdの計画へ含める"));
++  }
++  for (const deltaId of notAdoptedIds) {
++    const returned = planner.learningLogReturns.some((item) => item.includes(deltaId)) || planner.filePlans.some((filePlan) => filePlan.learningLogReturnIds.includes(deltaId));
++    if (!returned) reviewFindings.push(buildPlannerFinding(`未採用delta ${deltaId} のLearning Log戻し対象が不足しています`, "却下/保留deltaをLearning Log戻し対象として表示する"));
++  }
++
++  const isEmpty = planner.statusSample === "empty" && planner.filePlans.length === 0 && planner.sourceDecisions.length === 0;
++  return {
++    status: isEmpty ? "empty" : reviewFindings.length === 0 ? "valid" : "failure",
++    reviewFindings
++  };
++}
++
++function buildPlannerFinding(finding: string, fixInstruction: string): ReviewFinding {
++  return buildFinding("Packet File Apply Planner", "high", finding, fixInstruction, ["AI Task Packet Markdown", "Verification Plan", "Codex Prompt", "Learning Log"], "pnpm run doctor:aidd");
++}
++
+ export function createEmptyGitHubActionsFetchPlan(): GitHubActionsFetchPlan {
+   return { runUrl: "", owner: "", repo: "", runId: "", runSummaryUrl: "", jobsApiEndpoint: "", artifactsApiEndpoint: "", logsUrl: "", tokenScopes: [], requiredArtifacts: [] };
+ }
+diff --git a/experiments/aidd-control-plane-mvp-021/generated-repo/tests/intake.test.ts b/experiments/aidd-control-plane-mvp-021/generated-repo/tests/intake.test.ts
+index fc5cf3695d8b03fad39297fb4ef87a3845865ed0..2432ccdf5d1aad0da6d543de0367a0c874f8fd33
+--- a/experiments/aidd-control-plane-mvp-021/generated-repo/tests/intake.test.ts
++++ b/experiments/aidd-control-plane-mvp-021/generated-repo/tests/intake.test.ts
+@@ -7,6 +7,7 @@
+   createEmptyTaskPacketDeltaApplyPreview,
+   createEmptyDeltaDecisionReview,
+   createEmptyAdoptedDeltaMarkdownExport,
++  createEmptyPacketFileApplyPlanner,
+   createEvidenceMissingVerificationRun,
+   createFailureVerificationRun,
+   createFailureCiWorkflowArtifactAuditor,
+@@ -14,17 +15,20 @@
+   createFailureTaskPacketDeltaApplyPreview,
+   createFailureDeltaDecisionReview,
+   createFailureAdoptedDeltaMarkdownExport,
++  createFailurePacketFileApplyPlanner,
+   createSuccessVerificationRun,
+   createValidCiWorkflowArtifactAuditor,
+   createValidSpecUpdateProposalQueue,
+   createValidTaskPacketDeltaApplyPreview,
+   createValidDeltaDecisionReview,
+   createValidAdoptedDeltaMarkdownExport,
++  createValidPacketFileApplyPlanner,
+   evaluateCiArtifactImport,
+   evaluateCiWorkflowArtifactAuditor,
+   evaluateTaskPacketDeltaApplyPreview,
+   evaluateDeltaDecisionReview,
+   evaluateAdoptedDeltaMarkdownExport,
++  evaluatePacketFileApplyPlanner,
+   evaluateEvidenceGapRepairPlan,
+   evaluateGitHubActionsFetchPlan,
+   evaluateArtifactEvidenceBinder,
+@@ -325,6 +329,55 @@
+     ]));
+   });
+ 
++  it("Packet File Apply Plannerのemptyサンプルは適用前計画なしとして判定できる", () => {
++    const review = evaluatePacketFileApplyPlanner(createEmptyPacketFileApplyPlanner());
++
++    expect(review.status).toBe("empty");
++    expect(review.reviewFindings).toHaveLength(0);
++  });
++
++  it("Packet File Apply Plannerのvalidサンプルは採用済みdeltaだけを4対象ファイル計画へ含める", () => {
++    const decisionReview = createValidDeltaDecisionReview();
++    const exportPlan = createValidAdoptedDeltaMarkdownExport(decisionReview);
++    const planner = createValidPacketFileApplyPlanner(exportPlan);
++    const review = evaluatePacketFileApplyPlanner(planner);
++
++    expect(review.status).toBe("valid");
++    expect(review.reviewFindings).toHaveLength(0);
++    expect(planner.filePlans.map((plan) => plan.targetFile)).toEqual(["AI_TASK_PACKET.md", "CODEX_PROMPT.md", "VERIFICATION_PLAN.md", "LEARNING_LOG.md"]);
++    for (const plan of planner.filePlans) {
++      expect(plan.markdownHeading).toBeTruthy();
++      expect(plan.beforeSummary).toBeTruthy();
++      expect(plan.afterSummary).toBeTruthy();
++      expect(plan.insertPosition).toBeTruthy();
++      expect(plan.verificationCommand).toMatch(/^pnpm run /);
++      expect(plan.rollbackStep).toBeTruthy();
++      expect(plan.reviewEvidence).toBeTruthy();
++      expect(plan.includedDeltaIds).not.toEqual(expect.arrayContaining(["delta-mvp019-002", "delta-mvp019-003"]));
++    }
++    expect(planner.filePlans.find((plan) => plan.targetFile === "AI_TASK_PACKET.md")?.includedDeltaIds).toEqual(["delta-mvp019-001"]);
++    expect(planner.filePlans.find((plan) => plan.targetFile === "LEARNING_LOG.md")?.learningLogReturnIds).toEqual(["delta-mvp019-002", "delta-mvp019-003"]);
++    expect(planner.learningLogReturns.join("\n")).toContain("delta-mvp019-002: deferred");
++    expect(planner.learningLogReturns.join("\n")).toContain("delta-mvp019-003: rejected");
++  });
++
++  it("Packet File Apply Plannerのfailureサンプルは不足項目と未採用delta混入をReview Findingへ変換する", () => {
++    const review = evaluatePacketFileApplyPlanner(createFailurePacketFileApplyPlanner());
++    const findings = review.reviewFindings.map((finding) => finding.finding);
++
++    expect(review.status).toBe("failure");
++    expect(findings).toEqual(expect.arrayContaining([
++      "file plan 1: target file不足",
++      "file plan 1: insert position不足",
++      "file plan 1: before/after差分不足",
++      "file plan 1: verification command不足",
++      "file plan 1: rollback step不足",
++      "file plan 1: review evidence不足",
++      "file plan 1: 未採用delta delta-mvp019-bad-002 が混入しています"
++    ]));
++    expect(review.reviewFindings.map((finding) => finding.category)).toContain("Packet File Apply Planner");
++  });
++
+   it("CI Workflow Artifact Auditorのvalidサンプルは必須gateとartifact保存を確認できる", () => {
+     const audit = evaluateCiWorkflowArtifactAuditor(createValidCiWorkflowArtifactAuditor());
+ 
+
