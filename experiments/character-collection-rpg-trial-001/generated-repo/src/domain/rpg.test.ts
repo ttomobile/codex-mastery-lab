@@ -1,5 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { advanceBattleTurn, calculateReadinessScore, mapGachaResults, resolveScenarioServices, type Character } from "./rpg";
+import {
+  advanceBattleTurn,
+  calculateReadinessScore,
+  createRecruitFromSeed,
+  mapGachaResults,
+  previewBattleCommand,
+  resolveScenarioServices,
+  swapPartyMember,
+  trainCharacter,
+  type Character
+} from "./rpg";
 
 const party: Character[] = [
   { id: "c1", name: "アステル", role: "前衛", rank: 3, level: 42, power: 620, symbol: "剣" },
@@ -25,6 +35,26 @@ describe("戦闘状態", () => {
     expect(next.heroHp).toBe(90);
     expect(next.logs[0]?.text).toContain("ターン2");
   });
+
+  it("星紋技コマンドでは通常より大きく敵HPを減らす", () => {
+    const state = { enemyName: "影紋核", heroHp: 100, enemyHp: 80, turn: 1, logs: [] };
+    const normal = previewBattleCommand(state, party, "通常攻撃");
+    const special = previewBattleCommand(state, party, "星紋技");
+    expect(special.enemyHp).toBeLessThan(normal.enemyHp);
+    expect(special.logs[0]?.text).toContain("星紋技を選択");
+  });
+});
+
+describe("画面内操作", () => {
+  it("控え隊員と編成枠を入れ替える", () => {
+    expect(swapPartyMember(["c1", "c2", "c3"], "c3", "c4")).toEqual(["c1", "c2", "c4"]);
+  });
+
+  it("強化でレベルと戦力を上げる", () => {
+    const trained = trainCharacter(party[0]);
+    expect(trained.level).toBe(43);
+    expect(trained.power).toBeGreaterThan(party[0].power);
+  });
 });
 
 describe("幻晶結果", () => {
@@ -32,6 +62,12 @@ describe("幻晶結果", () => {
     const results = mapGachaResults(["forge", "basalt", "citrine"]);
     expect(results).toHaveLength(3);
     expect(results.map((result) => result.gradeLabel)).toContain("閃光星紋");
+  });
+
+  it("seedから非公式IPを含まない新隊員候補を生成する", () => {
+    const recruit = createRecruitFromSeed("aurora");
+    expect(recruit.name).toMatch(/^星紋候補/);
+    expect(["前衛", "支援"]).toContain(recruit.role);
   });
 });
 

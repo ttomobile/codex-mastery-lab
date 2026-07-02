@@ -65,3 +65,27 @@ test("状態画面からofflineとtimeoutへ切り替えられる", async ({ pag
   await page.getByRole("button", { name: "timeout" }).click();
   await expect(page.getByTestId("current-scenario")).toHaveText("timeout");
 });
+
+test("画面内操作でコマンド選択、編成交替、強化、召喚加入が反映される", async ({ page, request }) => {
+  await setScenario(request, "gacha_result");
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "戦闘" }).click();
+  await page.getByRole("button", { name: "星紋技" }).click();
+  await expect(page.getByTestId("selected-command")).toContainText("星紋技");
+  await expect(page.getByTestId("battle-screen")).toContainText("星紋技を選択");
+
+  await page.getByRole("button", { name: "編成" }).click();
+  await page.getByTestId("swap-2").click();
+  await expect(page.getByTestId("party-order")).toContainText("リク");
+
+  await page.getByRole("button", { name: "育成" }).click();
+  await expect(page.getByTestId("training-c1")).toContainText("Lv.42");
+  await page.getByRole("button", { name: "強化" }).first().click();
+  await expect(page.getByTestId("training-c1")).toContainText("Lv.43");
+
+  await page.getByRole("button", { name: "幻晶" }).click();
+  await expect(page.getByTestId("roster-count-after-gacha")).toContainText("4名");
+  await page.getByTestId("recruit-aurora").click();
+  await expect(page.getByTestId("roster-count-after-gacha")).toContainText("5名");
+});

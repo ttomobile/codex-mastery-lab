@@ -4,8 +4,13 @@ import { useEffect, useMemo, useState } from "react";
 import {
   advanceBattleTurn,
   calculateReadinessScore,
+  createRecruitFromSeed,
   mapGachaResults,
+  previewBattleCommand,
+  swapPartyMember,
+  trainCharacter,
   type BattleLog,
+  type BattleCommand,
   type Character,
   type MockScenario,
   type Quest,
@@ -52,9 +57,12 @@ type TabId = (typeof tabs)[number]["id"];
 
 export default function Page() {
   const [state, setState] = useState<MockState | null>(null);
+  const [localRoster, setLocalRoster] = useState<Character[]>([]);
+  const [localParty, setLocalParty] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<TabId>("home");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [battleCommand, setBattleCommand] = useState<BattleCommand>("通常攻撃");
 
   async function loadState() {
     setLoading(true);
@@ -64,6 +72,8 @@ export default function Page() {
       if (!response.ok) throw new Error(`mock state error: ${response.status}`);
       const nextState = (await response.json()) as MockState;
       setState(nextState);
+      setLocalRoster(nextState.roster);
+      setLocalParty(nextState.party);
     } catch {
       setError("mock serviceに接続できません。状態画面でofflineとして扱います。");
     } finally {
@@ -87,15 +97,15 @@ export default function Page() {
   }, []);
 
   const partyMembers = useMemo(() => {
-    if (!state) return [];
-    return state.party
-      .map((id) => state.roster.find((character) => character.id === id))
+    return localParty
+      .map((id) => localRoster.find((character) => character.id === id))
       .filter((character): character is Character => Boolean(character));
-  }, [state]);
+  }, [localParty, localRoster]);
 
   const readiness = calculateReadinessScore(partyMembers);
   const gachaResults = state ? mapGachaResults(state.gachaSeeds) : [];
   const nextBattle = state ? advanceBattleTurn(state.battle, partyMembers) : null;
+  const commandPreview = state ? previewBattleCommand(state.battle, partyMembers, battleCommand) : null;
   const canBattle = readiness.valid && state?.scenario !== "party_invalid";
   const isFailure = state?.scenario === "offline" || state?.scenario === "timeout" || state?.scenario === "payment_failed" || Boolean(error);
 
@@ -125,12 +135,12 @@ export default function Page() {
         {!loading && state ? (
           <div className="screen-stack">
             {activeTab === "home" ? <HomeScreen state={state} readiness={readiness.score} /> : null}
-            {activeTab === "roster" ? <RosterScreen roster={state.roster} /> : null}
-            {activeTab === "party" ? <PartyScreen members={partyMembers} readiness={readiness} canBattle={canBattle} /> : null}
+            {activeTab === "roster" ? <RosterScreen roster={localRoster} /> : null}
+            {activeTab === "party" ? <PartyScreen roster={localRoster} party={localParty} onSwap={(outId, inId) => setLocalParty((party) => swapPartyMember(party, outId, inId))} members={partyMembers} readiness={readiness} canBattle={canBattle} /> : null}
             {activeTab === "quest" ? <QuestScreen quests={state.quests} /> : null}
-            {activeTab === "battle" ? <BattleScreen state={state} nextBattle={nextBattle} canBattle={canBattle} /> : null}
-            {activeTab === "gacha" ? <GachaScreen results={gachaResults} billing={state.services.billing} /> : null}
-            {activeTab === "training" ? <TrainingScreen roster={state.roster} /> : null}
+            {activeTab === "battle" ? <BattleScreen state={state} nextBattle={nextBattle} commandPreview={commandPreview} command={battleCommand} onCommand={setBattleCommand} canBattle={canBattle} /> : null}
+            {activeTab === "gacha" ? <GachaScreen results={gachaResults} billing={state.services.billing} roster={localRoster} onRecruit={(seed) => setLocalRoster((roster) => (roster.some((member) => member.id === `recruit-${seed}`) ? roster : [...roster, createRecruitFromSeed(seed)]))} /> : null}
+            {activeTab === "training" ? <TrainingScreen roster={localRoster} onTrain={(id) => setLocalRoster((roster) => roster.map((character) => character.id === id ? trainCharacter(character) : character))} /> : null}
             {activeTab === "state" ? <StateScreen state={state} onChange={changeScenario} /> : null}
           </div>
         ) : null}
@@ -181,14 +191,21 @@ function RosterScreen({ roster }: { roster: Character[] }) {
 }
 
 function PartyScreen({
+  roster,
+  party,
+  onSwap,
   members,
   readiness,
   canBattle
 }: {
+  roster: Character[];
+  party: string[];
+  onSwap: (outId: string, inId: string) => void;
   members: Character[];
   readiness: ReturnType<typeof calculateReadinessScore>;
   canBattle: boolean;
 }) {
+  const reserves = roster.filter((member) => !party.includes(member.id));
   return (
     <section className="screen" data-testid="party-screen">
       <div className={`panel ${canBattle ? "" : "warning"}`}>
@@ -197,14 +214,20 @@ function PartyScreen({
       </div>
       <div className="party-art-strip" role="img" aria-label="出撃前の隊員ビジュアル" style={{ backgroundImage: `url(${asset("party-key-art.png")})` }} />
       <div className="party-grid">
-        {members.map((member) => (
+        {members.map((member, index) => (
           <div className="party-slot" key={member.id}>
             <span className="avatar small">{member.symbol}</span>
             <strong>{member.name}</strong>
             <span>{member.role}</span>
+            {reserves[0] ? (
+              <button data-testid={`swap-${index}`} onClick={() => onSwap(member.id, reserves[0].id)}>
+                {reserves[0].name}と交替
+              </button>
+            ) : null}
           </div>
         ))}
       </div>
+      <p className="helper-text" data-testid="party-order">現在の隊列: {members.map((member) => member.name).join(" / ")}</p>
     </section>
   );
 }
@@ -225,8 +248,23 @@ function QuestScreen({ quests }: { quests: Quest[] }) {
   );
 }
 
-function BattleScreen({ state, nextBattle, canBattle }: { state: MockState; nextBattle: MockState["battle"] | null; canBattle: boolean }) {
+function BattleScreen({
+  state,
+  nextBattle,
+  commandPreview,
+  command,
+  onCommand,
+  canBattle
+}: {
+  state: MockState;
+  nextBattle: MockState["battle"] | null;
+  commandPreview: MockState["battle"] | null;
+  command: BattleCommand;
+  onCommand: (command: BattleCommand) => void;
+  canBattle: boolean;
+}) {
   const resolved = state.scenario === "battle_win" || state.scenario === "battle_lose";
+  const visibleBattle = commandPreview ?? nextBattle;
   return (
     <section className="screen" data-testid="battle-screen">
       {!canBattle ? <FailurePanel scenario="party_invalid" message="前衛と支援の組み合わせが不足しています。" /> : null}
@@ -246,12 +284,20 @@ function BattleScreen({ state, nextBattle, canBattle }: { state: MockState; next
           <div className={`result-banner ${state.scenario === "battle_lose" ? "lose" : "win"}`} data-testid="battle-result">
             {resolved ? (state.scenario === "battle_win" ? "勝利: 星屑報酬を獲得" : "敗北: 再編成が必要") : "交戦中: 次のターンを予測"}
           </div>
+          <div className="command-panel" aria-label="戦闘コマンド">
+            {(["通常攻撃", "防御", "星紋技"] as BattleCommand[]).map((item) => (
+              <button key={item} className={command === item ? "active" : ""} onClick={() => onCommand(item)}>
+                {item}
+              </button>
+            ))}
+          </div>
+          <p className="helper-text" data-testid="selected-command">選択中: {command}</p>
           <div className="battle-meter">
-            <span><b>隊列HP</b><i style={{ width: `${state.battle.heroHp}%` }} />{state.battle.heroHp}</span>
-            <span><b>{state.battle.enemyName}</b><i className="enemy" style={{ width: `${state.battle.enemyHp}%` }} />{state.battle.enemyHp}</span>
+            <span><b>隊列HP</b><i style={{ width: `${visibleBattle?.heroHp ?? state.battle.heroHp}%` }} />{visibleBattle?.heroHp ?? state.battle.heroHp}</span>
+            <span><b>{state.battle.enemyName}</b><i className="enemy" style={{ width: `${visibleBattle?.enemyHp ?? state.battle.enemyHp}%` }} />{visibleBattle?.enemyHp ?? state.battle.enemyHp}</span>
           </div>
           <ul className="log-list battle-log">
-            {(nextBattle?.logs ?? state.battle.logs).map((log) => (
+            {(visibleBattle?.logs ?? state.battle.logs).map((log) => (
               <li key={log.id}>{log.text}</li>
             ))}
           </ul>
@@ -261,7 +307,17 @@ function BattleScreen({ state, nextBattle, canBattle }: { state: MockState; next
   );
 }
 
-function GachaScreen({ results, billing }: { results: ReturnType<typeof mapGachaResults>; billing: string }) {
+function GachaScreen({
+  results,
+  billing,
+  roster,
+  onRecruit
+}: {
+  results: ReturnType<typeof mapGachaResults>;
+  billing: string;
+  roster: Character[];
+  onRecruit: (seed: string) => void;
+}) {
   return (
     <section className="screen" data-testid="gacha-screen">
       <div className="summon-stage" role="img" aria-label="幻晶召喚のオリジナル演出" style={{ backgroundImage: `linear-gradient(180deg, rgba(5,8,18,.06), rgba(5,8,18,.76)), url(${asset("summon-altar.png")})` }}>
@@ -269,19 +325,25 @@ function GachaScreen({ results, billing }: { results: ReturnType<typeof mapGacha
       </div>
       {billing === "payment_failed" ? <FailurePanel scenario="payment_failed" message="幻晶購入のmock決済が失敗しました。無料演出だけ表示します。" /> : null}
       <div className="result-grid">
-        {results.map((result) => (
+        {results.map((result, index) => (
           <article className={`crystal-card grade-${result.grade}`} key={result.seed}>
             <span>{result.emblem}</span>
-            <strong>{result.title}</strong>
+            <strong>{index === 0 ? "新隊員候補" : result.title}</strong>
             <small>{result.gradeLabel}</small>
+            {index === 0 ? (
+              <button data-testid={`recruit-${result.seed}`} onClick={() => onRecruit(result.seed)}>
+                名簿に迎える
+              </button>
+            ) : null}
           </article>
         ))}
       </div>
+      <p className="helper-text" data-testid="roster-count-after-gacha">現在の名簿: {roster.length}名</p>
     </section>
   );
 }
 
-function TrainingScreen({ roster }: { roster: Character[] }) {
+function TrainingScreen({ roster, onTrain }: { roster: Character[]; onTrain: (id: string) => void }) {
   return (
     <section className="screen" data-testid="training-screen">
       {roster.slice(0, 3).map((character) => (
@@ -289,9 +351,9 @@ function TrainingScreen({ roster }: { roster: Character[] }) {
           <span className="avatar small">{character.symbol}</span>
           <div>
             <h3>{character.name}</h3>
-            <p>次の星紋解放まで {Math.max(1, 30 - character.level)} 点</p>
+            <p data-testid={`training-${character.id}`}>Lv.{character.level} / 戦力{character.power} / 次の星紋解放まで {Math.max(1, 30 - character.level)} 点</p>
           </div>
-          <button>強化</button>
+          <button onClick={() => onTrain(character.id)}>強化</button>
         </article>
       ))}
     </section>

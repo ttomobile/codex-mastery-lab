@@ -1,0 +1,16 @@
+
+> sagaforge-trial-001@0.1.0 mock:doctor <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> node scripts/doctor-mock-services.mjs
+
+OK: Docker Compose - Docker Compose version v5.1.4
+OK: docker-compose.yml
+OK: /health - party_invalid
+OK: state success
+OK: state empty_roster
+OK: state offline
+OK: state timeout
+OK: state battle_win
+OK: state battle_lose
+OK: state party_invalid
+OK: state gacha_result
+OK: state payment_failed

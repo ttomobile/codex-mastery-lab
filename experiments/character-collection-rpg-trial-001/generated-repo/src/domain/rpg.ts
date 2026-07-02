@@ -45,6 +45,8 @@ export type BattleState = {
   logs: BattleLog[];
 };
 
+export type BattleCommand = "通常攻撃" | "防御" | "星紋技";
+
 export function calculateReadinessScore(party: Character[]) {
   if (party.length < 3) {
     return { valid: false, score: 0, reason: "3名以上の隊員が必要です。" };
@@ -89,6 +91,41 @@ export function advanceBattleTurn(state: BattleState, party: Character[]): Battl
   };
 }
 
+export function previewBattleCommand(state: BattleState, party: Character[], command: BattleCommand): BattleState {
+  const readiness = calculateReadinessScore(party);
+  const commandBonus = command === "星紋技" ? 18 : command === "防御" ? -8 : 0;
+  const guardBonus = command === "防御" ? 12 : 0;
+  const heroDamage = Math.max(6, (readiness.valid ? 24 : 10) + commandBonus);
+  const enemyDamage = Math.max(0, (readiness.valid ? 12 : 24) - guardBonus);
+  const nextEnemyHp = Math.max(0, state.enemyHp - heroDamage);
+
+  return {
+    ...state,
+    enemyHp: nextEnemyHp,
+    heroHp: Math.max(0, state.heroHp - (nextEnemyHp === 0 ? 0 : enemyDamage)),
+    logs: [
+      ...state.logs,
+      {
+        id: `command-${state.turn}-${command}`,
+        text: `${command}を選択: 敵へ${heroDamage}点、被害${nextEnemyHp === 0 ? 0 : enemyDamage}点の予測。`
+      }
+    ]
+  };
+}
+
+export function swapPartyMember(party: string[], outId: string, inId: string) {
+  if (!party.includes(outId) || party.includes(inId)) return party;
+  return party.map((id) => (id === outId ? inId : id));
+}
+
+export function trainCharacter(character: Character): Character {
+  return {
+    ...character,
+    level: character.level + 1,
+    power: character.power + (character.rank === 3 ? 42 : character.rank === 2 ? 34 : 26)
+  };
+}
+
 export function mapGachaResults(seeds: string[]) {
   return seeds.map((seed, index) => {
     const total = [...seed].reduce((sum, char) => sum + char.charCodeAt(0), 0) + index;
@@ -101,6 +138,19 @@ export function mapGachaResults(seeds: string[]) {
       title: grade === 3 ? "新隊員候補" : grade === 2 ? "強化紋章" : "訓練素材"
     };
   });
+}
+
+export function createRecruitFromSeed(seed: string): Character {
+  const total = [...seed].reduce((sum, char) => sum + char.charCodeAt(0), 0);
+  return {
+    id: `recruit-${seed}`,
+    name: `星紋候補${total % 100}`,
+    role: total % 2 === 0 ? "前衛" : "支援",
+    rank: total % 5 === 0 ? 3 : 2,
+    level: 28,
+    power: 430 + (total % 80),
+    symbol: total % 2 === 0 ? "槍" : "灯"
+  };
 }
 
 export function resolveScenarioServices(scenario: MockScenario) {
