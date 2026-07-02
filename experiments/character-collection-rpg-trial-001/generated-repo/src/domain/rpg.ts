@@ -7,7 +7,9 @@ export type MockScenario =
   | "battle_lose"
   | "party_invalid"
   | "gacha_result"
-  | "payment_failed";
+  | "payment_failed"
+  | "auth_anonymous"
+  | "auth_premium";
 
 export type Character = {
   id: string;
@@ -157,7 +159,15 @@ export function resolveScenarioServices(scenario: MockScenario) {
   return {
     api: scenario === "offline" ? "offline" : scenario === "timeout" ? "timeout" : "online",
     media: scenario === "offline" ? "unavailable" : "placeholder_ready",
-    auth: "guest",
+    auth: scenario === "auth_premium" ? "premium" : scenario === "auth_anonymous" ? "anonymous" : "guest",
     billing: scenario === "payment_failed" ? "payment_failed" : "sandbox_ready"
   };
+}
+
+export function canUsePremiumTraining(auth: string) {
+  return auth === "premium";
+}
+
+export function canRecruitFromGacha(billing: string) {
+  return billing !== "payment_failed";
 }

@@ -1,0 +1,39 @@
+
+> sagaforge-trial-001@0.1.0 test:e2e <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> playwright test
+
+[WebServer]  Network generated-repo_default Creating 
+[WebServer]  Network generated-repo_default Created 
+[WebServer]  Container generated-repo-mock-sagaforge-1 Creating 
+[WebServer]  Container generated-repo-mock-sagaforge-1 Created 
+[WebServer]  Container generated-repo-mock-sagaforge-1 Starting 
+[WebServer]  Container generated-repo-mock-sagaforge-1 Started 
+
+Running 24 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/sagaforge.spec.ts:13:5 › ホームから編成、遠征、戦闘、幻晶結果まで確認できる (1.4s)
+  ✓   2 [chromium] › e2e/sagaforge.spec.ts:37:5 › empty_rosterでは名簿の空状態を表示する (614ms)
+  ✓   3 [chromium] › e2e/sagaforge.spec.ts:44:5 › party_invalidでは戦闘前に編成不備を表示する (414ms)
+  ✓   4 [chromium] › e2e/sagaforge.spec.ts:51:5 › payment_failedでは幻晶画面に決済失敗を表示し加入を止める (819ms)
+  ✓   5 [chromium] › e2e/sagaforge.spec.ts:59:5 › auth状態で育成枠の表示が切り替わる (707ms)
+  ✓   6 [chromium] › e2e/sagaforge.spec.ts:71:5 › 状態画面からofflineとtimeoutへ切り替えられる (2.2s)
+  ✓   7 [chromium] › e2e/sagaforge.spec.ts:82:5 › 画面内操作でコマンド選択、編成交替、強化、召喚加入が反映される (1.8s)
+  ✓   8 [chromium] › e2e/sagaforge.spec.ts:106:5 › mock backendに編成、育成、召喚加入が保存されリロード後も残る (1.8s)
+  ✓   9 [firefox] › e2e/sagaforge.spec.ts:13:5 › ホームから編成、遠征、戦闘、幻晶結果まで確認できる (1.4s)
+  ✓  10 [firefox] › e2e/sagaforge.spec.ts:37:5 › empty_rosterでは名簿の空状態を表示する (304ms)
+  ✓  11 [firefox] › e2e/sagaforge.spec.ts:44:5 › party_invalidでは戦闘前に編成不備を表示する (307ms)
+  ✓  12 [firefox] › e2e/sagaforge.spec.ts:51:5 › payment_failedでは幻晶画面に決済失敗を表示し加入を止める (365ms)
+  ✓  13 [firefox] › e2e/sagaforge.spec.ts:59:5 › auth状態で育成枠の表示が切り替わる (566ms)
+  ✓  14 [firefox] › e2e/sagaforge.spec.ts:71:5 › 状態画面からofflineとtimeoutへ切り替えられる (1.7s)
+  ✓  15 [firefox] › e2e/sagaforge.spec.ts:82:5 › 画面内操作でコマンド選択、編成交替、強化、召喚加入が反映される (714ms)
+  ✓  16 [firefox] › e2e/sagaforge.spec.ts:106:5 › mock backendに編成、育成、召喚加入が保存されリロード後も残る (1.4s)
+  ✓  17 [webkit] › e2e/sagaforge.spec.ts:13:5 › ホームから編成、遠征、戦闘、幻晶結果まで確認できる (1.2s)
+  ✓  18 [webkit] › e2e/sagaforge.spec.ts:37:5 › empty_rosterでは名簿の空状態を表示する (405ms)
+  ✓  19 [webkit] › e2e/sagaforge.spec.ts:44:5 › party_invalidでは戦闘前に編成不備を表示する (376ms)
+  ✓  20 [webkit] › e2e/sagaforge.spec.ts:51:5 › payment_failedでは幻晶画面に決済失敗を表示し加入を止める (469ms)
+  ✓  21 [webkit] › e2e/sagaforge.spec.ts:59:5 › auth状態で育成枠の表示が切り替わる (488ms)
+  ✓  22 [webkit] › e2e/sagaforge.spec.ts:71:5 › 状態画面からofflineとtimeoutへ切り替えられる (2.1s)
+  ✓  23 [webkit] › e2e/sagaforge.spec.ts:82:5 › 画面内操作でコマンド選択、編成交替、強化、召喚加入が反映される (860ms)
+  ✓  24 [webkit] › e2e/sagaforge.spec.ts:106:5 › mock backendに編成、育成、召喚加入が保存されリロード後も残る (917ms)
+
+  24 passed (27.2s)

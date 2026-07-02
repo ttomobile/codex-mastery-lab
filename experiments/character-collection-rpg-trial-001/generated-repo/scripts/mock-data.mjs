@@ -7,7 +7,9 @@ export const scenarios = [
   "battle_lose",
   "party_invalid",
   "gacha_result",
-  "payment_failed"
+  "payment_failed",
+  "auth_anonymous",
+  "auth_premium"
 ];
 
 export function createState(scenario = "success") {
@@ -46,11 +48,15 @@ export function createState(scenario = "success") {
             : [{ id: "start", text: "影紋核が淡く脈動している。" }]
     },
     gachaSeeds: scenario === "gacha_result" ? ["aurora", "basalt", "citrine", "dawn", "ember", "flux"] : ["mist", "nova", "opal"],
-    services: {
-      api: scenario === "offline" ? "offline" : scenario === "timeout" ? "timeout" : "online",
-      media: scenario === "offline" ? "unavailable" : "placeholder_ready",
-      auth: "guest",
-      billing: scenario === "payment_failed" ? "payment_failed" : "sandbox_ready"
-    }
+    services: serviceStateForScenario(scenario)
+  };
+}
+
+export function serviceStateForScenario(scenario) {
+  return {
+    api: scenario === "offline" ? "offline" : scenario === "timeout" ? "timeout" : "online",
+    media: scenario === "offline" ? "unavailable" : "placeholder_ready",
+    auth: scenario === "auth_premium" ? "premium" : scenario === "auth_anonymous" ? "anonymous" : "guest",
+    billing: scenario === "payment_failed" ? "payment_failed" : "sandbox_ready"
   };
 }

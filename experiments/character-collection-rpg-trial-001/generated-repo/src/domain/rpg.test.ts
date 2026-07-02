@@ -3,6 +3,8 @@ import {
   advanceBattleTurn,
   calculateReadinessScore,
   createRecruitFromSeed,
+  canRecruitFromGacha,
+  canUsePremiumTraining,
   mapGachaResults,
   previewBattleCommand,
   resolveScenarioServices,
@@ -74,5 +76,16 @@ describe("幻晶結果", () => {
 describe("状態別ready判定", () => {
   it("payment_failedをbilling失敗として公開する", () => {
     expect(resolveScenarioServices("payment_failed")).toMatchObject({ billing: "payment_failed", api: "online" });
+  });
+
+  it("auth_premiumだけをプレミアム育成可能として扱う", () => {
+    expect(resolveScenarioServices("auth_premium")).toMatchObject({ auth: "premium" });
+    expect(canUsePremiumTraining("premium")).toBe(true);
+    expect(canUsePremiumTraining("anonymous")).toBe(false);
+  });
+
+  it("billing失敗中は召喚加入を止める", () => {
+    expect(canRecruitFromGacha("sandbox_ready")).toBe(true);
+    expect(canRecruitFromGacha("payment_failed")).toBe(false);
   });
 });

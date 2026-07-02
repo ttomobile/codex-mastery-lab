@@ -4,7 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import {
   advanceBattleTurn,
   calculateReadinessScore,
-  createRecruitFromSeed,
+  canRecruitFromGacha,
+  canUsePremiumTraining,
   mapGachaResults,
   previewBattleCommand,
   swapPartyMember,
@@ -90,6 +91,34 @@ export default function Page() {
     await loadState();
   }
 
+  async function postAction(path: string, body: Record<string, string>) {
+    const response = await fetch(`${mockBaseUrl}${path}`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    const payload = (await response.json()) as { ok?: boolean; message?: string; state?: MockState };
+    if (!response.ok || !payload.state) throw new Error(payload.message ?? "mock action failed");
+    setState(payload.state);
+    setLocalRoster(payload.state.roster);
+    setLocalParty(payload.state.party);
+    return payload.state;
+  }
+
+  async function persistSwap(outId: string, inId: string) {
+    setLocalParty((party) => swapPartyMember(party, outId, inId));
+    await postAction("/actions/swap-party", { outId, inId });
+  }
+
+  async function persistTrain(id: string) {
+    setLocalRoster((roster) => roster.map((character) => (character.id === id ? trainCharacter(character) : character)));
+    await postAction("/actions/train", { id });
+  }
+
+  async function persistRecruit(seed: string) {
+    await postAction("/actions/recruit", { seed });
+  }
+
   useEffect(() => {
     // 初回表示時に外部mock serviceから現在状態を同期する。
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -136,11 +165,11 @@ export default function Page() {
           <div className="screen-stack">
             {activeTab === "home" ? <HomeScreen state={state} readiness={readiness.score} /> : null}
             {activeTab === "roster" ? <RosterScreen roster={localRoster} /> : null}
-            {activeTab === "party" ? <PartyScreen roster={localRoster} party={localParty} onSwap={(outId, inId) => setLocalParty((party) => swapPartyMember(party, outId, inId))} members={partyMembers} readiness={readiness} canBattle={canBattle} /> : null}
+            {activeTab === "party" ? <PartyScreen roster={localRoster} party={localParty} onSwap={persistSwap} members={partyMembers} readiness={readiness} canBattle={canBattle} /> : null}
             {activeTab === "quest" ? <QuestScreen quests={state.quests} /> : null}
             {activeTab === "battle" ? <BattleScreen state={state} nextBattle={nextBattle} commandPreview={commandPreview} command={battleCommand} onCommand={setBattleCommand} canBattle={canBattle} /> : null}
-            {activeTab === "gacha" ? <GachaScreen results={gachaResults} billing={state.services.billing} roster={localRoster} onRecruit={(seed) => setLocalRoster((roster) => (roster.some((member) => member.id === `recruit-${seed}`) ? roster : [...roster, createRecruitFromSeed(seed)]))} /> : null}
-            {activeTab === "training" ? <TrainingScreen roster={localRoster} onTrain={(id) => setLocalRoster((roster) => roster.map((character) => character.id === id ? trainCharacter(character) : character))} /> : null}
+            {activeTab === "gacha" ? <GachaScreen results={gachaResults} billing={state.services.billing} roster={localRoster} onRecruit={persistRecruit} /> : null}
+            {activeTab === "training" ? <TrainingScreen roster={localRoster} auth={state.services.auth} onTrain={persistTrain} /> : null}
             {activeTab === "state" ? <StateScreen state={state} onChange={changeScenario} /> : null}
           </div>
         ) : null}
@@ -200,7 +229,7 @@ function PartyScreen({
 }: {
   roster: Character[];
   party: string[];
-  onSwap: (outId: string, inId: string) => void;
+  onSwap: (outId: string, inId: string) => Promise<void>;
   members: Character[];
   readiness: ReturnType<typeof calculateReadinessScore>;
   canBattle: boolean;
@@ -220,7 +249,7 @@ function PartyScreen({
             <strong>{member.name}</strong>
             <span>{member.role}</span>
             {reserves[0] ? (
-              <button data-testid={`swap-${index}`} onClick={() => onSwap(member.id, reserves[0].id)}>
+              <button data-testid={`swap-${index}`} onClick={() => void onSwap(member.id, reserves[0].id)}>
                 {reserves[0].name}と交替
               </button>
             ) : null}
@@ -316,8 +345,9 @@ function GachaScreen({
   results: ReturnType<typeof mapGachaResults>;
   billing: string;
   roster: Character[];
-  onRecruit: (seed: string) => void;
+  onRecruit: (seed: string) => Promise<void>;
 }) {
+  const canRecruit = canRecruitFromGacha(billing);
   return (
     <section className="screen" data-testid="gacha-screen">
       <div className="summon-stage" role="img" aria-label="幻晶召喚のオリジナル演出" style={{ backgroundImage: `linear-gradient(180deg, rgba(5,8,18,.06), rgba(5,8,18,.76)), url(${asset("summon-altar.png")})` }}>
@@ -331,8 +361,8 @@ function GachaScreen({
             <strong>{index === 0 ? "新隊員候補" : result.title}</strong>
             <small>{result.gradeLabel}</small>
             {index === 0 ? (
-              <button data-testid={`recruit-${result.seed}`} onClick={() => onRecruit(result.seed)}>
-                名簿に迎える
+              <button data-testid={`recruit-${result.seed}`} disabled={!canRecruit} onClick={() => void onRecruit(result.seed)}>
+                {canRecruit ? "名簿に迎える" : "加入不可"}
               </button>
             ) : null}
           </article>
@@ -343,9 +373,14 @@ function GachaScreen({
   );
 }
 
-function TrainingScreen({ roster, onTrain }: { roster: Character[]; onTrain: (id: string) => void }) {
+function TrainingScreen({ roster, auth, onTrain }: { roster: Character[]; auth: string; onTrain: (id: string) => Promise<void> }) {
+  const premiumTraining = canUsePremiumTraining(auth);
   return (
     <section className="screen" data-testid="training-screen">
+      <div className={`panel ${premiumTraining ? "" : "warning"}`} data-testid="training-auth-note">
+        <h2>{premiumTraining ? "プレミアム育成枠が有効" : "通常育成枠"}</h2>
+        <p>{premiumTraining ? "mock authがpremiumのため、強化時に追加戦力ボーナスを付与します。" : "anonymous / guestでは通常強化のみ実行できます。"}</p>
+      </div>
       {roster.slice(0, 3).map((character) => (
         <article className="training-row" key={character.id}>
           <span className="avatar small">{character.symbol}</span>
@@ -353,7 +388,7 @@ function TrainingScreen({ roster, onTrain }: { roster: Character[]; onTrain: (id
             <h3>{character.name}</h3>
             <p data-testid={`training-${character.id}`}>Lv.{character.level} / 戦力{character.power} / 次の星紋解放まで {Math.max(1, 30 - character.level)} 点</p>
           </div>
-          <button onClick={() => onTrain(character.id)}>強化</button>
+          <button onClick={() => void onTrain(character.id)}>強化</button>
         </article>
       ))}
     </section>
@@ -370,7 +405,9 @@ function StateScreen({ state, onChange }: { state: MockState; onChange: (scenari
     "battle_lose",
     "party_invalid",
     "gacha_result",
-    "payment_failed"
+    "payment_failed",
+    "auth_anonymous",
+    "auth_premium"
   ];
   return (
     <section className="screen" data-testid="state-screen">

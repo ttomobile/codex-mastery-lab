@@ -48,11 +48,24 @@ test("party_invalidでは戦闘前に編成不備を表示する", async ({ page
   await expect(page.getByTestId("failure-panel")).toContainText("前衛と支援");
 });
 
-test("payment_failedでは幻晶画面に決済失敗を表示する", async ({ page, request }) => {
+test("payment_failedでは幻晶画面に決済失敗を表示し加入を止める", async ({ page, request }) => {
   await setScenario(request, "payment_failed");
   await page.goto("/");
   await page.getByRole("button", { name: "幻晶" }).click();
   await expect(page.getByTestId("failure-panel")).toContainText("mock決済が失敗");
+  await expect(page.getByRole("button", { name: "加入不可" })).toBeDisabled();
+});
+
+test("auth状態で育成枠の表示が切り替わる", async ({ page, request }) => {
+  await setScenario(request, "auth_anonymous");
+  await page.goto("/");
+  await page.getByRole("button", { name: "育成" }).click();
+  await expect(page.getByTestId("training-auth-note")).toContainText("通常育成枠");
+
+  await setScenario(request, "auth_premium");
+  await page.reload();
+  await page.getByRole("button", { name: "育成" }).click();
+  await expect(page.getByTestId("training-auth-note")).toContainText("プレミアム育成枠が有効");
 });
 
 test("状態画面からofflineとtimeoutへ切り替えられる", async ({ page }) => {
@@ -87,5 +100,31 @@ test("画面内操作でコマンド選択、編成交替、強化、召喚加�
   await page.getByRole("button", { name: "幻晶" }).click();
   await expect(page.getByTestId("roster-count-after-gacha")).toContainText("4名");
   await page.getByTestId("recruit-aurora").click();
+  await expect(page.getByTestId("roster-count-after-gacha")).toContainText("5名");
+});
+
+test("mock backendに編成、育成、召喚加入が保存されリロード後も残る", async ({ page, request }) => {
+  await setScenario(request, "gacha_result");
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "編成" }).click();
+  await page.getByTestId("swap-2").click();
+  await expect(page.getByTestId("party-order")).toContainText("リク");
+  await page.reload();
+  await page.getByRole("button", { name: "編成" }).click();
+  await expect(page.getByTestId("party-order")).toContainText("リク");
+
+  await page.getByRole("button", { name: "育成" }).click();
+  await page.getByRole("button", { name: "強化" }).first().click();
+  await expect(page.getByTestId("training-c1")).toContainText("Lv.43");
+  await page.reload();
+  await page.getByRole("button", { name: "育成" }).click();
+  await expect(page.getByTestId("training-c1")).toContainText("Lv.43");
+
+  await page.getByRole("button", { name: "幻晶" }).click();
+  await page.getByTestId("recruit-aurora").click();
+  await expect(page.getByTestId("roster-count-after-gacha")).toContainText("5名");
+  await page.reload();
+  await page.getByRole("button", { name: "幻晶" }).click();
   await expect(page.getByTestId("roster-count-after-gacha")).toContainText("5名");
 });

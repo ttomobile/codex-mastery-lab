@@ -1,0 +1,7 @@
+
+> sagaforge-trial-001@0.1.0 doctor:playwright <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> node scripts/doctor-playwright.mjs
+
+OK: Chromium
+OK: Firefox
+OK: WebKit

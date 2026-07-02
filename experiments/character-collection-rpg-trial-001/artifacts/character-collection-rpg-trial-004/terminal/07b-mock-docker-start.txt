@@ -1,0 +1,14 @@
+
+> sagaforge-trial-001@0.1.0 mock:start <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> node scripts/start-mock-services.mjs
+
+mock services mode: docker compose
+ Network generated-repo_default Creating 
+ Network generated-repo_default Created 
+ Container generated-repo-mock-sagaforge-1 Creating 
+ Container generated-repo-mock-sagaforge-1 Created 
+ Container generated-repo-mock-sagaforge-1 Starting 
+ Container generated-repo-mock-sagaforge-1 Started 
+mock service is healthy
+http://127.0.0.1:4100/health 200 {"ok":true,"service":"mock-sagaforge","scenario":"success"}
+http://127.0.0.1:4100/state 200 {"scenario":"success","roster":[{"id":"c1","name":"アステル","role":"前衛","rank":3,"level":42,"power":620,"symbol":"剣"},{"id":"c2","name":"ミナト","role":"支援","rank":2,"level":38,"power":540,"symbol":"奏"},{"id":"c3","name":"シオン","role":"術師","rank":2,"level":36,"power":500,"symbol":"晶"},{"id":"c4","name":"リク","role":"前衛","rank":1,"level":24,"power":310,"symbol":"盾"}],"party":["c1","c2","c3"],"quests":[{"id":"q1","title":"裂光の丘","summary":"星紋反応が残る丘を短時間で調査する。","requiredPower":1400},{"id":"q2","title":"雨音の旧道","summary":"支援役の回復判断を確認する遠征。","requiredPower":1180}],"rewards":[],"battle":{"enemyName":"影紋核","heroHp":92,"enemyHp":46,"turn":1,"logs":[{"id":"start","text":"影紋核が淡く脈動している。"}]},"gachaSeeds":["mist","nova","opal"],"services":{"api":"online","media":"placeholder_ready","auth":"guest","billing":"sandbox_ready"}}

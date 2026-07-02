@@ -4,7 +4,7 @@ import { existsSync } from "node:fs";
 const healthUrl = "http://127.0.0.1:4100/health";
 const stateUrl = "http://127.0.0.1:4100/state";
 const controlUrl = "http://127.0.0.1:4100/__control/state";
-const scenarios = ["success", "empty_roster", "offline", "timeout", "battle_win", "battle_lose", "party_invalid", "gacha_result", "payment_failed"];
+const scenarios = ["success", "empty_roster", "offline", "timeout", "battle_win", "battle_lose", "party_invalid", "gacha_result", "payment_failed", "auth_anonymous", "auth_premium"];
 
 function run(command, args, options = {}) {
   return spawnSync(command, args, {
