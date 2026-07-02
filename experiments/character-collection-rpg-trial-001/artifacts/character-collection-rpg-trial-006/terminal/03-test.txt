@@ -1,0 +1,13 @@
+
+> sagaforge-trial-001@0.1.0 test <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> vitest run
+
+
+ RUN  v4.1.9 <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  06:41:51
+   Duration  995ms (transform 40ms, setup 70ms, import 28ms, tests 8ms, environment 763ms)
+

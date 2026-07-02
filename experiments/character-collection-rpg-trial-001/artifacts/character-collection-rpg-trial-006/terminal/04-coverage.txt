@@ -1,0 +1,28 @@
+
+> sagaforge-trial-001@0.1.0 test:coverage <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> vitest run --coverage
+
+
+ RUN  v4.1.9 <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+      Coverage enabled with v8
+
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  06:41:56
+   Duration  900ms (transform 43ms, setup 86ms, import 31ms, tests 9ms, environment 543ms)
+
+ % Coverage report from v8
+----------|---------|----------|---------|---------|-------------------
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------|---------|----------|---------|---------|-------------------
+All files |   95.45 |    63.15 |     100 |   97.22 |                   
+ rpg.ts   |   95.45 |    63.15 |     100 |   97.22 | 61                
+----------|---------|----------|---------|---------|-------------------
+
+=============================== Coverage summary ===============================
+Statements   : 95.45% ( 42/44 )
+Branches     : 63.15% ( 48/76 )
+Functions    : 100% ( 18/18 )
+Lines        : 97.22% ( 35/36 )
+================================================================================

@@ -1,0 +1,73 @@
+
+> sagaforge-trial-001@0.1.0 test:e2e <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> playwright test
+
+[WebServer] (node:72114) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:72125) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer]  Network generated-repo_default Creating 
+[WebServer]  Network generated-repo_default Created 
+[WebServer]  Container generated-repo-mock-api-1 Creating 
+[WebServer]  Container generated-repo-mock-media-1 Creating 
+[WebServer]  Container generated-repo-mock-billing-1 Creating 
+[WebServer]  Container generated-repo-mock-auth-1 Creating 
+[WebServer]  Container generated-repo-mock-media-1 Created 
+[WebServer]  Container generated-repo-mock-billing-1 Created 
+[WebServer]  Container generated-repo-mock-auth-1 Created 
+[WebServer]  Container generated-repo-mock-api-1 Created 
+[WebServer]  Container generated-repo-mock-api-1 Starting 
+[WebServer]  Container generated-repo-mock-auth-1 Starting 
+[WebServer]  Container generated-repo-mock-media-1 Starting 
+[WebServer]  Container generated-repo-mock-billing-1 Starting 
+[WebServer]  Container generated-repo-mock-media-1 Started 
+[WebServer]  Container generated-repo-mock-auth-1 Started 
+[WebServer]  Container generated-repo-mock-api-1 Started 
+[WebServer]  Container generated-repo-mock-billing-1 Started 
+[WebServer] (node:72146) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:72147) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:72153) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 30 tests using 1 worker
+
+(node:72155) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › e2e/sagaforge.spec.ts:14:5 › ホームから編成、遠征、戦闘、幻晶結果まで確認できる (1.8s)
+  ✓   2 [chromium] › e2e/sagaforge.spec.ts:38:5 › empty_rosterでは名簿の空状態を表示する (615ms)
+  ✓   3 [chromium] › e2e/sagaforge.spec.ts:45:5 › party_invalidでは戦闘前に編成不備を表示する (710ms)
+  ✓   4 [chromium] › e2e/sagaforge.spec.ts:52:5 › payment_failedでは幻晶画面に決済失敗を表示し加入を止める (1.0s)
+  ✓   5 [chromium] › e2e/sagaforge.spec.ts:60:5 › media_failureでは演出素材の失敗を戦闘と幻晶に表示する (988ms)
+  ✓   6 [chromium] › e2e/sagaforge.spec.ts:72:5 › 主要画面でaxeの重大なアクセシビリティ違反がない (3.0s)
+  ✓   7 [chromium] › e2e/sagaforge.spec.ts:83:5 › auth状態で育成枠の表示が切り替わる (789ms)
+  ✓   8 [chromium] › e2e/sagaforge.spec.ts:95:5 › 状態画面からofflineとtimeoutへ切り替えられる (2.5s)
+  ✓   9 [chromium] › e2e/sagaforge.spec.ts:106:5 › 画面内操作でコマンド選択、編成交替、強化、召喚加入が反映される (2.1s)
+  ✓  10 [chromium] › e2e/sagaforge.spec.ts:130:5 › mock backendに編成、育成、召喚加入が保存されリロード後も残る (2.5s)
+(node:72180) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  11 [firefox] › e2e/sagaforge.spec.ts:14:5 › ホームから編成、遠征、戦闘、幻晶結果まで確認できる (3.2s)
+  ✓  12 [firefox] › e2e/sagaforge.spec.ts:38:5 › empty_rosterでは名簿の空状態を表示する (705ms)
+  ✓  13 [firefox] › e2e/sagaforge.spec.ts:45:5 › party_invalidでは戦闘前に編成不備を表示する (664ms)
+  ✓  14 [firefox] › e2e/sagaforge.spec.ts:52:5 › payment_failedでは幻晶画面に決済失敗を表示し加入を止める (882ms)
+  ✓  15 [firefox] › e2e/sagaforge.spec.ts:60:5 › media_failureでは演出素材の失敗を戦闘と幻晶に表示する (855ms)
+  ✓  16 [firefox] › e2e/sagaforge.spec.ts:72:5 › 主要画面でaxeの重大なアクセシビリティ違反がない (5.6s)
+  ✓  17 [firefox] › e2e/sagaforge.spec.ts:83:5 › auth状態で育成枠の表示が切り替わる (1.2s)
+  ✓  18 [firefox] › e2e/sagaforge.spec.ts:95:5 › 状態画面からofflineとtimeoutへ切り替えられる (2.1s)
+  ✓  19 [firefox] › e2e/sagaforge.spec.ts:106:5 › 画面内操作でコマンド選択、編成交替、強化、召喚加入が反映される (728ms)
+  ✓  20 [firefox] › e2e/sagaforge.spec.ts:130:5 › mock backendに編成、育成、召喚加入が保存されリロード後も残る (1.9s)
+(node:72221) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  21 [webkit] › e2e/sagaforge.spec.ts:14:5 › ホームから編成、遠征、戦闘、幻晶結果まで確認できる (3.1s)
+  ✓  22 [webkit] › e2e/sagaforge.spec.ts:38:5 › empty_rosterでは名簿の空状態を表示する (980ms)
+  ✓  23 [webkit] › e2e/sagaforge.spec.ts:45:5 › party_invalidでは戦闘前に編成不備を表示する (866ms)
+  ✓  24 [webkit] › e2e/sagaforge.spec.ts:52:5 › payment_failedでは幻晶画面に決済失敗を表示し加入を止める (958ms)
+  ✓  25 [webkit] › e2e/sagaforge.spec.ts:60:5 › media_failureでは演出素材の失敗を戦闘と幻晶に表示する (907ms)
+  ✓  26 [webkit] › e2e/sagaforge.spec.ts:72:5 › 主要画面でaxeの重大なアクセシビリティ違反がない (4.2s)
+  ✓  27 [webkit] › e2e/sagaforge.spec.ts:83:5 › auth状態で育成枠の表示が切り替わる (1.2s)
+  ✓  28 [webkit] › e2e/sagaforge.spec.ts:95:5 › 状態画面からofflineとtimeoutへ切り替えられる (2.3s)
+  ✓  29 [webkit] › e2e/sagaforge.spec.ts:106:5 › 画面内操作でコマンド選択、編成交替、強化、召喚加入が反映される (1.2s)
+  ✓  30 [webkit] › e2e/sagaforge.spec.ts:130:5 › mock backendに編成、育成、召喚加入が保存されリロード後も残る (1.7s)
+
+  30 passed (58.6s)

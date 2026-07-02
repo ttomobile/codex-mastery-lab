@@ -1,0 +1,22 @@
+
+> sagaforge-trial-001@0.1.0 mock:stop <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> node scripts/stop-mock-services.mjs
+
+ Container generated-repo-mock-api-1 Stopping 
+ Container generated-repo-mock-auth-1 Stopping 
+ Container generated-repo-mock-media-1 Stopping 
+ Container generated-repo-mock-billing-1 Stopping 
+ Container generated-repo-mock-auth-1 Stopped 
+ Container generated-repo-mock-auth-1 Removing 
+ Container generated-repo-mock-auth-1 Removed 
+ Container generated-repo-mock-media-1 Stopped 
+ Container generated-repo-mock-media-1 Removing 
+ Container generated-repo-mock-media-1 Removed 
+ Container generated-repo-mock-api-1 Stopped 
+ Container generated-repo-mock-api-1 Removing 
+ Container generated-repo-mock-api-1 Removed 
+ Container generated-repo-mock-billing-1 Stopped 
+ Container generated-repo-mock-billing-1 Removing 
+ Container generated-repo-mock-billing-1 Removed 
+ Network generated-repo_default Removing 
+ Network generated-repo_default Removed 

@@ -1,0 +1,150 @@
+name: Character Collection RPG Trial 006 CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - "experiments/character-collection-rpg-trial-001/generated-repo/**"
+      - ".github/workflows/character-collection-rpg-trial006-ci.yml"
+  pull_request:
+    paths:
+      - "experiments/character-collection-rpg-trial-001/generated-repo/**"
+      - ".github/workflows/character-collection-rpg-trial006-ci.yml"
+
+jobs:
+  verification:
+    name: lint typecheck test build e2e
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    defaults:
+      run:
+        shell: bash
+        working-directory: experiments/character-collection-rpg-trial-001/generated-repo
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.24.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+          cache-dependency-path: experiments/character-collection-rpg-trial-001/generated-repo/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: |
+          set -o pipefail
+          mkdir -p ../artifacts/character-collection-rpg-trial-006/terminal
+          pnpm install --frozen-lockfile 2>&1 | tee ../artifacts/character-collection-rpg-trial-006/terminal/01-install.txt
+
+      - name: Install Playwright browsers
+        run: |
+          set -o pipefail
+          pnpm exec playwright install --with-deps 2>&1 | tee ../artifacts/character-collection-rpg-trial-006/terminal/02-playwright-install.txt
+
+      - name: Lint
+        run: |
+          set -o pipefail
+          pnpm run lint 2>&1 | tee ../artifacts/character-collection-rpg-trial-006/terminal/03-lint.txt
+
+      - name: Typecheck
+        run: |
+          set -o pipefail
+          pnpm run typecheck 2>&1 | tee ../artifacts/character-collection-rpg-trial-006/terminal/04-typecheck.txt
+
+      - name: Test
+        run: |
+          set -o pipefail
+          pnpm run test 2>&1 | tee ../artifacts/character-collection-rpg-trial-006/terminal/05-test.txt
+
+      - name: Coverage
+        run: |
+          set -o pipefail
+          pnpm run test:coverage 2>&1 | tee ../artifacts/character-collection-rpg-trial-006/terminal/06-coverage.txt
+
+      - name: Build
+        run: |
+          set -o pipefail
+          pnpm run build 2>&1 | tee ../artifacts/character-collection-rpg-trial-006/terminal/07-build.txt
+
+      - name: Playwright Doctor
+        run: |
+          set -o pipefail
+          pnpm run doctor:playwright 2>&1 | tee ../artifacts/character-collection-rpg-trial-006/terminal/08-doctor-playwright.txt
+
+      - name: Mock Doctor
+        run: |
+          set -o pipefail
+          pnpm run mock:doctor 2>&1 | tee ../artifacts/character-collection-rpg-trial-006/terminal/09-mock-doctor.txt
+
+      - name: E2E Chromium Firefox WebKit
+        run: |
+          set -o pipefail
+          pnpm run test:e2e 2>&1 | tee ../artifacts/character-collection-rpg-trial-006/terminal/10-e2e.txt
+
+      - name: Summary
+        if: always()
+        run: |
+          mkdir -p ../artifacts/character-collection-rpg-trial-006/terminal coverage playwright-report test-results
+          {
+            echo "## Character Collection RPG Trial 006"
+            echo ""
+            echo "| Evidence | Path |"
+            echo "| --- | --- |"
+            echo "| coverage | coverage/ |"
+            echo "| playwright-report | playwright-report/ |"
+            echo "| test-results | test-results/ |"
+            echo "| terminal evidence | experiments/character-collection-rpg-trial-001/artifacts/character-collection-rpg-trial-006/terminal/ |"
+          } >> "$GITHUB_STEP_SUMMARY"
+          test -e coverage/README.md || echo "coverage artifact placeholder" > coverage/README.md
+          test -e playwright-report/README.md || echo "playwright-report artifact placeholder" > playwright-report/README.md
+          test -e test-results/README.md || echo "test-results artifact placeholder" > test-results/README.md
+          {
+            echo "Character Collection RPG Trial 006 terminal evidence"
+            echo "pnpm run lint"
+            echo "pnpm run typecheck"
+            echo "pnpm run test"
+            echo "pnpm run test:coverage"
+            echo "pnpm run build"
+            echo "pnpm run doctor:playwright"
+            echo "pnpm run mock:doctor"
+            echo "pnpm run test:e2e"
+          } > ../artifacts/character-collection-rpg-trial-006/terminal/verification-summary.txt
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: character-rpg-trial006-coverage
+          path: experiments/character-collection-rpg-trial-001/generated-repo/coverage/
+          if-no-files-found: warn
+
+      - name: Upload playwright-report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: character-rpg-trial006-playwright-report
+          path: experiments/character-collection-rpg-trial-001/generated-repo/playwright-report/
+          if-no-files-found: warn
+
+      - name: Upload test-results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: character-rpg-trial006-test-results
+          path: experiments/character-collection-rpg-trial-001/generated-repo/test-results/
+          if-no-files-found: warn
+
+      - name: Upload terminal evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: character-rpg-trial006-terminal-evidence
+          path: experiments/character-collection-rpg-trial-001/artifacts/character-collection-rpg-trial-006/terminal/
+          if-no-files-found: warn

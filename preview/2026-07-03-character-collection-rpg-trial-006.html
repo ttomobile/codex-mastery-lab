@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane Dogfood 005：RPGプロトタイプを4つのmock serviceとaxe検査まで進める</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane Dogfood 006：RPGプロトタイプをroot CI artifactへ載せる</title><style>
 :root {
   color-scheme: light;
   --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
@@ -132,8 +132,8 @@ th { background:#f1f5f9; }
 <a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-002.html"><span class="chapter-num">Dogfood 02</span>AIDD Control Plane Dogfood 002：画像素材と戦闘シーンを入れて、キャラ収集RPGを“遊べそう”に近づける</a>
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-003.html"><span class="chapter-num">Dogfood 03</span>AIDD Control Plane Dogfood 003：キャラ収集RPGに「操作すると変わる」を入れる</a>
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-004.html"><span class="chapter-num">Dogfood 04</span>AIDD Control Plane Dogfood 004：キャラ収集RPGの操作をmock backendへ保存する</a>
-<a class="chapter-link current" href="2026-07-03-character-collection-rpg-trial-005.html"><span class="chapter-num">Dogfood 05</span>AIDD Control Plane Dogfood 005：RPGプロトタイプを4つのmock serviceとaxe検査まで進める</a>
-<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-006.html"><span class="chapter-num">Dogfood 06</span>AIDD Control Plane Dogfood 006：RPGプロトタイプをroot CI artifactへ載せる</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-005.html"><span class="chapter-num">Dogfood 05</span>AIDD Control Plane Dogfood 005：RPGプロトタイプを4つのmock serviceとaxe検査まで進める</a>
+<a class="chapter-link current" href="2026-07-03-character-collection-rpg-trial-006.html"><span class="chapter-num">Dogfood 06</span>AIDD Control Plane Dogfood 006：RPGプロトタイプをroot CI artifactへ載せる</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
 <a class="chapter-link past " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">過去記事 02</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
 <a class="chapter-link past " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">過去記事 03</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">過去記事 04</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
@@ -142,128 +142,89 @@ th { background:#f1f5f9; }
 <a class="chapter-link past " href="2026-06-28-aidd-spec-v0.1-workflow-saas.html"><span class="chapter-num">過去記事 07</span>AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</a>
 <a class="chapter-link past " href="2026-06-28-mobile-state-contract.html"><span class="chapter-num">過去記事 08</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-29-api-failure-state.html"><span class="chapter-num">過去記事 09</span>「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a>
-<a class="chapter-link past " href="2026-06-30-playwright-api-state.html"><span class="chapter-num">過去記事 10</span>Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-03-character-collection-rpg-trial-004.html"><span>前の記事</span>AIDD Control Plane Dogfood 004：キャラ収集RPGの操作をmock backendへ保存する</a><a class="next" href="2026-07-03-character-collection-rpg-trial-006.html"><span>次の記事</span>AIDD Control Plane Dogfood 006：RPGプロトタイプをroot CI artifactへ載せる</a></nav><article><h1>AIDD Control Plane Dogfood 005：RPGプロトタイプを4つのmock serviceとaxe検査まで進める</h1>
+<a class="chapter-link past " href="2026-06-30-playwright-api-state.html"><span class="chapter-num">過去記事 10</span>Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-03-character-collection-rpg-trial-005.html"><span>前の記事</span>AIDD Control Plane Dogfood 005：RPGプロトタイプを4つのmock serviceとaxe検査まで進める</a><span></span></nav><article><h1>AIDD Control Plane Dogfood 006：RPGプロトタイプをroot CI artifactへ載せる</h1>
 <blockquote>2026-07-03 / Codex Mastery Lab  </blockquote>
-<blockquote>対象: AIDD Control Plane Dogfood / キャラ収集ターン制RPG / mock service分割・media failure・a11y  </blockquote>
-<blockquote>結果: <strong>mock-api / mock-media / mock-auth / mock-billingを分け、media failureとaxe検査込みで30本の3ブラウザE2Eが通った</strong></blockquote>
+<blockquote>対象: AIDD Control Plane Dogfood / キャラ収集ターン制RPG / root GitHub Actions・証跡artifact  </blockquote>
+<blockquote>結果: <strong>generated repoを壊さず、root <code>.github/workflows</code> からcoverage / playwright-report / test-results / terminal evidenceを保存するCIを追加した</strong></blockquote>
 <h2>前回の振り返り</h2>
-<p>Trial 004では、編成交替・育成・召喚加入をmock backendへ保存し、リロード後にも残ることを確認した。</p>
-<p>ただし、まだAIDD Control PlaneのAI Task Packetとしては弱い点があった。</p>
-<pre><code>- mock serviceが1プロセスに寄っていた
-- media failureが画面に出ていなかった
-- E2Eにaxeアクセシビリティ検査が入っていなかった</code></pre>
-<p>キャラ収集RPG風の見た目を作るだけなら1つのmockで十分に見える。しかし、AIDD-Specの実験としては「APIは元気だがmediaだけ失敗する」「billingだけ失敗する」のように、原因を分けて確認できる必要がある。</p>
-<h2>今回の仮説</h2>
-<p>AIに「失敗状態も作って」と頼むだけだと、1つのエラーパネルで全部をまとめやすい。</p>
-<p>そこで今回は、AIDD Control Plane側の条件を次のように強めた。</p>
-<pre><code>multi_mock_contract:
-  services:
-    - mock-api: catalog/state/action persistence
-    - mock-media: battle/gacha visual asset state
-    - mock-auth: anonymous/premium training state
-    - mock-billing: payment_failed recruit blocking
-  required_endpoints:
-    - /health
-    - /state
-    - /__control/state
-  failure_state:
-    - media_failure must not break core battle/gacha information
-  accessibility:
-    - axe check on key screens in Chromium/Firefox/WebKit matrix</code></pre>
-<p>初心者向けに言うと、これは「冷蔵庫、財布、鍵、スマホ」を1つのチェック欄にせず、旅行前の持ち物リストとして分けて確認するようなものだ。全部を「準備OK」にまとめると、何が足りないのか分からない。</p>
-<h2>実装したこと</h2>
+<p>Trial 005では、キャラ収集ターン制RPGプロトタイプのmock backendを次の4 serviceへ分けた。</p>
+<pre><code>mock-api
+mock-media
+mock-auth
+mock-billing</code></pre>
+<p>それぞれに<code>/health</code>、<code>/state</code>、<code>/__control/state</code>を持たせ、media failure、premium training、billing failed、axe検査を3ブラウザE2Eで確認できるところまで進めた。</p>
+<p>ただし、100点アプリクローン実験の条件としては、まだ重要な穴があった。CI workflowがroot <code>.github/workflows/</code> に置かれ、検証結果のartifactが保存される状態になっていないと、ローカルで通っただけのプロトタイプで止まってしまう。</p>
+<h2>今回の目的</h2>
+<p>Trial 006では、アプリ本体を広げずに検証面を固めることにした。</p>
+<pre><code>- 既存の generated-repo を壊さない
+- root .github/workflows にRPG dogfood用CI workflowを置く
+- coverage / playwright-report / test-results をartifact保存する
+- terminal evidenceもartifact保存する
+- 記事とpreviewの連載順へTrial 006を追加する</code></pre>
+<p>実在IP、ロゴ、公式文言は使わず、RPG風の体験パターンだけを抽象化したプロトタイプとして扱う。</p>
+<h2>追加したCI</h2>
+<p>追加したworkflowは<code>Character Collection RPG Trial 006 CI</code>。</p>
+<p>対象ディレクトリは既存のまま、次をworking directoryにしている。</p>
+<pre><code>experiments/character-collection-rpg-trial-001/generated-repo</code></pre>
+<p>実行するgateは次の通り。</p>
+<pre><code>pnpm install --frozen-lockfile
+pnpm exec playwright install --with-deps
+pnpm run lint
+pnpm run typecheck
+pnpm run test
+pnpm run test:coverage
+pnpm run build
+pnpm run doctor:playwright
+pnpm run mock:doctor
+pnpm run test:e2e</code></pre>
+<p>Playwrightは既存設定のChromium / Firefox / WebKitを使う。Firefoxの遅延を吸収するため、既存の<code>playwright.config.ts</code>では<code>timeout: 120_000</code>、<code>expect: 90_000</code>、<code>workers: 1</code>、local retryが設定済みだったので、CI側ではその設定を尊重した。</p>
+<h2>保存するartifact</h2>
+<p>CIでは次の4種類を保存する。</p>
 <table>
-<tr><th>項目</th><th>追加したこと</th><th>E2Eで確認したこと</th></tr>
-<tr><td>mock service分割</td><td><code>mock-api</code>, <code>mock-media</code>, <code>mock-auth</code>, <code>mock-billing</code>をDocker Compose / Node fallbackで起動</td><td>4 serviceの<code>/health</code>と<code>/state</code>が通る</td></tr>
-<tr><td>media failure</td><td><code>media_failure</code> scenarioを追加</td><td>戦闘・幻晶でmedia失敗を表示し、HP/ログ/結果カードは残る</td></tr>
-<tr><td>axe検査</td><td><code>@axe-core/playwright</code>を追加</td><td>主要画面で重大なaxe違反がない</td></tr>
-<tr><td>3ブラウザE2E</td><td>8本から10本へ増加</td><td>Chromium / Firefox / WebKitで合計30本pass</td></tr>
+<tr><th>artifact</th><th>保存元</th></tr>
+<tr><td>coverage</td><td><code>experiments/character-collection-rpg-trial-001/generated-repo/coverage/</code></td></tr>
+<tr><td>playwright-report</td><td><code>experiments/character-collection-rpg-trial-001/generated-repo/playwright-report/</code></td></tr>
+<tr><td>test-results</td><td><code>experiments/character-collection-rpg-trial-001/generated-repo/test-results/</code></td></tr>
+<tr><td>terminal evidence</td><td><code>experiments/character-collection-rpg-trial-001/artifacts/character-collection-rpg-trial-006/terminal/</code></td></tr>
 </table>
-<h2>4つのmock serviceへ分ける</h2>
-<p><img src="assets/2026-07-03-sagaforge-trial-005-state-services.png" alt="SagaForge Trial 005 service state" loading="lazy"></p>
-<p>今回、mock起動を次の4 serviceへ分けた。</p>
-<pre><code>mock-api      : 4100
-mock-media    : 4101
-mock-auth     : 4102
-mock-billing  : 4103</code></pre>
-<p>各serviceは最低限、次のエンドポイントを持つ。</p>
-<pre><code>/health
-/state
-/__control/state</code></pre>
-<p>UIは引き続き<code>mock-api</code>を入口にしているが、状態画面には<code>api / media / auth / billing</code>の個別状態が見える。これにより、AIDD Control Planeは「画面が壊れている」ではなく「mediaだけ壊れている」「billingだけ失敗している」と説明しやすくなる。</p>
-<p>Docker Compose経路も確認した。</p>
-<pre><code>api: mock-api OK scenario=success
-media: mock-media OK scenario=success
-auth: mock-auth OK scenario=success
-billing: mock-billing OK scenario=success</code></pre>
-<h2>media failureでもゲーム進行情報を残す</h2>
-<p><img src="assets/2026-07-03-sagaforge-trial-005-media-battle.png" alt="SagaForge Trial 005 media battle" loading="lazy"></p>
-<p><code>media_failure</code>では、戦闘背景や敵演出のmock media取得に失敗した扱いにした。</p>
-<p>ただし、画面全体を真っ白にしない。E2Eでは次を確認している。</p>
-<pre><code>戦闘画面:
-- mock media取得に失敗した説明が見える
-- HPと戦闘ログは残る
-- 操作可能な戦闘コマンドは残る</code></pre>
-<p>これは、実アプリの障害対応でも重要だ。画像や演出が落ちても、ユーザーが「何が起きたか」を読める状態にする。</p>
-<h2>召喚演出も結果カードを残す</h2>
-<p><img src="assets/2026-07-03-sagaforge-trial-005-media-gacha.png" alt="SagaForge Trial 005 media gacha" loading="lazy"></p>
-<p>幻晶画面でも同じ方針にした。</p>
-<pre><code>召喚演出のmock media取得に失敗しました。
-結果カードだけ安全に表示します。</code></pre>
-<p>派手な演出がなくても、結果カードと名簿状態は確認できる。AIDD Control PlaneのAI Task Packetでは、media failureを「全部止める」ではなく「本当に必要な情報を残す」と書くべきだと分かった。</p>
-<h2>axeアクセシビリティ検査をE2Eへ入れる</h2>
-<p>今回はPlaywrightに<code>@axe-core/playwright</code>を追加し、主要画面を巡回してaxeを実行した。</p>
-<p>対象画面は次の通り。</p>
-<pre><code>ホーム
-編成
-戦闘
-幻晶
-育成
-状態</code></pre>
-<p><code>color-contrast</code>はOS/レンダリング差分の影響が出やすいため、今回の機能E2Eでは無効化し、構造的な重大違反を優先している。これは「見た目を点数化しない」という意味ではなく、CIで安定して確認する対象を分けるための判断だ。</p>
-<h2>検証結果</h2>
-<p><img src="assets/2026-07-03-sagaforge-trial-005-terminal-evidence.png" alt="SagaForge Trial 005 terminal evidence" loading="lazy"></p>
-<p>ローカル検証は以下の通り。</p>
+<p>terminal evidenceはCI上でも<code>tee</code>で残す。ローカル検証でも同じTrial 006ディレクトリへログを保存するため、後から「どのgateが通ったか」を追いやすい。</p>
+<h2>ローカル検証</h2>
+<p>ローカルでは次のログを保存した。</p>
+<pre><code>experiments/character-collection-rpg-trial-001/artifacts/character-collection-rpg-trial-006/terminal/</code></pre>
 <table>
 <tr><th>command</th><th>result</th></tr>
 <tr><td><code>pnpm run lint</code></td><td>pass</td></tr>
 <tr><td><code>pnpm run typecheck</code></td><td>pass</td></tr>
 <tr><td><code>pnpm run test</code></td><td>11 tests passed</td></tr>
-<tr><td><code>pnpm run test:coverage</code></td><td>pass / statements 95.45%</td></tr>
+<tr><td><code>pnpm run test:coverage</code></td><td>pass / statements 95.45%、branches 63.15%、functions 100%、lines 97.22%</td></tr>
 <tr><td><code>pnpm run build</code></td><td>pass</td></tr>
 <tr><td><code>pnpm run doctor:playwright</code></td><td>Chromium / Firefox / WebKit OK</td></tr>
-<tr><td><code>pnpm run mock:doctor</code></td><td>pass / 4 service health確認</td></tr>
-<tr><td>Docker Compose mock start</td><td>pass / 4 service health確認</td></tr>
-<tr><td><code>pnpm run test:e2e</code></td><td>30 tests passed</td></tr>
+<tr><td><code>pnpm run mock:doctor</code></td><td>pass / Docker Compose確認、Node fallback起動、4 service health確認</td></tr>
+<tr><td><code>pnpm run test:e2e</code></td><td>30 tests passed / Chromium・Firefox・WebKit</td></tr>
 </table>
-<p>E2Eは10シナリオ × 3ブラウザ。</p>
-<pre><code>Chromium
-Firefox
-WebKit</code></pre>
-<p>全部通った。</p>
-<h2>AIDD Control Planeへ戻すルール</h2>
-<p>今回の学びは、次回以降のAI Task Packet生成ルールへ戻せる。</p>
-<pre><code>service_failure_contract:
-  do_not_merge_all_failures_into_one_error:
-    - api
-    - media
-    - auth
-    - billing
-  media_failure:
-    required_ui:
-      - visible_failure_reason
-      - core_game_state_still_readable
-      - battle_log_or_result_cards_remain
-  verification:
-    - each_service_health_and_state
-    - docker_compose_path
-    - node_fallback_path
-    - axe_on_key_screens
-    - chromium_firefox_webkit_e2e</code></pre>
-<p>AIDD Control Planeがやるべきことは、「RPGっぽい画面を作る」だけではない。作りたいアプリを、mock service、失敗状態、保存、アクセシビリティ、3ブラウザ検証へ分解してAIへ渡すことだ。</p>
+<p>E2Eは10シナリオを3ブラウザで実行した。</p>
+<pre><code>30 passed (58.6s)</code></pre>
+<p>最後に<code>pnpm run mock:stop</code>も実行し、E2Eで起動したDocker Compose mock serviceを停止した。</p>
+<h2>今回の意味</h2>
+<p>Trial 006で増えたのは、派手な画面ではない。むしろ、ユーザーから見えるゲーム機能はほぼ触っていない。</p>
+<p>重要なのは、AIDD Control Planeが作ったプロトタイプを「見た目が動く」から「第三者がCI artifactで確認できる」へ進めたことだ。</p>
+<pre><code>dogfood_ci_contract:
+  source:
+    - do_not_break_existing_generated_repo
+  required_gates:
+    - lint
+    - typecheck
+    - unit_test
+    - coverage
+    - build
+    - playwright_doctor
+    - mock_doctor
+    - chromium_firefox_webkit_e2e
+  required_artifacts:
+    - coverage
+    - playwright_report
+    - test_results
+    - terminal_evidence</code></pre>
+<p>この条件がroot CIにあると、次回以降のRPG dogfood改善も、画面追加だけでなく検証証跡込みで判断できる。</p>
 <h2>次回</h2>
-<p>Trial 006候補は次の通り。</p>
-<pre><code>- root GitHub Actions workflowでこのRPG dogfoodをCI artifact付きで回す
-- mock service間の状態同期ルールをより厳密にする
-- AIDD Control Plane側のAI Task Packetテンプレートにmulti_mock_contractを取り込む
-- media failure以外に、auth timeout / billing retry / api offlineの個別復旧導線を追加する</code></pre></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-03-character-collection-rpg-trial-004.html"><span>前の記事</span>AIDD Control Plane Dogfood 004：キャラ収集RPGの操作をmock backendへ保存する</a><a class="next" href="2026-07-03-character-collection-rpg-trial-006.html"><span>次の記事</span>AIDD Control Plane Dogfood 006：RPGプロトタイプをroot CI artifactへ載せる</a></nav></main></div></body></html>
+<p>Trial 007では、CI成功結果をGitHub Actions上で確認し、artifactの中身まで記事へ反映する。余力があれば、api offline、auth timeout、billing retryを個別復旧できる画面状態として追加する。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-03-character-collection-rpg-trial-005.html"><span>前の記事</span>AIDD Control Plane Dogfood 005：RPGプロトタイプを4つのmock serviceとaxe検査まで進める</a><span></span></nav></main></div></body></html>

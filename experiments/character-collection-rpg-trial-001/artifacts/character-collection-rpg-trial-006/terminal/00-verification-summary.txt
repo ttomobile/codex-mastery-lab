@@ -1,0 +1,15 @@
+Character Collection RPG Trial 006 terminal evidence
+
+Working directory:
+experiments/character-collection-rpg-trial-001/generated-repo
+
+Results:
+- pnpm run lint: pass
+- pnpm run typecheck: pass
+- pnpm run test: 11 tests passed
+- pnpm run test:coverage: pass, statements 95.45%, branches 63.15%, functions 100%, lines 97.22%
+- pnpm run build: pass
+- pnpm run doctor:playwright: Chromium / Firefox / WebKit OK
+- pnpm run mock:doctor: pass, Docker Compose detected, Node fallback and four mock service health checks passed
+- pnpm run test:e2e: 30 passed across Chromium / Firefox / WebKit
+- pnpm run mock:stop: Docker Compose mock services stopped
