@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 ARTICLES = ROOT / 'articles'
 ASSETS = ROOT / 'assets'
+PLAYABLES = ROOT / 'playables'
 OUT = ROOT / 'preview'
 OUT_ASSETS = OUT / 'assets'
 
@@ -370,6 +371,10 @@ def main():
         md = p.read_text(encoding='utf-8')
         body = f'{prev_next(past_items, idx)}<article>{md_to_html(md)}</article>{prev_next(past_items, idx)}'
         (OUT/href).write_text(page(title, body, series_items, control_items, dogfood_items, past_items, href), encoding='utf-8')
+    if PLAYABLES.exists():
+        for playable in PLAYABLES.iterdir():
+            if playable.is_dir():
+                shutil.copytree(playable, OUT / playable.name, dirs_exist_ok=True)
     print(f'Wrote {len(all_items)} articles to {OUT}')
 
 if __name__ == '__main__':
