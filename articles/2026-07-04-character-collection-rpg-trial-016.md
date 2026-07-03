@@ -93,6 +93,12 @@
 
 召喚画面では、10連結果をSS/S/Aのスタイルカードとして表示し、重複時はピース変換になる説明を入れた。公式確率、公式文言、公式UIコピーは使っていない。
 
+![Trial 016 Gacha Results](../assets/2026-07-04-character-collection-rpg-trial-016-gacha-results.png)
+
+### 7. 召喚・状態も下部ナビから直接触れるようにした
+
+初回版ではホーム/スタイル/編成/クエスト/戦闘の5タブが中心で、召喚と失敗状態が導線として弱かった。今回の追加確認で、下部ナビを7タブにし、**召喚** と **状態** を常時触れる入口にした。これで「10連結果」と「通信エラー/スタミナ不足/決済失敗」をユーザーが迷わず試せる。
+
 ## 失敗状態も残した
 
 Playableの状態画面では、次を切り替えられる。
@@ -128,6 +134,8 @@ assets/2026-07-04-character-collection-rpg-trial-016-playable-home.png
 assets/2026-07-04-character-collection-rpg-trial-016-style-cards.png
 assets/2026-07-04-character-collection-rpg-trial-016-formation.png
 assets/2026-07-04-character-collection-rpg-trial-016-battle-tempo.png
+assets/2026-07-04-character-collection-rpg-trial-016-gacha-results.png
+assets/2026-07-04-character-collection-rpg-trial-016-failure-state.png
 ```
 
 ## AIDD-Specへの戻し

@@ -1,79 +1,10 @@
 ## build preview
-Wrote 62 articles to WORKSPACE/preview
-## capture playable screenshots
-{"visibleRound":true,"styleCards":5,"gachaResults":10}
-Wrote 62 articles to WORKSPACE/preview
-## local preview http checks
-HTTP/1.0 200 OK
-Server: SimpleHTTP/0.6 Python/3.9.6
-Date: Fri, 03 Jul 2026 19:20:28 GMT
-Content-type: text/html
-Content-Length: 22040
-Last-Modified: Fri, 03 Jul 2026 19:18:18 GMT
-
-HTTP/1.0 200 OK
-Server: SimpleHTTP/0.6 Python/3.9.6
-Date: Fri, 03 Jul 2026 19:20:28 GMT
-Content-type: image/png
-Content-Length: 2868814
-Last-Modified: Fri, 03 Jul 2026 17:18:53 GMT
-
-HTTP/1.0 200 OK
-Server: SimpleHTTP/0.6 Python/3.9.6
-Date: Fri, 03 Jul 2026 19:20:28 GMT
-Content-type: image/png
-Content-Length: 2481271
-Last-Modified: Fri, 03 Jul 2026 17:18:53 GMT
-
-HTTP/1.0 200 OK
-Server: SimpleHTTP/0.6 Python/3.9.6
-Date: Fri, 03 Jul 2026 19:20:28 GMT
-Content-type: image/png
-Content-Length: 165444
-Last-Modified: Fri, 03 Jul 2026 19:20:14 GMT
-
-## public URL checks
-HTTP/2 200 
-content-type: text/html
-date: Fri, 03 Jul 2026 19:20:28 GMT
-last-modified: Fri, 03 Jul 2026 19:18:18 GMT
-server: SimpleHTTP/0.6 Python/3.9.6
-content-length: 22040
-
-HTTP/2 200 
-content-type: image/png
-date: Fri, 03 Jul 2026 19:20:28 GMT
-last-modified: Fri, 03 Jul 2026 17:18:53 GMT
-server: SimpleHTTP/0.6 Python/3.9.6
-content-length: 2868814
-
-## rebuild after public-text sanitization
-Wrote 62 articles to WORKSPACE/preview
-{"visibleRound":true,"styleCards":5,"gachaResults":10}
-Wrote 62 articles to WORKSPACE/preview
-## public URL checks after rebuild
-HTTP/2 200 
-content-type: text/html
-date: Fri, 03 Jul 2026 19:21:07 GMT
-last-modified: Fri, 03 Jul 2026 19:20:53 GMT
-server: SimpleHTTP/0.6 Python/3.9.6
-content-length: 22049
-
-HTTP/2 200 
-content-type: image/png
-date: Fri, 03 Jul 2026 19:21:07 GMT
-last-modified: Fri, 03 Jul 2026 17:18:53 GMT
-server: SimpleHTTP/0.6 Python/3.9.6
-content-length: 2868814
-
-HTTP/2 200 
-content-type: image/png
-date: Fri, 03 Jul 2026 19:21:07 GMT
-last-modified: Fri, 03 Jul 2026 19:21:00 GMT
-server: SimpleHTTP/0.6 Python/3.9.6
-content-length: 165444
-
-## root npm test
+Wrote 63 articles to WORKSPACE/preview
+## capture playable trial016
+screenshots captured: 2026-07-04-character-collection-rpg-trial-016-playable-home.png, 2026-07-04-character-collection-rpg-trial-016-style-cards.png, 2026-07-04-character-collection-rpg-trial-016-formation.png, 2026-07-04-character-collection-rpg-trial-016-battle-tempo.png, 2026-07-04-character-collection-rpg-trial-016-gacha-results.png, 2026-07-04-character-collection-rpg-trial-016-failure-state.png
+visible bottom nav: ホーム / スタイル / 編成 / クエスト / 戦闘 / 召喚 / 状態
+verified: home, styles, party, quest-to-battle, BP/Round battle, gacha, failure state
+## npm test root preview smoke
 
 > codex-mastery-lab@1.0.0 test
 > node --check experiments/2026-06-28-mobile-state-contract/vibe-app/script.js && node --check experiments/2026-06-28-mobile-state-contract/fixed-app/script.js && python3 experiments/2026-06-28-mobile-state-contract/audit_mobile_state.py experiments/2026-06-28-mobile-state-contract/fixed-app && python3 scripts/build_preview.py
@@ -93,4 +24,12 @@ content-length: 165444
 合格: MOBILE_STATE_EVIDENCE.md がある
 合格: 証拠ファイルに状態設計/検証コマンド/既知制約がある
 SUMMARY: 14 passed / 0 failed
-Wrote 62 articles to WORKSPACE/preview
+Wrote 63 articles to WORKSPACE/preview
+## local preview http smoke
+200 LOCAL_PREVIEW_URL/sagaforge-app/index.html
+200 LOCAL_PREVIEW_URL/sagaforge-app/assets/party-key-art.png
+200 LOCAL_PREVIEW_URL/assets/2026-07-04-character-collection-rpg-trial-016-gacha-results.png
+200 LOCAL_PREVIEW_URL/assets/2026-07-04-character-collection-rpg-trial-016-failure-state.png
+## public URL smoke
+200 PUBLIC_PREVIEW_URL/sagaforge-app/index.html
+200 PUBLIC_PREVIEW_URL/sagaforge-app/assets/party-key-art.png
