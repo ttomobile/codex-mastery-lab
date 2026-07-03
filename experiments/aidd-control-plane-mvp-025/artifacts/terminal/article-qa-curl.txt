@@ -1,0 +1,9 @@
+## index classification
+[('AIDD Control Plane SaaS化', 5668), ('MVP025', 8795), ('過去記事', 10632)]
+classification: ok
+## article and image fetch
+article sections/images: ok
+aidd-control-plane-mvp025-empty.png 136117 bytes
+aidd-control-plane-mvp025-valid.png 131969 bytes
+aidd-control-plane-mvp025-failure.png 129122 bytes
+aidd-control-plane-mvp025-terminal-evidence.png 148687 bytes
