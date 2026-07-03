@@ -4,6 +4,7 @@ export const scenarios = [
   "offline",
   "timeout",
   "battle_win",
+  "battle_win_payment_failed",
   "battle_lose",
   "party_invalid",
   "gacha_result",
@@ -14,6 +15,7 @@ export const scenarios = [
 ];
 
 export function createState(scenario = "success") {
+  const hasBattleWinRewards = scenario === "battle_win" || scenario === "battle_win_payment_failed";
   const roster = [
     { id: "c1", name: "アステル", role: "前衛", rank: 3, level: 42, power: 620, symbol: "剣" },
     { id: "c2", name: "ミナト", role: "支援", rank: 2, level: 38, power: 540, symbol: "奏" },
@@ -30,7 +32,7 @@ export function createState(scenario = "success") {
       { id: "q2", title: "雨音の旧道", summary: "支援役の回復判断を確認する遠征。", requiredPower: 1180 }
     ],
     rewards:
-      scenario === "battle_win"
+      hasBattleWinRewards
         ? [
             { id: "r1", label: "星屑", amount: 40 },
             { id: "r2", label: "訓練札", amount: 3 }
@@ -38,16 +40,16 @@ export function createState(scenario = "success") {
         : [],
     rewardLedger: {
       claimed: false,
-      claimId: scenario === "battle_win" ? "claim-battle-win-001" : "pending-battle-result",
-      evidencePath: scenario === "battle_win" ? "artifacts/reward-ledger/battle-win-claim.json" : "artifacts/reward-ledger/pending.json"
+      claimId: hasBattleWinRewards ? "claim-battle-win-001" : "pending-battle-result",
+      evidencePath: hasBattleWinRewards ? "artifacts/reward-ledger/battle-win-claim.json" : "artifacts/reward-ledger/pending.json"
     },
     battle: {
       enemyName: "影紋核",
       heroHp: scenario === "battle_lose" ? 0 : 92,
-      enemyHp: scenario === "battle_win" ? 0 : 46,
-      turn: scenario === "battle_win" || scenario === "battle_lose" ? 5 : 1,
+      enemyHp: hasBattleWinRewards ? 0 : 46,
+      turn: hasBattleWinRewards || scenario === "battle_lose" ? 5 : 1,
       logs:
-        scenario === "battle_win"
+        hasBattleWinRewards
           ? [{ id: "win", text: "星紋連携が決まり、影紋核は沈黙した。" }]
           : scenario === "battle_lose"
             ? [{ id: "lose", text: "防御が崩れ、遠征隊は撤退した。" }]
@@ -63,6 +65,6 @@ export function serviceStateForScenario(scenario) {
     api: scenario === "offline" ? "offline" : scenario === "timeout" ? "timeout" : "online",
     media: scenario === "offline" ? "unavailable" : scenario === "media_failure" ? "render_failed" : "placeholder_ready",
     auth: scenario === "auth_premium" ? "premium" : scenario === "auth_anonymous" ? "anonymous" : "guest",
-    billing: scenario === "payment_failed" ? "payment_failed" : "sandbox_ready"
+    billing: scenario === "payment_failed" || scenario === "battle_win_payment_failed" ? "payment_failed" : "sandbox_ready"
   };
 }

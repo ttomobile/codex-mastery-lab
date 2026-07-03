@@ -460,6 +460,7 @@ function StateScreen({ state, onChange }: { state: MockState; onChange: (scenari
     "offline",
     "timeout",
     "battle_win",
+    "battle_win_payment_failed",
     "battle_lose",
     "party_invalid",
     "gacha_result",

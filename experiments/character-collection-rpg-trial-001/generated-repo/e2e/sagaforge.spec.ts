@@ -172,3 +172,18 @@ test("報酬台帳で勝利報酬を受け取り、二重受取を止めて保�
   await page.getByRole("button", { name: "報酬" }).click();
   await expect(page.getByTestId("reward-claim-state")).toContainText("受取済");
 });
+
+test("billing失敗中は勝利済みでも報酬受取を保留し課金誤認を防ぐ", async ({ page, request }) => {
+  await setScenario(request, "battle_win_payment_failed");
+  await page.goto("/");
+  await page.getByRole("button", { name: "報酬" }).click();
+
+  await expect(page.getByTestId("reward-screen")).toContainText("星屑");
+  await expect(page.getByTestId("reward-claim-state")).toContainText("mock billingが失敗中");
+  await expect(page.getByTestId("claim-reward")).toBeDisabled();
+
+  const response = await request.post(`${mockBaseUrl}/actions/claim-reward`, { data: {} });
+  expect(response.status()).toBe(402);
+  const body = await response.json();
+  expect(body.message).toContain("billing失敗中");
+});

@@ -1,0 +1,172 @@
+
+> sagaforge-trial-001@0.1.0 lint <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> eslint .
+
+
+> sagaforge-trial-001@0.1.0 typecheck <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> tsc --noEmit
+
+
+> sagaforge-trial-001@0.1.0 test <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> vitest run
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.9 [39m[90m<repo>/experiments/character-collection-rpg-trial-001/generated-repo[39m
+
+ [32m✓[39m src/domain/rpg.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m12 passed[39m[22m[90m (12)[39m
+[2m   Start at [22m 02:23:32
+[2m   Duration [22m 497ms[2m (transform 20ms, setup 35ms, import 15ms, tests 4ms, environment 377ms)[22m
+
+
+> sagaforge-trial-001@0.1.0 build <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> next build
+
+▲ Next.js 16.2.9 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 726ms
+  Running TypeScript ...
+  Finished TypeScript in 1018ms ...
+  Collecting page data using 4 workers ...
+  Generating static pages using 4 workers (0/3) ...
+✓ Generating static pages using 4 workers (3/3) in 147ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+
+
+> sagaforge-trial-001@0.1.0 doctor:playwright <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> node scripts/doctor-playwright.mjs
+
+OK: Chromium
+OK: Firefox
+OK: WebKit
+
+> sagaforge-trial-001@0.1.0 mock:doctor <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> node scripts/doctor-mock-services.mjs
+
+OK: Docker Compose - Docker Compose version v5.1.4
+OK: docker-compose.yml
+
+> sagaforge-trial-001@0.1.0 mock:start <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> node scripts/start-mock-services.mjs
+
+mock services mode: node fallback
+mock service is healthy
+OK: Node fallback 起動
+OK: /health - success
+OK: api /health /state - success
+OK: media /health /state - success
+OK: auth /health /state - success
+OK: billing /health /state - success
+OK: state success
+OK: state empty_roster
+OK: state offline
+OK: state timeout
+OK: state battle_win
+OK: state battle_win_payment_failed
+OK: state battle_lose
+OK: state party_invalid
+OK: state gacha_result
+OK: state media_failure
+OK: state payment_failed
+OK: state auth_anonymous
+OK: state auth_premium
+
+> sagaforge-trial-001@0.1.0 mock:stop <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> node scripts/stop-mock-services.mjs
+
+stopped mock-api pid=25230
+stopped mock-media pid=25235
+stopped mock-auth pid=25240
+stopped mock-billing pid=25245
+OK: doctor起動分の停止
+
+> sagaforge-trial-001@0.1.0 test:coverage <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> vitest run --coverage
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.9 [39m[90m<repo>/experiments/character-collection-rpg-trial-001/generated-repo[39m
+      [2mCoverage enabled with [22m[33mv8[39m
+
+ [32m✓[39m src/domain/rpg.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m12 passed[39m[22m[90m (12)[39m
+[2m   Start at [22m 02:23:40
+[2m   Duration [22m 423ms[2m (transform 19ms, setup 35ms, import 14ms, tests 4ms, environment 261ms)[22m
+
+[34m % [39m[2mCoverage report from [22m[33mv8[39m
+----------|---------|----------|---------|---------|-------------------
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------|---------|----------|---------|---------|-------------------
+All files |   96.07 |    66.66 |     100 |   97.67 |                   
+ rpg.ts   |   96.07 |    66.66 |     100 |   97.67 | 64                
+----------|---------|----------|---------|---------|-------------------
+[WebServer]  Network generated-repo_default Creating 
+[WebServer]  Network generated-repo_default Created 
+[WebServer]  Container generated-repo-mock-api-1 Creating 
+[WebServer]  Container generated-repo-mock-billing-1 Creating 
+[WebServer]  Container generated-repo-mock-media-1 Creating 
+[WebServer]  Container generated-repo-mock-auth-1 Creating 
+[WebServer]  Container generated-repo-mock-auth-1 Created 
+[WebServer]  Container generated-repo-mock-billing-1 Created 
+[WebServer]  Container generated-repo-mock-media-1 Created 
+[WebServer]  Container generated-repo-mock-api-1 Created 
+[WebServer]  Container generated-repo-mock-billing-1 Starting 
+[WebServer]  Container generated-repo-mock-auth-1 Starting 
+[WebServer]  Container generated-repo-mock-api-1 Starting 
+[WebServer]  Container generated-repo-mock-media-1 Starting 
+[WebServer]  Container generated-repo-mock-media-1 Started 
+[WebServer]  Container generated-repo-mock-api-1 Started 
+[WebServer]  Container generated-repo-mock-billing-1 Started 
+[WebServer]  Container generated-repo-mock-auth-1 Started 
+
+Running 36 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/sagaforge.spec.ts:14:5 › ホームから編成、遠征、戦闘、幻晶結果まで確認できる (1.0s)
+  ✓   2 [chromium] › e2e/sagaforge.spec.ts:38:5 › empty_rosterでは名簿の空状態を表示する (297ms)
+  ✓   3 [chromium] › e2e/sagaforge.spec.ts:45:5 › party_invalidでは戦闘前に編成不備を表示する (295ms)
+  ✓   4 [chromium] › e2e/sagaforge.spec.ts:52:5 › payment_failedでは幻晶画面に決済失敗を表示し加入を止める (473ms)
+  ✓   5 [chromium] › e2e/sagaforge.spec.ts:60:5 › media_failureでは演出素材の失敗を戦闘と幻晶に表示する (389ms)
+  ✓   6 [chromium] › e2e/sagaforge.spec.ts:72:5 › 主要画面でaxeの重大なアクセシビリティ違反がない (1.3s)
+  ✓   7 [chromium] › e2e/sagaforge.spec.ts:83:5 › auth状態で育成枠の表示が切り替わる (398ms)
+  ✓   8 [chromium] › e2e/sagaforge.spec.ts:95:5 › 状態画面からofflineとtimeoutへ切り替えられる (1.7s)
+  ✓   9 [chromium] › e2e/sagaforge.spec.ts:106:5 › 画面内操作でコマンド選択、編成交替、強化、召喚加入が反映される (677ms)
+  ✓  10 [chromium] › e2e/sagaforge.spec.ts:130:5 › mock backendに編成、育成、召喚加入が保存されリロード後も残る (818ms)
+  ✓  11 [chromium] › e2e/sagaforge.spec.ts:156:5 › 報酬台帳で勝利報酬を受け取り、二重受取を止めて保存する (520ms)
+  ✓  12 [chromium] › e2e/sagaforge.spec.ts:176:5 › billing失敗中は勝利済みでも報酬受取を保留し課金誤認を防ぐ (329ms)
+  ✓  13 [firefox] › e2e/sagaforge.spec.ts:14:5 › ホームから編成、遠征、戦闘、幻晶結果まで確認できる (1.4s)
+  ✓  14 [firefox] › e2e/sagaforge.spec.ts:38:5 › empty_rosterでは名簿の空状態を表示する (306ms)
+  ✓  15 [firefox] › e2e/sagaforge.spec.ts:45:5 › party_invalidでは戦闘前に編成不備を表示する (294ms)
+  ✓  16 [firefox] › e2e/sagaforge.spec.ts:52:5 › payment_failedでは幻晶画面に決済失敗を表示し加入を止める (363ms)
+  ✓  17 [firefox] › e2e/sagaforge.spec.ts:60:5 › media_failureでは演出素材の失敗を戦闘と幻晶に表示する (395ms)
+  ✓  18 [firefox] › e2e/sagaforge.spec.ts:72:5 › 主要画面でaxeの重大なアクセシビリティ違反がない (2.1s)
+  ✓  19 [firefox] › e2e/sagaforge.spec.ts:83:5 › auth状態で育成枠の表示が切り替わる (517ms)
+  ✓  20 [firefox] › e2e/sagaforge.spec.ts:95:5 › 状態画面からofflineとtimeoutへ切り替えられる (1.7s)
+  ✓  21 [firefox] › e2e/sagaforge.spec.ts:106:5 › 画面内操作でコマンド選択、編成交替、強化、召喚加入が反映される (693ms)
+  ✓  22 [firefox] › e2e/sagaforge.spec.ts:130:5 › mock backendに編成、育成、召喚加入が保存されリロード後も残る (1.9s)
+  ✓  23 [firefox] › e2e/sagaforge.spec.ts:156:5 › 報酬台帳で勝利報酬を受け取り、二重受取を止めて保存する (848ms)
+  ✓  24 [firefox] › e2e/sagaforge.spec.ts:176:5 › billing失敗中は勝利済みでも報酬受取を保留し課金誤認を防ぐ (303ms)
+  ✓  25 [webkit] › e2e/sagaforge.spec.ts:14:5 › ホームから編成、遠征、戦闘、幻晶結果まで確認できる (999ms)
+  ✓  26 [webkit] › e2e/sagaforge.spec.ts:38:5 › empty_rosterでは名簿の空状態を表示する (390ms)
+  ✓  27 [webkit] › e2e/sagaforge.spec.ts:45:5 › party_invalidでは戦闘前に編成不備を表示する (365ms)
+  ✓  28 [webkit] › e2e/sagaforge.spec.ts:52:5 › payment_failedでは幻晶画面に決済失敗を表示し加入を止める (465ms)
+  ✓  29 [webkit] › e2e/sagaforge.spec.ts:60:5 › media_failureでは演出素材の失敗を戦闘と幻晶に表示する (419ms)
+  ✓  30 [webkit] › e2e/sagaforge.spec.ts:72:5 › 主要画面でaxeの重大なアクセシビリティ違反がない (2.0s)
+  ✓  31 [webkit] › e2e/sagaforge.spec.ts:83:5 › auth状態で育成枠の表示が切り替わる (460ms)
+  ✓  32 [webkit] › e2e/sagaforge.spec.ts:95:5 › 状態画面からofflineとtimeoutへ切り替えられる (1.8s)
+  ✓  33 [webkit] › e2e/sagaforge.spec.ts:106:5 › 画面内操作でコマンド選択、編成交替、強化、召喚加入が反映される (735ms)
+  ✓  34 [webkit] › e2e/sagaforge.spec.ts:130:5 › mock backendに編成、育成、召喚加入が保存されリロード後も残る (1.5s)
+  ✓  35 [webkit] › e2e/sagaforge.spec.ts:156:5 › 報酬台帳で勝利報酬を受け取り、二重受取を止めて保存する (667ms)
+  ✓  36 [webkit] › e2e/sagaforge.spec.ts:176:5 › billing失敗中は勝利済みでも報酬受取を保留し課金誤認を防ぐ (390ms)
+
+  36 passed (32.9s)

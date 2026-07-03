@@ -5,7 +5,7 @@ const healthUrl = "http://127.0.0.1:4100/health";
 const stateUrl = "http://127.0.0.1:4100/state";
 const controlUrl = "http://127.0.0.1:4100/__control/state";
 const servicePorts = { api: 4100, media: 4101, auth: 4102, billing: 4103 };
-const scenarios = ["success", "empty_roster", "offline", "timeout", "battle_win", "battle_lose", "party_invalid", "gacha_result", "media_failure", "payment_failed", "auth_anonymous", "auth_premium"];
+const scenarios = ["success", "empty_roster", "offline", "timeout", "battle_win", "battle_win_payment_failed", "battle_lose", "party_invalid", "gacha_result", "media_failure", "payment_failed", "auth_anonymous", "auth_premium"];
 
 function run(command, args, options = {}) {
   return spawnSync(command, args, {

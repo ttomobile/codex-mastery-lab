@@ -3,6 +3,7 @@ export type MockScenario =
   | "empty_roster"
   | "offline"
   | "timeout"
+  | "battle_win_payment_failed"
   | "battle_win"
   | "battle_lose"
   | "party_invalid"
@@ -163,7 +164,7 @@ export function resolveScenarioServices(scenario: MockScenario) {
     api: scenario === "offline" ? "offline" : scenario === "timeout" ? "timeout" : "online",
     media: scenario === "offline" ? "unavailable" : scenario === "media_failure" ? "render_failed" : "placeholder_ready",
     auth: scenario === "auth_premium" ? "premium" : scenario === "auth_anonymous" ? "anonymous" : "guest",
-    billing: scenario === "payment_failed" ? "payment_failed" : "sandbox_ready"
+    billing: scenario === "payment_failed" || scenario === "battle_win_payment_failed" ? "payment_failed" : "sandbox_ready"
   };
 }
 

@@ -1,0 +1,26 @@
+[WebServer]  Network generated-repo_default Creating 
+[WebServer]  Network generated-repo_default Created 
+[WebServer]  Container generated-repo-mock-api-1 Creating 
+[WebServer]  Container generated-repo-mock-auth-1 Creating 
+[WebServer]  Container generated-repo-mock-billing-1 Creating 
+[WebServer]  Container generated-repo-mock-media-1 Creating 
+[WebServer]  Container generated-repo-mock-billing-1 Created 
+[WebServer]  Container generated-repo-mock-auth-1 Created 
+[WebServer]  Container generated-repo-mock-media-1 Created 
+[WebServer]  Container generated-repo-mock-api-1 Created 
+[WebServer]  Container generated-repo-mock-billing-1 Starting 
+[WebServer]  Container generated-repo-mock-api-1 Starting 
+[WebServer]  Container generated-repo-mock-auth-1 Starting 
+[WebServer]  Container generated-repo-mock-media-1 Starting 
+[WebServer]  Container generated-repo-mock-billing-1 Started 
+[WebServer]  Container generated-repo-mock-media-1 Started 
+[WebServer]  Container generated-repo-mock-api-1 Started 
+[WebServer]  Container generated-repo-mock-auth-1 Started 
+
+Running 3 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/sagaforge.spec.ts:176:5 › billing失敗中は勝利済みでも報酬受取を保留し課金誤認を防ぐ (542ms)
+  ✓  2 [firefox] › e2e/sagaforge.spec.ts:176:5 › billing失敗中は勝利済みでも報酬受取を保留し課金誤認を防ぐ (814ms)
+  ✓  3 [webkit] › e2e/sagaforge.spec.ts:176:5 › billing失敗中は勝利済みでも報酬受取を保留し課金誤認を防ぐ (923ms)
+
+  3 passed (6.6s)

@@ -1,0 +1,63 @@
+
+> sagaforge-trial-001@0.1.0 test:coverage <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> vitest run --coverage
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.9 [39m[90m<repo>/experiments/character-collection-rpg-trial-001/generated-repo[39m
+      [2mCoverage enabled with [22m[33mv8[39m
+
+ [32m✓[39m src/domain/rpg.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m12 passed[39m[22m[90m (12)[39m
+[2m   Start at [22m 02:20:00
+[2m   Duration [22m 421ms[2m (transform 19ms, setup 34ms, import 15ms, tests 4ms, environment 260ms)[22m
+
+[34m % [39m[2mCoverage report from [22m[33mv8[39m
+----------|---------|----------|---------|---------|-------------------
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------|---------|----------|---------|---------|-------------------
+All files |   96.07 |    66.66 |     100 |   97.67 |                   
+ rpg.ts   |   96.07 |    66.66 |     100 |   97.67 | 64                
+----------|---------|----------|---------|---------|-------------------
+
+Running 36 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/sagaforge.spec.ts:14:5 › ホームから編成、遠征、戦闘、幻晶結果まで確認できる (972ms)
+  ✓   2 [chromium] › e2e/sagaforge.spec.ts:38:5 › empty_rosterでは名簿の空状態を表示する (297ms)
+  ✓   3 [chromium] › e2e/sagaforge.spec.ts:45:5 › party_invalidでは戦闘前に編成不備を表示する (296ms)
+  ✓   4 [chromium] › e2e/sagaforge.spec.ts:52:5 › payment_failedでは幻晶画面に決済失敗を表示し加入を止める (450ms)
+  ✓   5 [chromium] › e2e/sagaforge.spec.ts:60:5 › media_failureでは演出素材の失敗を戦闘と幻晶に表示する (392ms)
+  ✓   6 [chromium] › e2e/sagaforge.spec.ts:72:5 › 主要画面でaxeの重大なアクセシビリティ違反がない (1.3s)
+  ✓   7 [chromium] › e2e/sagaforge.spec.ts:83:5 › auth状態で育成枠の表示が切り替わる (385ms)
+  ✓   8 [chromium] › e2e/sagaforge.spec.ts:95:5 › 状態画面からofflineとtimeoutへ切り替えられる (1.7s)
+  ✓   9 [chromium] › e2e/sagaforge.spec.ts:106:5 › 画面内操作でコマンド選択、編成交替、強化、召喚加入が反映される (1.2s)
+  ✓  10 [chromium] › e2e/sagaforge.spec.ts:130:5 › mock backendに編成、育成、召喚加入が保存されリロード後も残る (864ms)
+  ✓  11 [chromium] › e2e/sagaforge.spec.ts:156:5 › 報酬台帳で勝利報酬を受け取り、二重受取を止めて保存する (519ms)
+  ✓  12 [chromium] › e2e/sagaforge.spec.ts:176:5 › billing失敗中は勝利済みでも報酬受取を保留し課金誤認を防ぐ (313ms)
+  ✓  13 [firefox] › e2e/sagaforge.spec.ts:14:5 › ホームから編成、遠征、戦闘、幻晶結果まで確認できる (1.4s)
+  ✓  14 [firefox] › e2e/sagaforge.spec.ts:38:5 › empty_rosterでは名簿の空状態を表示する (301ms)
+  ✓  15 [firefox] › e2e/sagaforge.spec.ts:45:5 › party_invalidでは戦闘前に編成不備を表示する (294ms)
+  ✓  16 [firefox] › e2e/sagaforge.spec.ts:52:5 › payment_failedでは幻晶画面に決済失敗を表示し加入を止める (368ms)
+  ✓  17 [firefox] › e2e/sagaforge.spec.ts:60:5 › media_failureでは演出素材の失敗を戦闘と幻晶に表示する (390ms)
+  ✓  18 [firefox] › e2e/sagaforge.spec.ts:72:5 › 主要画面でaxeの重大なアクセシビリティ違反がない (2.1s)
+  ✓  19 [firefox] › e2e/sagaforge.spec.ts:83:5 › auth状態で育成枠の表示が切り替わる (539ms)
+  ✓  20 [firefox] › e2e/sagaforge.spec.ts:95:5 › 状態画面からofflineとtimeoutへ切り替えられる (1.8s)
+  ✓  21 [firefox] › e2e/sagaforge.spec.ts:106:5 › 画面内操作でコマンド選択、編成交替、強化、召喚加入が反映される (692ms)
+  ✓  22 [firefox] › e2e/sagaforge.spec.ts:130:5 › mock backendに編成、育成、召喚加入が保存されリロード後も残る (1.8s)
+  ✓  23 [firefox] › e2e/sagaforge.spec.ts:156:5 › 報酬台帳で勝利報酬を受け取り、二重受取を止めて保存する (844ms)
+  ✓  24 [firefox] › e2e/sagaforge.spec.ts:176:5 › billing失敗中は勝利済みでも報酬受取を保留し課金誤認を防ぐ (317ms)
+  ✓  25 [webkit] › e2e/sagaforge.spec.ts:14:5 › ホームから編成、遠征、戦闘、幻晶結果まで確認できる (1.0s)
+  ✓  26 [webkit] › e2e/sagaforge.spec.ts:38:5 › empty_rosterでは名簿の空状態を表示する (383ms)
+  ✓  27 [webkit] › e2e/sagaforge.spec.ts:45:5 › party_invalidでは戦闘前に編成不備を表示する (366ms)
+  ✓  28 [webkit] › e2e/sagaforge.spec.ts:52:5 › payment_failedでは幻晶画面に決済失敗を表示し加入を止める (444ms)
+  ✓  29 [webkit] › e2e/sagaforge.spec.ts:60:5 › media_failureでは演出素材の失敗を戦闘と幻晶に表示する (441ms)
+  ✓  30 [webkit] › e2e/sagaforge.spec.ts:72:5 › 主要画面でaxeの重大なアクセシビリティ違反がない (2.0s)
+  ✓  31 [webkit] › e2e/sagaforge.spec.ts:83:5 › auth状態で育成枠の表示が切り替わる (483ms)
+  ✓  32 [webkit] › e2e/sagaforge.spec.ts:95:5 › 状態画面からofflineとtimeoutへ切り替えられる (1.8s)
+  ✓  33 [webkit] › e2e/sagaforge.spec.ts:106:5 › 画面内操作でコマンド選択、編成交替、強化、召喚加入が反映される (724ms)
+  ✓  34 [webkit] › e2e/sagaforge.spec.ts:130:5 › mock backendに編成、育成、召喚加入が保存されリロード後も残る (890ms)
+  ✓  35 [webkit] › e2e/sagaforge.spec.ts:156:5 › 報酬台帳で勝利報酬を受け取り、二重受取を止めて保存する (598ms)
+  ✓  36 [webkit] › e2e/sagaforge.spec.ts:176:5 › billing失敗中は勝利済みでも報酬受取を保留し課金誤認を防ぐ (389ms)
+
+  36 passed (31.8s)

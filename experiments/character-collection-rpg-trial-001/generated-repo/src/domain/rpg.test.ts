@@ -75,8 +75,9 @@ describe("幻晶結果", () => {
 });
 
 describe("状態別ready判定", () => {
-  it("payment_failedをbilling失敗として公開する", () => {
+  it("payment_failedと勝利後billing失敗をbilling失敗として公開する", () => {
     expect(resolveScenarioServices("payment_failed")).toMatchObject({ billing: "payment_failed", api: "online" });
+    expect(resolveScenarioServices("battle_win_payment_failed")).toMatchObject({ billing: "payment_failed", api: "online" });
   });
 
   it("auth_premiumだけをプレミアム育成可能として扱う", () => {

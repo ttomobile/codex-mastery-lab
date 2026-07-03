@@ -1,0 +1,30 @@
+
+> sagaforge-trial-001@0.1.0 doctor:playwright <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> node scripts/doctor-playwright.mjs
+
+OK: Chromium
+OK: Firefox
+OK: WebKit
+
+> sagaforge-trial-001@0.1.0 mock:doctor <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> node scripts/doctor-mock-services.mjs
+
+OK: Docker Compose - Docker Compose version v5.1.4
+OK: docker-compose.yml
+OK: /health - battle_win_payment_failed
+OK: api /health /state - battle_win_payment_failed
+OK: media /health /state - success
+OK: auth /health /state - success
+OK: billing /health /state - success
+OK: state success
+OK: state empty_roster
+OK: state offline
+OK: state timeout
+OK: state battle_win
+OK: state battle_lose
+OK: state party_invalid
+OK: state gacha_result
+OK: state media_failure
+OK: state payment_failed
+OK: state auth_anonymous
+OK: state auth_premium

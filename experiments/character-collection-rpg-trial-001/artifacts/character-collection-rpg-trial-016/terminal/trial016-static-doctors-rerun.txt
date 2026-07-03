@@ -1,0 +1,75 @@
+
+> sagaforge-trial-001@0.1.0 lint <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> eslint .
+
+
+> sagaforge-trial-001@0.1.0 typecheck <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> tsc --noEmit
+
+
+> sagaforge-trial-001@0.1.0 test <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> vitest run
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.9 [39m[90m<repo>/experiments/character-collection-rpg-trial-001/generated-repo[39m
+
+ [32m✓[39m src/domain/rpg.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m12 passed[39m[22m[90m (12)[39m
+[2m   Start at [22m 02:19:21
+[2m   Duration [22m 577ms[2m (transform 21ms, setup 38ms, import 15ms, tests 4ms, environment 438ms)[22m
+
+
+> sagaforge-trial-001@0.1.0 build <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> next build
+
+▲ Next.js 16.2.9 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 787ms
+  Running TypeScript ...
+  Finished TypeScript in 1028ms ...
+  Collecting page data using 4 workers ...
+  Generating static pages using 4 workers (0/3) ...
+✓ Generating static pages using 4 workers (3/3) in 148ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+
+
+> sagaforge-trial-001@0.1.0 doctor:playwright <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> node scripts/doctor-playwright.mjs
+
+OK: Chromium
+OK: Firefox
+OK: WebKit
+
+> sagaforge-trial-001@0.1.0 mock:doctor <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> node scripts/doctor-mock-services.mjs
+
+OK: Docker Compose - Docker Compose version v5.1.4
+OK: docker-compose.yml
+OK: /health - success
+OK: api /health /state - success
+OK: media /health /state - success
+OK: auth /health /state - success
+OK: billing /health /state - success
+OK: state success
+OK: state empty_roster
+OK: state offline
+OK: state timeout
+OK: state battle_win
+OK: state battle_win_payment_failed
+OK: state battle_lose
+OK: state party_invalid
+OK: state gacha_result
+OK: state media_failure
+OK: state payment_failed
+OK: state auth_anonymous
+OK: state auth_premium
