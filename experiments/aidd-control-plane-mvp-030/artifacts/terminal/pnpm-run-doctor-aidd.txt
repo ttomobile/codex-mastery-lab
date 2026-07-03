@@ -1,0 +1,6 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+checked files: 17
+checked scripts: lint, typecheck, test, test:coverage, build, test:e2e, doctor:aidd, mock:start, mock:stop, mock:doctor, capture:mvp024, capture:mvp025, capture:mvp026, capture:mvp027, capture:mvp028, capture:mvp029, capture:mvp030
+checked MVP: AIDD Control Plane MVP 030 Exported Packet Preflight Reviewer
+exit_code=0

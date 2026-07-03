@@ -1,0 +1,52 @@
+$ vitest run --coverage
+
+ RUN  v3.2.6 WORKSPACE/experiments/aidd-control-plane-mvp-030/generated-repo
+      Coverage enabled with v8
+
+ ✓ tests/intake.test.ts (61 tests) 18ms
+
+ Test Files  1 passed (1)
+      Tests  61 passed (61)
+   Start at  04:28:07
+   Duration  417ms (transform 69ms, setup 0ms, collect 74ms, tests 18ms, environment 0ms, prepare 40ms)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   46.31 |    83.01 |   78.19 |   46.31 |                   
+ generated-repo    |       0 |        0 |       0 |       0 |                   
+  next.config.mjs  |       0 |        0 |       0 |       0 | 1-5               
+  ...ght.config.ts |       0 |        0 |       0 |       0 | 1-34              
+ ...rated-repo/app |       0 |      100 |     100 |       0 |                   
+  layout.tsx       |       0 |      100 |     100 |       0 | 2-15              
+  page.tsx         |       0 |      100 |     100 |       0 | 3-1830            
+ ...cks/ci-service |       0 |        0 |       0 |       0 |                   
+  server.mjs       |       0 |        0 |       0 |       0 | 1-83              
+ ...d-repo/scripts |       0 |        0 |       0 |       0 |                   
+  ...re-mvp015.mjs |       0 |        0 |       0 |       0 | 1-49              
+  ...re-mvp016.mjs |       0 |        0 |       0 |       0 | 1-44              
+  ...re-mvp017.mjs |       0 |        0 |       0 |       0 | 1-44              
+  ...re-mvp019.mjs |       0 |        0 |       0 |       0 | 1-45              
+  ...re-mvp020.mjs |       0 |        0 |       0 |       0 | 1-45              
+  ...re-mvp021.mjs |       0 |        0 |       0 |       0 | 1-47              
+  ...re-mvp022.mjs |       0 |        0 |       0 |       0 | 1-47              
+  ...re-mvp023.mjs |       0 |        0 |       0 |       0 | 1-44              
+  ...re-mvp024.mjs |       0 |        0 |       0 |       0 | 1-44              
+  ...re-mvp025.mjs |       0 |        0 |       0 |       0 | 1-47              
+  ...re-mvp026.mjs |       0 |        0 |       0 |       0 | 1-46              
+  ...re-mvp027.mjs |       0 |        0 |       0 |       0 | 1-46              
+  ...re-mvp028.mjs |       0 |        0 |       0 |       0 | 1-48              
+  ...re-mvp029.mjs |       0 |        0 |       0 |       0 | 1-49              
+  ...re-mvp030.mjs |       0 |        0 |       0 |       0 | 1-50              
+  ...-trial008.mjs |       0 |        0 |       0 |       0 | 1-8               
+  ...-trial010.mjs |       0 |        0 |       0 |       0 | 1-25              
+  ...-trial014.mjs |       0 |        0 |       0 |       0 | 1-35              
+  doctor-aidd.mjs  |       0 |        0 |       0 |       0 | 1-193             
+  mock-doctor.mjs  |       0 |        0 |       0 |       0 | 1-49              
+  mock-start.mjs   |       0 |        0 |       0 |       0 | 1-35              
+  mock-stop.mjs    |       0 |        0 |       0 |       0 | 1-20              
+ ...d-repo/src/lib |   94.73 |    85.73 |   96.22 |   94.73 |                   
+  intake.ts        |   94.73 |    85.73 |   96.22 |   94.73 | ...3061,3200-3204 
+-------------------|---------|----------|---------|---------|-------------------
+exit_code=0
