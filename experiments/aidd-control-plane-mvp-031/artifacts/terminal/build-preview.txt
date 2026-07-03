@@ -1,0 +1,2 @@
+Wrote 64 articles to WORKSPACE/preview
+exit_code=0

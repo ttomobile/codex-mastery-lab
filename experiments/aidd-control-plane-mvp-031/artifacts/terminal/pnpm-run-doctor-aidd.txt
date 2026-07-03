@@ -1,0 +1,7 @@
+## pnpm run doctor:aidd
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+checked files: 18
+checked scripts: lint, typecheck, test, test:coverage, build, test:e2e, doctor:aidd, mock:start, mock:stop, mock:doctor, capture:mvp024, capture:mvp025, capture:mvp026, capture:mvp027, capture:mvp028, capture:mvp029, capture:mvp030, capture:mvp031
+checked MVP: AIDD Control Plane MVP 031 Run Authorization Gate
+exit_code=0

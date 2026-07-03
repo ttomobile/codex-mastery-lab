@@ -1,0 +1,12 @@
+pnpm-install.txt: pass
+pnpm-run-lint.txt: pass
+pnpm-run-typecheck.txt: pass
+pnpm-run-test.txt: pass
+pnpm-run-test-coverage.txt: pass
+pnpm-run-build.txt: pass
+pnpm-run-test-e2e.txt: pass
+pnpm-run-doctor-aidd.txt: pass
+pnpm-run-mock-doctor.txt: pass
+pnpm-run-capture-mvp031.txt: pass
+build-preview.txt: pass
+preview-verify.txt: pass

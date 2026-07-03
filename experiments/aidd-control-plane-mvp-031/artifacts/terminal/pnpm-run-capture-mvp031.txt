@@ -1,0 +1,2 @@
+$ node scripts/capture-mvp031.mjs
+exit_code=0

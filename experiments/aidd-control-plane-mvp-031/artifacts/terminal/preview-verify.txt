@@ -1,0 +1,8 @@
+html_exists
+title_ok
+index_link_ok
+asset_ok aidd-control-plane-mvp031-empty.png
+asset_ok aidd-control-plane-mvp031-valid.png
+asset_ok aidd-control-plane-mvp031-failure.png
+asset_ok aidd-control-plane-mvp031-terminal-evidence.png
+exit_code=0
