@@ -1,0 +1,5 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+checked files: 11
+checked scripts: lint, typecheck, test, test:coverage, build, test:e2e, doctor:aidd, mock:start, mock:stop, mock:doctor, capture:mvp023
+checked MVP: AIDD Control Plane MVP 023 Safe Patch Review Workspace

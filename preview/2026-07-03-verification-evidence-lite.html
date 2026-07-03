@@ -90,7 +90,8 @@ th { background:#f1f5f9; }
 <a href="2026-07-03-aidd-control-plane-mvp-019.html">MVP19｜AIDD Control Plane MVP 019：改善差分を「採用・却下・保留」に分けて次回AI依頼へ進める</a>
 <a href="2026-07-03-aidd-control-plane-mvp-020.html">MVP20｜AIDD Control Plane MVP 020：採用した改善だけを次回AI Task Packet Markdownへ書き出す</a>
 <a href="2026-07-03-aidd-control-plane-mvp-021.html">MVP21｜AIDD Control Plane MVP 021：採用済みdeltaをファイルへ反映する前に、適用計画を作る</a>
-<a href="2026-07-03-aidd-control-plane-mvp-022.html">MVP22｜AIDD Control Plane MVP 022：次回AI依頼ファイルを、書く前にドラフトとして確認する</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a href="2026-07-03-aidd-control-plane-mvp-022.html">MVP22｜AIDD Control Plane MVP 022：次回AI依頼ファイルを、書く前にドラフトとして確認する</a>
+<a href="2026-07-03-aidd-control-plane-mvp-023.html">MVP23｜AIDD Control Plane MVP 023：AIがファイルを書き換える前に、patch候補を安全確認する</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
 <a href="2026-07-02-character-collection-rpg-trial-002.html">Dogfood02｜AIDD Control Plane Dogfood 002：画像素材と戦闘シーンを入れて、キャラ収集RPGを“遊べそう”に近づける</a>
 <a href="2026-07-03-character-collection-rpg-trial-003.html">Dogfood03｜AIDD Control Plane Dogfood 003：キャラ収集RPGに「操作すると変わる」を入れる</a>
 <a href="2026-07-03-character-collection-rpg-trial-004.html">Dogfood04｜AIDD Control Plane Dogfood 004：キャラ収集RPGの操作をmock backendへ保存する</a>
@@ -133,7 +134,8 @@ th { background:#f1f5f9; }
 <a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-019.html"><span class="chapter-num">MVP 19</span>AIDD Control Plane MVP 019：改善差分を「採用・却下・保留」に分けて次回AI依頼へ進める</a>
 <a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-020.html"><span class="chapter-num">MVP 20</span>AIDD Control Plane MVP 020：採用した改善だけを次回AI Task Packet Markdownへ書き出す</a>
 <a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-021.html"><span class="chapter-num">MVP 21</span>AIDD Control Plane MVP 021：採用済みdeltaをファイルへ反映する前に、適用計画を作る</a>
-<a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-022.html"><span class="chapter-num">MVP 22</span>AIDD Control Plane MVP 022：次回AI依頼ファイルを、書く前にドラフトとして確認する</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-022.html"><span class="chapter-num">MVP 22</span>AIDD Control Plane MVP 022：次回AI依頼ファイルを、書く前にドラフトとして確認する</a>
+<a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-023.html"><span class="chapter-num">MVP 23</span>AIDD Control Plane MVP 023：AIがファイルを書き換える前に、patch候補を安全確認する</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
 <a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-002.html"><span class="chapter-num">Dogfood 02</span>AIDD Control Plane Dogfood 002：画像素材と戦闘シーンを入れて、キャラ収集RPGを“遊べそう”に近づける</a>
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-003.html"><span class="chapter-num">Dogfood 03</span>AIDD Control Plane Dogfood 003：キャラ収集RPGに「操作すると変わる」を入れる</a>
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-004.html"><span class="chapter-num">Dogfood 04</span>AIDD Control Plane Dogfood 004：キャラ収集RPGの操作をmock backendへ保存する</a>
@@ -183,8 +185,8 @@ OS: macOS 26.5.1 Build 25F80
 Codex CLI: codex-cli 0.142.5（npx -y @openai/codex 経由）
 Node: v22.23.1
 pnpm: 11.9.0
-ディスク: /Users/tto/codex-mastery-lab で 119Gi 空き
-実験ディレクトリ: /Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001</code></pre>
+ディスク: WORKSPACE で 119Gi 空き
+実験ディレクトリ: WORKSPACE/experiments/2026-07-03-verification-evidence-lite-001</code></pre>
 <p>最初に <code>codex --version</code> を直接叩くと <code>codex: command not found</code> でした。前回記事でも同じ失敗がありました。今回は <code>npx -y @openai/codex --version</code> では起動できたので、Codex CLIはnpx経由で実行しました。この失敗も、Verification Evidenceとして残しています。</p>
 <h2>Step 0: 実験計画を書く</h2>
 <p>まず <code>PLAN.md</code> を置きました。今日の監査カテゴリは次の3つです。</p>
@@ -194,7 +196,7 @@ pnpm: 11.9.0
 <li>Accessibility: ラベル、フォーカス、状態説明があるか</li>
 </ol>
 <p>パスは次です。</p>
-<pre><code>/Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001/PLAN.md</code></pre>
+<pre><code>WORKSPACE/experiments/2026-07-03-verification-evidence-lite-001/PLAN.md</code></pre>
 <h2>Step 1: Codexに雑に作らせる</h2>
 <p>実際にCodexへ渡したプロンプトです。</p>
 <pre><code>実験ディレクトリ experiments/2026-07-03-verification-evidence-lite-001/generated-repo に、Next.js + TypeScript + pnpm の小さな日本語UIアプリを作ってください。題材は「日次チェックリスト」。雑なバイブコーディング版として、まず見た目と基本操作を優先してください。必須: package.json、src/app/page.tsx、src/app/layout.tsx、src/app/globals.css、README.md、簡単なPlaywrightテスト1本。UI文言・テスト名は日本語。操作はタスク追加、完了切替、未完了のみ表示。重い依存は追加しないでください。生成後に実行すべきコマンドもREADMEへ書いてください。</code></pre>
@@ -229,7 +231,7 @@ pnpm run test:e2e: 1 passed</code></pre>
 <p>ブラウザ操作もPlaywrightで行い、スクリーンショットからGIFを作りました。</p>
 <p><img src="assets/verification-evidence-lite-vibe.gif" alt="バイブ版GIF" loading="lazy"></p>
 <p>コンソールログも保存しました。</p>
-<pre><code>/Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001/logs/browser-console-vibe.txt
+<pre><code>WORKSPACE/experiments/2026-07-03-verification-evidence-lite-001/logs/browser-console-vibe.txt
 (console messageなし)</code></pre>
 <p>見た目と基本操作は十分です。入力して、チェックして、未完了だけにできます。では、これで「完了」と言ってよいでしょうか。今回の答えは「まだ足りない」です。</p>
 <h2>Step 3: 監査結果</h2>
@@ -307,7 +309,7 @@ $ pnpm run test:e2e
 <p>修正版のブラウザ操作GIFです。</p>
 <p><img src="assets/verification-evidence-lite-fixed.gif" alt="修正版GIF" loading="lazy"></p>
 <p>空入力エラー、タスク追加、全完了後の空状態まで確認できました。コンソールログも保存済みです。</p>
-<pre><code>/Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001/logs/browser-console-fixed.txt
+<pre><code>WORKSPACE/experiments/2026-07-03-verification-evidence-lite-001/logs/browser-console-fixed.txt
 (console messageなし)</code></pre>
 <h2>Step 6: 逆算する</h2>
 <p>今回の欠陥から、前工程で必要だった情報を表にします。</p>
@@ -371,7 +373,7 @@ residual_risks:
 <p>次は、Verification Evidence LiteをAIDD Control Plane側の自動doctor UIへ接続したいです。ログ、GIF、残リスクが足りないと、画面上で完了できないようにする。そこまでできると、AIDD Control Planeは「チェックリストを表示するツール」から「証拠不足を止めるControl Plane」へ一歩進みます。</p>
 <h2>付録: 生ログ / 参照ファイル</h2>
 <ul>
-<li>Experiment path: <code>/Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001</code></li>
+<li>Experiment path: <code>WORKSPACE/experiments/2026-07-03-verification-evidence-lite-001</code></li>
 <li>Vibe Codex log: <code>logs/codex-vibe.log</code></li>
 <li>Fix Codex log: <code>logs/codex-fix.log</code></li>
 <li>Vibe verification logs: <code>logs/typecheck-vibe.txt</code>, <code>logs/lint-vibe.txt</code>, <code>logs/build-vibe.txt</code>, <code>logs/e2e-vibe.txt</code></li>

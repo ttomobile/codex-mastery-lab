@@ -1,0 +1,17 @@
+AIDD Control Plane MVP 023 verification summary
+
+codex exec --sandbox danger-full-access: failed (codex: command not found)
+pnpm install --frozen-lockfile: pass
+pnpm run lint: pass
+pnpm run typecheck: pass
+pnpm run test: pass (46 tests)
+pnpm run build: pass (Next.js ESLint plugin warning only)
+pnpm run test:e2e: pass (Chromium / Firefox / WebKit, 57 tests)
+pnpm run doctor:aidd: pass
+pnpm run capture:mvp023: pass
+
+Screenshots:
+- assets/aidd-control-plane-mvp023-empty.png
+- assets/aidd-control-plane-mvp023-valid.png
+- assets/aidd-control-plane-mvp023-failure.png
+- assets/aidd-control-plane-mvp023-terminal-evidence.png

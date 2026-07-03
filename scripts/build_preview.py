@@ -44,6 +44,7 @@ CONTROL_PLANE_ORDER = [
     '2026-07-03-aidd-control-plane-mvp-020.md',
     '2026-07-03-aidd-control-plane-mvp-021.md',
     '2026-07-03-aidd-control-plane-mvp-022.md',
+    '2026-07-03-aidd-control-plane-mvp-023.md',
 ]
 
 DOGFOOD_ORDER = [
@@ -267,7 +268,12 @@ def prev_next(items, index):
 def page(title: str, body: str, series_items, control_items, dogfood_items, past_items, current_href=None, cls='') -> str:
     nav = nav_html(series_items, control_items, dogfood_items, past_items, current_href)
     mob = mobile_nav(series_items, control_items, dogfood_items, past_items)
-    return f'''<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><style>{CSS}</style></head><body>{mob}<div class="layout {cls}"><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">WatchFlow本編、AIDD Control Plane SaaS化、過去記事を分けて読めるプレビュー</p>{nav}</aside><main>{body}</main></div></body></html>'''
+    return sanitize_public_html(f'''<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><style>{CSS}</style></head><body>{mob}<div class="layout {cls}"><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">WatchFlow本編、AIDD Control Plane SaaS化、過去記事を分けて読めるプレビュー</p>{nav}</aside><main>{body}</main></div></body></html>''')
+
+def sanitize_public_html(rendered: str) -> str:
+    rendered = rendered.replace('/Users/tto/codex-mastery-lab', 'WORKSPACE')
+    rendered = rendered.replace('/Users/tto', 'HOME')
+    return rendered
 
 def article_title(path: Path) -> str:
     for line in path.read_text(encoding='utf-8').splitlines():

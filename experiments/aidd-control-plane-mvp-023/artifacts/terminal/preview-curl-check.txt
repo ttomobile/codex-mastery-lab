@@ -1,0 +1,12 @@
+preview curl/grep check
+<p>MVP 022では、採用済みdeltaから <code>AI_TASK_PACKET.md</code> / <code>CODEX_PROMPT.md</code> / <code>VERIFICATION_PLAN.md</code> / <code>LEARNING_LOG.md</code> のドラフト本文を作りました。今回のMVP 023では、そのドラフトをすぐ実ファイルへ反映せず、いったん <code>Safe Patch Review Workspace</code> でpatch候補として確認する画面を作りました。</p>
+<p><code>experiments/aidd-control-plane-mvp-023/generated-repo</code> に、Next.js + TypeScriptで <code>Safe Patch Review Workspace</code> を追加しました。</p>
+<p><img src="assets/aidd-control-plane-mvp023-empty.png" alt="MVP023 empty state" loading="lazy"></p>
+<p><img src="assets/aidd-control-plane-mvp023-terminal-evidence.png" alt="MVP023 terminal evidence" loading="lazy"></p>
+<p>2つ目は、E2E初回で <code>コピー用Codex prompt</code> というラベルが、Packet Draft WorkspaceとSafe Patch Review Workspaceの両方に一致してPlaywright strict modeに引っかかったことです。これはアプリの挙動ではなくテスト指定の曖昧さだったため、既存のPacket Draft Workspace側を <code>getByRole(&#x27;article&#x27;, { name: &#x27;コピー用Codex prompt&#x27;, exact: true })</code> に絞って再実行しました。再実行ではChromium / Firefox / WebKitの57件が通りました。</p>
+  -&gt; Safe Patch Review Workspace</code></pre>
+<p>今回の標準更新として、<code>standards/aidd-control-plane-mvp-v0.1.md</code> に <code>Safe Patch Review Workspace</code> を追加しました。</p>
+aidd-control-plane-mvp023-empty.png 11332087
+aidd-control-plane-mvp023-valid.png 11784432
+aidd-control-plane-mvp023-failure.png 11708830
+aidd-control-plane-mvp023-terminal-evidence.png 145006

@@ -56,6 +56,7 @@ MVPではこの流れをフォームとチェックリストで標準化する�
 | Adopted Delta Markdown Exporter | 採用済みdeltaだけを次回AI Task Packet Markdown / Verification Plan / Codex promptへ書き出す | empty / valid / failure、Markdown section、verification plan patch、Codex prompt patch、rollback condition、review evidence、未採用deltaのLearning Log戻し、未採用delta混入検出 |
 | Packet File Apply Planner | 採用済みdeltaのMarkdown exportを実ファイルへ反映する前に、対象ファイル・追記位置・before/after差分・検証・rollbackを確認する | empty / valid / failure、AI_TASK_PACKET.md / CODEX_PROMPT.md / VERIFICATION_PLAN.md / LEARNING_LOG.md、insert position、verification command、rollback step、review evidence、未採用delta混入検出 |
 | Packet Draft Workspace | Packet File Apply Plannerの適用計画から、次回AIへ渡す4種類のドラフト本文とコピー用Codex promptを実ファイル反映前に確認する | empty / valid / failure、AI_TASK_PACKET.md / CODEX_PROMPT.md / VERIFICATION_PLAN.md / LEARNING_LOG.md、draft body、source delta id、差分サマリ、実行前チェック、verification command、rollback condition、AIDD-Spec接続、file target衝突、未採用delta混入検出 |
+| Safe Patch Review Workspace | Packet Draft Workspaceのドラフト本文を実ファイルへ反映する前に、安全なpatch候補としてレビューする | empty / valid / failure、patch id、target file、source draft id、diff summary、diff size、apply command、verification command、rollback command、reviewer checklist、AIDD-Spec接続、危険なtarget path、diff size過大、未採用delta混入、ローカルパス混入検出 |
 
 ## 4. 初期データモデル
 
