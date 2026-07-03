@@ -49,6 +49,7 @@ import {
   evaluateSpecUpdateProposalQueue,
   evaluateVerificationRun,
   generateCodexPrompt,
+  generateDogfoodAppIdeaPacketSeed,
   generateLearningLog,
   generateProductBrief,
   generateReviewRecord,
@@ -654,6 +655,22 @@ describe("Project Intake Wizardのドメインロジック", () => {
       "diff-bundle-bad-002: AIDD-Spec接続不足"
     ]));
     expect(review.reviewFindings.map((finding) => finding.category)).toContain("Diff Bundle & Rollback Evidence Workspace");
+  });
+
+  it("Dogfood App Idea Packet Generatorはアプリ案とテンプレートから検証可能なseedを作る", () => {
+    const seed = generateDogfoodAppIdeaPacketSeed({
+      appIdea: "音声つき散歩ログアプリ",
+      templateId: "learning-support"
+    });
+
+    expect(seed.status).toBe("valid");
+    expect(seed.templateName).toBe("学習支援");
+    expect(seed.requiredSections).toEqual(expect.arrayContaining(["Non-infringement Boundary", "Mock Backend Contract", "Verification Evidence"]));
+    expect(seed.mockServices).toEqual(expect.arrayContaining(["mock-api", "mock-media", "mock-auth", "mock-billing"]));
+    expect(seed.failureStates).toEqual(expect.arrayContaining(["offline", "timeout", "auth", "billing", "media_error"]));
+    expect(seed.verificationCommands).toEqual(expect.arrayContaining(["pnpm run mock:doctor", "gh api repos/:owner/:repo/actions/runs/<run-id>/artifacts"]));
+    expect(seed.codexPromptSeed).toContain("音声つき散歩ログアプリ");
+    expect(seed.codexPromptSeed).toContain("初期生成品質と最終収束品質");
   });
 });
 

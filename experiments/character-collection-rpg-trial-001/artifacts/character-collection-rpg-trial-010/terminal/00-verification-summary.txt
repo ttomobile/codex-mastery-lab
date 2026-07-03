@@ -1,0 +1,17 @@
+# Trial 010 verification summary
+
+- lint: pass
+- typecheck: pass
+- unit test: 50 passed
+- coverage: pass
+- build: pass
+- doctor:aidd: pass
+- mock:doctor: pass
+- e2e: 66 passed across Chromium / Firefox / WebKit
+- screenshot: assets/2026-07-03-character-collection-rpg-trial-010-app-idea-seed.png
+- article: articles/2026-07-03-character-collection-rpg-trial-010.md
+- preview: preview/2026-07-03-character-collection-rpg-trial-010.html
+
+Notable fix:
+- The first e2e run exposed a strict locator collision on `pnpm run mock:doctor` after the new generator also displayed the command.
+- The existing CI Workflow Artifact Auditor test was scoped with `getByLabel("CI Workflow Artifact Auditor: valid")` and the full 3-browser matrix then passed.

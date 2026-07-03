@@ -56,7 +56,7 @@ test("CI Workflow Artifact Auditorでvalidとfailureを切り替え、不足arti
   await expect(page.getByRole("heading", { name: "CI Workflow Artifact Auditor: valid" })).toBeVisible();
   await expect(page.getByText("workflow artifact監査はvalidです")).toBeVisible();
   await expect(page.getByText("pnpm install --frozen-lockfile", { exact: true })).toBeVisible();
-  await expect(page.getByText("pnpm run mock:doctor", { exact: true })).toBeVisible();
+  await expect(page.getByLabel("CI Workflow Artifact Auditor: valid").getByText("pnpm run mock:doctor", { exact: true })).toBeVisible();
   await expect(page.getByText("experiments/aidd-control-plane-mvp-019/artifacts/terminal", { exact: true })).toBeVisible();
   await expect(page.getByText("coverage / playwright-report / test-results / experiments terminal evidence相当")).toBeVisible();
 
@@ -472,6 +472,23 @@ test("RPG dogfood証跡から次回AI Task Packet再利用計画を表示する"
   await expect(page.getByLabel("Dogfood reuse planner requirements").getByText("root GitHub Actions run 28623614814: success")).toBeVisible();
   await expect(page.getByLabel("Dogfood reuse AI Task Packet seed")).toContainText("mock-api / mock-media / mock-auth / mock-billing");
   await expect(page.getByLabel("Dogfood reuse AI Task Packet seed")).toContainText("初期生成品質と最終収束品質を分けて報告する");
+});
+
+test("新規アプリ案からDogfood証跡入りAI Task Packet seedを生成する", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("radio", { name: /学習支援/ }).check({ force: true });
+  await page.getByLabel("何を作りたいですか？").fill("音声つき散歩ログアプリ");
+
+  await expect(page.getByRole("heading", { name: "新規アプリ案AI Task Packet seed: valid" })).toBeVisible();
+  await expect(page.getByText("アプリ案seedはvalidです")).toBeVisible();
+  await expect(page.getByText("学習支援 / 音声つき散歩ログアプリ")).toBeVisible();
+  await expect(page.getByLabel("Dogfood app idea packet seed summary").getByText("Non-infringement Boundary")).toBeVisible();
+  await expect(page.getByLabel("Dogfood app idea packet seed summary").getByText("mock-api")).toBeVisible();
+  await expect(page.getByLabel("Dogfood app idea packet seed summary").getByText("mock-media")).toBeVisible();
+  await expect(page.getByLabel("Dogfood app idea packet seed summary").getByText("pnpm run mock:doctor")).toBeVisible();
+  await expect(page.getByLabel("Dogfood app idea generated Codex prompt seed")).toContainText("音声つき散歩ログアプリ");
+  await expect(page.getByLabel("Dogfood app idea generated Codex prompt seed")).toContainText("初期生成品質と最終収束品質");
 });
 
 async function fillSampleApp(page: import("@playwright/test").Page) {

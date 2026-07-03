@@ -66,6 +66,7 @@ import {
   evaluateSpecUpdateProposalQueue,
   evaluateVerificationRun,
   generateCodexPrompt,
+  generateDogfoodAppIdeaPacketSeed,
   generateLearningLog,
   generateProductBrief,
   generateReviewRecord,
@@ -236,6 +237,10 @@ export default function Home() {
   const taskPacket = useMemo(() => generateTaskPacket(draft), [draft]);
   const verificationPlan = useMemo(() => generateVerificationPlan(draft), [draft]);
   const codexPrompt = useMemo(() => generateCodexPrompt(draft), [draft]);
+  const dogfoodAppIdeaPacketSeed = useMemo(
+    () => generateDogfoodAppIdeaPacketSeed({ appIdea: appName, templateId: selectedTemplateId }),
+    [appName, selectedTemplateId]
+  );
   const selectedTemplate = APP_TYPE_TEMPLATES.find((template) => template.id === selectedTemplateId);
   const mockCi = mockCiState;
   const workflowAuditor = useMemo(() => {
@@ -475,6 +480,48 @@ export default function Home() {
 過去dogfoodの成功証跡から、mock-api / mock-media / mock-auth / mock-billing、failure states、3ブラウザE2E、root CI artifact確認を最初から必須条件にする。
 完了条件はローカルgate passだけでなく、GitHub Actions success、coverage / playwright-report / test-results / terminal evidence artifact、記事とpreview更新まで含める。
 過大主張を避け、初期生成品質と最終収束品質を分けて報告する。`}</pre>
+      </section>
+
+      <section className="artifact-binder artifact-valid" aria-labelledby="dogfood-app-idea-generator-title">
+        <div className="section-heading">
+          <p className="eyebrow">Dogfood App Idea Packet Generator</p>
+          <h2 id="dogfood-app-idea-generator-title">新規アプリ案AI Task Packet seed: {dogfoodAppIdeaPacketSeed.status}</h2>
+          <p>
+            画面上の「何を作りたいですか？」と選択テンプレートを、RPG dogfoodの成功証跡に重ねて、次回Codexへ渡す下書きへ変換します。
+            空欄の場合も、商標非利用・mock service・failure state・3ブラウザE2E・CI artifact確認が抜けないseedを表示します。
+          </p>
+        </div>
+        <div className="verification-summary is-ready" aria-live="polite">
+          <strong>アプリ案seedはvalidです</strong>
+          <span>{dogfoodAppIdeaPacketSeed.templateName} / {dogfoodAppIdeaPacketSeed.appIdea}</span>
+        </div>
+        <div className="binder-grid" aria-label="Dogfood app idea packet seed summary">
+          <section>
+            <h3>source evidence</h3>
+            <ul>{dogfoodAppIdeaPacketSeed.sourceEvidence.map((item) => <li key={item}>{item}</li>)}</ul>
+          </section>
+          <section>
+            <h3>required sections</h3>
+            <ul>{dogfoodAppIdeaPacketSeed.requiredSections.map((item) => <li key={item}>{item}</li>)}</ul>
+          </section>
+          <section>
+            <h3>mock services</h3>
+            <ul>{dogfoodAppIdeaPacketSeed.mockServices.map((item) => <li key={item}>{item}</li>)}</ul>
+          </section>
+          <section>
+            <h3>failure states</h3>
+            <ul>{dogfoodAppIdeaPacketSeed.failureStates.map((item) => <li key={item}>{item}</li>)}</ul>
+          </section>
+          <section>
+            <h3>verification commands</h3>
+            <ul>{dogfoodAppIdeaPacketSeed.verificationCommands.map((item) => <li key={item}>{item}</li>)}</ul>
+          </section>
+          <section>
+            <h3>acceptance criteria</h3>
+            <ul>{dogfoodAppIdeaPacketSeed.acceptanceCriteria.map((item) => <li key={item}>{item}</li>)}</ul>
+          </section>
+        </div>
+        <pre aria-label="Dogfood app idea generated Codex prompt seed">{dogfoodAppIdeaPacketSeed.codexPromptSeed}</pre>
       </section>
 
       <section className={`artifact-binder artifact-${workflowAudit.status}`} aria-labelledby="workflow-auditor-title">

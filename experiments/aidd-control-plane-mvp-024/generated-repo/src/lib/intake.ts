@@ -91,6 +91,76 @@ export type AppTypeTemplate = {
   risks: readonly string[];
   evidenceRequirements: readonly string[];
 };
+
+export type DogfoodAppIdeaPacketSeed = {
+  status: "valid";
+  sourceEvidence: string[];
+  appIdea: string;
+  templateName: string;
+  requiredSections: string[];
+  mockServices: string[];
+  failureStates: string[];
+  verificationCommands: string[];
+  acceptanceCriteria: string[];
+  codexPromptSeed: string;
+};
+
+export function generateDogfoodAppIdeaPacketSeed(input: {
+  appIdea: string;
+  templateId?: AppTypeTemplateId | "";
+}): DogfoodAppIdeaPacketSeed {
+  const template = APP_TYPE_TEMPLATES.find((candidate) => candidate.id === input.templateId) ?? APP_TYPE_TEMPLATES[0];
+  const appIdea = input.appIdea.trim() || "商標非利用の新しいアプリ体験パターン";
+  const failureStates = Array.from(new Set(["offline", "timeout", "media_error", "auth", "billing", ...template.stateContract]));
+  const mockServices = Array.from(new Set(["mock-api", "mock-media", "mock-auth", "mock-billing", ...template.externalIntegrations]));
+  const verificationCommands = [
+    "pnpm run lint",
+    "pnpm run typecheck",
+    "pnpm run test:coverage",
+    "pnpm run build",
+    "pnpm run mock:doctor",
+    "pnpm run test:e2e -- --project=chromium --project=firefox --project=webkit",
+    "gh run view <run-id> --json conclusion",
+    "gh api repos/:owner/:repo/actions/runs/<run-id>/artifacts"
+  ];
+
+  return {
+    status: "valid",
+    sourceEvidence: [
+      "Character Collection RPG Trial 006 CI / run 28623614814 / conclusion success",
+      "coverage / playwright-report / test-results / terminal evidence artifact",
+      "Chromium / Firefox / WebKit functional E2E",
+      "Dogfood Reuse Task Packet Planner"
+    ],
+    appIdea,
+    templateName: template.name,
+    requiredSections: [
+      "Product Brief",
+      "Non-infringement Boundary",
+      "Mock Backend Contract",
+      "Failure State Contract",
+      "Verification Evidence",
+      "Result Reporting Boundary"
+    ],
+    mockServices,
+    failureStates,
+    verificationCommands,
+    acceptanceCriteria: [
+      `${appIdea}の体験パターンを、実在IP・ロゴ・公式素材・公式文言なしで説明する`,
+      `${template.name}テンプレートの主要機能と非ゴールをProduct Briefへ明記する`,
+      "mock serviceはUIから独立し、/health /state /__control/stateを持つ",
+      "E2Eはmock stateを変更してfailure stateの画面反映を確認する",
+      "初期生成品質と最終収束品質を分けて記事と最終報告に書く"
+    ],
+    codexPromptSeed: `あなたはAIDD Control Planeが生成したAI Task Packetに従い、${appIdea}をNext.js + TypeScript + pnpmで作る。\n` +
+      `テンプレート: ${template.name}\n` +
+      "商標非利用境界: 実在IP、ロゴ、公式素材、公式文言、公式レートを使わない。\n" +
+      `必須mock service: ${mockServices.join(" / ")}\n` +
+      `必須failure states: ${failureStates.join(" / ")}\n` +
+      `検証コマンド: ${verificationCommands.join(" && ")}\n` +
+      "完了条件: root CI success、coverage / playwright-report / test-results / terminal evidence artifact、記事とpreview更新、初期生成品質と最終収束品質の分離報告。"
+  };
+}
 export type ReadinessStatus = "empty" | "draft" | "ready" | "insufficient";
 export type VerificationGateStatus = "未実行" | "成功" | "失敗" | "証跡不足";
 export type VerificationGateId = "lint" | "typecheck" | "test" | "build" | "e2e" | "doctor:aidd";
