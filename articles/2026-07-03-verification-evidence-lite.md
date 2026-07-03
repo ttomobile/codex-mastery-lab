@@ -44,8 +44,8 @@ OS: macOS 26.5.1 Build 25F80
 Codex CLI: codex-cli 0.142.5（npx -y @openai/codex 経由）
 Node: v22.23.1
 pnpm: 11.9.0
-ディスク: /Users/tto/codex-mastery-lab で 119Gi 空き
-実験ディレクトリ: /Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001
+ディスク: WORKSPACE で十分な空き
+実験ディレクトリ: experiments/2026-07-03-verification-evidence-lite-001
 ```
 
 最初に `codex --version` を直接叩くと `codex: command not found` でした。前回記事でも同じ失敗がありました。今回は `npx -y @openai/codex --version` では起動できたので、Codex CLIはnpx経由で実行しました。この失敗も、Verification Evidenceとして残しています。
@@ -61,7 +61,7 @@ pnpm: 11.9.0
 パスは次です。
 
 ```text
-/Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001/PLAN.md
+experiments/2026-07-03-verification-evidence-lite-001/PLAN.md
 ```
 
 ## Step 1: Codexに雑に作らせる
@@ -129,7 +129,7 @@ E2Eは1本でした。
 コンソールログも保存しました。
 
 ```text
-/Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001/logs/browser-console-vibe.txt
+experiments/2026-07-03-verification-evidence-lite-001/logs/browser-console-vibe.txt
 (console messageなし)
 ```
 
@@ -235,7 +235,7 @@ $ pnpm run test:e2e
 空入力エラー、タスク追加、全完了後の空状態まで確認できました。コンソールログも保存済みです。
 
 ```text
-/Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001/logs/browser-console-fixed.txt
+experiments/2026-07-03-verification-evidence-lite-001/logs/browser-console-fixed.txt
 (console messageなし)
 ```
 
@@ -316,7 +316,7 @@ AIDD Control Planeにすると、今回の `doctor:evidence` はUIと自動検�
 
 ## 付録: 生ログ / 参照ファイル
 
-- Experiment path: `/Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001`
+- Experiment path: `experiments/2026-07-03-verification-evidence-lite-001`
 - Vibe Codex log: `logs/codex-vibe.log`
 - Fix Codex log: `logs/codex-fix.log`
 - Vibe verification logs: `logs/typecheck-vibe.txt`, `logs/lint-vibe.txt`, `logs/build-vibe.txt`, `logs/e2e-vibe.txt`

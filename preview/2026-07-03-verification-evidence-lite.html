@@ -191,8 +191,8 @@ OS: macOS 26.5.1 Build 25F80
 Codex CLI: codex-cli 0.142.5（npx -y @openai/codex 経由）
 Node: v22.23.1
 pnpm: 11.9.0
-ディスク: WORKSPACE で 119Gi 空き
-実験ディレクトリ: WORKSPACE/experiments/2026-07-03-verification-evidence-lite-001</code></pre>
+ディスク: WORKSPACE で十分な空き
+実験ディレクトリ: experiments/2026-07-03-verification-evidence-lite-001</code></pre>
 <p>最初に <code>codex --version</code> を直接叩くと <code>codex: command not found</code> でした。前回記事でも同じ失敗がありました。今回は <code>npx -y @openai/codex --version</code> では起動できたので、Codex CLIはnpx経由で実行しました。この失敗も、Verification Evidenceとして残しています。</p>
 <h2>Step 0: 実験計画を書く</h2>
 <p>まず <code>PLAN.md</code> を置きました。今日の監査カテゴリは次の3つです。</p>
@@ -202,7 +202,7 @@ pnpm: 11.9.0
 <li>Accessibility: ラベル、フォーカス、状態説明があるか</li>
 </ol>
 <p>パスは次です。</p>
-<pre><code>WORKSPACE/experiments/2026-07-03-verification-evidence-lite-001/PLAN.md</code></pre>
+<pre><code>experiments/2026-07-03-verification-evidence-lite-001/PLAN.md</code></pre>
 <h2>Step 1: Codexに雑に作らせる</h2>
 <p>実際にCodexへ渡したプロンプトです。</p>
 <pre><code>実験ディレクトリ experiments/2026-07-03-verification-evidence-lite-001/generated-repo に、Next.js + TypeScript + pnpm の小さな日本語UIアプリを作ってください。題材は「日次チェックリスト」。雑なバイブコーディング版として、まず見た目と基本操作を優先してください。必須: package.json、src/app/page.tsx、src/app/layout.tsx、src/app/globals.css、README.md、簡単なPlaywrightテスト1本。UI文言・テスト名は日本語。操作はタスク追加、完了切替、未完了のみ表示。重い依存は追加しないでください。生成後に実行すべきコマンドもREADMEへ書いてください。</code></pre>
@@ -237,7 +237,7 @@ pnpm run test:e2e: 1 passed</code></pre>
 <p>ブラウザ操作もPlaywrightで行い、スクリーンショットからGIFを作りました。</p>
 <p><img src="assets/verification-evidence-lite-vibe.gif" alt="バイブ版GIF" loading="lazy"></p>
 <p>コンソールログも保存しました。</p>
-<pre><code>WORKSPACE/experiments/2026-07-03-verification-evidence-lite-001/logs/browser-console-vibe.txt
+<pre><code>experiments/2026-07-03-verification-evidence-lite-001/logs/browser-console-vibe.txt
 (console messageなし)</code></pre>
 <p>見た目と基本操作は十分です。入力して、チェックして、未完了だけにできます。では、これで「完了」と言ってよいでしょうか。今回の答えは「まだ足りない」です。</p>
 <h2>Step 3: 監査結果</h2>
@@ -315,7 +315,7 @@ $ pnpm run test:e2e
 <p>修正版のブラウザ操作GIFです。</p>
 <p><img src="assets/verification-evidence-lite-fixed.gif" alt="修正版GIF" loading="lazy"></p>
 <p>空入力エラー、タスク追加、全完了後の空状態まで確認できました。コンソールログも保存済みです。</p>
-<pre><code>WORKSPACE/experiments/2026-07-03-verification-evidence-lite-001/logs/browser-console-fixed.txt
+<pre><code>experiments/2026-07-03-verification-evidence-lite-001/logs/browser-console-fixed.txt
 (console messageなし)</code></pre>
 <h2>Step 6: 逆算する</h2>
 <p>今回の欠陥から、前工程で必要だった情報を表にします。</p>
@@ -379,7 +379,7 @@ residual_risks:
 <p>次は、Verification Evidence LiteをAIDD Control Plane側の自動doctor UIへ接続したいです。ログ、GIF、残リスクが足りないと、画面上で完了できないようにする。そこまでできると、AIDD Control Planeは「チェックリストを表示するツール」から「証拠不足を止めるControl Plane」へ一歩進みます。</p>
 <h2>付録: 生ログ / 参照ファイル</h2>
 <ul>
-<li>Experiment path: <code>WORKSPACE/experiments/2026-07-03-verification-evidence-lite-001</code></li>
+<li>Experiment path: <code>experiments/2026-07-03-verification-evidence-lite-001</code></li>
 <li>Vibe Codex log: <code>logs/codex-vibe.log</code></li>
 <li>Fix Codex log: <code>logs/codex-fix.log</code></li>
 <li>Vibe verification logs: <code>logs/typecheck-vibe.txt</code>, <code>logs/lint-vibe.txt</code>, <code>logs/build-vibe.txt</code>, <code>logs/e2e-vibe.txt</code></li>
