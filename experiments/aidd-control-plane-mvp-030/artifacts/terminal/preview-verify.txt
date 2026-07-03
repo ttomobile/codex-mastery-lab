@@ -1,6 +1,5 @@
-preview/2026-07-04-aidd-control-plane-mvp-030.html 39036 OK
-preview/assets/aidd-control-plane-mvp030-empty.png 163779 OK
-preview/assets/aidd-control-plane-mvp030-valid.png 229116 OK
-preview/assets/aidd-control-plane-mvp030-failure.png 221030 OK
-preview/assets/aidd-control-plane-mvp030-terminal-evidence.png 85824 OK
-preview grep OK
+assets/aidd-control-plane-mvp030-empty.png 163779 OK
+assets/aidd-control-plane-mvp030-valid.png 229116 OK
+assets/aidd-control-plane-mvp030-failure.png 221030 OK
+assets/aidd-control-plane-mvp030-terminal-evidence.png 85824 OK
+preview curl grep OK
