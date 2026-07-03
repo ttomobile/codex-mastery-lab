@@ -1,0 +1,11 @@
+AIDD Control Plane MVP 029 verification summary
+
+pnpm install --frozen-lockfile: pass
+pnpm run lint: pass
+pnpm run typecheck: pass
+pnpm run test: pass（58 tests）
+pnpm run build: pass（Next.js ESLint plugin警告あり）
+pnpm run test:e2e: pass（Chromium / Firefox / WebKit、81 tests）
+pnpm run doctor:aidd: pass
+pnpm run test:coverage: pass（src/lib/intake.ts lines 94.45%）
+pnpm run mock:doctor: pass
