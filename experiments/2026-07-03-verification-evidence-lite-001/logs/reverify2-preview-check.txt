@@ -1,0 +1,8 @@
+article_exists True
+verification-evidence-lite-vibe.gif True
+verification-evidence-lite-fixed.gif True
+目次を開く True
+前後の記事 True
+<home> False
+<host> False
+tail... False
