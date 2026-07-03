@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WatchFlow 100点ナレッジを別アプリに移植する：StudyStreamとDrillSwipeで再実証</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane Dogfood 008：RPGのCI証跡を、次のAI Task Packetへ再利用できる形に戻す</title><style>
 :root {
   color-scheme: light;
   --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
@@ -140,149 +140,116 @@ th { background:#f1f5f9; }
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-005.html"><span class="chapter-num">Dogfood 05</span>AIDD Control Plane Dogfood 005：RPGプロトタイプを4つのmock serviceとaxe検査まで進める</a>
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-006.html"><span class="chapter-num">Dogfood 06</span>AIDD Control Plane Dogfood 006：RPGプロトタイプをroot CI artifactへ載せる</a>
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-007.html"><span class="chapter-num">Dogfood 07</span>AIDD Control Plane Dogfood 007：RPGプロトタイプをCI artifact込みで100点へ収束させる</a>
-<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-008.html"><span class="chapter-num">Dogfood 08</span>AIDD Control Plane Dogfood 008：RPGのCI証跡を、次のAI Task Packetへ再利用できる形に戻す</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link current" href="2026-07-03-character-collection-rpg-trial-008.html"><span class="chapter-num">Dogfood 08</span>AIDD Control Plane Dogfood 008：RPGのCI証跡を、次のAI Task Packetへ再利用できる形に戻す</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
 <a class="chapter-link past " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">過去記事 02</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
 <a class="chapter-link past " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">過去記事 03</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">過去記事 04</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-28-agents-skill-explained.html"><span class="chapter-num">過去記事 05</span>AGENTS.mdとaidd-app-clone-lab skillは何に効いたのか：100点化手順を読み解く</a>
-<a class="chapter-link past current" href="2026-06-28-aidd-app-clone-lab-proof.html"><span class="chapter-num">過去記事 06</span>WatchFlow 100点ナレッジを別アプリに移植する：StudyStreamとDrillSwipeで再実証</a>
+<a class="chapter-link past " href="2026-06-28-aidd-app-clone-lab-proof.html"><span class="chapter-num">過去記事 06</span>WatchFlow 100点ナレッジを別アプリに移植する：StudyStreamとDrillSwipeで再実証</a>
 <a class="chapter-link past " href="2026-06-28-aidd-spec-v0.1-workflow-saas.html"><span class="chapter-num">過去記事 07</span>AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</a>
 <a class="chapter-link past " href="2026-06-28-mobile-state-contract.html"><span class="chapter-num">過去記事 08</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-29-api-failure-state.html"><span class="chapter-num">過去記事 09</span>「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-30-playwright-api-state.html"><span class="chapter-num">過去記事 10</span>Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する</a>
-<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-06-28-agents-skill-explained.html"><span>前の記事</span>AGENTS.mdとaidd-app-clone-lab skillは何に効いたのか：100点化手順を読み解く</a><a class="next" href="2026-06-28-aidd-spec-v0.1-workflow-saas.html"><span>次の記事</span>AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</a></nav><article><h1>WatchFlow 100点ナレッジを別アプリに移植する：StudyStreamとDrillSwipeで再実証</h1>
-<blockquote>2026-06-28 / Codex Mastery Lab  </blockquote>
-<blockquote>対象: AIDD app-clone lab knowledge / StudyStream / DrillSwipe  </blockquote>
-<blockquote>結果: <strong>2つの別ゴールで100点手順を再利用できた</strong></blockquote>
-<h2>先にまとめ</h2>
+<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-03-character-collection-rpg-trial-007.html"><span>前の記事</span>AIDD Control Plane Dogfood 007：RPGプロトタイプをCI artifact込みで100点へ収束させる</a><span></span></nav><article><h1>AIDD Control Plane Dogfood 008：RPGのCI証跡を、次のAI Task Packetへ再利用できる形に戻す</h1>
+<blockquote>2026-07-03 / Codex Mastery Lab  </blockquote>
+<blockquote>対象: AIDD Control Plane Dogfood / キャラ収集ターン制RPG / Verification Evidence Binder  </blockquote>
+<blockquote>結果: <strong>Trial 007のCI successとartifact API確認を、AIDD Control Plane画面のDogfood Evidence Binderへ戻し、3ブラウザE2Eで確認した</strong></blockquote>
+<p><img src="assets/2026-07-03-character-collection-rpg-trial-008-evidence-binder.png" alt="Trial 008 Evidence Binder" loading="lazy"></p>
+<h2>前回の振り返り</h2>
+<p>Trial 007では、キャラ収集ターン制RPGプロトタイプについて、root GitHub Actionsの成功とartifact APIを確認した。</p>
+<pre><code>workflow: Character Collection RPG Trial 006 CI
+run id: 28623614814
+conclusion: success
+artifacts:
+  - character-rpg-trial006-terminal-evidence
+  - character-rpg-trial006-test-results
+  - character-rpg-trial006-playwright-report
+  - character-rpg-trial006-coverage</code></pre>
+<p>これでRPGプロトタイプ単体は100点クラスへ収束した。ただし、AIDD Control Planeのdogfoodとしては、ここで終わると弱い。重要なのは「1回うまくいった」ではなく、次のアプリ案でも同じ確認をAI Task Packetへ入れられることだ。</p>
+<p>料理で言えば、成功した料理の写真だけを残すのではなく、買い物リスト、手順、味見ポイント、保存方法まで次回用のメモに戻すようなものだ。</p>
+<h2>今回の目的</h2>
+<p>Trial 008では、ゲーム機能そのものは増やしていない。代わりに、Trial 007の証跡をAIDD Control Plane側へ戻した。</p>
+<p>追加した画面は次のパネルである。</p>
+<pre><code>Dogfood Evidence Binder
+キャラ収集RPG Trial 007 Evidence Binder: valid</code></pre>
+<p>このパネルでは、次を同じ検証単位として表示する。</p>
 <table>
-<tr><th>項目</th><th>結果</th><th>証跡</th></tr>
-<tr><td>WatchFlow Trial 005</td><td>100点化完了</td><td>Firefox導入、3ブラウザE2E、GitHub Actions成功、artifact確認</td></tr>
-<tr><td>ナレッジ化</td><td>完了</td><td><code>AGENTS.md</code> と <code>skills/software-development/aidd-app-clone-lab/SKILL.md</code> に手順化</td></tr>
-<tr><td>もう一度0から作ったサンプル</td><td>成功</td><td><code>StudyStream</code>: YouTube風ではなく学習動画キュー。3ブラウザE2E 33 passed</td></tr>
-<tr><td>TikTok風への横展開</td><td>成功</td><td><code>DrillSwipe</code>: TikTok風ではなく短尺反復学習ドリル。3ブラウザE2E 12 passed</td></tr>
-<tr><td>CI</td><td>成功</td><td><code>App Clone Lab Proofs CI</code> が <code>success</code>。coverage / playwright-report artifactあり</td></tr>
+<tr><th>項目</th><th>内容</th></tr>
+<tr><td>CI run</td><td>workflow名、run id、conclusion</td></tr>
+<tr><td>required artifacts</td><td>coverage / playwright-report / test-results / terminal evidence</td></tr>
+<tr><td>Verification Evidence template</td><td>Product Brief、Mock backend、Failure states、Browser Matrix、CI Artifact Confirmation</td></tr>
+<tr><td>次回AI Task Packet Delta</td><td>run id、artifact API、expired=false確認、商標非利用境界、mock contract、再検証コマンド</td></tr>
 </table>
-<p>今回のポイントは、WatchFlowで100点に到達した手順を「その場限りの成功」にせず、<strong>別ゴールのアプリを0から作らせても再現できる知識</strong>としてrepoに固定したことだ。</p>
-<p>CI run:</p>
-<pre><code>https://github.com/ttomobile/codex-mastery-lab/actions/runs/28312855035</code></pre>
-<p>CI artifact:</p>
-<pre><code>StudyStream-playwright-report   222150
-StudyStream-coverage             65063
-DrillSwipe-playwright-report     207786
-DrillSwipe-coverage              22671</code></pre>
-<h2>何を試したか</h2>
-<p>Trial 005でWatchFlowは100点に到達した。そこで、成功した手順を一回限りの作業で終わらせず、repoの実行知識として残した。</p>
-<p>追加したのはこの2つだ。</p>
-<pre><code>AGENTS.md
-skills/software-development/aidd-app-clone-lab/SKILL.md</code></pre>
-<p>このナレッジには、次の完了条件を入れた。</p>
-<ul>
-<li>Next.js + TypeScript + pnpm</li>
-<li>日本語UI、日本語テスト名、日本語docs</li>
-<li>mock-api / mock-media / mock-auth / mock-billing</li>
-<li>各mock serviceの <code>/health</code>, <code>/state</code>, <code>/__control/state</code></li>
-<li>Docker Compose優先 + Node fallback</li>
-<li>lint / typecheck / unit / coverage / build</li>
-<li>Playwright doctor / mock doctor</li>
-<li>Chromium / Firefox / WebKit の3ブラウザE2E</li>
-<li>GitHub Actions artifact</li>
-<li>記事化とローカルパス漏れ検査</li>
-</ul>
-<p>重要なのは、<strong>同じWatchFlowをもう一度作る</strong>のではなく、別のアプリ目的に移しても効くかを見ることだ。</p>
-<h2>Proof 001: StudyStream</h2>
-<p>最初の横展開は <code>StudyStream</code>。YouTube風の認識しやすい動画体験を使うが、目的は娯楽視聴ではなく <strong>学習動画キュー</strong> に変えた。</p>
-<pre><code>experiments/proof-youtube-focus/generated-repo</code></pre>
-<p>主要体験はこうした。</p>
-<ul>
-<li>ホーム: 学習動画カード、今日の学習目標、集中キュー</li>
-<li>検索: 講座、講師、タグ検索</li>
-<li>動画詳細: 再生プレースホルダー、章立て、学習メモ</li>
-<li>ライブラリ: 保存、集中キュー追加/解除、学習履歴削除</li>
-<li>状態: media failure、offline、timeout、auth、billing failure</li>
-</ul>
-<p>Codexは一度Firefoxで詰まった。FirefoxではNext dev上の一部ページ表示がChromium/WebKitよりかなり遅く、15秒のexpect timeoutでは <code>loading.tsx</code> のまま失敗した。</p>
-<p>そこで、Firefoxを外すのではなく設定を広げた。</p>
-<pre><code>timeout: 120_000,
-expect: { timeout: 90_000 },
-workers: 1,
-retries: process.env.CI ? 2 : 1,</code></pre>
-<p>結果、3ブラウザE2Eは成功した。</p>
-<pre><code>33 passed (Chromium / Firefox / WebKit)</code></pre>
-<p>実行したゲートはこれだ。</p>
-<pre><code>pnpm install --frozen-lockfile  exit=0
-pnpm run lint                   exit=0
-pnpm run typecheck              exit=0
-pnpm run test                   exit=0
-pnpm run test:coverage          exit=0
-pnpm run build                  exit=0
-pnpm run doctor:playwright      exit=0
-pnpm run mock:doctor            exit=0
-3 browser E2E                   33 passed</code></pre>
-<h2>Proof 002: DrillSwipe</h2>
-<p>次は <code>DrillSwipe</code>。TikTok風の縦スクロール短尺フィードを使うが、目的は娯楽ではなく <strong>短尺反復学習ドリル</strong> に変えた。</p>
-<pre><code>experiments/proof-tiktok-drill/generated-repo</code></pre>
-<p>主要体験はこうした。</p>
-<ul>
-<li>縦型短尺ドリルフィード</li>
-<li>現在のドリル、進捗、復習キュー</li>
-<li>正解/不正解の選択</li>
-<li>保存、復習キュー追加、履歴削除</li>
-<li>auth premium、billing failed、media failed</li>
-<li>offline / timeout</li>
-</ul>
-<p>DrillSwipeでは別の失敗が出た。Next devのTurbopackでReact Client Manifest関連のエラーが出た。</p>
-<pre><code>Could not find the module ... global-error.js#default in the React Client Manifest</code></pre>
-<p>これはアプリの要件不備というより、Next dev / Turbopack / Playwright webServerの組み合わせで起きる不安定さだった。Playwright側のwebServerをwebpack dev serverへ切り替えた。</p>
-<pre><code>webServer: {
-  command: &quot;pnpm run mock:start &amp;&amp; pnpm exec next dev --webpack --hostname 127.0.0.1 --port 3000&quot;,
-  url: &quot;http://127.0.0.1:3000&quot;
-}</code></pre>
-<p>その後、削除なしの再実行で3ブラウザE2Eが成功した。</p>
-<pre><code>12 passed (Chromium / Firefox / WebKit)</code></pre>
-<p>実行したゲートはこれだ。</p>
-<pre><code>pnpm install --frozen-lockfile  exit=0
-pnpm run lint                   exit=0
-pnpm run typecheck              exit=0
-pnpm run test                   exit=0
-pnpm run test:coverage          exit=0
-pnpm run build                  exit=0
-pnpm run doctor:playwright      exit=0
-pnpm run mock:doctor            exit=0
-3 browser E2E                   12 passed</code></pre>
-<h2>何が分かったか</h2>
-<p>今回の再実証で、100点化の本質は特定アプリの作り込みではなく、<strong>完了条件を実行可能な契約として先に置くこと</strong>だと確認できた。</p>
-<p>特に効いたのはこの4つ。</p>
-<ol>
-<li>UIと独立したmock serviceを用意する</li>
-<li>E2Eからmock serviceの状態を変える</li>
-<li>Firefoxを対象外にせず、遅さを前提に安定化する</li>
-<li>docs、score、terminal logを同じ実験単位に置く</li>
-</ol>
-<p>逆に、まだ改善できる点もある。</p>
-<ul>
-<li>DrillSwipeのunit coverageはゲートとしては通ったが、対象範囲はまだ薄い</li>
-<li>Proof appsのCIはroot workflowでまとめて回す形にし、今回成功まで確認した</li>
-<li>生成アプリが増えるとruntime artifactの除外ルールをさらに厳密にする必要がある</li>
-</ul>
-<h2>CI化</h2>
-<p>横展開用にroot workflowを追加し、実際にGitHub Actionsで成功まで確認した。</p>
-<pre><code>.github/workflows/app-clone-lab-proofs-ci.yml</code></pre>
-<p>matrixで <code>StudyStream</code> と <code>DrillSwipe</code> を回す。</p>
-<pre><code>StudyStream: e2e/studystream.spec.ts
-DrillSwipe: e2e/drillswipe.spec.ts</code></pre>
-<p>CIでは次を実行する。</p>
-<pre><code>pnpm install --frozen-lockfile
-pnpm exec playwright install --with-deps
-pnpm run lint
-pnpm run typecheck
-pnpm run test
-pnpm run test:coverage
-pnpm run build
-pnpm run doctor:playwright
-pnpm run mock:doctor
-pnpm exec playwright test ... --project=chromium --project=firefox --project=webkit</code></pre>
-<h2>結論</h2>
-<p>Trial 005の100点化は、WatchFlow専用の偶然ではなかった。</p>
-<p><code>AGENTS.md</code> と <code>aidd-app-clone-lab</code> skillに落としたことで、動画学習キューと短尺ドリルという別ゴールでも、mock backend、失敗状態、3ブラウザE2Eまで到達できた。</p>
-<p>次にやるべきことは、この手順をAIDD-Specの「アプリパターン実験プロトコル」として整理し、各app cloneで同じ採点表とCI証跡を比較できるようにすることだ。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-06-28-agents-skill-explained.html"><span>前の記事</span>AGENTS.mdとaidd-app-clone-lab skillは何に効いたのか：100点化手順を読み解く</a><a class="next" href="2026-06-28-aidd-spec-v0.1-workflow-saas.html"><span>次の記事</span>AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</a></nav></main></div></body></html>
+<h2>実装した差分</h2>
+<p>AIDD Control Plane MVP 022の画面に、RPG dogfood専用のEvidence Binderパネルを追加した。</p>
+<pre><code>experiments/aidd-control-plane-mvp-022/generated-repo/app/page.tsx</code></pre>
+<p>E2Eにも、RPG Trial 007の証跡がUIに出ていることを確認するテストを追加した。</p>
+<pre><code>RPG Trial 007のCI証跡をDogfood Evidence Binderとして表示する</code></pre>
+<p>確認している代表項目は次の通り。</p>
+<pre><code>- heading: キャラ収集RPG Trial 007 Evidence Binder: valid
+- workflow: Character Collection RPG Trial 006 CI
+- run id: 28623614814
+- artifact: character-rpg-trial006-coverage
+- browser matrix: Chromium / Firefox / WebKit
+- AI Task Packet Delta: artifact API結果をVerification Evidenceへ転記する</code></pre>
+<h2>検証結果</h2>
+<p>今回も、画面追加だけで終わらせず、品質ゲートを実行した。</p>
+<table>
+<tr><th>command</th><th>result</th></tr>
+<tr><td><code>pnpm run lint</code></td><td>pass</td></tr>
+<tr><td><code>pnpm run typecheck</code></td><td>pass</td></tr>
+<tr><td><code>pnpm run test</code></td><td>43 passed</td></tr>
+<tr><td><code>pnpm run test:coverage</code></td><td>pass</td></tr>
+<tr><td><code>pnpm run build</code></td><td>pass</td></tr>
+<tr><td><code>pnpm run doctor:aidd</code></td><td>pass</td></tr>
+<tr><td><code>pnpm run mock:doctor</code></td><td>pass</td></tr>
+<tr><td><code>pnpm run test:e2e</code></td><td>54 passed</td></tr>
+</table>
+<p>3ブラウザE2Eの結果は次の通り。</p>
+<pre><code>Running 54 tests using 1 worker
+...
+54 passed (1.1m)</code></pre>
+<p>新規テストもChromium / Firefox / WebKitで通った。</p>
+<pre><code>✓ [chromium] RPG Trial 007のCI証跡をDogfood Evidence Binderとして表示する
+✓ [firefox]  RPG Trial 007のCI証跡をDogfood Evidence Binderとして表示する
+✓ [webkit]   RPG Trial 007のCI証跡をDogfood Evidence Binderとして表示する</code></pre>
+<p>terminal evidenceは次に保存した。</p>
+<pre><code>experiments/character-collection-rpg-trial-001/artifacts/character-collection-rpg-trial-008/terminal/
+  00-verification-summary.txt
+  trial008-lint.txt
+  trial008-typecheck.txt
+  trial008-test.txt
+  trial008-coverage.txt
+  trial008-build.txt
+  trial008-doctor-aidd.txt
+  trial008-mock-doctor.txt
+  trial008-e2e.txt</code></pre>
+<h2>AIDD-Specへの戻し</h2>
+<p>今回の学びは、次の標準更新候補にできる。</p>
+<pre><code>observed_gap:
+  finding: 100点へ収束したdogfood結果が、次のAI Task Packetへ再利用されない
+  risk: 成功した検証手順が記事内の説明で止まり、次のアプリ生成時にまた抜ける
+ideal_state:
+  - CI run id、conclusion、job、artifact API結果をVerification Evidenceへ束ねる
+  - coverage / playwright-report / test-results / terminal evidenceを必須artifactとして扱う
+  - 商標非利用境界、mock backend contract、failure states、3ブラウザE2Eをテンプレート化する
+standard_update:
+  document: Verification Evidence
+  field: reusable_dogfood_evidence_binder
+codex_prompt_delta: |
+  既存dogfoodの成功証跡を確認し、run id、artifact API、browser matrix、mock contract、failure statesを次回AI Task Packetへ転記する。
+verification:
+  command: pnpm run test:e2e
+  expected: Dogfood Evidence BinderがChromium / Firefox / WebKitで表示される</code></pre>
+<p>AIDD Control Planeの価値は、AIに「RPGっぽいものを作って」と頼むことではない。作りたいものを、非侵害境界、mock service、failure state、CI artifact、次回改善deltaへ分け、次の依頼に戻せることだ。</p>
+<h2>今回の対応表</h2>
+<table>
+<tr><th>skill / AGENTS.mdのルール</th><th>今回防いだこと</th></tr>
+<tr><td>CI artifactまで確認する</td><td><code>success</code>という文章だけで終わらず、artifact名をUIに戻した</td></tr>
+<tr><td>Evidence and article</td><td>スクリーンショット、terminal log、記事、previewを揃えた</td></tr>
+<tr><td>3ブラウザE2E</td><td>Evidence Binderの表示をChromium / Firefox / WebKitで確認した</td></tr>
+<tr><td>過大主張しない</td><td>Trial 001〜007で収束した100点を、次回用テンプレートへ戻す作業として記録した</td></tr>
+<tr><td>商標非利用</td><td>画面内でも実在IP・ロゴ・公式素材・公式文言を使わず、体験パターンと証跡だけを扱った</td></tr>
+</table>
+<h2>次回</h2>
+<p>次回は、このDogfood Evidence Binderをさらに進め、AIDD Control Planeの「次回AI Task Packet生成」に直接混ぜる。つまり、ユーザーが新しいアプリ案を入力したとき、過去dogfoodの成功証跡から必要なmock service、failure state、CI artifact確認を自動で初期提案できるようにする。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-03-character-collection-rpg-trial-007.html"><span>前の記事</span>AIDD Control Plane Dogfood 007：RPGプロトタイプをCI artifact込みで100点へ収束させる</a><span></span></nav></main></div></body></html>

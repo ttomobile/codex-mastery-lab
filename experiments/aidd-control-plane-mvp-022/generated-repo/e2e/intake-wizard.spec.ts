@@ -397,6 +397,18 @@ test("証跡不足サンプルを適用するとコマンド成功後もreadyで
   await expect(page.getByLabel("terminal evidence", { exact: true }).getByText("terminal evidence不足", { exact: true })).toBeVisible();
 });
 
+test("RPG Trial 007のCI証跡をDogfood Evidence Binderとして表示する", async ({ page }) => {
+  await page.goto("/");
+
+  await expect(page.getByRole("heading", { name: "キャラ収集RPG Trial 007 Evidence Binder: valid" })).toBeVisible();
+  await expect(page.getByText("RPG dogfood証跡はvalidです")).toBeVisible();
+  await expect(page.getByLabel("RPG Trial 007 evidence binder summary").getByText("Character Collection RPG Trial 006 CI")).toBeVisible();
+  await expect(page.getByLabel("RPG Trial 007 evidence binder summary").getByText("28623614814")).toBeVisible();
+  await expect(page.getByLabel("RPG Trial 007 evidence binder summary").getByText("character-rpg-trial006-coverage")).toBeVisible();
+  await expect(page.getByLabel("RPG Trial 007 evidence binder summary").getByText("Chromium / Firefox / WebKit")).toBeVisible();
+  await expect(page.getByLabel("RPG Trial 008 AI Task Packet Delta").getByText("artifact API結果をVerification Evidenceへ転記する")).toBeVisible();
+});
+
 async function fillSampleApp(page: import("@playwright/test").Page) {
   await applyLearningTemplate(page);
   await page.getByRole("button", { name: "validサンプルを適用" }).click();

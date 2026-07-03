@@ -1,0 +1,19 @@
+# Trial 008 verification summary
+
+目的: キャラ収集RPG Trial 007のCI artifact確認を、AIDD Control PlaneのDogfood Evidence Binderとして再利用可能なVerification Evidenceテンプレートへ戻す。
+
+変更:
+- AIDD Control Plane UIに「キャラ収集RPG Trial 007 Evidence Binder: valid」を追加。
+- run id / conclusion / required artifacts / Verification Evidence template / 次回AI Task Packet Deltaを表示。
+- Playwright E2Eに3ブラウザでこのBinderを確認するテストを追加。
+- 証跡スクリーンショットを assets/2026-07-03-character-collection-rpg-trial-008-evidence-binder.png に保存。
+
+実行結果:
+- pnpm run lint: pass
+- pnpm run typecheck: pass
+- pnpm run test: 43 passed
+- pnpm run test:coverage: pass
+- pnpm run build: pass
+- pnpm run doctor:aidd: pass
+- pnpm run mock:doctor: pass
+- pnpm run test:e2e: 54 passed across Chromium / Firefox / WebKit

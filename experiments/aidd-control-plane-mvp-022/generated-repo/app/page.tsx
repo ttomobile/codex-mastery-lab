@@ -351,6 +351,55 @@ export default function Home() {
         <pre aria-label="Mock CI Codex prompt delta">{mockCi.promptDelta}</pre>
       </section>
 
+      <section className="artifact-binder artifact-valid" aria-labelledby="dogfood-evidence-title">
+        <div className="section-heading">
+          <p className="eyebrow">Dogfood Evidence Binder</p>
+          <h2 id="dogfood-evidence-title">キャラ収集RPG Trial 007 Evidence Binder: valid</h2>
+          <p>
+            100点へ収束したキャラ収集ターン制RPGのCI証跡を、次のアプリ案でも再利用できるVerification Evidenceテンプレートへ変換します。
+            実在IP、ロゴ、公式素材、公式文言を使わず、run結果・artifact・画面証跡・次回AI Task Packet Deltaだけを束ねます。
+          </p>
+        </div>
+        <div className="verification-summary is-ready" aria-live="polite">
+          <strong>RPG dogfood証跡はvalidです</strong>
+          <span>GitHub Actions success、coverage / playwright-report / test-results / terminal evidence、3ブラウザE2E、記事プレビューを同じ検証単位に束ねました。</span>
+        </div>
+        <div className="binder-grid" aria-label="RPG Trial 007 evidence binder summary">
+          <section>
+            <h3>CI run</h3>
+            <dl>
+              <div><dt>workflow</dt><dd>Character Collection RPG Trial 006 CI</dd></div>
+              <div><dt>run id</dt><dd>28623614814</dd></div>
+              <div><dt>conclusion</dt><dd>success</dd></div>
+            </dl>
+          </section>
+          <section>
+            <h3>required artifacts</h3>
+            <ul>
+              <li>character-rpg-trial006-coverage</li>
+              <li>character-rpg-trial006-playwright-report</li>
+              <li>character-rpg-trial006-test-results</li>
+              <li>character-rpg-trial006-terminal-evidence</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Verification Evidence template</h3>
+            <ul>
+              <li>Product Brief: 非商標・非公式素材のキャラ収集RPG体験パターン</li>
+              <li>Mock backend: api / media / auth / billingの4 service</li>
+              <li>Failure states: offline / timeout / media failure / auth / billing</li>
+              <li>Browser Matrix: Chromium / Firefox / WebKit</li>
+              <li>CI Artifact Confirmation: gh run view + artifact API</li>
+            </ul>
+          </section>
+        </div>
+        <pre aria-label="RPG Trial 008 AI Task Packet Delta">{`次回AI Task Packet Delta:
+- CI成功だけで完了にせず、run id、conclusion、job、artifact API結果をVerification Evidenceへ転記する。
+- coverage / playwright-report / test-results / terminal evidenceの4 artifactがexpired=falseであることを確認する。
+- 商標非利用境界とmock service contractをProduct BriefとTesting Contractへ残す。
+- 検証コマンド: gh run view <run-id> && gh api repos/:owner/:repo/actions/runs/<run-id>/artifacts && pnpm run test:e2e`}</pre>
+      </section>
+
       <section className={`artifact-binder artifact-${workflowAudit.status}`} aria-labelledby="workflow-auditor-title">
         <div className="section-heading">
           <p className="eyebrow">CI Workflow Artifact Auditor</p>
