@@ -1,0 +1,2 @@
+experiments/aidd-control-plane-mvp-028/CODEX_PROMPT.md:20:- ローカル絶対パス、host名、プライベートネットワーク名をUIや記事向け出力に混ぜない。
+experiments/aidd-control-plane-mvp-028/artifacts/terminal/leak-scan.txt:1:experiments/aidd-control-plane-mvp-028/CODEX_PROMPT.md:20:- ローカル絶対パス、host名、プライベートネットワーク名をUIや記事向け出力に混ぜない。

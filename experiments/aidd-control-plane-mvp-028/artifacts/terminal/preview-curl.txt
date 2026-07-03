@@ -1,0 +1,7 @@
+<p>MVP 027では、AIが作ったpatch候補を <code>diff bundle / dry-run結果 / rollback evidence / verification command</code> の単位で束ねました。今回はその次です。bundleを見て「採用する」「却下する」「いったん保留する」を決めるだけでなく、<strong>なぜそう判断したか、誰が判断したか、どの証跡を見たか、採用済みだけが次へ進むか</strong> を残す <code>Diff Bundle Decision Ledger</code> を追加しました。</p>
+<p><img src="assets/aidd-control-plane-mvp028-terminal-evidence.png" alt="MVP028 terminal evidence" loading="lazy"></p>
+  -&gt; Diff Bundle Decision Ledger
+aidd-control-plane-mvp028-empty.png   183866
+aidd-control-plane-mvp028-valid.png   238264
+aidd-control-plane-mvp028-failure.png   171525
+aidd-control-plane-mvp028-terminal-evidence.png   142475

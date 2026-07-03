@@ -1,0 +1,18 @@
+AIDD Control Plane MVP 028 verification summary
+
+pnpm install --frozen-lockfile: pass
+pnpm run lint: pass
+pnpm run typecheck: pass
+pnpm run test: pass（55 tests）
+pnpm run test:coverage: pass（src/lib/intake.ts lines 94.12%）
+pnpm run build: pass（Next.js ESLint plugin warningあり）
+pnpm run test:e2e: pass（Chromium / Firefox / WebKit、78 tests）
+pnpm run mock:doctor: pass
+pnpm run doctor:aidd: pass
+pnpm run capture:mvp028: pass
+
+Codex CLI:
+- first command: codex exec --sandbox danger-full-access ...
+- result: codex: command not found
+- second command: npx --yes @openai/codex exec --sandbox danger-full-access ...
+- result: 600秒でtimeout。ただしMVP028実装差分は生成済みだったため、Hermesが独立検証を完了。

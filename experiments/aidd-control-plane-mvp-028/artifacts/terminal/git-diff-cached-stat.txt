@@ -1,0 +1,146 @@
+ articles/2026-07-03-aidd-control-plane-mvp-028.md  |  117 +
+ assets/aidd-control-plane-mvp028-empty.png         |  Bin 0 -> 183866 bytes
+ assets/aidd-control-plane-mvp028-failure.png       |  Bin 0 -> 171525 bytes
+ ...aidd-control-plane-mvp028-terminal-evidence.png |  Bin 0 -> 142475 bytes
+ assets/aidd-control-plane-mvp028-valid.png         |  Bin 0 -> 238264 bytes
+ .../aidd-control-plane-mvp-028/AI_TASK_PACKET.md   |   62 +
+ .../aidd-control-plane-mvp-028/CODEX_PROMPT.md     |   23 +
+ experiments/aidd-control-plane-mvp-028/README.md   |   19 +
+ .../aidd-control-plane-mvp028-empty.png            |  Bin 0 -> 183866 bytes
+ .../aidd-control-plane-mvp028-failure.png          |  Bin 0 -> 171525 bytes
+ ...aidd-control-plane-mvp028-terminal-evidence.png |  Bin 0 -> 142475 bytes
+ .../aidd-control-plane-mvp028-valid.png            |  Bin 0 -> 238264 bytes
+ .../artifacts/terminal/build.txt                   |   28 +
+ .../artifacts/terminal/capture-mvp028.txt          |    1 +
+ .../artifacts/terminal/codex-exec.txt              |    1 +
+ .../artifacts/terminal/doctor-aidd.txt             |    5 +
+ .../artifacts/terminal/git-status.txt              |   72 +
+ .../terminal/leak-scan-after-sanitize.txt          |    2 +
+ .../terminal/leak-scan-final-localhost.txt         |    0
+ .../artifacts/terminal/leak-scan-final.txt         |    0
+ .../artifacts/terminal/leak-scan.txt               |    7 +
+ .../artifacts/terminal/lint.txt                    |    1 +
+ .../artifacts/terminal/mock-doctor.txt             |    2 +
+ .../artifacts/terminal/pnpm-install.txt            |    2 +
+ .../artifacts/terminal/preview-build.txt           |    1 +
+ .../artifacts/terminal/preview-curl.txt            |    7 +
+ .../artifacts/terminal/preview-grep.txt            |    0
+ .../artifacts/terminal/test-coverage.txt           |   49 +
+ .../artifacts/terminal/test-e2e.txt                |   84 +
+ .../artifacts/terminal/test.txt                    |   11 +
+ .../artifacts/terminal/typecheck.txt               |    1 +
+ .../artifacts/terminal/verification-summary.txt    |   18 +
+ .../generated-repo/.gitignore                      |    6 +
+ .../generated-repo/app/globals.css                 |  648 +++
+ .../generated-repo/app/layout.tsx                  |   15 +
+ .../generated-repo/app/page.tsx                    | 1684 +++++++
+ .../generated-repo/docker-compose.yml              |   12 +
+ .../generated-repo/docs/learning-log.md            |   13 +
+ .../generated-repo/docs/product-brief.md           |   27 +
+ .../generated-repo/docs/review-record.md           |   21 +
+ .../generated-repo/docs/verification-plan.md       |   24 +
+ .../generated-repo/e2e/intake-wizard.spec.ts       |  622 +++
+ .../generated-repo/eslint.config.mjs               |   32 +
+ .../mocks/ci-service/fixtures/empty.json           |   14 +
+ .../mocks/ci-service/fixtures/failure.json         |   14 +
+ .../mocks/ci-service/fixtures/rate_limit.json      |   18 +
+ .../mocks/ci-service/fixtures/timeout.json         |   14 +
+ .../mocks/ci-service/fixtures/valid.json           |   14 +
+ .../generated-repo/mocks/ci-service/server.mjs     |   83 +
+ .../generated-repo/next-env.d.ts                   |    6 +
+ .../generated-repo/next.config.mjs                 |    5 +
+ .../generated-repo/package.json                    |   50 +
+ .../generated-repo/playwright.config.ts            |   34 +
+ .../generated-repo/pnpm-lock.yaml                  | 4808 ++++++++++++++++++++
+ .../generated-repo/pnpm-workspace.yaml             |   21 +
+ .../generated-repo/scripts/capture-mvp015.mjs      |   49 +
+ .../generated-repo/scripts/capture-mvp016.mjs      |   44 +
+ .../generated-repo/scripts/capture-mvp017.mjs      |   44 +
+ .../generated-repo/scripts/capture-mvp019.mjs      |   45 +
+ .../generated-repo/scripts/capture-mvp020.mjs      |   45 +
+ .../generated-repo/scripts/capture-mvp021.mjs      |   47 +
+ .../generated-repo/scripts/capture-mvp022.mjs      |   47 +
+ .../generated-repo/scripts/capture-mvp023.mjs      |   44 +
+ .../generated-repo/scripts/capture-mvp024.mjs      |   44 +
+ .../generated-repo/scripts/capture-mvp025.mjs      |   47 +
+ .../generated-repo/scripts/capture-mvp026.mjs      |   46 +
+ .../generated-repo/scripts/capture-mvp027.mjs      |   46 +
+ .../generated-repo/scripts/capture-mvp028.mjs      |   48 +
+ .../generated-repo/scripts/capture-trial008.mjs    |    8 +
+ .../generated-repo/scripts/capture-trial010.mjs    |   25 +
+ .../generated-repo/scripts/capture-trial014.mjs    |   35 +
+ .../generated-repo/scripts/doctor-aidd.mjs         |  134 +
+ .../generated-repo/scripts/mock-doctor.mjs         |   49 +
+ .../generated-repo/scripts/mock-start.mjs          |   35 +
+ .../generated-repo/scripts/mock-stop.mjs           |   20 +
+ .../generated-repo/src/lib/intake.ts               | 2925 ++++++++++++
+ .../generated-repo/tests/intake.test.ts            |  794 ++++
+ .../generated-repo/tsconfig.json                   |   20 +
+ .../generated-repo/vitest.config.ts                |    8 +
+ preview/001-series-roadmap.html                    |    6 +-
+ ...2026-06-27-accessibility-contract-vibe-faq.html |    6 +-
+ preview/2026-06-27-contact-api-threat-model.html   |    6 +-
+ ...2026-06-27-performance-budget-vibe-gallery.html |    6 +-
+ .../2026-06-27-security-baseline-contact-form.html |    6 +-
+ preview/2026-06-27-watchflow-trial-001.html        |    6 +-
+ preview/2026-06-27-watchflow-trial-002.html        |    6 +-
+ preview/2026-06-27-watchflow-trial-003.html        |    6 +-
+ preview/2026-06-27-watchflow-trial-004.html        |    6 +-
+ preview/2026-06-27-watchflow-trial-005.html        |    6 +-
+ preview/2026-06-28-agents-skill-explained.html     |    6 +-
+ preview/2026-06-28-aidd-app-clone-lab-proof.html   |    6 +-
+ preview/2026-06-28-aidd-control-plane-mvp-001.html |    6 +-
+ preview/2026-06-28-aidd-control-plane-mvp-002.html |    6 +-
+ preview/2026-06-28-aidd-control-plane-mvp-003.html |    6 +-
+ .../2026-06-28-aidd-spec-v0.1-workflow-saas.html   |    6 +-
+ preview/2026-06-28-mobile-state-contract.html      |    6 +-
+ preview/2026-06-29-aidd-control-plane-mvp-004.html |    6 +-
+ preview/2026-06-29-api-failure-state.html          |    6 +-
+ preview/2026-06-30-aidd-control-plane-mvp-005.html |    6 +-
+ preview/2026-06-30-aidd-control-plane-mvp-006.html |    6 +-
+ preview/2026-06-30-aidd-control-plane-mvp-007.html |    6 +-
+ preview/2026-06-30-aidd-control-plane-mvp-008.html |    6 +-
+ preview/2026-06-30-aidd-control-plane-mvp-009.html |    6 +-
+ preview/2026-06-30-aidd-control-plane-mvp-010.html |    6 +-
+ preview/2026-06-30-playwright-api-state.html       |    6 +-
+ preview/2026-07-01-aidd-control-plane-mvp-011.html |    6 +-
+ preview/2026-07-01-aidd-control-plane-mvp-012.html |    6 +-
+ preview/2026-07-02-aidd-control-plane-mvp-013.html |    6 +-
+ preview/2026-07-02-aidd-control-plane-mvp-014.html |    6 +-
+ preview/2026-07-02-aidd-control-plane-mvp-015.html |    6 +-
+ preview/2026-07-02-aidd-control-plane-mvp-016.html |    6 +-
+ preview/2026-07-02-aidd-control-plane-mvp-017.html |    6 +-
+ preview/2026-07-02-aidd-control-plane-mvp-018.html |    6 +-
+ ...6-07-02-character-collection-rpg-trial-001.html |    6 +-
+ ...6-07-02-character-collection-rpg-trial-002.html |    6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-019.html |    6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-020.html |    6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-021.html |    6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-022.html |    6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-023.html |    6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-024.html |    6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-025.html |    6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-026.html |    6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-027.html |   10 +-
+ preview/2026-07-03-aidd-control-plane-mvp-028.html |  252 +
+ ...6-07-03-character-collection-rpg-trial-003.html |    6 +-
+ ...6-07-03-character-collection-rpg-trial-004.html |    6 +-
+ ...6-07-03-character-collection-rpg-trial-005.html |    6 +-
+ ...6-07-03-character-collection-rpg-trial-006.html |    6 +-
+ ...6-07-03-character-collection-rpg-trial-007.html |    6 +-
+ ...6-07-03-character-collection-rpg-trial-008.html |    6 +-
+ ...6-07-03-character-collection-rpg-trial-009.html |    6 +-
+ ...6-07-03-character-collection-rpg-trial-010.html |    6 +-
+ ...6-07-03-character-collection-rpg-trial-011.html |    6 +-
+ ...6-07-03-character-collection-rpg-trial-012.html |    6 +-
+ ...6-07-03-character-collection-rpg-trial-013.html |    6 +-
+ ...6-07-03-character-collection-rpg-trial-014.html |    6 +-
+ preview/2026-07-03-verification-evidence-lite.html |    6 +-
+ preview/assets/aidd-control-plane-mvp028-empty.png |  Bin 0 -> 183866 bytes
+ .../assets/aidd-control-plane-mvp028-failure.png   |  Bin 0 -> 171525 bytes
+ ...aidd-control-plane-mvp028-terminal-evidence.png |  Bin 0 -> 142475 bytes
+ preview/assets/aidd-control-plane-mvp028-valid.png |  Bin 0 -> 238264 bytes
+ preview/index.html                                 |    8 +-
+ scripts/build_preview.py                           |    1 +
+ standards/aidd-control-plane-mvp-v0.1.md           |    1 +
+ 145 files changed, 13840 insertions(+), 121 deletions(-)

@@ -1,0 +1,7 @@
+experiments/aidd-control-plane-mvp-028/CODEX_PROMPT.md:20:- ローカル絶対パス、host名、プライベートネットワーク名をUIや記事向け出力に混ぜない。
+experiments/aidd-control-plane-mvp-028/artifacts/terminal/preview-build.txt:1:Wrote 59 articles to <repo>/preview
+experiments/aidd-control-plane-mvp-028/artifacts/terminal/test.txt:3: RUN  v3.2.6 <repo>/experiments/aidd-control-plane-mvp-028/generated-repo
+experiments/aidd-control-plane-mvp-028/artifacts/terminal/test-coverage.txt:3: RUN  v3.2.6 <repo>/experiments/aidd-control-plane-mvp-028/generated-repo
+preview/2026-07-03-aidd-control-plane-mvp-028.html:17:.chapter-num { color:#93c5fd; font-weight:700; font-size:12px; display:block; margin-bottom:2px; }
+preview/2026-07-03-aidd-control-plane-mvp-028.html:38:.meta { color:var(--muted); font-size:14px; margin-bottom:24px; }
+preview/2026-07-03-aidd-control-plane-mvp-028.html:39:.hero { background:linear-gradient(135deg,#eff6ff,#faf5ff); border:1px solid #dbeafe; border-radius:24px; padding:28px; margin-bottom:22px; }
