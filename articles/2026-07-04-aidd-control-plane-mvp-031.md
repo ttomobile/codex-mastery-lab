@@ -59,7 +59,7 @@ valid状態では、approver、authorization reason、Codex command、sandbox mo
 
 ![MVP031 failure state](../assets/aidd-control-plane-mvp031-failure.png)
 
-failure状態では、preflight failure、承認者不足、理由不足、危険なcommand、Firefox除外、浅い検証、local path / host / tailnet / private network URL混入、evidence path不足、rollback不足、AIDD-Spec接続不足をReview Findingとして表示します。
+failure状態では、preflight failure、承認者不足、理由不足、危険なcommand、Firefox除外、浅い検証、local path / host / 非公開ネットワークURL混入、evidence path不足、rollback不足、AIDD-Spec接続不足をReview Findingとして表示します。
 
 ### terminal evidence：実際に通した検証ログ
 
@@ -100,7 +100,7 @@ pnpm run capture:mvp031: pass
 | shallow verificationを止める | `pnpm run test` だけで完了扱いにしていないか | lint/typecheck/build/E2E/doctorまで含めた完了条件を守るため |
 | evidence pathを確認する | ログと画像の保存先が決まっているか | 後で「本当に検証したか」を確認できるようにするため |
 | rollback planを確認する | 失敗時に何を戻すか | AI実行の失敗を次回改善へ戻すため |
-| local path / host / tailnetを検出する | 公開できない環境情報が混ざっていないか | noteやGitHubへ不要な情報を出さないため |
+| local path / host / 非公開ネットワーク名を検出する | 公開できない環境情報が混ざっていないか | noteやGitHubへ不要な情報を出さないため |
 
 ## SaaS / AIDD-Specへの接続
 
