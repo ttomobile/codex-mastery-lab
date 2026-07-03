@@ -1,0 +1,5 @@
+$ node scripts/doctor-evidence.mjs
+OK docs/ACCEPTANCE_CRITERIA.md
+OK docs/VERIFICATION_EVIDENCE.md
+OK tests/e2e/daily-checklist.spec.ts
+OK Verification Evidence Lite の最低限の証跡が揃っています。
