@@ -57,6 +57,7 @@ MVPではこの流れをフォームとチェックリストで標準化する�
 | Packet File Apply Planner | 採用済みdeltaのMarkdown exportを実ファイルへ反映する前に、対象ファイル・追記位置・before/after差分・検証・rollbackを確認する | empty / valid / failure、AI_TASK_PACKET.md / CODEX_PROMPT.md / VERIFICATION_PLAN.md / LEARNING_LOG.md、insert position、verification command、rollback step、review evidence、未採用delta混入検出 |
 | Packet Draft Workspace | Packet File Apply Plannerの適用計画から、次回AIへ渡す4種類のドラフト本文とコピー用Codex promptを実ファイル反映前に確認する | empty / valid / failure、AI_TASK_PACKET.md / CODEX_PROMPT.md / VERIFICATION_PLAN.md / LEARNING_LOG.md、draft body、source delta id、差分サマリ、実行前チェック、verification command、rollback condition、AIDD-Spec接続、file target衝突、未採用delta混入検出 |
 | Safe Patch Review Workspace | Packet Draft Workspaceのドラフト本文を実ファイルへ反映する前に、安全なpatch候補としてレビューする | empty / valid / failure、patch id、target file、source draft id、diff summary、diff size、apply command、verification command、rollback command、reviewer checklist、AIDD-Spec接続、危険なtarget path、diff size過大、未採用delta混入、ローカルパス混入検出 |
+| Diff Bundle & Rollback Evidence Workspace | Safe Patch Review Workspaceで承認されたpatch候補を自動適用する前に、diff bundle、dry-run結果、rollback evidenceを保存する | empty / valid / failure、bundle id、source patch id、target file、before hash、after hash、diff bundle path、dry-run command/status、rollback evidence path、rollback verified command、verification command、reviewer checklist、AIDD-Spec接続、危険なtarget path、ローカルパス混入、rollback evidence不足検出 |
 
 ## 4. 初期データモデル
 

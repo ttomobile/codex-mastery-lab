@@ -1,0 +1,11 @@
+AIDD Control Plane MVP 024 verification summary
+
+codex exec --sandbox danger-full-access: failed (codex: command not found) and recorded in codex-exec.txt
+pnpm install --frozen-lockfile: pass
+pnpm run lint: pass
+pnpm run typecheck: pass
+pnpm run test: pass (49 tests)
+pnpm run build: pass (Next.js warning: ESLint plugin was not detected in configuration)
+pnpm run test:e2e: pass (Chromium / Firefox / WebKit, 63 tests)
+pnpm run doctor:aidd: pass
+pnpm run capture:mvp024: pass

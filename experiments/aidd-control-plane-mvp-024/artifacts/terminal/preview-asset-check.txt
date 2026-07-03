@@ -1,0 +1,9 @@
+html exists: True 34508
+AIDD Control Plane MVP 024 True
+aidd-control-plane-mvp024-empty.png True
+aidd-control-plane-mvp024-terminal-evidence.png True
+Diff Bundle True
+aidd-control-plane-mvp024-empty.png True 4913960
+aidd-control-plane-mvp024-valid.png True 5185113
+aidd-control-plane-mvp024-failure.png True 5122899
+aidd-control-plane-mvp024-terminal-evidence.png True 144093
