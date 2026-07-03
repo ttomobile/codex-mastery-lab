@@ -58,6 +58,7 @@ MVPではこの流れをフォームとチェックリストで標準化する�
 | Packet Draft Workspace | Packet File Apply Plannerの適用計画から、次回AIへ渡す4種類のドラフト本文とコピー用Codex promptを実ファイル反映前に確認する | empty / valid / failure、AI_TASK_PACKET.md / CODEX_PROMPT.md / VERIFICATION_PLAN.md / LEARNING_LOG.md、draft body、source delta id、差分サマリ、実行前チェック、verification command、rollback condition、AIDD-Spec接続、file target衝突、未採用delta混入検出 |
 | Safe Patch Review Workspace | Packet Draft Workspaceのドラフト本文を実ファイルへ反映する前に、安全なpatch候補としてレビューする | empty / valid / failure、patch id、target file、source draft id、diff summary、diff size、apply command、verification command、rollback command、reviewer checklist、AIDD-Spec接続、危険なtarget path、diff size過大、未採用delta混入、ローカルパス混入検出 |
 | Diff Bundle & Rollback Evidence Workspace | Safe Patch Review Workspaceで承認されたpatch候補を自動適用する前に、diff bundle、dry-run結果、rollback evidenceを保存する | empty / valid / failure、bundle id、source patch id、target file、before hash、after hash、diff bundle path、dry-run command/status、rollback evidence path、rollback verified command、verification command、reviewer checklist、AIDD-Spec接続、危険なtarget path、ローカルパス混入、rollback evidence不足検出 |
+| Dogfood Packet Markdown Review | 新規アプリ案seedをAI_TASK_PACKET.md / CODEX_PROMPT.md / VERIFICATION_PLAN.mdへ反映する前に、Markdown本文、差分サマリ、実行前チェック、検証コマンド、rollback条件としてレビューする | source app idea、target file、heading、body preview、diff summary、preflight checks、verification command、rollback condition、copy bundle、実在IP/公式素材/ローカルパス/host名/プライベートネットワークURL/浅い検証/Firefox除外の反映前確認 |
 
 ## 4. 初期データモデル
 

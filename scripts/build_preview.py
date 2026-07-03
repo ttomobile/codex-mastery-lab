@@ -46,6 +46,7 @@ CONTROL_PLANE_ORDER = [
     '2026-07-03-aidd-control-plane-mvp-022.md',
     '2026-07-03-aidd-control-plane-mvp-023.md',
     '2026-07-03-aidd-control-plane-mvp-024.md',
+    '2026-07-03-aidd-control-plane-mvp-025.md',
 ]
 
 DOGFOOD_ORDER = [

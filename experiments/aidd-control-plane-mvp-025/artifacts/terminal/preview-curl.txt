@@ -1,0 +1,9 @@
+<p><code>experiments/aidd-control-plane-mvp-025/generated-repo</code> に、Next.js + TypeScriptで <code>Dogfood Packet Markdown Review</code> を追加しました。</p>
+<li>Unit testと3ブラウザE2Eに <code>Dogfood Packet Markdown Review</code> の確認を追加</li>
+<p>empty状態でも、Dogfood Packet Markdown Reviewの枠は見えます。AIDD Control Planeは「便利な生成ボタン」ではなく、AIへ渡す前に何を確認するかを見せるSaaSだからです。</p>
+<p><img src="assets/aidd-control-plane-mvp025-terminal-evidence.png" alt="MVP025 terminal evidence" loading="lazy"></p>
+  -&gt; Dogfood Packet Markdown Review
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Content-type: image/png
+Content-Length: 131969

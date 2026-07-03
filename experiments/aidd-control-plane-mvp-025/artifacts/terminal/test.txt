@@ -1,0 +1,11 @@
+$ vitest run
+
+ RUN  v3.2.6 WORKSPACE/experiments/aidd-control-plane-mvp-025/generated-repo
+
+ ✓ tests/intake.test.ts (51 tests) 36ms
+
+ Test Files  1 passed (1)
+      Tests  51 passed (51)
+   Start at  16:43:02
+   Duration  530ms (transform 146ms, setup 0ms, collect 155ms, tests 36ms, environment 0ms, prepare 90ms)
+

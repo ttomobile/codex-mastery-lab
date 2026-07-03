@@ -1,0 +1,13 @@
+AIDD Control Plane MVP 025 verification summary
+
+codex exec --sandbox danger-full-access: failed (codex: command not found). Hermes implemented and independently verified the packet.
+pnpm install --frozen-lockfile: pass
+pnpm run lint: pass
+pnpm run typecheck: pass
+pnpm run test: pass (51 tests)
+pnpm run build: pass (Next.js warning: ESLint plugin not detected in existing config)
+pnpm run test:e2e: pass (Chromium / Firefox / WebKit, 69 tests)
+pnpm run doctor:aidd: pass
+pnpm run capture:mvp025: pass
+
+MVP focus: Dogfood Packet Markdown Review converts a new app idea seed into AI_TASK_PACKET.md / CODEX_PROMPT.md / VERIFICATION_PLAN.md Markdown previews before writing files.
