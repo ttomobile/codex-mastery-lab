@@ -277,6 +277,38 @@ test("Diff Bundle Rollback Evidence Workspaceでempty valid failureを切り替�
 });
 
 
+test("Bundle Decision Ledgerでapplied rejected deferredの判断と証跡保存先を確認できる", async ({ page }) => {
+  await page.goto("/");
+
+  await expect(page.getByRole("heading", { name: "Bundle Decision Ledger: empty" })).toBeVisible();
+  await expect(page.getByText("まだbundle判断はありません。bundle validの後にledger valid")).toBeVisible();
+
+  await page.getByRole("button", { name: "bundle valid" }).click();
+  await page.getByRole("button", { name: "ledger valid" }).click();
+  await expect(page.getByRole("heading", { name: "Bundle Decision Ledger: valid" })).toBeVisible();
+  await expect(page.getByText("bundle decision ledgerはvalidです")).toBeVisible();
+  await expect(page.getByText("applied: 1件 / rejected: 1件 / deferred: 1件")).toBeVisible();
+  await expect(page.getByLabel("Bundle Decision Ledger decisions").getByRole("heading", { name: "bundle-decision-trial014-001" })).toBeVisible();
+  await expect(page.getByLabel("Bundle Decision Ledger decisions").getByText("decision status").first()).toBeVisible();
+  await expect(page.getByLabel("Bundle Decision Ledger decisions").getByText("applied", { exact: true })).toBeVisible();
+  await expect(page.getByLabel("Bundle Decision Ledger decisions").getByText("deferred", { exact: true })).toBeVisible();
+  await expect(page.getByLabel("Bundle Decision Ledger decisions").getByText("rejected", { exact: true })).toBeVisible();
+  await expect(page.getByLabel("Bundle Decision Ledger decisions").getByText("verification evidence").first()).toBeVisible();
+  await expect(page.getByLabel("Bundle Decision Ledger decisions").getByText("rollback evidence").first()).toBeVisible();
+  await expect(page.getByLabel("Bundle Decision Ledger decisions").getByText("Learning Log").first()).toBeVisible();
+  await expect(page.getByLabel("Bundle Decision Ledger decisions").getByText("Next Task Packet Delta").first()).toBeVisible();
+  await expect(page.getByLabel("Bundle Decision Ledger コピー用Codex prompt")).toContainText("AIDD-Spec v0.1");
+
+  await page.getByRole("button", { name: "ledger failure" }).click();
+  await expect(page.getByRole("heading", { name: "Bundle Decision Ledger: failure" })).toBeVisible();
+  await expect(page.getByLabel("Bundle Decision Ledger issues").getByText("decision id不足")).toBeVisible();
+  await expect(page.getByLabel("Bundle Decision Ledger issues").getByText("rollback evidence不足").first()).toBeVisible();
+  await expect(page.getByLabel("Bundle Decision Ledger issues").getByText("reviewer未承認").first()).toBeVisible();
+  await expect(page.getByLabel("Bundle Decision Ledger issues").getByText("ローカルパスやhost名の混入").first()).toBeVisible();
+  await expect(page.getByLabel("Bundle Decision Ledger issues").getByText("危険なtarget path")).toBeVisible();
+});
+
+
 test("Packet Draft Workspaceでempty valid failureを切り替え、次回ファイルドラフトを確認できる", async ({ page }) => {
   await page.goto("/");
 

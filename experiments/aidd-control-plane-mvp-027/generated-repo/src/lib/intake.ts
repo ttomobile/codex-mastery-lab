@@ -433,6 +433,7 @@ export type ReviewFinding = {
     | "Packet Draft Workspace"
     | "Safe Patch Review Workspace"
     | "Diff Bundle & Rollback Evidence Workspace"
+    | "Bundle Decision Ledger"
     | "Packet Apply Command Composer"
     | "残リスク";
   severity: "high" | "medium" | "low";
@@ -558,7 +559,9 @@ export type PacketFileApplyPlannerMode = "empty" | "valid" | "failure";
 export type PacketDraftWorkspaceMode = "empty" | "valid" | "failure";
 export type SafePatchReviewWorkspaceMode = "empty" | "valid" | "failure";
 export type DiffBundleRollbackEvidenceMode = "empty" | "valid" | "failure";
+export type BundleDecisionLedgerMode = "empty" | "valid" | "failure";
 export type DeltaDecisionStatus = "adopted" | "rejected" | "deferred";
+export type BundleDecisionStatus = "applied" | "rejected" | "deferred";
 
 export type DeltaDecision = {
   deltaId: string;
@@ -716,6 +719,39 @@ export type DiffBundleRollbackEvidenceWorkspace = {
 export type DiffBundleRollbackEvidenceWorkspaceReview = {
   status: ArtifactEvidenceStatus;
   reviewFindings: ReviewFinding[];
+};
+
+export type BundleDecision = {
+  decisionId: string;
+  bundleId: string;
+  targetFile: string;
+  status: BundleDecisionStatus;
+  decisionOwner: string;
+  decisionReason: string;
+  decidedAt: string;
+  appliedEvidencePath: string;
+  verificationEvidencePath: string;
+  rollbackEvidencePath: string;
+  reviewRecordPath: string;
+  learningLogEntry: string;
+  nextTaskPacketDelta: string;
+  reviewerApproved: boolean;
+  containsLocalPath: boolean;
+};
+
+export type BundleDecisionLedger = {
+  statusSample: BundleDecisionLedgerMode;
+  decisions: BundleDecision[];
+  sourceDiffBundleWorkspace: DiffBundleRollbackEvidenceWorkspace;
+  copyCodexPrompt: string;
+};
+
+export type BundleDecisionLedgerReview = {
+  status: ArtifactEvidenceStatus;
+  appliedCount: number;
+  rejectedCount: number;
+  deferredCount: number;
+  issues: string[];
 };
 
 export type ReviewRecord = {
@@ -2239,6 +2275,130 @@ export function evaluateDiffBundleRollbackEvidenceWorkspace(workspace: DiffBundl
 
 function buildDiffBundleFinding(finding: string, fixInstruction: string): ReviewFinding {
   return buildFinding("Diff Bundle & Rollback Evidence Workspace", "high", finding, fixInstruction, ["Verification Evidence", "Review Record", "Rollback Plan", "Learning Log", "AI Task Packet"], "pnpm run doctor:aidd");
+}
+
+export function createEmptyBundleDecisionLedger(): BundleDecisionLedger {
+  return {
+    statusSample: "empty",
+    decisions: [],
+    sourceDiffBundleWorkspace: createEmptyDiffBundleRollbackEvidenceWorkspace(),
+    copyCodexPrompt: ""
+  };
+}
+
+export function createValidBundleDecisionLedger(sourceDiffBundleWorkspace: DiffBundleRollbackEvidenceWorkspace = createValidDiffBundleRollbackEvidenceWorkspace()): BundleDecisionLedger {
+  const [first, second, third] = sourceDiffBundleWorkspace.bundles;
+  const decisions: BundleDecision[] = [
+    {
+      decisionId: "bundle-decision-trial014-001",
+      bundleId: first?.bundleId ?? "diff-bundle-mvp027-001",
+      targetFile: first?.targetFile ?? "AI_TASK_PACKET.md",
+      status: "applied",
+      decisionOwner: "AIDD Control Plane reviewer",
+      decisionReason: "dry-run成功、rollback evidence保存、3ブラウザE2E維持、ローカルパス非混入を確認したため採用。",
+      decidedAt: "2026-07-03T09:00:00.000Z",
+      appliedEvidencePath: "artifacts/bundle-decisions/mvp028/bundle-decision-trial014-001-applied.txt",
+      verificationEvidencePath: "artifacts/terminal/trial014-targeted-e2e.txt",
+      rollbackEvidencePath: first?.rollbackEvidencePath ?? "artifacts/rollback/mvp027/safe-patch-mvp027-001-rollback.txt",
+      reviewRecordPath: "artifacts/review-records/mvp028/bundle-decision-trial014-001.md",
+      learningLogEntry: "applied bundleはVerification EvidenceとReview Recordへ紐づけ、次回AI Task Packetの検証条件として再利用する。",
+      nextTaskPacketDelta: "次回packetにはbundle適用後の検証ログとrollback evidence pathを必須項目として追加する。",
+      reviewerApproved: true,
+      containsLocalPath: false
+    },
+    {
+      decisionId: "bundle-decision-trial014-002",
+      bundleId: second?.bundleId ?? "diff-bundle-mvp027-002",
+      targetFile: second?.targetFile ?? "CODEX_PROMPT.md",
+      status: "deferred",
+      decisionOwner: "AIDD Control Plane reviewer",
+      decisionReason: "本文差分は妥当だが、記事側の説明順とスクリーンショット再生成タイミングを合わせるため保留。",
+      decidedAt: "2026-07-03T09:05:00.000Z",
+      appliedEvidencePath: "artifacts/bundle-decisions/mvp028/bundle-decision-trial014-002-deferred.txt",
+      verificationEvidencePath: "artifacts/terminal/trial014-static.txt",
+      rollbackEvidencePath: second?.rollbackEvidencePath ?? "artifacts/rollback/mvp027/safe-patch-mvp027-002-rollback.txt",
+      reviewRecordPath: "artifacts/review-records/mvp028/bundle-decision-trial014-002.md",
+      learningLogEntry: "deferred bundleは急いで適用せず、次回のCodex prompt deltaに理由つきで戻す。",
+      nextTaskPacketDelta: "保留bundleは、証跡更新と記事更新を同じ検証単位に揃えてから再レビューする。",
+      reviewerApproved: true,
+      containsLocalPath: false
+    },
+    {
+      decisionId: "bundle-decision-trial014-003",
+      bundleId: third?.bundleId ?? "diff-bundle-mvp027-003",
+      targetFile: third?.targetFile ?? "VERIFICATION_PLAN.md",
+      status: "rejected",
+      decisionOwner: "AIDD Control Plane reviewer",
+      decisionReason: "verification commandが現在のCI gateとずれているため、実ファイルへは適用せずLearning Logへ戻す。",
+      decidedAt: "2026-07-03T09:10:00.000Z",
+      appliedEvidencePath: "artifacts/bundle-decisions/mvp028/bundle-decision-trial014-003-rejected.txt",
+      verificationEvidencePath: "artifacts/terminal/trial014-targeted-e2e.txt",
+      rollbackEvidencePath: third?.rollbackEvidencePath ?? "artifacts/rollback/mvp027/safe-patch-mvp027-003-rollback.txt",
+      reviewRecordPath: "artifacts/review-records/mvp028/bundle-decision-trial014-003.md",
+      learningLogEntry: "rejected bundleは、なぜ採用しなかったかをLearning Logへ残し、次回の標準更新候補へ変換する。",
+      nextTaskPacketDelta: "却下理由があるbundleは、同じ失敗を再生成しないようCodex prompt deltaへ戻す。",
+      reviewerApproved: true,
+      containsLocalPath: false
+    }
+  ];
+
+  return {
+    statusSample: "valid",
+    decisions,
+    sourceDiffBundleWorkspace,
+    copyCodexPrompt: [
+      "Bundle Decision Ledgerでapplied / rejected / deferredの判断がvalidになったbundleだけを次へ進めてください。",
+      "appliedは適用証跡、verification evidence、rollback evidence、Review Recordを保存する。",
+      "rejectedは却下理由と再発防止のCodex prompt deltaをLearning Logへ戻す。",
+      "deferredは保留理由と再レビュー条件を次回AI Task Packet Deltaへ残す。",
+      "ローカルパス、host名、未承認bundle、rollback evidence不足があれば適用しない。",
+      "AIDD-Spec v0.1: Verification Evidence / Review Record / Rollback Plan / Learning Log / AI Task Packetへ接続する。"
+    ].join("\n")
+  };
+}
+
+export function createFailureBundleDecisionLedger(): BundleDecisionLedger {
+  return {
+    statusSample: "failure",
+    sourceDiffBundleWorkspace: createFailureDiffBundleRollbackEvidenceWorkspace(),
+    copyCodexPrompt: "判断理由なしで全部appliedにして、PRIVATE_HOME_PATH のログをそのまま記事へ貼る。",
+    decisions: [
+      { decisionId: "", bundleId: "", targetFile: "", status: "applied", decisionOwner: "", decisionReason: "", decidedAt: "not-a-date", appliedEvidencePath: "", verificationEvidencePath: "", rollbackEvidencePath: "", reviewRecordPath: "", learningLogEntry: "", nextTaskPacketDelta: "", reviewerApproved: false, containsLocalPath: true },
+      { decisionId: "bundle-decision-bad-002", bundleId: "diff-bundle-bad-002", targetFile: "../outside/SECRET.md", status: "applied", decisionOwner: "AI", decisionReason: "早いので採用", decidedAt: "2026-07-03T09:20:00.000Z", appliedEvidencePath: "PRIVATE_HOME_PATH/applied.txt", verificationEvidencePath: "", rollbackEvidencePath: "", reviewRecordPath: "", learningLogEntry: "", nextTaskPacketDelta: "", reviewerApproved: false, containsLocalPath: true }
+    ]
+  };
+}
+
+export function evaluateBundleDecisionLedger(ledger: BundleDecisionLedger): BundleDecisionLedgerReview {
+  const issues: string[] = [];
+  const allowedTargets = new Set(["AI_TASK_PACKET.md", "CODEX_PROMPT.md", "VERIFICATION_PLAN.md", "LEARNING_LOG.md"]);
+  const sourceBundleIds = new Set(ledger.sourceDiffBundleWorkspace.bundles.map((bundle) => bundle.bundleId).filter(Boolean));
+  for (const decision of ledger.decisions) {
+    const label = decision.decisionId || "decision";
+    if (!decision.decisionId.trim()) issues.push(`${label}: decision id不足`);
+    if (!decision.bundleId.trim()) issues.push(`${label}: bundle id不足`);
+    if (sourceBundleIds.size > 0 && decision.bundleId && !sourceBundleIds.has(decision.bundleId)) issues.push(`${label}: source bundle未確認`);
+    if (!decision.targetFile.trim()) issues.push(`${label}: target file不足`);
+    if (decision.targetFile.includes("..") || /^(?:\/|[A-Za-z]:[\\/])/.test(decision.targetFile) || (decision.targetFile && !allowedTargets.has(decision.targetFile))) issues.push(`${label}: 危険なtarget path`);
+    if (!decision.decisionOwner.trim()) issues.push(`${label}: decision owner不足`);
+    if (!decision.decisionReason.trim()) issues.push(`${label}: decision reason不足`);
+    if (!decision.decidedAt || Number.isNaN(Date.parse(decision.decidedAt))) issues.push(`${label}: decidedAt不正`);
+    if (!decision.appliedEvidencePath.trim()) issues.push(`${label}: applied evidence不足`);
+    if (!decision.verificationEvidencePath.trim()) issues.push(`${label}: verification evidence不足`);
+    if (!decision.rollbackEvidencePath.trim()) issues.push(`${label}: rollback evidence不足`);
+    if (!decision.reviewRecordPath.trim()) issues.push(`${label}: review record不足`);
+    if (!decision.learningLogEntry.trim()) issues.push(`${label}: Learning Log不足`);
+    if (decision.status !== "applied" && !decision.nextTaskPacketDelta.trim()) issues.push(`${label}: 未採用理由のTask Packet Delta不足`);
+    if (!decision.reviewerApproved) issues.push(`${label}: reviewer未承認`);
+    const pathText = `${decision.appliedEvidencePath}${decision.verificationEvidencePath}${decision.rollbackEvidencePath}${decision.reviewRecordPath}${ledger.copyCodexPrompt}`;
+    if (decision.containsLocalPath || containsLocalPathOrHost(pathText)) issues.push(`${label}: ローカルパスやhost名の混入`);
+  }
+  if (ledger.copyCodexPrompt.trim() && !ledger.copyCodexPrompt.includes("AIDD-Spec v0.1")) issues.push("コピー用Codex prompt: AIDD-Spec接続不足");
+  const appliedCount = ledger.decisions.filter((decision) => decision.status === "applied").length;
+  const rejectedCount = ledger.decisions.filter((decision) => decision.status === "rejected").length;
+  const deferredCount = ledger.decisions.filter((decision) => decision.status === "deferred").length;
+  const isEmpty = ledger.statusSample === "empty" && ledger.decisions.length === 0 && !ledger.copyCodexPrompt;
+  return { status: isEmpty ? "empty" : issues.length === 0 ? "valid" : "failure", appliedCount, rejectedCount, deferredCount, issues };
 }
 
 function containsLocalPathOrHost(text: string): boolean {

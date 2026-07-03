@@ -1,0 +1,9 @@
+$ tsc --noEmit
+
+Running 3 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/intake-wizard.spec.ts:280:1 › Bundle Decision Ledgerでapplied rejected deferredの判断と証跡保存先を確認できる (1.2s)
+  ✓  2 [firefox] › e2e/intake-wizard.spec.ts:280:1 › Bundle Decision Ledgerでapplied rejected deferredの判断と証跡保存先を確認できる (1.6s)
+  ✓  3 [webkit] › e2e/intake-wizard.spec.ts:280:1 › Bundle Decision Ledgerでapplied rejected deferredの判断と証跡保存先を確認できる (1.1s)
+
+  3 passed (9.6s)

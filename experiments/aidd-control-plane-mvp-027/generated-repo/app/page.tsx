@@ -13,6 +13,7 @@ import {
   type PacketFileApplyPlannerMode,
   type SafePatchReviewWorkspaceMode,
   type DiffBundleRollbackEvidenceMode,
+  type BundleDecisionLedgerMode,
   type PacketApplyCommandComposerMode,
   type QualityGate,
   type SpecUpdateProposalMode,
@@ -27,6 +28,7 @@ import {
   createEmptyPacketDraftWorkspace,
   createEmptySafePatchReviewWorkspace,
   createEmptyDiffBundleRollbackEvidenceWorkspace,
+  createEmptyBundleDecisionLedger,
   createEvidenceMissingVerificationRun,
   createDogfoodPacketMarkdownReview,
   createEmptyPacketApplyCommandComposer,
@@ -43,6 +45,7 @@ import {
   createFailurePacketDraftWorkspace,
   createFailureSafePatchReviewWorkspace,
   createFailureDiffBundleRollbackEvidenceWorkspace,
+  createFailureBundleDecisionLedger,
   createFailureSpecUpdateProposalQueue,
   createInitialVerificationRun,
   createSuccessVerificationRun,
@@ -54,6 +57,7 @@ import {
   createValidPacketDraftWorkspace,
   createValidSafePatchReviewWorkspace,
   createValidDiffBundleRollbackEvidenceWorkspace,
+  createValidBundleDecisionLedger,
   createValidSpecUpdateProposalQueue,
   evaluateCiArtifactImport,
   evaluateCiWorkflowArtifactAuditor,
@@ -64,6 +68,7 @@ import {
   evaluatePacketDraftWorkspace,
   evaluateSafePatchReviewWorkspace,
   evaluateDiffBundleRollbackEvidenceWorkspace,
+  evaluateBundleDecisionLedger,
   evaluatePacketApplyCommandComposer,
   evaluateEvidenceGapRepairPlan,
   evaluateGitHubActionsFetchPlan,
@@ -155,6 +160,7 @@ export default function Home() {
   const [packetDraftWorkspaceMode, setPacketDraftWorkspaceMode] = useState<PacketDraftWorkspaceMode>("empty");
   const [safePatchReviewWorkspaceMode, setSafePatchReviewWorkspaceMode] = useState<SafePatchReviewWorkspaceMode>("empty");
   const [diffBundleRollbackEvidenceMode, setDiffBundleRollbackEvidenceMode] = useState<DiffBundleRollbackEvidenceMode>("empty");
+  const [bundleDecisionLedgerMode, setBundleDecisionLedgerMode] = useState<BundleDecisionLedgerMode>("empty");
   const [packetApplyCommandComposerMode, setPacketApplyCommandComposerMode] = useState<PacketApplyCommandComposerMode>("empty");
 
   const refreshMockCiState = useCallback(async (signal?: AbortSignal) => {
@@ -314,6 +320,12 @@ export default function Home() {
     return createEmptyDiffBundleRollbackEvidenceWorkspace();
   }, [diffBundleRollbackEvidenceMode]);
   const diffBundleRollbackEvidenceReview = useMemo(() => evaluateDiffBundleRollbackEvidenceWorkspace(diffBundleRollbackEvidenceWorkspace), [diffBundleRollbackEvidenceWorkspace]);
+  const bundleDecisionLedger = useMemo(() => {
+    if (bundleDecisionLedgerMode === "valid") return createValidBundleDecisionLedger(diffBundleRollbackEvidenceWorkspace);
+    if (bundleDecisionLedgerMode === "failure") return createFailureBundleDecisionLedger();
+    return createEmptyBundleDecisionLedger();
+  }, [bundleDecisionLedgerMode, diffBundleRollbackEvidenceWorkspace]);
+  const bundleDecisionLedgerReview = useMemo(() => evaluateBundleDecisionLedger(bundleDecisionLedger), [bundleDecisionLedger]);
   const templateFailure =
     selectedTemplateId === "" ? "テンプレート未選択" : selectedTemplateId !== appliedTemplateId ? "テンプレート未適用" : "";
 
@@ -1110,6 +1122,63 @@ export default function Home() {
           </ul>
         ) : diffBundleRollbackEvidenceReview.status === "valid" ? (
           <p className="applied-state">4種類のdiff bundle、dry-run成功、rollback evidence、rollback verified command、reviewer承認、AIDD-Spec接続、ローカルパスやhost名の非混入を確認済みです。</p>
+        ) : null}
+      </section>
+
+      <section className={`artifact-binder artifact-${bundleDecisionLedgerReview.status}`} aria-labelledby="bundle-decision-ledger-title">
+        <div className="section-heading">
+          <p className="eyebrow">Bundle Decision Ledger</p>
+          <h2 id="bundle-decision-ledger-title">Bundle Decision Ledger: {bundleDecisionLedgerReview.status}</h2>
+          <p>
+            Diff Bundleを実ファイルへ進める前後で、applied / rejected / deferredの判断、理由、適用証跡、verification evidence、rollback evidence、Review Record、Learning Log戻し先を同じ台帳に残します。自動適用より先に、判断の説明責任を検証します。
+          </p>
+        </div>
+        <div className={`verification-summary ${bundleDecisionLedgerReview.status === "valid" ? "is-ready" : "is-not-ready"}`} aria-live="polite">
+          <strong>{bundleDecisionLedgerReview.status === "valid" ? "bundle decision ledgerはvalidです" : `Bundle Decision Ledger Review Finding: ${bundleDecisionLedgerReview.issues.length}件`}</strong>
+          <span>applied: {bundleDecisionLedgerReview.appliedCount}件 / rejected: {bundleDecisionLedgerReview.rejectedCount}件 / deferred: {bundleDecisionLedgerReview.deferredCount}件</span>
+        </div>
+        <div className="sample-actions" aria-label="Bundle Decision Ledgerサンプル操作">
+          <button type="button" className="secondary-button" onClick={() => setBundleDecisionLedgerMode("empty")}>ledger empty</button>
+          <button type="button" className="primary-button" onClick={() => setBundleDecisionLedgerMode("valid")}>ledger valid</button>
+          <button type="button" className="secondary-button" onClick={() => setBundleDecisionLedgerMode("failure")}>ledger failure</button>
+        </div>
+        {bundleDecisionLedgerReview.status === "empty" ? (
+          <p className="failure-state">まだbundle判断はありません。bundle validの後にledger validで、採用・却下・保留の判断と証跡保存先を生成します。</p>
+        ) : (
+          <div className="proposal-list file-plan-list" aria-label="Bundle Decision Ledger decisions">
+            {bundleDecisionLedger.decisions.map((decision, index) => (
+              <article className="proposal-card" key={`${decision.decisionId || "missing-decision"}-${index}`}>
+                <h3>{decision.decisionId || "decision id未登録"}</h3>
+                <dl>
+                  <div><dt>bundle id</dt><dd>{decision.bundleId || "未登録"}</dd></div>
+                  <div><dt>target file</dt><dd>{decision.targetFile || "未登録"}</dd></div>
+                  <div><dt>decision status</dt><dd>{decision.status}</dd></div>
+                  <div><dt>decision owner</dt><dd>{decision.decisionOwner || "未登録"}</dd></div>
+                  <div><dt>decision reason</dt><dd>{decision.decisionReason || "未登録"}</dd></div>
+                  <div><dt>decided at</dt><dd>{decision.decidedAt || "未登録"}</dd></div>
+                  <div><dt>applied evidence</dt><dd>{decision.appliedEvidencePath || "未登録"}</dd></div>
+                  <div><dt>verification evidence</dt><dd>{decision.verificationEvidencePath || "未登録"}</dd></div>
+                  <div><dt>rollback evidence</dt><dd>{decision.rollbackEvidencePath || "未登録"}</dd></div>
+                  <div><dt>review record</dt><dd>{decision.reviewRecordPath || "未登録"}</dd></div>
+                  <div><dt>Learning Log</dt><dd>{decision.learningLogEntry || "未登録"}</dd></div>
+                  <div><dt>Next Task Packet Delta</dt><dd>{decision.nextTaskPacketDelta || "未登録"}</dd></div>
+                </dl>
+                {decision.reviewerApproved ? <p className="applied-state">reviewer承認済み</p> : <p className="failure-state">reviewer未承認</p>}
+                {decision.containsLocalPath ? <p className="failure-state">ローカルパスやhost名の混入あり</p> : <p className="applied-state">ローカルパスやhost名の混入なし</p>}
+              </article>
+            ))}
+          </div>
+        )}
+        <article className="proposal-card" aria-label="Bundle Decision Ledger コピー用Codex prompt">
+          <h3>コピー用Codex prompt</h3>
+          <pre>{bundleDecisionLedger.copyCodexPrompt || "未登録"}</pre>
+        </article>
+        {bundleDecisionLedgerReview.issues.length > 0 ? (
+          <ul className="binder-issues" aria-label="Bundle Decision Ledger issues">
+            {bundleDecisionLedgerReview.issues.map((issue) => <li key={issue}>{issue}</li>)}
+          </ul>
+        ) : bundleDecisionLedgerReview.status === "valid" ? (
+          <p className="applied-state">applied / rejected / deferredの判断、理由、証跡path、rollback evidence、Review Record、Learning Log、次回Task Packet Delta、ローカルパス非混入を確認済みです。</p>
         ) : null}
       </section>
 

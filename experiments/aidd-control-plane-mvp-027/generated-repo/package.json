@@ -24,7 +24,8 @@
     "capture:mvp024": "node scripts/capture-mvp024.mjs",
     "capture:mvp025": "node scripts/capture-mvp025.mjs",
     "capture:mvp026": "node scripts/capture-mvp026.mjs",
-    "capture:mvp027": "node scripts/capture-mvp027.mjs"
+    "capture:mvp027": "node scripts/capture-mvp027.mjs",
+    "capture:trial014": "node scripts/capture-trial014.mjs"
   },
   "dependencies": {
     "next": "15.5.20",
