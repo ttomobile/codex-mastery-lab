@@ -1,0 +1,8 @@
+$ curl local playable/assets
+200 http://127.0.0.1:4177/sagaforge-app/index.html
+200 http://127.0.0.1:4177/sagaforge-app/assets/battle-ruins.png
+200 http://127.0.0.1:4177/assets/2026-07-04-character-collection-rpg-trial-017-battle-od-tempo.png
+$ curl public playable/assets
+200 https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html
+200 https://ttomac-mini.tail352b67.ts.net/sagaforge-app/assets/battle-ruins.png
+200 https://ttomac-mini.tail352b67.ts.net/assets/2026-07-04-character-collection-rpg-trial-017-battle-od-tempo.png
