@@ -1,0 +1,7 @@
+$ playwright test
+
+Running 1 test using 1 worker
+
+  ✓  1 [chromium] › tests/e2e/daily-checklist.spec.ts:3:5 › タスク追加、完了切替、未完了のみ表示ができる (1.2s)
+
+  1 passed (5.8s)

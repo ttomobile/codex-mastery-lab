@@ -303,6 +303,7 @@ def main():
         '2026-06-28*.svg', '2026-06-28*.gif', '2026-06-28*.png', '2026-06-28*.console.txt',
         '2026-06-29*.svg', '2026-06-29*.gif', '2026-06-29*.png', '2026-06-29*.console.txt',
         'aidd-control-plane-*.png',
+        'verification-evidence-lite-*.png', 'verification-evidence-lite-*.gif',
         '2026-07-02-sagaforge-trial-001-*.png',
         '2026-07-02-sagaforge-trial-002-*.png',
         '2026-07-03-sagaforge-trial-003-*.png',

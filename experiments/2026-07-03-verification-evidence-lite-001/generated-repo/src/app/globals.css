@@ -1,0 +1,212 @@
+:root {
+  color-scheme: light;
+  --background: #f6f1e8;
+  --panel: #fffdf8;
+  --ink: #1f2933;
+  --muted: #687385;
+  --line: #ded6c8;
+  --accent: #0f766e;
+  --accent-strong: #0b5f59;
+  --done: #7a8596;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    linear-gradient(135deg, rgba(15, 118, 110, 0.13), transparent 32rem),
+    var(--background);
+  color: var(--ink);
+  font-family:
+    Arial,
+    "Hiragino Sans",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.page-shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 32px 16px;
+}
+
+.app-panel {
+  width: min(100%, 720px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 24px 60px rgba(31, 41, 51, 0.14);
+  padding: 28px;
+}
+
+.heading-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0;
+  font-size: 32px;
+  letter-spacing: 0;
+}
+
+.progress-badge {
+  min-width: 74px;
+  border-radius: 999px;
+  background: #e6f3f1;
+  color: var(--accent-strong);
+  font-weight: 700;
+  padding: 10px 14px;
+  text-align: center;
+}
+
+.add-form {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.add-form label,
+.filter-toggle {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+.input-row input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  color: var(--ink);
+  padding: 12px 14px;
+}
+
+.input-row input:focus {
+  border-color: var(--accent);
+  outline: 3px solid rgba(15, 118, 110, 0.18);
+}
+
+.input-row button {
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 0 20px;
+}
+
+.input-row button:hover {
+  background: var(--accent-strong);
+}
+
+.form-error {
+  color: #b42318;
+  font-size: 14px;
+  font-weight: 700;
+  min-height: 20px;
+  margin: 0;
+}
+
+.filter-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.task-list {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+}
+
+.task label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 54px;
+  padding: 12px 14px;
+}
+
+.task input,
+.filter-toggle input {
+  accent-color: var(--accent);
+}
+
+.task.done span {
+  color: var(--done);
+  text-decoration: line-through;
+}
+
+.empty-message {
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  margin: 0;
+  padding: 18px;
+  text-align: center;
+}
+
+@media (max-width: 560px) {
+  .app-panel {
+    padding: 20px;
+  }
+
+  .heading-row,
+  .input-row {
+    grid-template-columns: 1fr;
+  }
+
+  .heading-row {
+    display: grid;
+  }
+
+  .progress-badge {
+    width: fit-content;
+  }
+
+  .input-row button {
+    min-height: 46px;
+  }
+}

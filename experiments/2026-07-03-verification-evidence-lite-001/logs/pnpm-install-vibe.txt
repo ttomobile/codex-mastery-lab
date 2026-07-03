@@ -1,0 +1,28 @@
+✓ Lockfile passes supply-chain policies (verified 4m ago)
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +344
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 344, reused 344, downloaded 0, added 339
+Progress: resolved 344, reused 344, downloaded 0, added 343
+Progress: resolved 344, reused 344, downloaded 0, added 344, done
+.../node_modules/unrs-resolver postinstall$ node postinstall.js
+.../sharp@0.34.5/node_modules/sharp install$ node install/check.js || npm run build
+.../node_modules/unrs-resolver postinstall: Done
+.../sharp@0.34.5/node_modules/sharp install: Done
+
+dependencies:
++ next 16.2.10
++ react 19.2.7
++ react-dom 19.2.7
+
+devDependencies:
++ @playwright/test 1.53.1
++ @types/node 20.19.1
++ @types/react 19.1.8
++ @types/react-dom 19.1.6
++ eslint 9.29.0
++ eslint-config-next 16.2.10
++ typescript 5.8.3
+
+Done in 5.7s using pnpm v11.9.0

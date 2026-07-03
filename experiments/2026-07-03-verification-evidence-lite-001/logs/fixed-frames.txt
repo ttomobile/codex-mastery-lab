@@ -1,0 +1,7 @@
+file '../assets/verification-evidence-lite-fixed-error.png'
+duration 1.2
+file '../assets/verification-evidence-lite-fixed-added.png'
+duration 1.2
+file '../assets/verification-evidence-lite-fixed-empty.png'
+duration 1.2
+file '../assets/verification-evidence-lite-fixed-empty.png'

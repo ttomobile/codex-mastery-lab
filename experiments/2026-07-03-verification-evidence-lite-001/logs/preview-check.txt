@@ -1,0 +1,9 @@
+preview/index.html exists= True size= 33445
+preview/2026-07-03-verification-evidence-lite.html exists= True size= 42469
+has vibe gif= True
+has fixed gif= True
+has mobile nav= True
+has prev next= True
+<home> False
+<host> False
+tail... False

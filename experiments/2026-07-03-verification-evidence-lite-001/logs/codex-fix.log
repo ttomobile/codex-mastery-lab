@@ -1,0 +1,441 @@
+Reading additional input from stdin...
+OpenAI Codex v0.142.5
+--------
+workdir: /Users/tto/codex-mastery-lab
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: none
+reasoning summaries: none
+session id: 019f2555-0ea3-7b12-a74b-a64a672bbfdc
+--------
+user
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo を改善してください。目的は Verification Evidence Lite の検証です。日本語UIは維持し、重い依存は追加しません。次を実装してください: 1) docs/ACCEPTANCE_CRITERIA.md に受け入れ条件ID、操作、期待結果、証拠コマンドを書く。2) docs/VERIFICATION_EVIDENCE.md に今回の品質ゲート、ログ保存先、スクリーンショット/GIF保存先、残リスクを書く。3) Playwrightテストを受け入れ条件IDごとに3本へ分け、テスト名は日本語にする。4) 空入力時に日本語のエラーメッセージを aria-live で表示し、空状態/完了数もスクリーンリーダーに意味が伝わるようにする。5) package.json に doctor:evidence スクリプトを追加し、docs/ACCEPTANCE_CRITERIA.md と docs/VERIFICATION_EVIDENCE.md と Playwrightテストの存在を確認する軽いNodeスクリプト scripts/doctor-evidence.mjs を作る。6) READMEへ検証手順を追記する。
+codex
+対象リポジトリの構成と既存テストを確認してから、最小限の差分で docs・アクセシビリティ・doctor スクリプトを入れます。
+exec
+/bin/zsh -lc 'pwd && rg --files experiments/2026-07-03-verification-evidence-lite-001/generated-repo' in /Users/tto/codex-mastery-lab
+exec
+/bin/zsh -lc 'git status --short' in /Users/tto/codex-mastery-lab
+ succeeded in 0ms:
+?? experiments/2026-07-03-verification-evidence-lite-001/
+
+ succeeded in 349ms:
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/src/app/globals.css
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/src/app/page.tsx
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/src/app/layout.tsx
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/pnpm-workspace.yaml
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/next.config.ts
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/eslint.config.mjs
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/playwright.config.ts
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/tsconfig.json
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/package.json
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/README.md
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/next-env.d.ts
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/tests/e2e/daily-checklist.spec.ts
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/capture-vibe.mjs
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/pnpm-lock.yaml
+
+codex
+生成済み実験ディレクトリは未追跡の状態です。既存ファイルの流儀を読んで、ユーザー作成分を崩さない形で追加します。
+exec
+/bin/zsh -lc "sed -n '1,260p' src/app/globals.css" in /Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001/generated-repo
+exec
+/bin/zsh -lc "sed -n '1,240p' tests/e2e/daily-checklist.spec.ts" in /Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001/generated-repo
+exec
+/bin/zsh -lc "sed -n '1,240p' README.md" in /Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001/generated-repo
+ succeeded in 0ms:
+:root {
+  color-scheme: light;
+  --background: #f6f1e8;
+  --panel: #fffdf8;
+  --ink: #1f2933;
+  --muted: #687385;
+  --line: #ded6c8;
+  --accent: #0f766e;
+  --accent-strong: #0b5f59;
+  --done: #7a8596;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    linear-gradient(135deg, rgba(15, 118, 110, 0.13), transparent 32rem),
+    var(--background);
+  color: var(--ink);
+  font-family:
+    Arial,
+    "Hiragino Sans",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.page-shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 32px 16px;
+}
+
+.app-panel {
+  width: min(100%, 720px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 24px 60px rgba(31, 41, 51, 0.14);
+  padding: 28px;
+}
+
+.heading-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0;
+  font-size: 32px;
+  letter-spacing: 0;
+}
+
+.progress-badge {
+  min-width: 74px;
+  border-radius: 999px;
+  background: #e6f3f1;
+  color: var(--accent-strong);
+  font-weight: 700;
+  padding: 10px 14px;
+  text-align: center;
+}
+
+.add-form {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.add-form label,
+.filter-toggle {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+.input-row input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  color: var(--ink);
+  padding: 12px 14px;
+}
+
+.input-row input:focus {
+  border-color: var(--accent);
+  outline: 3px solid rgba(15, 118, 110, 0.18);
+}
+
+.input-row button {
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 0 20px;
+}
+
+.input-row button:hover {
+  background: var(--accent-strong);
+}
+
+.filter-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.task-list {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+}
+
+.task label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 54px;
+  padding: 12px 14px;
+}
+
+.task input,
+.filter-toggle input {
+  accent-color: var(--accent);
+}
+
+.task.done span {
+  color: var(--done);
+  text-decoration: line-through;
+}
+... [TRUNCATED for repository: original log had 4480 lines; full terminal output was observed during cron execution] ...
++    console.error(`NG ${check.file}: ファイルが見つかりません。`);
++    failed = true;
++    continue;
++  }
++
++  const missingLabels = check.labels.filter((label) => !source.includes(label));
++  if (missingLabels.length > 0) {
++    console.error(`NG ${check.file}: ${missingLabels.join(", ")} が見つかりません。`);
++    failed = true;
++    continue;
++  }
++
++  console.log(`OK ${check.file}`);
++}
++
++if (failed) {
++  process.exitCode = 1;
++} else {
++  console.log("OK Verification Evidence Lite の最低限の証跡が揃っています。");
++}
+diff --git a/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/src/app/globals.css b/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/src/app/globals.css
+index b6be2db212406e5dd2dbea7250095e689e075c36..3a5e0d7f8705d46b6868a437ac729d51edbb3dc6
+--- a/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/src/app/globals.css
++++ b/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/src/app/globals.css
+@@ -132,6 +132,14 @@
+   background: var(--accent-strong);
+ }
+ 
++.form-error {
++  color: #b42318;
++  font-size: 14px;
++  font-weight: 700;
++  min-height: 20px;
++  margin: 0;
++}
++
+ .filter-toggle {
+   display: inline-flex;
+   align-items: center;
+diff --git a/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/src/app/page.tsx b/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/src/app/page.tsx
+index 5d8f7b73accfd0d4c6c15fb4a0b368536697238c..c7b5c8100a77cef4e5d0fcc6a21abc3ad19e96cb
+--- a/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/src/app/page.tsx
++++ b/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/src/app/page.tsx
+@@ -18,17 +18,23 @@
+   const [tasks, setTasks] = useState<Task[]>(initialTasks);
+   const [newTask, setNewTask] = useState("");
+   const [incompleteOnly, setIncompleteOnly] = useState(false);
++  const [inputError, setInputError] = useState("");
+ 
+   const visibleTasks = useMemo(() => {
+     return incompleteOnly ? tasks.filter((task) => !task.done) : tasks;
+   }, [incompleteOnly, tasks]);
+ 
+   const completedCount = tasks.filter((task) => task.done).length;
++  const progressLabel = `${tasks.length}件中${completedCount}件が完了しています`;
++  const emptyMessage = incompleteOnly
++    ? "未完了のタスクはありません。すべて完了しています。"
++    : "タスクはまだありません。追加フォームから最初のタスクを登録できます。";
+ 
+   function addTask(event: FormEvent<HTMLFormElement>) {
+     event.preventDefault();
+     const title = newTask.trim();
+     if (!title) {
++      setInputError("タスク名を入力してください。");
+       return;
+     }
+ 
+@@ -37,6 +43,7 @@
+       ...current
+     ]);
+     setNewTask("");
++    setInputError("");
+   }
+ 
+   function toggleTask(id: number) {
+@@ -55,22 +62,37 @@
+             <p className="eyebrow">今日の段取り</p>
+             <h1 id="app-title">日次チェックリスト</h1>
+           </div>
+-          <div className="progress-badge" aria-label="完了数">
++          <div className="progress-badge" aria-label={progressLabel}>
+             {completedCount}/{tasks.length}
+           </div>
+         </div>
+ 
+-        <form className="add-form" onSubmit={addTask}>
++        <form className="add-form" onSubmit={addTask} noValidate>
+           <label htmlFor="new-task">タスクを追加</label>
+           <div className="input-row">
+             <input
++              aria-describedby={inputError ? "new-task-error" : undefined}
++              aria-invalid={inputError ? "true" : "false"}
+               id="new-task"
+               value={newTask}
+-              onChange={(event) => setNewTask(event.target.value)}
++              onChange={(event) => {
++                setNewTask(event.target.value);
++                if (inputError) {
++                  setInputError("");
++                }
++              }}
+               placeholder="例: 議事メモを送る"
+             />
+             <button type="submit">追加</button>
+           </div>
++          <p
++            aria-live="polite"
++            className="form-error"
++            id="new-task-error"
++            role={inputError ? "status" : undefined}
++          >
++            {inputError}
++          </p>
+         </form>
+ 
+         <label className="filter-toggle">
+@@ -82,7 +104,11 @@
+           未完了のみ表示
+         </label>
+ 
+-        <ul className="task-list" aria-label="タスク一覧">
++        <ul
++          aria-describedby={visibleTasks.length === 0 ? "empty-state" : undefined}
++          aria-label={`タスク一覧、${visibleTasks.length}件表示中`}
++          className="task-list"
++        >
+           {visibleTasks.map((task) => (
+             <li className={task.done ? "task done" : "task"} key={task.id}>
+               <label>
+@@ -98,7 +124,9 @@
+         </ul>
+ 
+         {visibleTasks.length === 0 ? (
+-          <p className="empty-message">表示できるタスクはありません。</p>
++          <p aria-live="polite" className="empty-message" id="empty-state">
++            {emptyMessage}
++          </p>
+         ) : null}
+       </section>
+     </main>
+diff --git a/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/tests/e2e/daily-checklist.spec.ts b/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/tests/e2e/daily-checklist.spec.ts
+index 805f3c04ec4eaf2fbe9c0ab5f214142069a11c4b..86a6ce1a88eaeb15a2b9967abc3a6cbbb8e4a193
+--- a/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/tests/e2e/daily-checklist.spec.ts
++++ b/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/tests/e2e/daily-checklist.spec.ts
+@@ -1,22 +1,47 @@
+ import { expect, test } from "@playwright/test";
+ 
+-test("タスク追加、完了切替、未完了のみ表示ができる", async ({ page }) => {
++test("AC-001 タスクを追加すると一覧の先頭に表示される", async ({ page }) => {
+   await page.goto("/");
+ 
+   await page.getByLabel("タスクを追加").fill("買い物リストを書く");
+   await page.getByRole("button", { name: "追加" }).click();
+ 
+-  const addedTask = page.getByText("買い物リストを書く");
+-  await expect(addedTask).toBeVisible();
++  await expect(page.getByRole("listitem").first()).toContainText("買い物リストを書く");
++  await expect(page.getByRole("list", { name: "タスク一覧、4件表示中" })).toBeVisible();
++});
++
++test("AC-002 完了を切り替えると完了数が更新される", async ({ page }) => {
++  await page.goto("/");
+ 
+   await page
+     .getByRole("listitem")
+-    .filter({ hasText: "買い物リストを書く" })
++    .filter({ hasText: "朝の予定を確認する" })
+     .getByRole("checkbox")
+     .check();
+ 
++  await expect(page.getByLabel("3件中2件が完了しています")).toBeVisible();
++  await expect(page.getByRole("listitem").filter({ hasText: "朝の予定を確認する" })).toHaveClass(/done/);
++});
++
++test("AC-003 空入力エラーと未完了なしの空状態が伝わる", async ({ page }) => {
++  await page.goto("/");
++
++  await page.getByRole("button", { name: "追加" }).click();
++  await expect(page.getByRole("status")).toHaveText("タスク名を入力してください。");
++
++  for (const name of ["朝の予定を確認する", "夕方に振り返る"]) {
++    await page
++      .getByRole("listitem")
++      .filter({ hasText: name })
++      .getByRole("checkbox")
++      .check();
++  }
++
+   await page.getByLabel("未完了のみ表示").check();
+ 
+-  await expect(addedTask).toBeHidden();
+-  await expect(page.getByText("朝の予定を確認する")).toBeVisible();
++  await expect(page.getByText("未完了のタスクはありません。すべて完了しています。")).toBeVisible();
++  await expect(page.getByRole("list", { name: "タスク一覧、0件表示中" })).toHaveAttribute(
++    "aria-describedby",
++    "empty-state"
++  );
+ });
+
+tokens used
+67,722
+実装しました。`generated-repo` 全体がまだ未追跡なので `git diff` には出ませんが、対象ディレクトリ内の更新は完了しています。
+
+主な変更:
+- [docs/ACCEPTANCE_CRITERIA.md](/Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/docs/ACCEPTANCE_CRITERIA.md) を追加
+- [docs/VERIFICATION_EVIDENCE.md](/Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/docs/VERIFICATION_EVIDENCE.md) を追加
+- Playwrightテストを `AC-001` / `AC-002` / `AC-003` の3本に分割
+- 空入力エラーを `aria-live` で表示し、完了数・空状態・一覧件数のアクセシブル名を改善
+- `doctor:evidence` と [scripts/doctor-evidence.mjs](/Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/scripts/doctor-evidence.mjs) を追加
+- [README.md](/Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/README.md) に検証手順を追記
+- 既存 dev server と衝突しないよう [playwright.config.ts](/Users/tto/codex-mastery-lab/experiments/2026-07-03-verification-evidence-lite-001/generated-repo/playwright.config.ts) を `E2E_PORT` 対応に変更
+
+確認済み:
+- `pnpm run doctor:evidence`
+- `pnpm run typecheck`
+- `pnpm run lint`
+- `pnpm run build`
+- `pnpm run test:e2e`
+
+E2Eは3本すべて通過しています。

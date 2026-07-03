@@ -14,7 +14,7 @@
 - [x] Non-Functional Contract: Performance Budget / Asset Policy をAI Task Packetへ反映する（2026-06-27 performance-budget-vibe-gallery）
 - [ ] Non-Functional Contract: 性能/可用性/セキュリティ/コスト/運用テンプレート
 - [x] AI Task Packet: Codexに渡す最小単位の標準化（2026-06-27: Accessibility / Performance / Security-Privacy / API Security-Operations の4カテゴリをv0.1へ反映）
-- [ ] Verification Evidence: 「できた」の証拠標準
+- [x] Verification Evidence: 「できた」の証拠標準（2026-07-03: Verification Evidence Lite v0.2として受け入れ条件ID、証拠コマンド、ログ/GIF、残リスクを追記）
 - [ ] Learning Log: 失敗を標準とプロンプトに還元する仕組み
 - [ ] AIDD Control Plane SaaS MVP仕様
 - [ ] AIDD Control Plane MVPプロトタイプ
@@ -57,6 +57,7 @@
 - [x] 次回候補: APIから取得するUIで offline / timeout / server error / retry をAI Task Packetに入れると欠陥が減るか検証する（2026-06-29 api-failure-state）
 - [x] 次回候補: API失敗状態をPlaywrightの実ブラウザE2Eで検証する契約をAI Task Packetに入れる（2026-06-30 playwright-api-state）
 - [ ] 次回候補: AIDD Control Planeの入力フォームから Playwright E2E Contract を生成するMVPを作る
+- [ ] 次回候補: Verification Evidence LiteをAIDD Control Planeの自動doctor UIに接続し、ログ/GIF/残リスクの不足を画面で止める
 
 - [ ] 2つのCodexに実装案を競わせる
 - [ ] Codex実装をHermesがレビューする二段構え

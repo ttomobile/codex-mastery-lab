@@ -1,0 +1,7 @@
+file '../assets/verification-evidence-lite-vibe-initial.png'
+duration 1.2
+file '../assets/verification-evidence-lite-vibe-added.png'
+duration 1.2
+file '../assets/verification-evidence-lite-vibe-filtered.png'
+duration 1.2
+file '../assets/verification-evidence-lite-vibe-filtered.png'

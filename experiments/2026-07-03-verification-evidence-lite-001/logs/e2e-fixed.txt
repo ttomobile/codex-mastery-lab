@@ -1,0 +1,9 @@
+$ playwright test
+
+Running 3 tests using 1 worker
+
+  ✓  1 [chromium] › tests/e2e/daily-checklist.spec.ts:3:5 › AC-001 タスクを追加すると一覧の先頭に表示される (633ms)
+  ✓  2 [chromium] › tests/e2e/daily-checklist.spec.ts:13:5 › AC-002 完了を切り替えると完了数が更新される (422ms)
+  ✓  3 [chromium] › tests/e2e/daily-checklist.spec.ts:26:5 › AC-003 空入力エラーと未完了なしの空状態が伝わる (479ms)
+
+  3 passed (2.6s)
