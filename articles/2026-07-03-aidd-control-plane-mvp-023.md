@@ -96,7 +96,7 @@ pnpm run capture:mvp023: pass
 | verification commandがある | patch後に何を実行するか | 「動いた気がする」で終わらせないため |
 | rollback commandがある | 失敗時にどう戻すか | 安全に試せる状態を作るため |
 | 未採用deltaが混ざらない | 却下・保留案がpatchに入っていないか | AIが不要な修正まで実装しないようにするため |
-| ローカルパスが混ざらない | `/Users/...` のような公開不可情報がないか | 記事・preview・artifactの公開事故を防ぐため |
+| ローカルパスが混ざらない | `HOME/...` のような公開不可情報がないか | 記事・preview・artifactの公開事故を防ぐため |
 | AIDD-Spec接続がある | AI Task Packet / Verification Evidence / Review Record / Learning Logへ戻るか | 一回限りの修正で終わらせないため |
 
 ## SaaS / AIDD-Specへの接続
