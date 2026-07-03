@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane Dogfood 016：勝利済みでもbilling失敗中なら報酬受取を止める</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane Dogfood 016：SagaForgeを「汎用RPG」からスマホキャラ収集RPGの骨格へ寄せる</title><style>
 :root {
   color-scheme: light;
   --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
@@ -112,7 +112,7 @@ th { background:#f1f5f9; }
 <a href="2026-07-03-character-collection-rpg-trial-013.html">Dogfood13｜AIDD Control Plane Dogfood 013：diff bundleとrollback evidenceを、適用前の証跡セットへ束ねる</a>
 <a href="2026-07-03-character-collection-rpg-trial-014.html">Dogfood14｜AIDD Control Plane Dogfood 014：Diff Bundleを、採用・却下・保留の判断台帳へ進める</a>
 <a href="2026-07-04-character-collection-rpg-trial-015.html">Dogfood15｜AIDD Control Plane Dogfood 015：勝利報酬を「受け取れる/保留/受取済み」まで証跡化する</a>
-<a href="2026-07-04-character-collection-rpg-trial-016.html">Dogfood16｜AIDD Control Plane Dogfood 016：勝利済みでもbilling失敗中なら報酬受取を止める</a><div class="nav-section-title">過去記事</div><a href="2026-06-27-accessibility-contract-vibe-faq.html">過去記事01｜雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a href="2026-07-04-character-collection-rpg-trial-016.html">Dogfood16｜AIDD Control Plane Dogfood 016：SagaForgeを「汎用RPG」からスマホキャラ収集RPGの骨格へ寄せる</a><div class="nav-section-title">過去記事</div><a href="2026-06-27-accessibility-contract-vibe-faq.html">過去記事01｜雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
 <a href="2026-06-27-performance-budget-vibe-gallery.html">過去記事02｜「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
 <a href="2026-06-27-security-baseline-contact-form.html">過去記事03｜問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
 <a href="2026-06-27-contact-api-threat-model.html">過去記事04｜問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
@@ -170,7 +170,7 @@ th { background:#f1f5f9; }
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-013.html"><span class="chapter-num">Dogfood 13</span>AIDD Control Plane Dogfood 013：diff bundleとrollback evidenceを、適用前の証跡セットへ束ねる</a>
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-014.html"><span class="chapter-num">Dogfood 14</span>AIDD Control Plane Dogfood 014：Diff Bundleを、採用・却下・保留の判断台帳へ進める</a>
 <a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-015.html"><span class="chapter-num">Dogfood 15</span>AIDD Control Plane Dogfood 015：勝利報酬を「受け取れる/保留/受取済み」まで証跡化する</a>
-<a class="chapter-link current" href="2026-07-04-character-collection-rpg-trial-016.html"><span class="chapter-num">Dogfood 16</span>AIDD Control Plane Dogfood 016：勝利済みでもbilling失敗中なら報酬受取を止める</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link current" href="2026-07-04-character-collection-rpg-trial-016.html"><span class="chapter-num">Dogfood 16</span>AIDD Control Plane Dogfood 016：SagaForgeを「汎用RPG」からスマホキャラ収集RPGの骨格へ寄せる</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
 <a class="chapter-link past " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">過去記事 02</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
 <a class="chapter-link past " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">過去記事 03</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">過去記事 04</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
@@ -180,97 +180,143 @@ th { background:#f1f5f9; }
 <a class="chapter-link past " href="2026-06-28-mobile-state-contract.html"><span class="chapter-num">過去記事 08</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-29-api-failure-state.html"><span class="chapter-num">過去記事 09</span>「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-30-playwright-api-state.html"><span class="chapter-num">過去記事 10</span>Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する</a>
-<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-04-character-collection-rpg-trial-015.html"><span>前の記事</span>AIDD Control Plane Dogfood 015：勝利報酬を「受け取れる/保留/受取済み」まで証跡化する</a><span></span></nav><article><h1>AIDD Control Plane Dogfood 016：勝利済みでもbilling失敗中なら報酬受取を止める</h1>
-<blockquote>2026-07-04 / Codex Mastery Lab</blockquote>
-<blockquote>対象: AIDD Control Plane Dogfood / キャラ収集ターン制RPG / Billing-aware Reward Gate</blockquote>
-<blockquote>結果: <strong>battle_win後の報酬が存在していても、mock billingが失敗中ならUIとAPIの両方で受取を保留し、Chromium / Firefox / WebKitのE2Eで確認した</strong></blockquote>
-<p><img src="assets/2026-07-04-character-collection-rpg-trial-016-billing-hold.png" alt="Trial 016 Billing Hold" loading="lazy"></p>
-<h2>前回の振り返り</h2>
-<p>Trial 015では、戦闘勝利後の報酬を「保留 / 未受取 / 受取済み」のReward Evidence Ledgerとして保存した。これで、画面だけの報酬表示ではなく、mock backendにclaim id、evidence path、claimedAtを残せるようになった。</p>
-<p>ただし、まだ弱い点があった。</p>
-<pre><code>勝利報酬は存在する。
-でもbillingが失敗中だったら、受け取ってよいのか。
-無料報酬なのか、有償導線なのか、ユーザーが誤認しないか。
-API直叩きでも止まるのか。</code></pre>
-<p>家計簿でいえば、「もらえる予定のお金」があるだけでは不十分で、「支払い処理が失敗している間は受け取り処理を進めない」というメモも必要になる。</p>
-<h2>今回の目的</h2>
-<p>Trial 016では、勝利後報酬とbilling failureを同時に表すmock scenarioを追加した。</p>
-<pre><code>battle_win_payment_failed</code></pre>
-<p>この状態では、戦闘勝利ログと報酬内訳は存在する。しかしmock billingが<code>payment_failed</code>なので、報酬受取ボタンはdisabledになり、APIの<code>POST /actions/claim-reward</code>も402で止まる。</p>
-<h2>実装したこと</h2>
-<p>主な変更点は次の通り。</p>
-<pre><code>src/domain/rpg.ts
-  MockScenarioにbattle_win_payment_failedを追加
-  resolveScenarioServicesでbilling失敗として扱う
-
-scripts/mock-data.mjs
-  battle_win_payment_failedでも勝利報酬と勝利ログを持たせる
-  serviceStateForScenarioでbilling=payment_failedにする
-
-scripts/doctor-mock-services.mjs
-  mock:doctorのscenario確認対象へbattle_win_payment_failedを追加
-
-e2e/sagaforge.spec.ts
-  billing失敗中は勝利済みでも報酬受取を保留し課金誤認を防ぐ
-
-scripts/capture-trial-016-assets.mjs
-  billing hold / recovered のスクリーンショットを取得</code></pre>
-<h2>画面証跡</h2>
-<h3>billing hold：報酬は見えるが受取は止める</h3>
-<p><img src="assets/2026-07-04-character-collection-rpg-trial-016-billing-hold.png" alt="Trial 016 Billing Hold" loading="lazy"></p>
-<p><code>battle_win_payment_failed</code>では、星屑と訓練札は表示される。しかし説明文は「mock billingが失敗中のため、有償導線と誤認される報酬受取を止めています。」になり、ボタンは「報酬保留」のままdisabledになる。</p>
-<h3>recovered：billingが正常なら受取可能</h3>
-<p><img src="assets/2026-07-04-character-collection-rpg-trial-016-billing-recovered.png" alt="Trial 016 Billing Recovered" loading="lazy"></p>
-<p><code>battle_win</code>へ戻すと、同じ報酬内訳が「未受取」になり、受取可能になる。つまり、報酬の有無だけではなく、billing状態を通した判断になった。</p>
+<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-04-character-collection-rpg-trial-015.html"><span>前の記事</span>AIDD Control Plane Dogfood 015：勝利報酬を「受け取れる/保留/受取済み」まで証跡化する</a><span></span></nav><article><h1>AIDD Control Plane Dogfood 016：SagaForgeを「汎用RPG」からスマホキャラ収集RPGの骨格へ寄せる</h1>
+<blockquote>2026-07-04 / Codex Mastery Lab  </blockquote>
+<blockquote>対象: AIDD Control Plane Dogfood / キャラ収集ターン制RPG / Playable Preview改善  </blockquote>
+<blockquote>結果: <strong>触れるプレイアブル版に、ホーム高密度化、スタイルカード、5人編成、クエスト選択、Round/BP/連携ゲージ付きバトル、10連スタイル召喚を追加した。</strong></blockquote>
+<p>公開プレイアブル: <code>/sagaforge-app/index.html</code></p>
+<p><img src="assets/2026-07-04-character-collection-rpg-trial-016-playable-home.png" alt="Trial 016 Playable Home" loading="lazy"></p>
+<h2>ユーザー評価を受け止める</h2>
+<p>前回までのSagaForge / 星紋遠征隊は、ユーザーから「全然ロマサガRSとは程遠い」と評価された。</p>
+<p>この指摘は妥当だった。前回までの弱さは、単に見た目が豪華ではないことではない。もっと根本的に、スマホのキャラ収集RPGでユーザーが期待する操作の骨格が足りなかった。</p>
+<table>
+<tr><th>足りなかった点</th><th>なぜ遠く感じたか</th></tr>
+<tr><td>ホームが説明画面寄り</td><td>上部リソース、イベント、ミッション、プレゼントなどの「毎日触る情報密度」が薄かった</td></tr>
+<tr><td>キャラ単位の表示が中心</td><td>キャラ収集RPGで重要な「スタイル」「レアリティ」「武器」「属性」「限界突破」「戦闘力」が弱かった</td></tr>
+<tr><td>編成が3〜4人の確認に近い</td><td>5人編成、陣形、前衛/中衛/後衛、入れ替えによる戦力変化が薄かった</td></tr>
+<tr><td>クエスト導線が弱い</td><td>消費スタミナ、推奨戦力、初回報酬を見て出撃する流れが足りなかった</td></tr>
+<tr><td>戦闘が単純</td><td>Round、BP、複数スキル、連携/OD風ゲージ、敵複数、ログ、勝利報酬のテンポが足りなかった</td></tr>
+<tr><td>召喚結果が抽象的</td><td>10連結果がスタイルカードとして並び、重複時ピース変換を想起できる形になっていなかった</td></tr>
+</table>
+<p>今回の判断は、記事より先に「触れるプレイアブルURL」を改善すること。文章で説明する前に、ユーザーが開いて前より構造が近づいたと分かる状態を優先した。</p>
+<h2>今回潰した差分</h2>
+<h3>1. ホームを高密度スマホRPG風にした</h3>
+<p>上部にスタミナ、幻晶、遠征札、贈り物を表示し、イベントバナー、デイリー任務、ミッション報酬、プレゼント、育成キャンペーンを置いた。</p>
+<p><img src="assets/2026-07-04-character-collection-rpg-trial-016-playable-home.png" alt="Trial 016 Playable Home" loading="lazy"></p>
+<p>単なるプロトタイプ説明ではなく、「今日ログインして何を触るか」が見える入口へ寄せた。</p>
+<h3>2. スタイルカード一覧を追加した</h3>
+<p>キャラではなく「スタイル」単位で、次を表示するようにした。</p>
+<ul>
+<li>レアリティ: SS / S / A</li>
+<li>ロール: 前衛 / 支援 / 回復 / 後衛</li>
+<li>武器種: 槍 / 杖 / 術具 / 大盾 / 弓</li>
+<li>属性: 火 / 風 / 光 / 土 / 水</li>
+<li>戦闘力</li>
+<li>Style Lv</li>
+<li>技Rank</li>
+<li>限界突破</li>
+</ul>
+<p><img src="assets/2026-07-04-character-collection-rpg-trial-016-style-cards.png" alt="Trial 016 Style Cards" loading="lazy"></p>
+<p>「育成する」ボタンでStyle Lvと技Rankが上がる表示も入れた。まだ本格的な育成ツリーではないが、少なくともキャラ名だけの一覧からは前進した。</p>
+<h3>3. 5人編成と陣形を入れた</h3>
+<p>編成画面は、5人編成、陣形「流星の楔」、前衛2・中衛2・後衛1、総戦闘力、陣形補正を表示するようにした。</p>
+<p><img src="assets/2026-07-04-character-collection-rpg-trial-016-formation.png" alt="Trial 016 Formation" loading="lazy"></p>
+<p>「入替」を押すと隊列が変わり、総戦闘力と補正が変化する。まだドラッグ入れ替えではないが、「編成を触ると数値が変わる」入口を作った。</p>
+<h3>4. クエスト選択からバトルへ遷移できるようにした</h3>
+<p>クエスト画面には、消費スタミナ、推奨戦力、初回報酬を表示した。</p>
+<ul>
+<li>裂光の丘 1-1</li>
+<li>記憶片の洞窟 HARD</li>
+<li>遠征: 星霧の街道</li>
+</ul>
+<p>選択して「出撃」を押すと戦闘画面へ移動する。HARDは条件不足を出せるようにし、失敗状態も残した。</p>
+<h3>5. 戦闘テンポを一段近づけた</h3>
+<p>戦闘には次を追加した。</p>
+<ul>
+<li>Round 1/3</li>
+<li>複数敵</li>
+<li>5人分の隊列マーカー</li>
+<li>隊列HP / 敵勢HP</li>
+<li>BP 10/13</li>
+<li>連携/OD風ゲージ</li>
+<li>複数スキル: 瞬閃、双竜破、癒光陣、星紋連携</li>
+<li>BP不足ログ</li>
+<li>Round移行ログ</li>
+<li>勝利報酬ログ</li>
+</ul>
+<p><img src="assets/2026-07-04-character-collection-rpg-trial-016-battle-tempo.png" alt="Trial 016 Battle Tempo" loading="lazy"></p>
+<p>「ボタンでHPが少し変わる」だけではなく、BPを消費し、BPが回復し、連携ゲージが上がり、Roundが進む形にした。</p>
+<h3>6. 10連召喚をスタイルカード風にした</h3>
+<p>召喚画面では、10連結果をSS/S/Aのスタイルカードとして表示し、重複時はピース変換になる説明を入れた。公式確率、公式文言、公式UIコピーは使っていない。</p>
+<h2>失敗状態も残した</h2>
+<p>Playableの状態画面では、次を切り替えられる。</p>
+<ul>
+<li>通信エラー</li>
+<li>読込タイムアウト</li>
+<li>スタミナ不足</li>
+<li>決済失敗</li>
+<li>編成条件不足</li>
+</ul>
+<p>今回はmock backendそのものの拡張ではなく、静的プレイアブルの体験改善が中心。ただし、AIDD-Spec上の重要な観点である「成功状態だけを作らない」は維持した。</p>
 <h2>検証結果</h2>
 <table>
 <tr><th>command</th><th>result</th></tr>
-<tr><td><code>pnpm run lint</code></td><td>pass</td></tr>
-<tr><td><code>pnpm run typecheck</code></td><td>pass</td></tr>
-<tr><td><code>pnpm run test</code></td><td>12 passed</td></tr>
-<tr><td><code>pnpm run build</code></td><td>pass</td></tr>
-<tr><td><code>pnpm run doctor:playwright</code></td><td>Chromium / Firefox / WebKit OK</td></tr>
-<tr><td><code>pnpm run mock:doctor</code></td><td>Docker Compose OK、<code>state battle_win_payment_failed</code> OK</td></tr>
-<tr><td><code>pnpm exec playwright test e2e/sagaforge.spec.ts -g &#x27;billing失敗中&#x27; --project=chromium --project=firefox --project=webkit</code></td><td>3 passed</td></tr>
-<tr><td><code>pnpm run test:coverage</code></td><td>pass / Statements 96.07%</td></tr>
-<tr><td><code>pnpm exec playwright test e2e/sagaforge.spec.ts --project=chromium --project=firefox --project=webkit</code></td><td>36 passed</td></tr>
-<tr><td><code>node scripts/capture-trial-016-assets.mjs</code></td><td>screenshot captured</td></tr>
+<tr><td><code>python3 scripts/build_preview.py</code></td><td>preview再生成成功</td></tr>
+<tr><td><code>node scripts/capture-sagaforge-playable-trial016.mjs</code></td><td>screenshots captured / Round visible / style cards確認</td></tr>
+<tr><td><code>python3 -m http.server 4177 --directory preview</code> + <code>curl</code></td><td><code>/sagaforge-app/index.html</code> と主要画像がHTTP 200</td></tr>
+<tr><td>公開プレイアブルURLのHEAD確認</td><td>HTTP 200</td></tr>
+<tr><td>公開プレイアブル主要画像のHEAD確認</td><td>HTTP 200</td></tr>
 </table>
 <p>terminal evidenceは次に保存した。</p>
-<pre><code>experiments/character-collection-rpg-trial-001/artifacts/character-collection-rpg-trial-016/terminal/
-  trial016-static-doctors-rerun.txt
-  trial016-targeted-e2e.txt
-  trial016-coverage-full-e2e-rerun.txt
-  trial016-capture.txt</code></pre>
+<pre><code>experiments/character-collection-rpg-trial-001/artifacts/character-collection-rpg-trial-016/terminal/trial016-playable-improvement.txt</code></pre>
 <p>スクリーンショットは次に保存した。</p>
-<pre><code>assets/2026-07-04-character-collection-rpg-trial-016-billing-hold.png
-assets/2026-07-04-character-collection-rpg-trial-016-billing-recovered.png</code></pre>
+<pre><code>assets/2026-07-04-character-collection-rpg-trial-016-playable-home.png
+assets/2026-07-04-character-collection-rpg-trial-016-style-cards.png
+assets/2026-07-04-character-collection-rpg-trial-016-formation.png
+assets/2026-07-04-character-collection-rpg-trial-016-battle-tempo.png</code></pre>
 <h2>AIDD-Specへの戻し</h2>
 <pre><code>observed_gap:
-  finding: 勝利報酬が存在するだけでは、billing失敗中の誤受取や課金誤認を防げない
-  risk: AIが「勝ったら受け取れる」だけを実装し、支払い失敗中のblocked stateとAPI拒否を落とす
+  finding: 見た目のRPG化だけでは、ユーザーが期待するスマホキャラ収集RPGの体験構造に届かない
+  risk: AIが「ファンタジー風の絵」「攻撃ボタン」「召喚ボタン」だけで満足し、ホーム/スタイル/編成/クエスト/戦闘テンポの関係を落とす
 ideal_state:
-  - reward availabilityとbilling readinessを別々に扱う
-  - battle_win_payment_failedのような複合mock scenarioを持つ
-  - UIではdisabled理由を日本語で説明する
-  - API直叩きでも402で止める
+  - ホームに日次導線とリソースを置く
+  - キャラではなくスタイル単位で育成・レアリティ・武器・属性・戦闘力を表す
+  - 5人編成、陣形、前衛/後衛、入れ替えによる数値変化を持つ
+  - クエスト選択からバトルへ進める
+  - 戦闘にRound、BP、連携/OD風ゲージ、複数敵、複数スキル、ログ、報酬を入れる
 standard_update:
-  document: State Design / API Contract / Verification Evidence / AI Task Packet
-  field: billing_aware_reward_gate
+  document: AI Task Packet / Interaction Pattern Contract / Verification Evidence
+  field: character_collection_rpg_core_loop
 codex_prompt_delta: |
-  報酬、ガチャ、購入、受取に見える操作は、対象アイテムが存在するかだけでなく、billing/auth/media/networkの状態を組み合わせて検証する。UI disabledだけでなく、mock backend actionの拒否statusとmessageもE2Eで確認する。
+  キャラ収集RPGプロトタイプでは、単なるファンタジーUIではなく、ホーム、スタイル一覧、5人編成、クエスト選択、BP/連携ゲージ付きターン制バトル、10連スタイル召喚、失敗状態を同じプレイアブルで触れるようにする。
 verification:
-  command: pnpm exec playwright test e2e/sagaforge.spec.ts -g &#x27;billing失敗中&#x27; --project=chromium --project=firefox --project=webkit
-  expected: 報酬内訳は表示、受取ボタンはdisabled、POST /actions/claim-reward は402</code></pre>
+  command: node scripts/capture-sagaforge-playable-trial016.mjs
+  expected: ホーム、スタイルカード、編成入替、クエスト出撃、Round/BP/連携付き戦闘のスクリーンショットが保存される</code></pre>
+<h2>まだ遠い点</h2>
+<p>今回で「汎用RPG」からは少し離れたが、まだロマサガRS的な期待には遠い。</p>
+<ul>
+<li>戦闘アニメーション、連携演出、OD発動の気持ちよさがまだ弱い</li>
+<li>スタイル育成が数値加算だけで、能力値上昇、技閃き、技Rank演出が弱い</li>
+<li>クエスト進行が1画面選択で、章/イベント/難易度/周回導線が薄い</li>
+<li>編成入れ替えがボタン式で、装備・耐性・属性相性まで見られない</li>
+<li>召喚演出が静的で、段階演出や結果の見せ方がまだ簡易</li>
+<li>Next.js本体への完全な戻し込みとmock backend E2Eは今回の主作業ではない</li>
+</ul>
+<h2>次に潰す差分</h2>
+<p>次回は、次の1〜3個に絞って改善する。</p>
+<ol>
+<li><strong>戦闘テンポ強化</strong>: OD発動、連携カットイン、技Rank上昇、勝利報酬ポップを追加する。  </li>
+<li><strong>育成画面強化</strong>: Style Lv、能力値、技Rank、素材消費、ピース限界突破を専用画面にする。  </li>
+<li><strong>クエスト周回導線</strong>: NORMAL/HARD、初回報酬、周回報酬、スタミナ不足から回復導線までつなげる。</li>
+</ol>
 <h2>今回の対応表</h2>
 <table>
 <tr><th>skill / AGENTS.mdのルール</th><th>今回防いだこと</th></tr>
-<tr><td>Failure statesをUIに反映する</td><td>勝利済み + billing失敗という複合状態を画面に出した</td></tr>
-<tr><td>mock backend contractをUIから独立させる</td><td>UI disabledだけでなく<code>POST /actions/claim-reward</code>の402も確認した</td></tr>
-<tr><td>E2Eから<code>/__control/state</code>を叩く</td><td><code>battle_win_payment_failed</code>へ切り替えて報酬画面を検証した</td></tr>
-<tr><td>3ブラウザE2Eを外さない</td><td>Chromium / Firefox / WebKitでtargeted 3 passed、full 36 passedを確認した</td></tr>
-<tr><td>過大主張しない</td><td>CI成功ではなく、local verified incrementとして報告する</td></tr>
+<tr><td>ユーザー評価を受け止める</td><td>「全然遠い」を単なる見た目不足ではなく、ホーム/スタイル/編成/戦闘テンポの不足として分解した</td></tr>
+<tr><td>記事化よりプレイアブル改善を優先</td><td><code>playables/sagaforge-app/index.html</code> を先に更新し、previewへコピーした</td></tr>
+<tr><td>実在IPをコピーしない</td><td>アプリ本体には実在IP名、公式素材、公式文言、公式確率を入れていない</td></tr>
+<tr><td>1サイクルで差分を1〜3個潰す</td><td>今回はホーム高密度化、スタイル/5人編成、BP/連携付きバトルに集中した</td></tr>
+<tr><td>触れるURLを維持する</td><td><code>/sagaforge-app/index.html</code> の公開HTTP 200と主要画像HTTP 200を確認した</td></tr>
 </table>
-<h2>次回</h2>
-<p>次回は、今回の複合状態をAIDD Control Plane側へ戻し、AI Task Packet生成時に「単一状態だけでなく複合failure stateを必ず含める」チェックとして扱えるようにしたい。</p>
-<p>AIDD Control Planeの価値は、AIに画面を作らせることだけではない。ユーザーが誤解しやすい条件を、先にTask Packetへ入れ、UIとAPIの両方で止まることを証跡として残すことである。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-04-character-collection-rpg-trial-015.html"><span>前の記事</span>AIDD Control Plane Dogfood 015：勝利報酬を「受け取れる/保留/受取済み」まで証跡化する</a><span></span></nav></main></div></body></html>
+<h2>公開URL</h2>
+<p>公開URLはcronレポート側に記載する。記事本文にはローカル環境名や内部ホスト名を残さない。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-04-character-collection-rpg-trial-015.html"><span>前の記事</span>AIDD Control Plane Dogfood 015：勝利報酬を「受け取れる/保留/受取済み」まで証跡化する</a><span></span></nav></main></div></body></html>
