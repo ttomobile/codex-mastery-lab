@@ -1,0 +1,9 @@
+## trial012 targeted 3-browser e2e
+
+Running 3 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/intake-wizard.spec.ts:522:1 › Dogfood Markdown Patch Planで3ファイルのpatch候補とrollbackを確認できる (1.9s)
+  ✓  2 [firefox] › e2e/intake-wizard.spec.ts:522:1 › Dogfood Markdown Patch Planで3ファイルのpatch候補とrollbackを確認できる (2.7s)
+  ✓  3 [webkit] › e2e/intake-wizard.spec.ts:522:1 › Dogfood Markdown Patch Planで3ファイルのpatch候補とrollbackを確認できる (2.1s)
+
+  3 passed (16.2s)

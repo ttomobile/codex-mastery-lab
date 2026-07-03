@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import {
   APP_TYPE_TEMPLATES,
   buildIntakeDraft,
+  createDogfoodPacketMarkdownReview,
+  createDogfoodMarkdownPatchPlan,
   createEmptyCiWorkflowArtifactAuditor,
   createEmptySpecUpdateProposalQueue,
   createEmptyTaskPacketDeltaApplyPreview,
@@ -671,6 +673,41 @@ describe("Project Intake Wizardのドメインロジック", () => {
     expect(seed.verificationCommands).toEqual(expect.arrayContaining(["pnpm run mock:doctor", "gh api repos/:owner/:repo/actions/runs/<run-id>/artifacts"]));
     expect(seed.codexPromptSeed).toContain("音声つき散歩ログアプリ");
     expect(seed.codexPromptSeed).toContain("初期生成品質と最終収束品質");
+  });
+
+  it("Dogfood Packet Markdown Reviewはseedを3つのMarkdown反映前プレビューへ分ける", () => {
+    const seed = generateDogfoodAppIdeaPacketSeed({
+      appIdea: "音声つき散歩ログアプリ",
+      templateId: "learning-support"
+    });
+    const review = createDogfoodPacketMarkdownReview(seed);
+
+    expect(review.status).toBe("valid");
+    expect(review.issues).toHaveLength(0);
+    expect(review.files.map((file) => file.targetFile)).toEqual(["AI_TASK_PACKET.md", "CODEX_PROMPT.md", "VERIFICATION_PLAN.md"]);
+    expect(review.files.find((file) => file.targetFile === "AI_TASK_PACKET.md")?.bodyPreview).toContain("Mock Backend Contract");
+    expect(review.files.find((file) => file.targetFile === "CODEX_PROMPT.md")?.bodyPreview).toContain("初期生成品質と最終収束品質");
+    expect(review.files.find((file) => file.targetFile === "VERIFICATION_PLAN.md")?.bodyPreview).toContain("gh api repos/:owner/:repo/actions/runs/<run-id>/artifacts");
+    expect(review.copyBundle).toContain("<!-- AI_TASK_PACKET.md -->");
+    expect(review.reviewChecklist.join("\n")).toContain("実ファイルへ反映する");
+  });
+
+  it("Dogfood Markdown Patch PlanはMarkdown Reviewからdry-runとrollback付きpatch候補を作る", () => {
+    const seed = generateDogfoodAppIdeaPacketSeed({
+      appIdea: "音声つき散歩ログアプリ",
+      templateId: "learning-support"
+    });
+    const plan = createDogfoodMarkdownPatchPlan(createDogfoodPacketMarkdownReview(seed));
+
+    expect(plan.status).toBe("valid");
+    expect(plan.issues).toHaveLength(0);
+    expect(plan.patches.map((patch) => patch.targetFile)).toEqual(["AI_TASK_PACKET.md", "CODEX_PROMPT.md", "VERIFICATION_PLAN.md"]);
+    expect(plan.patches[0].patchId).toBe("dogfood-markdown-patch-001");
+    expect(plan.patches[0].diffPreview).toContain("+++ b/AI_TASK_PACKET.md");
+    expect(plan.patches[0].dryRunCommand).toBe("git apply --check patches/AI_TASK_PACKET.md.patch");
+    expect(plan.patches[0].rollbackCommand).toBe("git checkout -- AI_TASK_PACKET.md");
+    expect(plan.applyOrder.join("\n")).toContain("dogfood-markdown-patch-003 -> VERIFICATION_PLAN.md");
+    expect(plan.copyCodexPrompt).toContain("まだ自動適用せずpatch候補をレビュー");
   });
 });
 

@@ -1,0 +1,3 @@
+## trial012 capture
+$ node scripts/capture-trial012.mjs
+<repo>/experiments/character-collection-rpg-trial-001/artifacts/character-collection-rpg-trial-012/screenshots/2026-07-03-character-collection-rpg-trial-012-patch-plan.png

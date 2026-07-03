@@ -59,6 +59,7 @@ MVPではこの流れをフォームとチェックリストで標準化する�
 | Safe Patch Review Workspace | Packet Draft Workspaceのドラフト本文を実ファイルへ反映する前に、安全なpatch候補としてレビューする | empty / valid / failure、patch id、target file、source draft id、diff summary、diff size、apply command、verification command、rollback command、reviewer checklist、AIDD-Spec接続、危険なtarget path、diff size過大、未採用delta混入、ローカルパス混入検出 |
 | Diff Bundle & Rollback Evidence Workspace | Safe Patch Review Workspaceで承認されたpatch候補を自動適用する前に、diff bundle、dry-run結果、rollback evidenceを保存する | empty / valid / failure、bundle id、source patch id、target file、before hash、after hash、diff bundle path、dry-run command/status、rollback evidence path、rollback verified command、verification command、reviewer checklist、AIDD-Spec接続、危険なtarget path、ローカルパス混入、rollback evidence不足検出 |
 | Dogfood Packet Markdown Review | 新規アプリ案seedをAI_TASK_PACKET.md / CODEX_PROMPT.md / VERIFICATION_PLAN.mdへ反映する前に、Markdown本文、差分サマリ、実行前チェック、検証コマンド、rollback条件としてレビューする | source app idea、target file、heading、body preview、diff summary、preflight checks、verification command、rollback condition、copy bundle、実在IP/公式素材/ローカルパス/host名/プライベートネットワークURL/浅い検証/Firefox除外の反映前確認 |
+| Packet Apply Command Composer | 承認済みMarkdownを実ファイルへ反映する直前に、apply command、dry-run、verification、rollback、evidence pathを確認する | empty / valid / failure、target file、apply command、dry-run command、verification command、rollback command、terminal evidence path、preflight checks、未レビューMarkdown混入・危険なtarget path・rollback不足・検証不足の検出 |
 
 ## 4. 初期データモデル
 

@@ -1,0 +1,9 @@
+## fresh generated-repo targeted e2e
+
+Running 3 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/intake-wizard.spec.ts:504:1 › Dogfood Packet Markdown Reviewでseedを3ファイルの反映前プレビューに変換する (675ms)
+  ✓  2 [firefox] › e2e/intake-wizard.spec.ts:504:1 › Dogfood Packet Markdown Reviewでseedを3ファイルの反映前プレビューに変換する (1.1s)
+  ✓  3 [webkit] › e2e/intake-wizard.spec.ts:504:1 › Dogfood Packet Markdown Reviewでseedを3ファイルの反映前プレビューに変換する (1.2s)
+
+  3 passed (7.6s)

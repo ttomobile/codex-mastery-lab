@@ -1,0 +1,2 @@
+## trial011 typecheck
+$ tsc --noEmit

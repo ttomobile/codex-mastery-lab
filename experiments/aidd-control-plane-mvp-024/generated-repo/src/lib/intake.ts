@@ -105,6 +105,45 @@ export type DogfoodAppIdeaPacketSeed = {
   codexPromptSeed: string;
 };
 
+export type DogfoodPacketMarkdownFile = {
+  targetFile: "AI_TASK_PACKET.md" | "CODEX_PROMPT.md" | "VERIFICATION_PLAN.md";
+  heading: string;
+  bodyPreview: string;
+  diffSummary: string;
+  preflightChecks: string[];
+  verificationCommand: string;
+  rollbackCondition: string;
+};
+
+export type DogfoodPacketMarkdownReview = {
+  status: "valid" | "failure";
+  sourceAppIdea: string;
+  files: DogfoodPacketMarkdownFile[];
+  reviewChecklist: string[];
+  copyBundle: string;
+  issues: string[];
+};
+
+export type DogfoodMarkdownPatchCandidate = {
+  patchId: string;
+  targetFile: DogfoodPacketMarkdownFile["targetFile"];
+  operation: "create-or-replace-section";
+  diffPreview: string;
+  dryRunCommand: string;
+  verificationCommand: string;
+  rollbackCommand: string;
+  safetyChecks: string[];
+};
+
+export type DogfoodMarkdownPatchPlan = {
+  status: "valid" | "failure";
+  sourceAppIdea: string;
+  patches: DogfoodMarkdownPatchCandidate[];
+  applyOrder: string[];
+  copyCodexPrompt: string;
+  issues: string[];
+};
+
 export function generateDogfoodAppIdeaPacketSeed(input: {
   appIdea: string;
   templateId?: AppTypeTemplateId | "";
@@ -159,6 +198,157 @@ export function generateDogfoodAppIdeaPacketSeed(input: {
       `必須failure states: ${failureStates.join(" / ")}\n` +
       `検証コマンド: ${verificationCommands.join(" && ")}\n` +
       "完了条件: root CI success、coverage / playwright-report / test-results / terminal evidence artifact、記事とpreview更新、初期生成品質と最終収束品質の分離報告。"
+  };
+}
+
+export function createDogfoodPacketMarkdownReview(seed: DogfoodAppIdeaPacketSeed): DogfoodPacketMarkdownReview {
+  const sharedPreflightChecks = [
+    "実在IP・ロゴ・公式素材・公式文言が含まれていない",
+    "mock-api / mock-media / mock-auth / mock-billingが残っている",
+    "offline / timeout / media_error / auth / billingを検証対象に含む",
+    "Chromium / Firefox / WebKitの3ブラウザE2Eを外していない",
+    "初期生成品質と最終収束品質を分けて報告する"
+  ];
+  const commandList = seed.verificationCommands.map((command) => `- [ ] ${command}`).join("\n");
+  const files: DogfoodPacketMarkdownFile[] = [
+    {
+      targetFile: "AI_TASK_PACKET.md",
+      heading: `# AI Task Packet: ${seed.appIdea}`,
+      bodyPreview: [
+        `# AI Task Packet: ${seed.appIdea}`,
+        "",
+        "## テンプレート",
+        `- ${seed.templateName}`,
+        "",
+        "## 必須セクション",
+        ...seed.requiredSections.map((section) => `- ${section}`),
+        "",
+        "## Mock Backend Contract",
+        ...seed.mockServices.map((service) => `- ${service}`),
+        "",
+        "## Failure State Contract",
+        ...seed.failureStates.map((state) => `- ${state}`),
+        "",
+        "## Acceptance Criteria",
+        ...seed.acceptanceCriteria.map((criterion) => `- ${criterion}`)
+      ].join("\n"),
+      diffSummary: "新規アプリ案とRPG dogfood成功証跡をAI Task Packet本文へ反映する。",
+      preflightChecks: sharedPreflightChecks,
+      verificationCommand: "pnpm run doctor:aidd && pnpm run test:e2e",
+      rollbackCondition: "非侵害境界、mock service、failure state、3ブラウザE2Eのいずれかが欠けたら適用せずseedへ戻す。"
+    },
+    {
+      targetFile: "CODEX_PROMPT.md",
+      heading: "# Codex Prompt Seed",
+      bodyPreview: seed.codexPromptSeed,
+      diffSummary: "Codexへ渡す実装依頼に非侵害境界、mock service、検証コマンド、報告境界を入れる。",
+      preflightChecks: sharedPreflightChecks,
+      verificationCommand: "pnpm run lint && pnpm run typecheck && pnpm run test",
+      rollbackCondition: "商標・公式素材・浅い検証・Firefox除外が混入したらpromptを差し戻す。"
+    },
+    {
+      targetFile: "VERIFICATION_PLAN.md",
+      heading: "# Verification Plan",
+      bodyPreview: [
+        "# Verification Plan",
+        "",
+        "## 必須コマンド",
+        commandList,
+        "",
+        "## 必須証跡",
+        ...seed.sourceEvidence.map((evidence) => `- ${evidence}`),
+        "- coverage / playwright-report / test-results artifact",
+        "- empty / valid / failure screenshot",
+        "- 記事とpreview再生成ログ"
+      ].join("\n"),
+      diffSummary: "検証計画にローカルgate、3ブラウザE2E、CI artifact確認、記事証跡を明示する。",
+      preflightChecks: sharedPreflightChecks,
+      verificationCommand: "pnpm run test:coverage && pnpm run build && pnpm run mock:doctor",
+      rollbackCondition: "証跡ファイル名またはCI artifact確認が空ならVerification Planへ適用しない。"
+    }
+  ];
+
+  const reviewChecklist = [
+    "AI_TASK_PACKET.md / CODEX_PROMPT.md / VERIFICATION_PLAN.mdの3ファイルに分けて確認する",
+    "画面プレビューで差分を読んでから実ファイルへ反映する",
+    "ローカルパス、host名、tailnet URLを含めない",
+    "RPG dogfoodの成功証跡を根拠として残すが、別アプリへ公式IPを持ち込まない"
+  ];
+  const copyBundle = files.map((file) => `<!-- ${file.targetFile} -->\n${file.bodyPreview}`).join("\n\n---\n\n");
+  const issues = files.flatMap((file) => [
+    !file.bodyPreview.trim() ? `${file.targetFile}: body preview不足` : "",
+    !file.verificationCommand.trim() ? `${file.targetFile}: verification command不足` : "",
+    !file.rollbackCondition.trim() ? `${file.targetFile}: rollback condition不足` : "",
+    file.bodyPreview.includes("ロマサガ") || file.bodyPreview.includes("SaGa") || file.bodyPreview.includes("スクウェア") ? `${file.targetFile}: 実在IPらしき文言が混入` : ""
+  ]).filter((issue): issue is string => Boolean(issue));
+
+  return {
+    status: issues.length === 0 ? "valid" : "failure",
+    sourceAppIdea: seed.appIdea,
+    files,
+    reviewChecklist,
+    copyBundle,
+    issues
+  };
+}
+
+function createUnifiedDiffPreview(targetFile: string, bodyPreview: string) {
+  const previewLines = bodyPreview.split("\n").slice(0, 10);
+  return [
+    `diff --git a/${targetFile} b/${targetFile}`,
+    `--- a/${targetFile}`,
+    `+++ b/${targetFile}`,
+    "@@ AIDD Control Plane generated section @@",
+    ...previewLines.map((line) => `+${line}`),
+    bodyPreview.split("\n").length > previewLines.length ? "+..." : ""
+  ].filter(Boolean).join("\n");
+}
+
+export function createDogfoodMarkdownPatchPlan(review: DogfoodPacketMarkdownReview): DogfoodMarkdownPatchPlan {
+  const patches = review.files.map((file, index): DogfoodMarkdownPatchCandidate => ({
+    patchId: `dogfood-markdown-patch-${String(index + 1).padStart(3, "0")}`,
+    targetFile: file.targetFile,
+    operation: "create-or-replace-section",
+    diffPreview: createUnifiedDiffPreview(file.targetFile, file.bodyPreview),
+    dryRunCommand: `git apply --check patches/${file.targetFile}.patch`,
+    verificationCommand: file.verificationCommand,
+    rollbackCommand: `git checkout -- ${file.targetFile}`,
+    safetyChecks: [
+      ...file.preflightChecks,
+      "diff previewにローカルパス、host名、tailnet URLを含めない",
+      "dry-runが通るまで実ファイルへ適用しない",
+      "rollback commandを保存してからCodexへ渡す"
+    ]
+  }));
+
+  const issues = [
+    ...review.issues,
+    review.status !== "valid" ? "Markdown reviewがvalidではありません" : "",
+    patches.length !== 3 ? "AI_TASK_PACKET.md / CODEX_PROMPT.md / VERIFICATION_PLAN.mdのpatch候補が3件揃っていません" : "",
+    ...patches.flatMap((patch) => [
+      !patch.diffPreview.includes(`+++ b/${patch.targetFile}`) ? `${patch.patchId}: diff preview不足` : "",
+      !patch.dryRunCommand.includes("git apply --check") ? `${patch.patchId}: dry-run command不足` : "",
+      !patch.rollbackCommand.includes("git checkout --") ? `${patch.patchId}: rollback command不足` : "",
+      patch.diffPreview.includes("/Users/") || patch.diffPreview.includes("tailnet") || patch.diffPreview.includes("localhost") ? `${patch.patchId}: ローカル環境名が混入` : ""
+    ])
+  ].filter((issue): issue is string => Boolean(issue));
+
+  const applyOrder = patches.map((patch) => `${patch.patchId} -> ${patch.targetFile} -> ${patch.dryRunCommand} -> ${patch.verificationCommand}`);
+  const copyCodexPrompt = [
+    "AIDD Control PlaneのDogfood Markdown Patch Planに従い、まだ自動適用せずpatch候補をレビューしてください。",
+    `source app idea: ${review.sourceAppIdea}`,
+    "必須: 実在IP・ロゴ・公式素材・公式文言を含めない。",
+    "必須: git apply --check、verification command、rollback commandを確認してから適用する。",
+    ...applyOrder.map((step) => `- ${step}`)
+  ].join("\n");
+
+  return {
+    status: issues.length === 0 ? "valid" : "failure",
+    sourceAppIdea: review.sourceAppIdea,
+    patches,
+    applyOrder,
+    copyCodexPrompt,
+    issues
   };
 }
 export type ReadinessStatus = "empty" | "draft" | "ready" | "insufficient";

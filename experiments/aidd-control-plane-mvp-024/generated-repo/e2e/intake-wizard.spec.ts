@@ -313,8 +313,13 @@ test("fixture駆動Mock CI Serviceでvalid failure timeoutを切り替えられ�
 });
 
 test("E2Eからmock CI serviceのcontrol endpointを叩いてUI反映を確認する", async ({ page, request }) => {
-  await request.post(`${mockCiServiceUrl}/__control/state`, { data: { scenario: "rate_limit" } });
   await page.goto("/");
+  await page.getByRole("button", { name: "rate limit" }).click();
+  await expect.poll(async () => {
+    const response = await request.get(`${mockCiServiceUrl}/state`);
+    const body = await response.json();
+    return body.scenario;
+  }).toBe("rate_limit");
 
   await expect(page.getByRole("heading", { name: /Mock CI Service: rate_limit: CI API制限中/ })).toBeVisible();
   await expect(page.getByLabel("rate_limit対応").getByText("60秒待機してからCI APIを再取得します。")).toBeVisible();
@@ -324,7 +329,12 @@ test("E2Eからmock CI serviceのcontrol endpointを叩いてUI反映を確認�
   await expect(page.getByLabel("rate_limit対応").getByText("次回AI Task Packet Delta")).toBeVisible();
 
   await request.post(`${mockCiServiceUrl}/__control/state`, { data: { scenario: "valid" } });
-  await page.reload();
+  await expect.poll(async () => {
+    const response = await request.get(`${mockCiServiceUrl}/state`);
+    const body = await response.json();
+    return body.scenario;
+  }).toBe("valid");
+  await page.getByRole("button", { name: "証跡が揃った状態" }).click();
   await expect(page.getByRole("heading", { name: /Mock CI Service: valid: 必須CI証跡が揃っています/ })).toBeVisible();
   await expect(page.getByText("mock:doctor: 成功")).toBeVisible();
 });
@@ -489,6 +499,41 @@ test("新規アプリ案からDogfood証跡入りAI Task Packet seedを生成す
   await expect(page.getByLabel("Dogfood app idea packet seed summary").getByText("pnpm run mock:doctor")).toBeVisible();
   await expect(page.getByLabel("Dogfood app idea generated Codex prompt seed")).toContainText("音声つき散歩ログアプリ");
   await expect(page.getByLabel("Dogfood app idea generated Codex prompt seed")).toContainText("初期生成品質と最終収束品質");
+});
+
+test("Dogfood Packet Markdown Reviewでseedを3ファイルの反映前プレビューに変換する", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("radio", { name: /学習支援/ }).check({ force: true });
+  await page.getByLabel("何を作りたいですか？").fill("音声つき散歩ログアプリ");
+
+  await expect(page.getByRole("heading", { name: "Dogfood Packet Markdown Review: valid" })).toBeVisible();
+  await expect(page.getByText("Dogfood packet markdown reviewはvalidです")).toBeVisible();
+  await expect(page.getByLabel("Dogfood packet markdown review files").getByRole("heading", { name: "AI_TASK_PACKET.md" })).toBeVisible();
+  await expect(page.getByLabel("Dogfood packet markdown review files").getByRole("heading", { name: "CODEX_PROMPT.md" })).toBeVisible();
+  await expect(page.getByLabel("Dogfood packet markdown review files").getByRole("heading", { name: "VERIFICATION_PLAN.md" })).toBeVisible();
+  await expect(page.getByLabel("AI_TASK_PACKET.md Dogfood markdown body preview")).toContainText("Mock Backend Contract");
+  await expect(page.getByLabel("CODEX_PROMPT.md Dogfood markdown body preview")).toContainText("初期生成品質と最終収束品質");
+  await expect(page.getByLabel("VERIFICATION_PLAN.md Dogfood markdown body preview")).toContainText("gh api repos/:owner/:repo/actions/runs/<run-id>/artifacts");
+  await expect(page.getByLabel("Dogfood packet markdown review checklist")).toContainText("画面プレビューで差分を読んでから実ファイルへ反映する");
+  await expect(page.getByLabel("Dogfood packet markdown copy bundle")).toContainText("<!-- AI_TASK_PACKET.md -->");
+});
+
+test("Dogfood Markdown Patch Planで3ファイルのpatch候補とrollbackを確認できる", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("radio", { name: /学習支援/ }).check({ force: true });
+  await page.getByLabel("何を作りたいですか？").fill("音声つき散歩ログアプリ");
+
+  await expect(page.getByRole("heading", { name: "Dogfood Markdown Patch Plan: valid" })).toBeVisible();
+  await expect(page.getByText("Dogfood markdown patch planはvalidです")).toBeVisible();
+  await expect(page.getByLabel("Dogfood markdown patch candidates").getByRole("heading", { name: "dogfood-markdown-patch-001" })).toBeVisible();
+  await expect(page.getByLabel("Dogfood markdown patch candidates").getByText("AI_TASK_PACKET.md").first()).toBeVisible();
+  await expect(page.getByLabel("Dogfood markdown patch candidates").getByText("git apply --check patches/AI_TASK_PACKET.md.patch")).toBeVisible();
+  await expect(page.getByLabel("Dogfood markdown patch candidates").getByText("git checkout -- AI_TASK_PACKET.md")).toBeVisible();
+  await expect(page.getByLabel("dogfood-markdown-patch-001 diff preview")).toContainText("+++ b/AI_TASK_PACKET.md");
+  await expect(page.getByLabel("Dogfood markdown patch apply order")).toContainText("dogfood-markdown-patch-003 -> VERIFICATION_PLAN.md");
+  await expect(page.getByLabel("Dogfood markdown patch copy Codex prompt")).toContainText("まだ自動適用せずpatch候補をレビュー");
 });
 
 async function fillSampleApp(page: import("@playwright/test").Page) {

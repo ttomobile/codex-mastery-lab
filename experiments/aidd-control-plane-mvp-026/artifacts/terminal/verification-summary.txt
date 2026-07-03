@@ -1,0 +1,8 @@
+pnpm install --frozen-lockfile: pass
+pnpm run lint: pass
+pnpm run typecheck: pass
+pnpm run test: pass (52 tests)
+pnpm run build: pass (Next.js ESLint plugin warning remains as known configuration warning)
+pnpm run test:e2e: pass (Chromium / Firefox / WebKit, 72 tests)
+pnpm run doctor:aidd: pass
+pnpm run capture:mvp026: pass

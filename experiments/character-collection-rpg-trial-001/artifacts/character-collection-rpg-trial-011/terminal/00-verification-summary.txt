@@ -1,0 +1,16 @@
+# Trial 011 verification summary
+
+- 実装: Dogfood Packet Markdown Reviewを追加し、新規アプリ案seedをAI_TASK_PACKET.md / CODEX_PROMPT.md / VERIFICATION_PLAN.mdの反映前Markdown previewへ分解。
+- 修正: WebKit/Firefoxでmock CI stateが古いempty stateに見える揺れを、UI fetchのno-store化とE2Eのcontrol endpoint操作確認で安定化。
+- lint: pass (`trial011-lint.txt`)
+- typecheck: pass (`trial011-typecheck.txt`)
+- unit: 51 passed (`trial011-test.txt`)
+- coverage: pass (`trial011-coverage.txt`)
+- build: pass (`trial011-build.txt`)
+- doctor:aidd: pass (`trial011-doctor-aidd.txt`)
+- mock:doctor: pass (`trial011-mock-doctor.txt`)
+- e2e: 69 passed (`trial011-e2e-final.txt`)
+- fresh root verification after final edits: pass (`root-npm-test-fresh.txt`)
+- fresh generated repo static gates after final edits: lint/typecheck/unit pass, 51 tests (`generated-repo-static-fresh.txt`)
+- fresh targeted 3-browser E2E after final edits: Chromium / Firefox / WebKit pass, 3 tests (`generated-repo-targeted-e2e-fresh.txt`)
+- screenshot: `assets/2026-07-03-character-collection-rpg-trial-011-markdown-review.png`

@@ -27,6 +27,8 @@ import {
   createEmptySafePatchReviewWorkspace,
   createEmptyDiffBundleRollbackEvidenceWorkspace,
   createEvidenceMissingVerificationRun,
+  createDogfoodPacketMarkdownReview,
+  createDogfoodMarkdownPatchPlan,
   createEmptyCiWorkflowArtifactAuditor,
   createEmptySpecUpdateProposalQueue,
   createFailureVerificationRun,
@@ -152,7 +154,7 @@ export default function Home() {
 
   const refreshMockCiState = useCallback(async (signal?: AbortSignal) => {
     try {
-      const response = await fetch(`${mockCiServiceUrl}/state`, { signal });
+      const response = await fetch(`${mockCiServiceUrl}/state?ts=${Date.now()}`, { signal, cache: "no-store" });
       if (!response.ok) throw new Error(`mock CI service returned ${response.status}`);
       const body = (await response.json()) as MockCiServiceState;
       setMockCiMode(body.scenario);
@@ -240,6 +242,14 @@ export default function Home() {
   const dogfoodAppIdeaPacketSeed = useMemo(
     () => generateDogfoodAppIdeaPacketSeed({ appIdea: appName, templateId: selectedTemplateId }),
     [appName, selectedTemplateId]
+  );
+  const dogfoodPacketMarkdownReview = useMemo(
+    () => createDogfoodPacketMarkdownReview(dogfoodAppIdeaPacketSeed),
+    [dogfoodAppIdeaPacketSeed]
+  );
+  const dogfoodMarkdownPatchPlan = useMemo(
+    () => createDogfoodMarkdownPatchPlan(dogfoodPacketMarkdownReview),
+    [dogfoodPacketMarkdownReview]
   );
   const selectedTemplate = APP_TYPE_TEMPLATES.find((template) => template.id === selectedTemplateId);
   const mockCi = mockCiState;
@@ -522,6 +532,89 @@ export default function Home() {
           </section>
         </div>
         <pre aria-label="Dogfood app idea generated Codex prompt seed">{dogfoodAppIdeaPacketSeed.codexPromptSeed}</pre>
+      </section>
+
+      <section className={`artifact-binder artifact-${dogfoodPacketMarkdownReview.status}`} aria-labelledby="dogfood-markdown-review-title">
+        <div className="section-heading">
+          <p className="eyebrow">Dogfood Packet Markdown Review</p>
+          <h2 id="dogfood-markdown-review-title">Dogfood Packet Markdown Review: {dogfoodPacketMarkdownReview.status}</h2>
+          <p>
+            新規アプリ案seedを、AI_TASK_PACKET.md / CODEX_PROMPT.md / VERIFICATION_PLAN.mdへ実ファイル反映する前のMarkdownプレビューに変換します。
+            まだ書き換えず、差分サマリ、実行前チェック、検証コマンド、rollback条件を画面上で確認します。
+          </p>
+        </div>
+        <div className={`verification-summary ${dogfoodPacketMarkdownReview.status === "valid" ? "is-ready" : "is-not-ready"}`} aria-live="polite">
+          <strong>{dogfoodPacketMarkdownReview.status === "valid" ? "Dogfood packet markdown reviewはvalidです" : `Dogfood packet markdown review issues: ${dogfoodPacketMarkdownReview.issues.length}件`}</strong>
+          <span>{dogfoodPacketMarkdownReview.sourceAppIdea} / 対象ファイル: {dogfoodPacketMarkdownReview.files.length}件</span>
+        </div>
+        <div className="proposal-list file-plan-list" aria-label="Dogfood packet markdown review files">
+          {dogfoodPacketMarkdownReview.files.map((file) => (
+            <article className="proposal-card" key={file.targetFile} aria-label={`${file.targetFile} markdown preview`}>
+              <h3>{file.targetFile}</h3>
+              <dl>
+                <div><dt>heading</dt><dd>{file.heading}</dd></div>
+                <div><dt>diff summary</dt><dd>{file.diffSummary}</dd></div>
+                <div><dt>verification command</dt><dd>{file.verificationCommand}</dd></div>
+                <div><dt>rollback condition</dt><dd>{file.rollbackCondition}</dd></div>
+              </dl>
+              <h4>実行前チェック</h4>
+              <ul>{file.preflightChecks.map((check) => <li key={check}>{check}</li>)}</ul>
+              <pre aria-label={`${file.targetFile} Dogfood markdown body preview`}>{file.bodyPreview}</pre>
+            </article>
+          ))}
+        </div>
+        <article className="proposal-card" aria-label="Dogfood packet markdown review checklist">
+          <h3>review checklist</h3>
+          <ul>{dogfoodPacketMarkdownReview.reviewChecklist.map((check) => <li key={check}>{check}</li>)}</ul>
+        </article>
+        <pre aria-label="Dogfood packet markdown copy bundle">{dogfoodPacketMarkdownReview.copyBundle}</pre>
+        {dogfoodPacketMarkdownReview.issues.length > 0 ? (
+          <ul className="binder-issues" aria-label="Dogfood packet markdown review issues">
+            {dogfoodPacketMarkdownReview.issues.map((issue) => <li key={issue}>{issue}</li>)}
+          </ul>
+        ) : null}
+      </section>
+
+      <section className={`artifact-binder artifact-${dogfoodMarkdownPatchPlan.status}`} aria-labelledby="dogfood-markdown-patch-plan-title">
+        <div className="section-heading">
+          <p className="eyebrow">Dogfood Markdown Patch Plan</p>
+          <h2 id="dogfood-markdown-patch-plan-title">Dogfood Markdown Patch Plan: {dogfoodMarkdownPatchPlan.status}</h2>
+          <p>
+            Markdown Reviewで分けた3ファイルを、実ファイルへ書き込む前のpatch候補に変換します。
+            ここでも自動適用せず、diff preview、dry-run command、verification command、rollback commandを確認します。
+          </p>
+        </div>
+        <div className={`verification-summary ${dogfoodMarkdownPatchPlan.status === "valid" ? "is-ready" : "is-not-ready"}`} aria-live="polite">
+          <strong>{dogfoodMarkdownPatchPlan.status === "valid" ? "Dogfood markdown patch planはvalidです" : `Dogfood markdown patch plan issues: ${dogfoodMarkdownPatchPlan.issues.length}件`}</strong>
+          <span>{dogfoodMarkdownPatchPlan.sourceAppIdea} / patch候補: {dogfoodMarkdownPatchPlan.patches.length}件</span>
+        </div>
+        <div className="proposal-list file-plan-list" aria-label="Dogfood markdown patch candidates">
+          {dogfoodMarkdownPatchPlan.patches.map((patch) => (
+            <article className="proposal-card" key={patch.patchId} aria-label={`${patch.patchId} patch candidate`}>
+              <h3>{patch.patchId}</h3>
+              <dl>
+                <div><dt>target file</dt><dd>{patch.targetFile}</dd></div>
+                <div><dt>operation</dt><dd>{patch.operation}</dd></div>
+                <div><dt>dry-run command</dt><dd>{patch.dryRunCommand}</dd></div>
+                <div><dt>verification command</dt><dd>{patch.verificationCommand}</dd></div>
+                <div><dt>rollback command</dt><dd>{patch.rollbackCommand}</dd></div>
+              </dl>
+              <h4>safety checks</h4>
+              <ul>{patch.safetyChecks.map((check) => <li key={check}>{check}</li>)}</ul>
+              <pre aria-label={`${patch.patchId} diff preview`}>{patch.diffPreview}</pre>
+            </article>
+          ))}
+        </div>
+        <article className="proposal-card" aria-label="Dogfood markdown patch apply order">
+          <h3>apply order</h3>
+          <ol>{dogfoodMarkdownPatchPlan.applyOrder.map((step) => <li key={step}>{step}</li>)}</ol>
+        </article>
+        <pre aria-label="Dogfood markdown patch copy Codex prompt">{dogfoodMarkdownPatchPlan.copyCodexPrompt}</pre>
+        {dogfoodMarkdownPatchPlan.issues.length > 0 ? (
+          <ul className="binder-issues" aria-label="Dogfood markdown patch plan issues">
+            {dogfoodMarkdownPatchPlan.issues.map((issue) => <li key={issue}>{issue}</li>)}
+          </ul>
+        ) : null}
       </section>
 
       <section className={`artifact-binder artifact-${workflowAudit.status}`} aria-labelledby="workflow-auditor-title">

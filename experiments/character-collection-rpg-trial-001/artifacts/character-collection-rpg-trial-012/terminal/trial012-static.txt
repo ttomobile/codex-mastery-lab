@@ -1,0 +1,14 @@
+## trial012 static gates
+$ eslint . --max-warnings=0
+$ tsc --noEmit
+$ vitest run
+
+ RUN  v3.2.6 <repo>/experiments/aidd-control-plane-mvp-024/generated-repo
+
+ ✓ tests/intake.test.ts (52 tests) 38ms
+
+ Test Files  1 passed (1)
+      Tests  52 passed (52)
+   Start at  18:20:46
+   Duration  512ms (transform 149ms, setup 0ms, collect 152ms, tests 38ms, environment 0ms, prepare 79ms)
+

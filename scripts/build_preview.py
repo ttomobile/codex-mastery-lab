@@ -47,6 +47,7 @@ CONTROL_PLANE_ORDER = [
     '2026-07-03-aidd-control-plane-mvp-023.md',
     '2026-07-03-aidd-control-plane-mvp-024.md',
     '2026-07-03-aidd-control-plane-mvp-025.md',
+    '2026-07-03-aidd-control-plane-mvp-026.md',
 ]
 
 DOGFOOD_ORDER = [
@@ -60,6 +61,8 @@ DOGFOOD_ORDER = [
     '2026-07-03-character-collection-rpg-trial-008.md',
     '2026-07-03-character-collection-rpg-trial-009.md',
     '2026-07-03-character-collection-rpg-trial-010.md',
+    '2026-07-03-character-collection-rpg-trial-011.md',
+    '2026-07-03-character-collection-rpg-trial-012.md',
 ]
 
 PAST_ARTICLES_ORDER = [
@@ -324,6 +327,8 @@ def main():
         '2026-07-03-character-collection-rpg-trial-008-*.png',
         '2026-07-03-character-collection-rpg-trial-009-*.png',
         '2026-07-03-character-collection-rpg-trial-010-*.png',
+        '2026-07-03-character-collection-rpg-trial-011-*.png',
+        '2026-07-03-character-collection-rpg-trial-012-*.png',
     ]
     for asset in [p for pattern in asset_patterns for p in ASSETS.glob(pattern)]:
         shutil.copy2(asset, OUT_ASSETS / asset.name)
