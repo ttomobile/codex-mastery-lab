@@ -1,0 +1,10 @@
+pnpm install --frozen-lockfile: pass
+pnpm run lint: pass
+pnpm run typecheck: pass
+pnpm run test: pass（43 tests）
+pnpm run test:coverage: pass（43 tests、src/lib/intake.ts 98.99% statements）
+pnpm run build: pass（Next.js警告: ESLint plugin未検出、既存設定課題）
+pnpm run test:e2e: pass（Chromium / Firefox / WebKit、51 tests）
+pnpm run doctor:aidd: pass
+pnpm run capture:mvp022: pass
+Codex CLI: command not found のため、Codex実装は起動失敗。HermesがAI Task Packetに沿って実装・独立検証を継続。

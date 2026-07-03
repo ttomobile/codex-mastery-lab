@@ -1,0 +1,40 @@
+$ vitest run --coverage
+
+ RUN  v3.2.6 WORKSPACE/experiments/aidd-control-plane-mvp-022/generated-repo
+      Coverage enabled with v8
+
+ ✓ tests/intake.test.ts (43 tests) 31ms
+
+ Test Files  1 passed (1)
+      Tests  43 passed (43)
+   Start at  08:59:00
+   Duration  956ms (transform 179ms, setup 0ms, collect 176ms, tests 31ms, environment 0ms, prepare 185ms)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   50.36 |    82.62 |   84.09 |   50.36 |                   
+ generated-repo    |       0 |        0 |       0 |       0 |                   
+  next.config.mjs  |       0 |        0 |       0 |       0 | 1-5               
+  ...ght.config.ts |       0 |        0 |       0 |       0 | 1-34              
+ ...rated-repo/app |       0 |      100 |     100 |       0 |                   
+  layout.tsx       |       0 |      100 |     100 |       0 | 2-15              
+  page.tsx         |       0 |      100 |     100 |       0 | 3-1142            
+ ...cks/ci-service |       0 |        0 |       0 |       0 |                   
+  server.mjs       |       0 |        0 |       0 |       0 | 1-83              
+ ...d-repo/scripts |       0 |        0 |       0 |       0 |                   
+  ...re-mvp015.mjs |       0 |        0 |       0 |       0 | 1-49              
+  ...re-mvp016.mjs |       0 |        0 |       0 |       0 | 1-44              
+  ...re-mvp017.mjs |       0 |        0 |       0 |       0 | 1-44              
+  ...re-mvp019.mjs |       0 |        0 |       0 |       0 | 1-45              
+  ...re-mvp020.mjs |       0 |        0 |       0 |       0 | 1-45              
+  ...re-mvp021.mjs |       0 |        0 |       0 |       0 | 1-47              
+  ...re-mvp022.mjs |       0 |        0 |       0 |       0 | 1-47              
+  doctor-aidd.mjs  |       0 |        0 |       0 |       0 | 1-96              
+  mock-doctor.mjs  |       0 |        0 |       0 |       0 | 1-49              
+  mock-start.mjs   |       0 |        0 |       0 |       0 | 1-35              
+  mock-stop.mjs    |       0 |        0 |       0 |       0 | 1-20              
+ ...d-repo/src/lib |   98.99 |    84.76 |     100 |   98.99 |                   
+  intake.ts        |   98.99 |    84.76 |     100 |   98.99 | ...1855,1994-1998 
+-------------------|---------|----------|---------|---------|-------------------
