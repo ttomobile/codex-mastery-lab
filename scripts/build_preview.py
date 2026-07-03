@@ -48,6 +48,7 @@ CONTROL_PLANE_ORDER = [
     '2026-07-03-aidd-control-plane-mvp-024.md',
     '2026-07-03-aidd-control-plane-mvp-025.md',
     '2026-07-03-aidd-control-plane-mvp-026.md',
+    '2026-07-03-aidd-control-plane-mvp-027.md',
 ]
 
 DOGFOOD_ORDER = [
@@ -279,8 +280,9 @@ def page(title: str, body: str, series_items, control_items, dogfood_items, past
     return sanitize_public_html(f'''<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title><style>{CSS}</style></head><body>{mob}<div class="layout {cls}"><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">WatchFlow本編、AIDD Control Plane SaaS化、過去記事を分けて読めるプレビュー</p>{nav}</aside><main>{body}</main></div></body></html>''')
 
 def sanitize_public_html(rendered: str) -> str:
-    rendered = rendered.replace('/Users/tto/codex-mastery-lab', 'WORKSPACE')
-    rendered = rendered.replace('/Users/tto', 'HOME')
+    home = Path.home()
+    rendered = rendered.replace(str(ROOT), 'WORKSPACE')
+    rendered = rendered.replace(str(home), 'HOME')
     return rendered
 
 def article_title(path: Path) -> str:

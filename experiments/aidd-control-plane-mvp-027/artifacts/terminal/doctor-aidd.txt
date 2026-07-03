@@ -1,0 +1,5 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+checked files: 14
+checked scripts: lint, typecheck, test, test:coverage, build, test:e2e, doctor:aidd, mock:start, mock:stop, mock:doctor, capture:mvp024, capture:mvp025, capture:mvp026, capture:mvp027
+checked MVP: AIDD Control Plane MVP 027 Diff Bundle & Rollback Evidence Workspace

@@ -1,0 +1,3 @@
+Initial status checked by Hermes cron job before MVP 027 implementation.
+Base: experiments/aidd-control-plane-mvp-026
+Next increment: Diff Bundle & Rollback Evidence Workspace
