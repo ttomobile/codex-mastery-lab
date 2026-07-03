@@ -152,3 +152,23 @@ test("mock backendに編成、育成、召喚加入が保存されリロード�
   await page.getByRole("button", { name: "幻晶" }).click();
   await expect(page.getByTestId("roster-count-after-gacha")).toContainText("5名");
 });
+
+test("報酬台帳で勝利報酬を受け取り、二重受取を止めて保存する", async ({ page, request }) => {
+  await setScenario(request, "success");
+  await page.goto("/");
+  await page.getByRole("button", { name: "報酬" }).click();
+  await expect(page.getByTestId("reward-claim-state")).toContainText("保留");
+  await expect(page.getByTestId("claim-reward")).toBeDisabled();
+
+  await setScenario(request, "battle_win");
+  await page.reload();
+  await page.getByRole("button", { name: "報酬" }).click();
+  await expect(page.getByTestId("reward-claim-state")).toContainText("未受取");
+  await page.getByTestId("claim-reward").click();
+  await expect(page.getByTestId("reward-claim-state")).toContainText("受取済");
+  await expect(page.getByTestId("claim-reward")).toBeDisabled();
+
+  await page.reload();
+  await page.getByRole("button", { name: "報酬" }).click();
+  await expect(page.getByTestId("reward-claim-state")).toContainText("受取済");
+});

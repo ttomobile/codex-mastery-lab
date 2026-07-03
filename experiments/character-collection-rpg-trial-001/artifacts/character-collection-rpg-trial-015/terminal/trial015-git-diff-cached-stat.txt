@@ -1,0 +1,90 @@
+ ...026-07-04-character-collection-rpg-trial-015.md | 150 +++++++++++
+ ...r-collection-rpg-trial-015-reward-claimable.png | Bin 0 -> 306118 bytes
+ ...ter-collection-rpg-trial-015-reward-claimed.png | Bin 0 -> 302014 bytes
+ ...ter-collection-rpg-trial-015-reward-pending.png | Bin 0 -> 341652 bytes
+ ...r-collection-rpg-trial-015-reward-claimable.png | Bin 0 -> 306118 bytes
+ ...ter-collection-rpg-trial-015-reward-claimed.png | Bin 0 -> 302014 bytes
+ ...ter-collection-rpg-trial-015-reward-pending.png | Bin 0 -> 341652 bytes
+ .../terminal/trial015-capture.txt                  |   0
+ .../terminal/trial015-coverage-full-e2e.txt        |  70 +++++
+ .../terminal/trial015-git-status-before-commit.txt |  78 ++++++
+ .../terminal/trial015-preview-assets-2.txt         |   4 +
+ .../terminal/trial015-preview-assets.txt           |   4 +
+ .../terminal/trial015-preview-build-2.txt          |   1 +
+ .../terminal/trial015-preview-build.txt            |   1 +
+ .../terminal/trial015-static.txt                   |  48 ++++
+ .../terminal/trial015-targeted-e2e.txt             |  24 ++
+ .../generated-repo/app/globals.css                 |  32 ++-
+ .../generated-repo/app/page.tsx                    |  52 ++++
+ .../generated-repo/e2e/sagaforge.spec.ts           |  20 ++
+ .../scripts/capture-trial-015-assets.mjs           |  65 +++++
+ .../generated-repo/scripts/mock-data.mjs           |   5 +
+ .../generated-repo/scripts/mock-server.mjs         |  27 ++
+ .../generated-repo/src/domain/rpg.test.ts          |   9 +
+ .../generated-repo/src/domain/rpg.ts               |  15 ++
+ preview/001-series-roadmap.html                    |   6 +-
+ ...2026-06-27-accessibility-contract-vibe-faq.html |   6 +-
+ preview/2026-06-27-contact-api-threat-model.html   |   6 +-
+ ...2026-06-27-performance-budget-vibe-gallery.html |   6 +-
+ .../2026-06-27-security-baseline-contact-form.html |   6 +-
+ preview/2026-06-27-watchflow-trial-001.html        |   6 +-
+ preview/2026-06-27-watchflow-trial-002.html        |   6 +-
+ preview/2026-06-27-watchflow-trial-003.html        |   6 +-
+ preview/2026-06-27-watchflow-trial-004.html        |   6 +-
+ preview/2026-06-27-watchflow-trial-005.html        |   6 +-
+ preview/2026-06-28-agents-skill-explained.html     |   6 +-
+ preview/2026-06-28-aidd-app-clone-lab-proof.html   |   6 +-
+ preview/2026-06-28-aidd-control-plane-mvp-001.html |   6 +-
+ preview/2026-06-28-aidd-control-plane-mvp-002.html |   6 +-
+ preview/2026-06-28-aidd-control-plane-mvp-003.html |   6 +-
+ .../2026-06-28-aidd-spec-v0.1-workflow-saas.html   |   6 +-
+ preview/2026-06-28-mobile-state-contract.html      |   6 +-
+ preview/2026-06-29-aidd-control-plane-mvp-004.html |   6 +-
+ preview/2026-06-29-api-failure-state.html          |   6 +-
+ preview/2026-06-30-aidd-control-plane-mvp-005.html |   6 +-
+ preview/2026-06-30-aidd-control-plane-mvp-006.html |   6 +-
+ preview/2026-06-30-aidd-control-plane-mvp-007.html |   6 +-
+ preview/2026-06-30-aidd-control-plane-mvp-008.html |   6 +-
+ preview/2026-06-30-aidd-control-plane-mvp-009.html |   6 +-
+ preview/2026-06-30-aidd-control-plane-mvp-010.html |   6 +-
+ preview/2026-06-30-playwright-api-state.html       |   6 +-
+ preview/2026-07-01-aidd-control-plane-mvp-011.html |   6 +-
+ preview/2026-07-01-aidd-control-plane-mvp-012.html |   6 +-
+ preview/2026-07-02-aidd-control-plane-mvp-013.html |   6 +-
+ preview/2026-07-02-aidd-control-plane-mvp-014.html |   6 +-
+ preview/2026-07-02-aidd-control-plane-mvp-015.html |   6 +-
+ preview/2026-07-02-aidd-control-plane-mvp-016.html |   6 +-
+ preview/2026-07-02-aidd-control-plane-mvp-017.html |   6 +-
+ preview/2026-07-02-aidd-control-plane-mvp-018.html |   6 +-
+ ...6-07-02-character-collection-rpg-trial-001.html |   6 +-
+ ...6-07-02-character-collection-rpg-trial-002.html |   6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-019.html |   6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-020.html |   6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-021.html |   6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-022.html |   6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-023.html |   6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-024.html |   6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-025.html |   6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-026.html |   6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-027.html |   6 +-
+ preview/2026-07-03-aidd-control-plane-mvp-028.html |   6 +-
+ ...6-07-03-character-collection-rpg-trial-003.html |   6 +-
+ ...6-07-03-character-collection-rpg-trial-004.html |   6 +-
+ ...6-07-03-character-collection-rpg-trial-005.html |   6 +-
+ ...6-07-03-character-collection-rpg-trial-006.html |   6 +-
+ ...6-07-03-character-collection-rpg-trial-007.html |   6 +-
+ ...6-07-03-character-collection-rpg-trial-008.html |   6 +-
+ ...6-07-03-character-collection-rpg-trial-009.html |   6 +-
+ ...6-07-03-character-collection-rpg-trial-010.html |   6 +-
+ ...6-07-03-character-collection-rpg-trial-011.html |   6 +-
+ ...6-07-03-character-collection-rpg-trial-012.html |   6 +-
+ ...6-07-03-character-collection-rpg-trial-013.html |   6 +-
+ ...6-07-03-character-collection-rpg-trial-014.html |  10 +-
+ preview/2026-07-03-verification-evidence-lite.html |   6 +-
+ ...6-07-04-character-collection-rpg-trial-015.html | 285 +++++++++++++++++++++
+ ...r-collection-rpg-trial-015-reward-claimable.png | Bin 0 -> 306118 bytes
+ ...ter-collection-rpg-trial-015-reward-claimed.png | Bin 0 -> 302014 bytes
+ ...ter-collection-rpg-trial-015-reward-pending.png | Bin 0 -> 341652 bytes
+ preview/index.html                                 |   8 +-
+ scripts/build_preview.py                           |   2 +
+ 89 files changed, 1133 insertions(+), 125 deletions(-)

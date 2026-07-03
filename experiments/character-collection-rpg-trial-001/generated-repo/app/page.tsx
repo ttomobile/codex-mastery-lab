@@ -6,6 +6,7 @@ import {
   calculateReadinessScore,
   canRecruitFromGacha,
   canUsePremiumTraining,
+  evaluateRewardClaim,
   mapGachaResults,
   previewBattleCommand,
   swapPartyMember,
@@ -24,6 +25,12 @@ type MockState = {
   party: string[];
   quests: Quest[];
   rewards: Reward[];
+  rewardLedger: {
+    claimed: boolean;
+    claimId: string;
+    evidencePath: string;
+    claimedAt?: string;
+  };
   battle: {
     enemyName: string;
     heroHp: number;
@@ -49,6 +56,7 @@ const tabs = [
   { id: "party", label: "編成" },
   { id: "quest", label: "遠征" },
   { id: "battle", label: "戦闘" },
+  { id: "reward", label: "報酬" },
   { id: "gacha", label: "幻晶" },
   { id: "training", label: "育成" },
   { id: "state", label: "状態" }
@@ -119,6 +127,10 @@ export default function Page() {
     await postAction("/actions/recruit", { seed });
   }
 
+  async function persistRewardClaim() {
+    await postAction("/actions/claim-reward", {});
+  }
+
   useEffect(() => {
     // 初回表示時に外部mock serviceから現在状態を同期する。
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -168,6 +180,7 @@ export default function Page() {
             {activeTab === "party" ? <PartyScreen roster={localRoster} party={localParty} onSwap={persistSwap} members={partyMembers} readiness={readiness} canBattle={canBattle} /> : null}
             {activeTab === "quest" ? <QuestScreen quests={state.quests} /> : null}
             {activeTab === "battle" ? <BattleScreen state={state} nextBattle={nextBattle} commandPreview={commandPreview} command={battleCommand} onCommand={setBattleCommand} canBattle={canBattle} /> : null}
+            {activeTab === "reward" ? <RewardScreen state={state} onClaim={persistRewardClaim} /> : null}
             {activeTab === "gacha" ? <GachaScreen results={gachaResults} billing={state.services.billing} media={state.services.media} roster={localRoster} onRecruit={persistRecruit} /> : null}
             {activeTab === "training" ? <TrainingScreen roster={localRoster} auth={state.services.auth} onTrain={persistTrain} /> : null}
             {activeTab === "state" ? <StateScreen state={state} onChange={changeScenario} /> : null}
@@ -334,6 +347,45 @@ function BattleScreen({
           </ul>
         </>
       ) : null}
+    </section>
+  );
+}
+
+function RewardScreen({ state, onClaim }: { state: MockState; onClaim: () => Promise<void> }) {
+  const claim = evaluateRewardClaim(state.rewards, state.services.billing, state.rewardLedger.claimed);
+  return (
+    <section className="screen" data-testid="reward-screen">
+      <div className={`panel ${claim.claimable ? "" : "warning"}`}>
+        <p className="eyebrow">Reward Evidence Ledger</p>
+        <h2>報酬受取台帳</h2>
+        <p data-testid="reward-claim-state">{claim.state}: {claim.reason}</p>
+      </div>
+      {state.rewards.length === 0 ? <FailurePanel scenario="reward_pending" message="勝利ログがまだないため、報酬は保留です。battle_winのmock状態で確定報酬を確認します。" /> : null}
+      <div className="reward-ledger">
+        <div>
+          <span>claim id</span>
+          <strong>{state.rewardLedger.claimId}</strong>
+        </div>
+        <div>
+          <span>evidence</span>
+          <strong>{state.rewardLedger.evidencePath}</strong>
+        </div>
+        <div>
+          <span>claimed at</span>
+          <strong>{state.rewardLedger.claimedAt ?? "未記録"}</strong>
+        </div>
+      </div>
+      <div className="reward-grid">
+        {state.rewards.map((reward) => (
+          <article className="reward-card" key={reward.id}>
+            <span>{reward.label}</span>
+            <strong>{reward.amount}</strong>
+          </article>
+        ))}
+      </div>
+      <button data-testid="claim-reward" disabled={!claim.claimable} onClick={() => void onClaim()}>
+        {claim.state === "受取済" ? "受取済み" : claim.claimable ? "報酬を受け取る" : "報酬保留"}
+      </button>
     </section>
   );
 }

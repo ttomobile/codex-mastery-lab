@@ -5,6 +5,7 @@ import {
   createRecruitFromSeed,
   canRecruitFromGacha,
   canUsePremiumTraining,
+  evaluateRewardClaim,
   mapGachaResults,
   previewBattleCommand,
   resolveScenarioServices,
@@ -87,5 +88,13 @@ describe("状態別ready判定", () => {
   it("billing失敗中は召喚加入を止める", () => {
     expect(canRecruitFromGacha("sandbox_ready")).toBe(true);
     expect(canRecruitFromGacha("payment_failed")).toBe(false);
+  });
+
+  it("報酬受取は勝利報酬とbilling状態と二重受取を確認する", () => {
+    const rewards = [{ id: "r1", label: "星屑", amount: 40 }];
+    expect(evaluateRewardClaim([], "sandbox_ready", false)).toMatchObject({ claimable: false, state: "保留" });
+    expect(evaluateRewardClaim(rewards, "payment_failed", false)).toMatchObject({ claimable: false, state: "保留" });
+    expect(evaluateRewardClaim(rewards, "sandbox_ready", true)).toMatchObject({ claimable: false, state: "受取済" });
+    expect(evaluateRewardClaim(rewards, "sandbox_ready", false)).toMatchObject({ claimable: true, state: "未受取" });
   });
 });

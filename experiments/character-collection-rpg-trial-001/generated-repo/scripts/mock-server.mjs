@@ -105,6 +105,33 @@ const server = createServer(async (request, response) => {
     return;
   }
 
+  if (url.pathname === "/actions/claim-reward" && request.method === "POST") {
+    const services = serviceStateForScenario(currentScenario);
+    if (currentState.rewards.length === 0) {
+      sendJson(response, 409, { ok: false, message: "勝利報酬が未確定です", state: currentState });
+      return;
+    }
+    if (services.billing === "payment_failed") {
+      sendJson(response, 402, { ok: false, message: "billing失敗中は報酬受取を保留します", state: currentState });
+      return;
+    }
+    if (currentState.rewardLedger?.claimed) {
+      sendJson(response, 409, { ok: false, message: "報酬は受取済みです", state: currentState });
+      return;
+    }
+    currentState = {
+      ...currentState,
+      rewardLedger: {
+        ...(currentState.rewardLedger ?? {}),
+        claimed: true,
+        claimedAt: "mock-clock:turn-5",
+        evidencePath: "artifacts/reward-ledger/battle-win-claimed.json"
+      }
+    };
+    sendJson(response, 200, { ok: true, state: currentState });
+    return;
+  }
+
   sendJson(response, 404, { ok: false, message: "not found" });
 });
 

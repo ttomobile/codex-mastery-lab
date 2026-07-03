@@ -1,0 +1,4 @@
+preview/2026-07-04-character-collection-rpg-trial-015.html OK 38117
+preview/assets/2026-07-04-character-collection-rpg-trial-015-reward-pending.png OK 341652
+preview/assets/2026-07-04-character-collection-rpg-trial-015-reward-claimable.png OK 306118
+preview/assets/2026-07-04-character-collection-rpg-trial-015-reward-claimed.png OK 302014

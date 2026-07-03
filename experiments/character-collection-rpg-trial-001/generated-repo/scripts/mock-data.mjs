@@ -36,6 +36,11 @@ export function createState(scenario = "success") {
             { id: "r2", label: "訓練札", amount: 3 }
           ]
         : [],
+    rewardLedger: {
+      claimed: false,
+      claimId: scenario === "battle_win" ? "claim-battle-win-001" : "pending-battle-result",
+      evidencePath: scenario === "battle_win" ? "artifacts/reward-ledger/battle-win-claim.json" : "artifacts/reward-ledger/pending.json"
+    },
     battle: {
       enemyName: "影紋核",
       heroHp: scenario === "battle_lose" ? 0 : 92,

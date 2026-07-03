@@ -1,0 +1,23 @@
+Trial 015 verification summary
+
+Implemented: Reward Evidence Ledger for the character collection turn-based RPG prototype.
+
+Local gates:
+- pnpm run lint: pass
+- pnpm run typecheck: pass
+- pnpm run test: 12 passed
+- pnpm run build: pass
+- targeted reward ledger E2E across chromium/firefox/webkit: 3 passed
+- pnpm run test:coverage: pass, statements 96.07%
+- full functional E2E across chromium/firefox/webkit: 33 passed
+- preview build: wrote 60 articles
+- preview asset check: article and 3 PNG assets OK
+
+Screenshots:
+- reward pending
+- reward claimable
+- reward claimed
+
+Notes:
+- This is a local verified increment, not a root CI success claim.
+- Generated app changes use original/non-infringing RPG names and assets already present in the prototype.

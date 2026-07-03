@@ -35,6 +35,8 @@ export type Reward = {
   amount: number;
 };
 
+export type RewardClaimState = "未受取" | "受取済" | "保留";
+
 export type BattleLog = {
   id: string;
   text: string;
@@ -171,4 +173,17 @@ export function canUsePremiumTraining(auth: string) {
 
 export function canRecruitFromGacha(billing: string) {
   return billing !== "payment_failed";
+}
+
+export function evaluateRewardClaim(rewards: Reward[], billing: string, alreadyClaimed: boolean) {
+  if (rewards.length === 0) {
+    return { claimable: false, state: "保留" as RewardClaimState, reason: "勝利報酬がまだ確定していません。戦闘結果の証跡を先に確認してください。" };
+  }
+  if (billing === "payment_failed") {
+    return { claimable: false, state: "保留" as RewardClaimState, reason: "mock billingが失敗中のため、有償導線と誤認される報酬受取を止めています。" };
+  }
+  if (alreadyClaimed) {
+    return { claimable: false, state: "受取済" as RewardClaimState, reason: "報酬台帳に受取済みとして保存されています。二重受取はできません。" };
+  }
+  return { claimable: true, state: "未受取" as RewardClaimState, reason: "勝利ログ、報酬内訳、mock backend保存先が揃ったため受取できます。" };
 }
