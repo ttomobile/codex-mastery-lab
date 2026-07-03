@@ -1,0 +1,2 @@
+$ node scripts/capture-trial013.mjs
+WORKSPACE/experiments/character-collection-rpg-trial-001/artifacts/character-collection-rpg-trial-013/screenshots/2026-07-03-character-collection-rpg-trial-013-diff-bundle.png

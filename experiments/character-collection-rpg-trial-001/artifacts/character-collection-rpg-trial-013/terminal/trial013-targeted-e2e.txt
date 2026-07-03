@@ -1,0 +1,8 @@
+
+Running 3 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/intake-wizard.spec.ts:217:1 › Diff Bundle Rollback Evidence Workspaceでempty valid failureを切り替え、戻せる証跡なしのpatch適用を止められる (1.2s)
+  ✓  2 [firefox] › e2e/intake-wizard.spec.ts:217:1 › Diff Bundle Rollback Evidence Workspaceでempty valid failureを切り替え、戻せる証跡なしのpatch適用を止められる (3.0s)
+  ✓  3 [webkit] › e2e/intake-wizard.spec.ts:217:1 › Diff Bundle Rollback Evidence Workspaceでempty valid failureを切り替え、戻せる証跡なしのpatch適用を止められる (1.4s)
+
+  3 passed (12.5s)

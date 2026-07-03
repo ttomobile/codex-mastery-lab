@@ -1,0 +1,11 @@
+$ eslint . --max-warnings=0
+$ tsc --noEmit
+$ vitest run
+
+ RUN  v3.2.6 WORKSPACE/experiments/aidd-control-plane-mvp-024/generated-repo
+
+ ✓ tests/intake.test.ts (52 tests) 31ms
+
+ Test Files  1 passed (1)
+      Tests  52 passed (52)
+   Duration  442ms
