@@ -1,0 +1,20 @@
+AIDD Control Plane Dogfood Trial 009 verification summary
+
+Implemented:
+- Added Dogfood Reuse Task Packet Planner to AIDD Control Plane MVP 023 UI.
+- Added 3-browser Playwright coverage for reusing RPG dogfood evidence as next AI Task Packet seed.
+- Captured screenshot asset: assets/2026-07-03-character-collection-rpg-trial-009-reuse-planner.png
+
+Verification:
+- pnpm run lint: pass
+- pnpm run typecheck: pass
+- pnpm run test: 46 passed
+- pnpm run test:coverage: pass
+- pnpm run build: pass
+- pnpm run doctor:aidd: pass
+- pnpm run mock:doctor: pass
+- pnpm run test:e2e: 60 passed across Chromium / Firefox / WebKit
+
+Note:
+- First e2e run exposed a strict locator collision because the new planner repeated exact text "pnpm run mock:doctor" already used by CI Workflow Artifact Auditor.
+- Fixed by changing the planner labels to gate descriptions, then reran full 3-browser E2E successfully.

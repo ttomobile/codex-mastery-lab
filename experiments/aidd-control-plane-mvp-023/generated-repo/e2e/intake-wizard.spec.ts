@@ -435,6 +435,18 @@ test("RPG Trial 007のCI証跡をDogfood Evidence Binderとして表示する", 
   await expect(page.getByLabel("RPG Trial 008 AI Task Packet Delta").getByText("artifact API結果をVerification Evidenceへ転記する")).toBeVisible();
 });
 
+test("RPG dogfood証跡から次回AI Task Packet再利用計画を表示する", async ({ page }) => {
+  await page.goto("/");
+
+  await expect(page.getByRole("heading", { name: "次回アプリ案への再利用計画: valid" })).toBeVisible();
+  await expect(page.getByText("再利用計画はvalidです")).toBeVisible();
+  await expect(page.getByLabel("Dogfood reuse planner requirements").getByText("Non-infringement Boundary")).toBeVisible();
+  await expect(page.getByLabel("Dogfood reuse planner requirements").getByText("Mock Backend Contract: api / media / auth / billingの独立service")).toBeVisible();
+  await expect(page.getByLabel("Dogfood reuse planner requirements").getByText("root GitHub Actions run 28623614814: success")).toBeVisible();
+  await expect(page.getByLabel("Dogfood reuse AI Task Packet seed")).toContainText("mock-api / mock-media / mock-auth / mock-billing");
+  await expect(page.getByLabel("Dogfood reuse AI Task Packet seed")).toContainText("初期生成品質と最終収束品質を分けて報告する");
+});
+
 async function fillSampleApp(page: import("@playwright/test").Page) {
   await applyLearningTemplate(page);
   await page.getByRole("button", { name: "validサンプルを適用" }).click();

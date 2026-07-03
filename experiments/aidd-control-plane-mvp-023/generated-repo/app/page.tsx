@@ -412,6 +412,59 @@ export default function Home() {
 - 検証コマンド: gh run view <run-id> && gh api repos/:owner/:repo/actions/runs/<run-id>/artifacts && pnpm run test:e2e`}</pre>
       </section>
 
+      <section className="artifact-binder artifact-valid" aria-labelledby="dogfood-reuse-planner-title">
+        <div className="section-heading">
+          <p className="eyebrow">Dogfood Reuse Task Packet Planner</p>
+          <h2 id="dogfood-reuse-planner-title">次回アプリ案への再利用計画: valid</h2>
+          <p>
+            RPG dogfoodで100点へ収束した証跡を、別の「作りたいアプリ」に移すための初期AI Task Packet候補です。
+            成功した結果を貼るだけではなく、非侵害境界、mock service、failure state、3ブラウザE2E、CI artifact確認を最初から依頼本文へ入れます。
+          </p>
+        </div>
+        <div className="verification-summary is-ready" aria-live="polite">
+          <strong>再利用計画はvalidです</strong>
+          <span>Trial 007/008のEvidence Binderから、次回AI Task Packetの必須セクションと検証コマンドを生成できます。</span>
+        </div>
+        <div className="binder-grid" aria-label="Dogfood reuse planner requirements">
+          <section>
+            <h3>次回AI Task Packet必須セクション</h3>
+            <ul>
+              <li>Product Brief: 対象体験パターン、差別化ゴール、非ゴール</li>
+              <li>Non-infringement Boundary: 実在IP、ロゴ、公式素材、公式文言を使わない</li>
+              <li>Mock Backend Contract: api / media / auth / billingの独立service</li>
+              <li>Failure State Contract: offline / timeout / media failure / anonymous / premium / billing failed</li>
+              <li>Verification Evidence: terminal evidence / screenshots / CI artifacts / article preview</li>
+            </ul>
+          </section>
+          <section>
+            <h3>引き継ぐ成功証跡</h3>
+            <ul>
+              <li>root GitHub Actions run 28623614814: success</li>
+              <li>coverage / playwright-report / test-results / terminal evidence artifact</li>
+              <li>Chromium / Firefox / WebKit functional E2E</li>
+              <li>Dogfood Evidence Binder screenshot</li>
+            </ul>
+          </section>
+          <section>
+            <h3>次回検証コマンド</h3>
+            <ul>
+              <li>lint gateを実行する</li>
+              <li>typecheck gateを実行する</li>
+              <li>coverage gateを実行する</li>
+              <li>build gateを実行する</li>
+              <li>mock doctor gateを実行する</li>
+              <li>3ブラウザE2E gateを実行する</li>
+              <li>gh run view &lt;run-id&gt; + artifact API確認</li>
+            </ul>
+          </section>
+        </div>
+        <pre aria-label="Dogfood reuse AI Task Packet seed">{`Dogfood reuse AI Task Packet seed:
+あなたはAIDD Control Planeが生成したAI Task Packetに従い、商標非利用のアプリ体験パターンをNext.js + TypeScript + pnpmで作る。
+過去dogfoodの成功証跡から、mock-api / mock-media / mock-auth / mock-billing、failure states、3ブラウザE2E、root CI artifact確認を最初から必須条件にする。
+完了条件はローカルgate passだけでなく、GitHub Actions success、coverage / playwright-report / test-results / terminal evidence artifact、記事とpreview更新まで含める。
+過大主張を避け、初期生成品質と最終収束品質を分けて報告する。`}</pre>
+      </section>
+
       <section className={`artifact-binder artifact-${workflowAudit.status}`} aria-labelledby="workflow-auditor-title">
         <div className="section-heading">
           <p className="eyebrow">CI Workflow Artifact Auditor</p>
