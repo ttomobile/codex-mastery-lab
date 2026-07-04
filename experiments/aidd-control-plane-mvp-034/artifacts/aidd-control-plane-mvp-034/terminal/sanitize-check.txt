@@ -1,0 +1,1 @@
+sanitize check ok: no local home path or private network hostname

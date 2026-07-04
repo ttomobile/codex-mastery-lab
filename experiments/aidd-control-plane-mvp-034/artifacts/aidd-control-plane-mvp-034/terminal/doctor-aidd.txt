@@ -1,0 +1,5 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+checked files: 21
+checked scripts: lint, typecheck, test, test:coverage, build, test:e2e, doctor:aidd, mock:start, mock:stop, mock:doctor, capture:mvp024, capture:mvp025, capture:mvp026, capture:mvp027, capture:mvp028, capture:mvp029, capture:mvp030, capture:mvp031, capture:mvp032, capture:mvp033, capture:mvp034
+checked MVP: AIDD Control Plane MVP 034 Next Increment Planner
