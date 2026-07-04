@@ -1,0 +1,13 @@
+Wrote 76 articles to <workspace>/preview
+
+--- article grep ---
+preview/2026-07-04-aidd-control-plane-mvp-037.html:246:<p><img src="assets/aidd-control-plane-mvp037-empty.png" alt="MVP037 empty" loading="lazy"></p>
+preview/2026-07-04-aidd-control-plane-mvp-037.html:248:<p><img src="assets/aidd-control-plane-mvp037-valid.png" alt="MVP037 valid" loading="lazy"></p>
+preview/2026-07-04-aidd-control-plane-mvp-037.html:250:<p><img src="assets/aidd-control-plane-mvp037-failure.png" alt="MVP037 failure" loading="lazy"></p>
+preview/2026-07-04-aidd-control-plane-mvp-037.html:252:<p><img src="assets/aidd-control-plane-mvp037-terminal-evidence.png" alt="MVP037 terminal evidence" loading="lazy"></p>
+
+--- asset sizes ---
+  229003 preview/assets/aidd-control-plane-mvp037-empty.png
+  252919 preview/assets/aidd-control-plane-mvp037-valid.png
+  222633 preview/assets/aidd-control-plane-mvp037-failure.png
+  149586 preview/assets/aidd-control-plane-mvp037-terminal-evidence.png

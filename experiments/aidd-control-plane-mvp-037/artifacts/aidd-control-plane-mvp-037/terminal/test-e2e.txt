@@ -1,0 +1,744 @@
+$ playwright test
+
+Running 105 tests using 1 worker
+
+  ✓    1 [chromium] › e2e/intake-wizard.spec.ts:9:1 › MVP 031の初期empty stateとworkflow artifact監査と標準更新候補Queueが表示される (1.0s)
+  ✓    2 [chromium] › e2e/intake-wizard.spec.ts:72:1 › Packet Apply Command Composerでempty valid failureを切り替え、反映直前コマンドを確認できる (701ms)
+  ✓    3 [chromium] › e2e/intake-wizard.spec.ts:93:1 › Run Authorization Gateでempty valid failureを切り替え、実行前承認を確認できる (786ms)
+  ✓    4 [chromium] › e2e/intake-wizard.spec.ts:132:1 › Codex Run Queueでempty valid failureを切り替え、実行queueとReview Findingを確認できる (883ms)
+  ✓    5 [chromium] › e2e/intake-wizard.spec.ts:161:1 › Run Result Review Synthesizerでempty valid failureを切り替え、Review RecordとLearning Logへのdeltaを確認できる (1.3s)
+  ✓    6 [chromium] › e2e/intake-wizard.spec.ts:206:1 › Next Increment Plannerでempty valid failureを切り替え、次の1インクリメント計画を確認できる (1.9s)
+  ✓    7 [chromium] › e2e/intake-wizard.spec.ts:238:1 › CI Workflow Artifact Auditorでvalidとfailureを切り替え、不足artifactを次回依頼へ変換できる (964ms)
+  ✓    8 [chromium] › e2e/intake-wizard.spec.ts:259:1 › Spec Update Proposal Queueでempty valid failureを切り替え、Codex prompt deltaを確認できる (875ms)
+  ✓    9 [chromium] › e2e/intake-wizard.spec.ts:285:1 › AI Task Packet Delta Apply Previewでempty valid failureを切り替え、Codex prompt patchを確認できる (926ms)
+  ✘   10 [chromium] › e2e/intake-wizard.spec.ts:313:1 › Delta Decision Reviewでempty valid failureを切り替え、採用済みdeltaだけを次回packet対象にできる (778ms)
+  ✘   11 [chromium] › e2e/intake-wizard.spec.ts:313:1 › Delta Decision Reviewでempty valid failureを切り替え、採用済みdeltaだけを次回packet対象にできる (retry #1) (1.2s)
+  ✘   12 [chromium] › e2e/intake-wizard.spec.ts:338:1 › Packet File Apply Plannerでempty valid failureを切り替え、実ファイル適用前の計画を確認できる (861ms)
+  ✘   13 [chromium] › e2e/intake-wizard.spec.ts:338:1 › Packet File Apply Plannerでempty valid failureを切り替え、実ファイル適用前の計画を確認できる (retry #1) (1.0s)
+  ✓   14 [chromium] › e2e/intake-wizard.spec.ts:377:1 › Safe Patch Review Workspaceでempty valid failureを切り替え、危険なpatchを止められる (836ms)
+  ✓   15 [chromium] › e2e/intake-wizard.spec.ts:403:1 › Diff Bundle Rollback Evidence Workspaceでempty valid failureを切り替え、戻せる証跡なしのpatch適用を止められる (1.1s)
+  ✓   16 [chromium] › e2e/intake-wizard.spec.ts:442:1 › Bundle Decision Ledgerでapplied rejected deferredの判断と証跡保存先を確認できる (1.3s)
+  ✓   17 [chromium] › e2e/intake-wizard.spec.ts:473:1 › Diff Bundle Decision Ledgerでempty valid failureを切り替え、標準接続と失敗検出を確認できる (1.0s)
+  ✓   18 [chromium] › e2e/intake-wizard.spec.ts:503:1 › Adopted Bundle Exporterでempty valid failureを切り替え、採用済みbundleだけのexportと失敗検出を確認できる (1.4s)
+  ✓   19 [chromium] › e2e/intake-wizard.spec.ts:538:1 › Exported Packet Preflight Reviewerでempty valid failureを切り替え、次工程前のpacket検査を確認できる (1.9s)
+  ✓   20 [chromium] › e2e/intake-wizard.spec.ts:568:1 › Packet Draft Workspaceでempty valid failureを切り替え、次回ファイルドラフトを確認できる (987ms)
+  ✘   21 [chromium] › e2e/intake-wizard.spec.ts:600:1 › Adopted Delta Markdown Exporterで採用済みdeltaだけをMarkdownへ書き出せる (800ms)
+  ✘   22 [chromium] › e2e/intake-wizard.spec.ts:600:1 › Adopted Delta Markdown Exporterで採用済みdeltaだけをMarkdownへ書き出せる (retry #1) (1.1s)
+  ✓   23 [chromium] › e2e/intake-wizard.spec.ts:624:1 › fixture駆動Mock CI Serviceでvalid failure timeoutを切り替えられる (1.5s)
+  ✓   24 [chromium] › e2e/intake-wizard.spec.ts:639:1 › E2Eからmock CI serviceのcontrol endpointを叩いてUI反映を確認する (1.5s)
+  ✓   25 [chromium] › e2e/intake-wizard.spec.ts:656:1 › テンプレートを選択して未適用failure stateを表示できる (718ms)
+  ✓   26 [chromium] › e2e/intake-wizard.spec.ts:665:1 › テンプレートを適用すると初期値と生成結果にリスクと証跡要件が入る (978ms)
+  ✓   27 [chromium] › e2e/intake-wizard.spec.ts:682:1 › サンプルアプリを入力するとready stateになり生成結果が表示される (995ms)
+  ✓   28 [chromium] › e2e/intake-wizard.spec.ts:696:1 › 主要機能を削除するとinsufficient stateとmissing fieldsが表示される (1.4s)
+  ✓   29 [chromium] › e2e/intake-wizard.spec.ts:706:1 › validサンプルを適用すると全ゲート成功と3ブラウザE2E成功と証跡が表示される (866ms)
+  ✓   30 [chromium] › e2e/intake-wizard.spec.ts:736:1 › failureサンプルを適用すると壊れたURLと古いログをReview Findingへ戻す (763ms)
+  ✓   31 [chromium] › e2e/intake-wizard.spec.ts:765:1 › 証跡不足サンプルを適用するとコマンド成功後もreadyではない (753ms)
+  ✓   32 [chromium] › e2e/intake-wizard.spec.ts:777:1 › RPG Trial 007のCI証跡をDogfood Evidence Binderとして表示する (668ms)
+  ✓   33 [chromium] › e2e/intake-wizard.spec.ts:789:1 › RPG dogfood証跡から次回AI Task Packet再利用計画を表示する (654ms)
+  ✓   34 [chromium] › e2e/intake-wizard.spec.ts:801:1 › 新規アプリ案からDogfood証跡入りAI Task Packet seedを生成する (754ms)
+  ✓   35 [chromium] › e2e/intake-wizard.spec.ts:818:1 › Dogfood Packet Markdown Reviewで3つの反映前Markdownを確認できる (801ms)
+  ✓   36 [chromium] › e2e/intake-wizard.spec.ts:849:1 › Verification Run Detailでempty valid failureを切り替え、command別証跡を確認できる (1.0s)
+  ✓   37 [chromium] › e2e/intake-wizard.spec.ts:874:1 › Evidence Repair Delta Generatorでfailed evidence_missing timeoutを次回依頼へ戻せる (952ms)
+  ✘   38 [chromium] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める (898ms)
+  ✘   39 [chromium] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める (retry #1) (1.0s)
+  ✓   40 [firefox] › e2e/intake-wizard.spec.ts:9:1 › MVP 031の初期empty stateとworkflow artifact監査と標準更新候補Queueが表示される (2.2s)
+  ✓   41 [firefox] › e2e/intake-wizard.spec.ts:72:1 › Packet Apply Command Composerでempty valid failureを切り替え、反映直前コマンドを確認できる (989ms)
+  ✓   42 [firefox] › e2e/intake-wizard.spec.ts:93:1 › Run Authorization Gateでempty valid failureを切り替え、実行前承認を確認できる (2.2s)
+  ✓   43 [firefox] › e2e/intake-wizard.spec.ts:132:1 › Codex Run Queueでempty valid failureを切り替え、実行queueとReview Findingを確認できる (1.9s)
+  ✓   44 [firefox] › e2e/intake-wizard.spec.ts:161:1 › Run Result Review Synthesizerでempty valid failureを切り替え、Review RecordとLearning Logへのdeltaを確認できる (2.1s)
+  ✓   45 [firefox] › e2e/intake-wizard.spec.ts:206:1 › Next Increment Plannerでempty valid failureを切り替え、次の1インクリメント計画を確認できる (2.5s)
+  ✓   46 [firefox] › e2e/intake-wizard.spec.ts:238:1 › CI Workflow Artifact Auditorでvalidとfailureを切り替え、不足artifactを次回依頼へ変換できる (2.0s)
+  ✓   47 [firefox] › e2e/intake-wizard.spec.ts:259:1 › Spec Update Proposal Queueでempty valid failureを切り替え、Codex prompt deltaを確認できる (1.8s)
+  ✓   48 [firefox] › e2e/intake-wizard.spec.ts:285:1 › AI Task Packet Delta Apply Previewでempty valid failureを切り替え、Codex prompt patchを確認できる (1.9s)
+  ✘   49 [firefox] › e2e/intake-wizard.spec.ts:313:1 › Delta Decision Reviewでempty valid failureを切り替え、採用済みdeltaだけを次回packet対象にできる (2.2s)
+  ✘   50 [firefox] › e2e/intake-wizard.spec.ts:313:1 › Delta Decision Reviewでempty valid failureを切り替え、採用済みdeltaだけを次回packet対象にできる (retry #1) (1.5s)
+  ✘   51 [firefox] › e2e/intake-wizard.spec.ts:338:1 › Packet File Apply Plannerでempty valid failureを切り替え、実ファイル適用前の計画を確認できる (1.4s)
+  ✘   52 [firefox] › e2e/intake-wizard.spec.ts:338:1 › Packet File Apply Plannerでempty valid failureを切り替え、実ファイル適用前の計画を確認できる (retry #1) (1.5s)
+  ✓   53 [firefox] › e2e/intake-wizard.spec.ts:377:1 › Safe Patch Review Workspaceでempty valid failureを切り替え、危険なpatchを止められる (1.4s)
+  ✓   54 [firefox] › e2e/intake-wizard.spec.ts:403:1 › Diff Bundle Rollback Evidence Workspaceでempty valid failureを切り替え、戻せる証跡なしのpatch適用を止められる (2.1s)
+  ✓   55 [firefox] › e2e/intake-wizard.spec.ts:442:1 › Bundle Decision Ledgerでapplied rejected deferredの判断と証跡保存先を確認できる (2.0s)
+  ✓   56 [firefox] › e2e/intake-wizard.spec.ts:473:1 › Diff Bundle Decision Ledgerでempty valid failureを切り替え、標準接続と失敗検出を確認できる (2.0s)
+  ✓   57 [firefox] › e2e/intake-wizard.spec.ts:503:1 › Adopted Bundle Exporterでempty valid failureを切り替え、採用済みbundleだけのexportと失敗検出を確認できる (2.3s)
+  ✓   58 [firefox] › e2e/intake-wizard.spec.ts:538:1 › Exported Packet Preflight Reviewerでempty valid failureを切り替え、次工程前のpacket検査を確認できる (2.1s)
+  ✓   59 [firefox] › e2e/intake-wizard.spec.ts:568:1 › Packet Draft Workspaceでempty valid failureを切り替え、次回ファイルドラフトを確認できる (1.9s)
+  ✘   60 [firefox] › e2e/intake-wizard.spec.ts:600:1 › Adopted Delta Markdown Exporterで採用済みdeltaだけをMarkdownへ書き出せる (2.0s)
+  ✘   61 [firefox] › e2e/intake-wizard.spec.ts:600:1 › Adopted Delta Markdown Exporterで採用済みdeltaだけをMarkdownへ書き出せる (retry #1) (1.7s)
+  ✓   62 [firefox] › e2e/intake-wizard.spec.ts:624:1 › fixture駆動Mock CI Serviceでvalid failure timeoutを切り替えられる (1.5s)
+  ✓   63 [firefox] › e2e/intake-wizard.spec.ts:639:1 › E2Eからmock CI serviceのcontrol endpointを叩いてUI反映を確認する (3.1s)
+  ✓   64 [firefox] › e2e/intake-wizard.spec.ts:656:1 › テンプレートを選択して未適用failure stateを表示できる (1.5s)
+  ✓   65 [firefox] › e2e/intake-wizard.spec.ts:665:1 › テンプレートを適用すると初期値と生成結果にリスクと証跡要件が入る (1.8s)
+  ✓   66 [firefox] › e2e/intake-wizard.spec.ts:682:1 › サンプルアプリを入力するとready stateになり生成結果が表示される (2.1s)
+  ✓   67 [firefox] › e2e/intake-wizard.spec.ts:696:1 › 主要機能を削除するとinsufficient stateとmissing fieldsが表示される (1.9s)
+  ✓   68 [firefox] › e2e/intake-wizard.spec.ts:706:1 › validサンプルを適用すると全ゲート成功と3ブラウザE2E成功と証跡が表示される (2.8s)
+  ✓   69 [firefox] › e2e/intake-wizard.spec.ts:736:1 › failureサンプルを適用すると壊れたURLと古いログをReview Findingへ戻す (1.4s)
+  ✓   70 [firefox] › e2e/intake-wizard.spec.ts:765:1 › 証跡不足サンプルを適用するとコマンド成功後もreadyではない (1.5s)
+  ✓   71 [firefox] › e2e/intake-wizard.spec.ts:777:1 › RPG Trial 007のCI証跡をDogfood Evidence Binderとして表示する (1.9s)
+  ✓   72 [firefox] › e2e/intake-wizard.spec.ts:789:1 › RPG dogfood証跡から次回AI Task Packet再利用計画を表示する (717ms)
+  ✓   73 [firefox] › e2e/intake-wizard.spec.ts:801:1 › 新規アプリ案からDogfood証跡入りAI Task Packet seedを生成する (1.2s)
+  ✓   74 [firefox] › e2e/intake-wizard.spec.ts:818:1 › Dogfood Packet Markdown Reviewで3つの反映前Markdownを確認できる (1.7s)
+  ✓   75 [firefox] › e2e/intake-wizard.spec.ts:849:1 › Verification Run Detailでempty valid failureを切り替え、command別証跡を確認できる (1.9s)
+  ✓   76 [firefox] › e2e/intake-wizard.spec.ts:874:1 › Evidence Repair Delta Generatorでfailed evidence_missing timeoutを次回依頼へ戻せる (2.1s)
+  ✘   77 [firefox] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める (2.0s)
+  ✘   78 [firefox] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める (retry #1) (1.7s)
+  ✓   79 [webkit] › e2e/intake-wizard.spec.ts:9:1 › MVP 031の初期empty stateとworkflow artifact監査と標準更新候補Queueが表示される (1.3s)
+  ✓   80 [webkit] › e2e/intake-wizard.spec.ts:72:1 › Packet Apply Command Composerでempty valid failureを切り替え、反映直前コマンドを確認できる (751ms)
+  ✓   81 [webkit] › e2e/intake-wizard.spec.ts:93:1 › Run Authorization Gateでempty valid failureを切り替え、実行前承認を確認できる (761ms)
+  ✓   82 [webkit] › e2e/intake-wizard.spec.ts:132:1 › Codex Run Queueでempty valid failureを切り替え、実行queueとReview Findingを確認できる (749ms)
+  ✓   83 [webkit] › e2e/intake-wizard.spec.ts:161:1 › Run Result Review Synthesizerでempty valid failureを切り替え、Review RecordとLearning Logへのdeltaを確認できる (816ms)
+  ✓   84 [webkit] › e2e/intake-wizard.spec.ts:206:1 › Next Increment Plannerでempty valid failureを切り替え、次の1インクリメント計画を確認できる (880ms)
+  ✓   85 [webkit] › e2e/intake-wizard.spec.ts:238:1 › CI Workflow Artifact Auditorでvalidとfailureを切り替え、不足artifactを次回依頼へ変換できる (735ms)
+  ✓   86 [webkit] › e2e/intake-wizard.spec.ts:259:1 › Spec Update Proposal Queueでempty valid failureを切り替え、Codex prompt deltaを確認できる (777ms)
+  ✓   87 [webkit] › e2e/intake-wizard.spec.ts:285:1 › AI Task Packet Delta Apply Previewでempty valid failureを切り替え、Codex prompt patchを確認できる (764ms)
+  ✘   88 [webkit] › e2e/intake-wizard.spec.ts:313:1 › Delta Decision Reviewでempty valid failureを切り替え、採用済みdeltaだけを次回packet対象にできる (839ms)
+  ✘   89 [webkit] › e2e/intake-wizard.spec.ts:313:1 › Delta Decision Reviewでempty valid failureを切り替え、採用済みdeltaだけを次回packet対象にできる (retry #1) (923ms)
+  ✘   90 [webkit] › e2e/intake-wizard.spec.ts:338:1 › Packet File Apply Plannerでempty valid failureを切り替え、実ファイル適用前の計画を確認できる (837ms)
+  ✘   91 [webkit] › e2e/intake-wizard.spec.ts:338:1 › Packet File Apply Plannerでempty valid failureを切り替え、実ファイル適用前の計画を確認できる (retry #1) (926ms)
+  ✓   92 [webkit] › e2e/intake-wizard.spec.ts:377:1 › Safe Patch Review Workspaceでempty valid failureを切り替え、危険なpatchを止められる (831ms)
+  ✓   93 [webkit] › e2e/intake-wizard.spec.ts:403:1 › Diff Bundle Rollback Evidence Workspaceでempty valid failureを切り替え、戻せる証跡なしのpatch適用を止められる (803ms)
+  ✓   94 [webkit] › e2e/intake-wizard.spec.ts:442:1 › Bundle Decision Ledgerでapplied rejected deferredの判断と証跡保存先を確認できる (831ms)
+  ✓   95 [webkit] › e2e/intake-wizard.spec.ts:473:1 › Diff Bundle Decision Ledgerでempty valid failureを切り替え、標準接続と失敗検出を確認できる (815ms)
+  ✓   96 [webkit] › e2e/intake-wizard.spec.ts:503:1 › Adopted Bundle Exporterでempty valid failureを切り替え、採用済みbundleだけのexportと失敗検出を確認できる (863ms)
+  ✓   97 [webkit] › e2e/intake-wizard.spec.ts:538:1 › Exported Packet Preflight Reviewerでempty valid failureを切り替え、次工程前のpacket検査を確認できる (952ms)
+  ✓   98 [webkit] › e2e/intake-wizard.spec.ts:568:1 › Packet Draft Workspaceでempty valid failureを切り替え、次回ファイルドラフトを確認できる (754ms)
+  ✘   99 [webkit] › e2e/intake-wizard.spec.ts:600:1 › Adopted Delta Markdown Exporterで採用済みdeltaだけをMarkdownへ書き出せる (745ms)
+  ✘  100 [webkit] › e2e/intake-wizard.spec.ts:600:1 › Adopted Delta Markdown Exporterで採用済みdeltaだけをMarkdownへ書き出せる (retry #1) (905ms)
+  ✓  101 [webkit] › e2e/intake-wizard.spec.ts:624:1 › fixture駆動Mock CI Serviceでvalid failure timeoutを切り替えられる (874ms)
+  ✓  102 [webkit] › e2e/intake-wizard.spec.ts:639:1 › E2Eからmock CI serviceのcontrol endpointを叩いてUI反映を確認する (1.3s)
+  ✓  103 [webkit] › e2e/intake-wizard.spec.ts:656:1 › テンプレートを選択して未適用failure stateを表示できる (665ms)
+  ✓  104 [webkit] › e2e/intake-wizard.spec.ts:665:1 › テンプレートを適用すると初期値と生成結果にリスクと証跡要件が入る (739ms)
+  ✓  105 [webkit] › e2e/intake-wizard.spec.ts:682:1 › サンプルアプリを入力するとready stateになり生成結果が表示される (843ms)
+  ✓  106 [webkit] › e2e/intake-wizard.spec.ts:696:1 › 主要機能を削除するとinsufficient stateとmissing fieldsが表示される (811ms)
+  ✓  107 [webkit] › e2e/intake-wizard.spec.ts:706:1 › validサンプルを適用すると全ゲート成功と3ブラウザE2E成功と証跡が表示される (748ms)
+  ✓  108 [webkit] › e2e/intake-wizard.spec.ts:736:1 › failureサンプルを適用すると壊れたURLと古いログをReview Findingへ戻す (764ms)
+  ✓  109 [webkit] › e2e/intake-wizard.spec.ts:765:1 › 証跡不足サンプルを適用するとコマンド成功後もreadyではない (1.1s)
+  ✓  110 [webkit] › e2e/intake-wizard.spec.ts:777:1 › RPG Trial 007のCI証跡をDogfood Evidence Binderとして表示する (776ms)
+  ✓  111 [webkit] › e2e/intake-wizard.spec.ts:789:1 › RPG dogfood証跡から次回AI Task Packet再利用計画を表示する (659ms)
+  ✓  112 [webkit] › e2e/intake-wizard.spec.ts:801:1 › 新規アプリ案からDogfood証跡入りAI Task Packet seedを生成する (753ms)
+  ✓  113 [webkit] › e2e/intake-wizard.spec.ts:818:1 › Dogfood Packet Markdown Reviewで3つの反映前Markdownを確認できる (722ms)
+  ✓  114 [webkit] › e2e/intake-wizard.spec.ts:849:1 › Verification Run Detailでempty valid failureを切り替え、command別証跡を確認できる (820ms)
+  ✓  115 [webkit] › e2e/intake-wizard.spec.ts:874:1 › Evidence Repair Delta Generatorでfailed evidence_missing timeoutを次回依頼へ戻せる (794ms)
+  ✘  116 [webkit] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める (783ms)
+  ✘  117 [webkit] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める (retry #1) (962ms)
+
+
+  1) [chromium] › e2e/intake-wizard.spec.ts:313:1 › Delta Decision Reviewでempty valid failureを切り替え、採用済みdeltaだけを次回packet対象にできる 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      318 |
+      319 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 320 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      321 |   await expect(page.getByRole("heading", { name: "Delta Decision Review: valid" })).toBeVisible();
+      322 |   await expect(page.getByText("delta decision reviewはvalidです")).toBeVisible();
+      323 |   await expect(page.getByText("採用: 1件 / 却下: 1件 / 保留: 1件")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:320:75
+
+    Error Context: test-results/intake-wizard-Delta-Decisi-34413-、採用済みdeltaだけを次回packet対象にできる-chromium/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      318 |
+      319 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 320 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      321 |   await expect(page.getByRole("heading", { name: "Delta Decision Review: valid" })).toBeVisible();
+      322 |   await expect(page.getByText("delta decision reviewはvalidです")).toBeVisible();
+      323 |   await expect(page.getByText("採用: 1件 / 却下: 1件 / 保留: 1件")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:320:75
+
+    Error Context: test-results/intake-wizard-Delta-Decisi-34413-、採用済みdeltaだけを次回packet対象にできる-chromium-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/intake-wizard-Delta-Decisi-34413-、採用済みdeltaだけを次回packet対象にできる-chromium-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/intake-wizard-Delta-Decisi-34413-、採用済みdeltaだけを次回packet対象にできる-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › e2e/intake-wizard.spec.ts:338:1 › Packet File Apply Plannerでempty valid failureを切り替え、実ファイル適用前の計画を確認できる 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      343 |
+      344 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 345 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      346 |   await page.getByRole("button", { name: "export valid" }).click();
+      347 |   await page.getByRole("button", { name: "planner valid" }).click();
+      348 |   await expect(page.getByRole("heading", { name: "Packet File Apply Planner: valid" })).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:345:75
+
+    Error Context: test-results/intake-wizard-Packet-File--bc19c-lureを切り替え、実ファイル適用前の計画を確認できる-chromium/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      343 |
+      344 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 345 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      346 |   await page.getByRole("button", { name: "export valid" }).click();
+      347 |   await page.getByRole("button", { name: "planner valid" }).click();
+      348 |   await expect(page.getByRole("heading", { name: "Packet File Apply Planner: valid" })).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:345:75
+
+    Error Context: test-results/intake-wizard-Packet-File--bc19c-lureを切り替え、実ファイル適用前の計画を確認できる-chromium-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/intake-wizard-Packet-File--bc19c-lureを切り替え、実ファイル適用前の計画を確認できる-chromium-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/intake-wizard-Packet-File--bc19c-lureを切り替え、実ファイル適用前の計画を確認できる-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › e2e/intake-wizard.spec.ts:600:1 › Adopted Delta Markdown Exporterで採用済みdeltaだけをMarkdownへ書き出せる 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      605 |
+      606 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 607 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      608 |   await page.getByRole("button", { name: "export valid" }).click();
+      609 |   await expect(page.getByRole("heading", { name: "Adopted Delta Markdown Exporter: valid" })).toBeVisible();
+      610 |   await expect(page.getByText("adopted delta markdown exportはvalidです")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:607:75
+
+    Error Context: test-results/intake-wizard-Adopted-Delt-d1369-で採用済みdeltaだけをMarkdownへ書き出せる-chromium/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      605 |
+      606 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 607 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      608 |   await page.getByRole("button", { name: "export valid" }).click();
+      609 |   await expect(page.getByRole("heading", { name: "Adopted Delta Markdown Exporter: valid" })).toBeVisible();
+      610 |   await expect(page.getByText("adopted delta markdown exportはvalidです")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:607:75
+
+    Error Context: test-results/intake-wizard-Adopted-Delt-d1369-で採用済みdeltaだけをMarkdownへ書き出せる-chromium-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/intake-wizard-Adopted-Delt-d1369-で採用済みdeltaだけをMarkdownへ書き出せる-chromium-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/intake-wizard-Adopted-Delt-d1369-で採用済みdeltaだけをMarkdownへ書き出せる-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chromium] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid' }) resolved to 3 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">diff decision valid</button> aka getByRole('button', { name: 'diff decision valid' })
+        3) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid' })
+
+
+      907 |   await page.getByRole("button", { name: "detail failure" }).click();
+      908 |   await page.getByRole("button", { name: "repair valid" }).click();
+    > 909 |   await page.getByRole("button", { name: "decision valid" }).click();
+          |                                                              ^
+      910 |   await expect(page.getByRole("heading", { name: "Repair Delta Priority Decision Workspace: valid" })).toBeVisible();
+      911 |   await expect(page.getByText("repair delta priority decision workspaceはvalidです")).toBeVisible();
+      912 |   await expect(page.getByText("採用 1件 / 保留 1件 / 却下 1件")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:909:62
+
+    Error Context: test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-chromium/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid' }) resolved to 3 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">diff decision valid</button> aka getByRole('button', { name: 'diff decision valid' })
+        3) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid' })
+
+
+      907 |   await page.getByRole("button", { name: "detail failure" }).click();
+      908 |   await page.getByRole("button", { name: "repair valid" }).click();
+    > 909 |   await page.getByRole("button", { name: "decision valid" }).click();
+          |                                                              ^
+      910 |   await expect(page.getByRole("heading", { name: "Repair Delta Priority Decision Workspace: valid" })).toBeVisible();
+      911 |   await expect(page.getByText("repair delta priority decision workspaceはvalidです")).toBeVisible();
+      912 |   await expect(page.getByText("採用 1件 / 保留 1件 / 却下 1件")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:909:62
+
+    Error Context: test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-chromium-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-chromium-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [firefox] › e2e/intake-wizard.spec.ts:313:1 › Delta Decision Reviewでempty valid failureを切り替え、採用済みdeltaだけを次回packet対象にできる 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      318 |
+      319 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 320 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      321 |   await expect(page.getByRole("heading", { name: "Delta Decision Review: valid" })).toBeVisible();
+      322 |   await expect(page.getByText("delta decision reviewはvalidです")).toBeVisible();
+      323 |   await expect(page.getByText("採用: 1件 / 却下: 1件 / 保留: 1件")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:320:75
+
+    Error Context: test-results/intake-wizard-Delta-Decisi-34413-、採用済みdeltaだけを次回packet対象にできる-firefox/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      318 |
+      319 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 320 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      321 |   await expect(page.getByRole("heading", { name: "Delta Decision Review: valid" })).toBeVisible();
+      322 |   await expect(page.getByText("delta decision reviewはvalidです")).toBeVisible();
+      323 |   await expect(page.getByText("採用: 1件 / 却下: 1件 / 保留: 1件")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:320:75
+
+    Error Context: test-results/intake-wizard-Delta-Decisi-34413-、採用済みdeltaだけを次回packet対象にできる-firefox-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/intake-wizard-Delta-Decisi-34413-、採用済みdeltaだけを次回packet対象にできる-firefox-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/intake-wizard-Delta-Decisi-34413-、採用済みdeltaだけを次回packet対象にできる-firefox-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [firefox] › e2e/intake-wizard.spec.ts:338:1 › Packet File Apply Plannerでempty valid failureを切り替え、実ファイル適用前の計画を確認できる 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      343 |
+      344 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 345 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      346 |   await page.getByRole("button", { name: "export valid" }).click();
+      347 |   await page.getByRole("button", { name: "planner valid" }).click();
+      348 |   await expect(page.getByRole("heading", { name: "Packet File Apply Planner: valid" })).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:345:75
+
+    Error Context: test-results/intake-wizard-Packet-File--bc19c-lureを切り替え、実ファイル適用前の計画を確認できる-firefox/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      343 |
+      344 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 345 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      346 |   await page.getByRole("button", { name: "export valid" }).click();
+      347 |   await page.getByRole("button", { name: "planner valid" }).click();
+      348 |   await expect(page.getByRole("heading", { name: "Packet File Apply Planner: valid" })).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:345:75
+
+    Error Context: test-results/intake-wizard-Packet-File--bc19c-lureを切り替え、実ファイル適用前の計画を確認できる-firefox-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/intake-wizard-Packet-File--bc19c-lureを切り替え、実ファイル適用前の計画を確認できる-firefox-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/intake-wizard-Packet-File--bc19c-lureを切り替え、実ファイル適用前の計画を確認できる-firefox-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [firefox] › e2e/intake-wizard.spec.ts:600:1 › Adopted Delta Markdown Exporterで採用済みdeltaだけをMarkdownへ書き出せる 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      605 |
+      606 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 607 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      608 |   await page.getByRole("button", { name: "export valid" }).click();
+      609 |   await expect(page.getByRole("heading", { name: "Adopted Delta Markdown Exporter: valid" })).toBeVisible();
+      610 |   await expect(page.getByText("adopted delta markdown exportはvalidです")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:607:75
+
+    Error Context: test-results/intake-wizard-Adopted-Delt-d1369-で採用済みdeltaだけをMarkdownへ書き出せる-firefox/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      605 |
+      606 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 607 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      608 |   await page.getByRole("button", { name: "export valid" }).click();
+      609 |   await expect(page.getByRole("heading", { name: "Adopted Delta Markdown Exporter: valid" })).toBeVisible();
+      610 |   await expect(page.getByText("adopted delta markdown exportはvalidです")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:607:75
+
+    Error Context: test-results/intake-wizard-Adopted-Delt-d1369-で採用済みdeltaだけをMarkdownへ書き出せる-firefox-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/intake-wizard-Adopted-Delt-d1369-で採用済みdeltaだけをMarkdownへ書き出せる-firefox-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/intake-wizard-Adopted-Delt-d1369-で採用済みdeltaだけをMarkdownへ書き出せる-firefox-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) [firefox] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid' }) resolved to 3 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">diff decision valid</button> aka getByRole('button', { name: 'diff decision valid' })
+        ...
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid' })
+
+
+      907 |   await page.getByRole("button", { name: "detail failure" }).click();
+      908 |   await page.getByRole("button", { name: "repair valid" }).click();
+    > 909 |   await page.getByRole("button", { name: "decision valid" }).click();
+          |                                                              ^
+      910 |   await expect(page.getByRole("heading", { name: "Repair Delta Priority Decision Workspace: valid" })).toBeVisible();
+      911 |   await expect(page.getByText("repair delta priority decision workspaceはvalidです")).toBeVisible();
+      912 |   await expect(page.getByText("採用 1件 / 保留 1件 / 却下 1件")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:909:62
+
+    Error Context: test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-firefox/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid' }) resolved to 3 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">diff decision valid</button> aka getByRole('button', { name: 'diff decision valid' })
+        ...
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid' })
+
+
+      907 |   await page.getByRole("button", { name: "detail failure" }).click();
+      908 |   await page.getByRole("button", { name: "repair valid" }).click();
+    > 909 |   await page.getByRole("button", { name: "decision valid" }).click();
+          |                                                              ^
+      910 |   await expect(page.getByRole("heading", { name: "Repair Delta Priority Decision Workspace: valid" })).toBeVisible();
+      911 |   await expect(page.getByText("repair delta priority decision workspaceはvalidです")).toBeVisible();
+      912 |   await expect(page.getByText("採用 1件 / 保留 1件 / 却下 1件")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:909:62
+
+    Error Context: test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-firefox-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-firefox-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-firefox-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9) [webkit] › e2e/intake-wizard.spec.ts:313:1 › Delta Decision Reviewでempty valid failureを切り替え、採用済みdeltaだけを次回packet対象にできる 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      318 |
+      319 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 320 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      321 |   await expect(page.getByRole("heading", { name: "Delta Decision Review: valid" })).toBeVisible();
+      322 |   await expect(page.getByText("delta decision reviewはvalidです")).toBeVisible();
+      323 |   await expect(page.getByText("採用: 1件 / 却下: 1件 / 保留: 1件")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:320:75
+
+    Error Context: test-results/intake-wizard-Delta-Decisi-34413-、採用済みdeltaだけを次回packet対象にできる-webkit/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      318 |
+      319 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 320 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      321 |   await expect(page.getByRole("heading", { name: "Delta Decision Review: valid" })).toBeVisible();
+      322 |   await expect(page.getByText("delta decision reviewはvalidです")).toBeVisible();
+      323 |   await expect(page.getByText("採用: 1件 / 却下: 1件 / 保留: 1件")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:320:75
+
+    Error Context: test-results/intake-wizard-Delta-Decisi-34413-、採用済みdeltaだけを次回packet対象にできる-webkit-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/intake-wizard-Delta-Decisi-34413-、採用済みdeltaだけを次回packet対象にできる-webkit-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/intake-wizard-Delta-Decisi-34413-、採用済みdeltaだけを次回packet対象にできる-webkit-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10) [webkit] › e2e/intake-wizard.spec.ts:338:1 › Packet File Apply Plannerでempty valid failureを切り替え、実ファイル適用前の計画を確認できる 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      343 |
+      344 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 345 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      346 |   await page.getByRole("button", { name: "export valid" }).click();
+      347 |   await page.getByRole("button", { name: "planner valid" }).click();
+      348 |   await expect(page.getByRole("heading", { name: "Packet File Apply Planner: valid" })).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:345:75
+
+    Error Context: test-results/intake-wizard-Packet-File--bc19c-lureを切り替え、実ファイル適用前の計画を確認できる-webkit/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      343 |
+      344 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 345 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      346 |   await page.getByRole("button", { name: "export valid" }).click();
+      347 |   await page.getByRole("button", { name: "planner valid" }).click();
+      348 |   await expect(page.getByRole("heading", { name: "Packet File Apply Planner: valid" })).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:345:75
+
+    Error Context: test-results/intake-wizard-Packet-File--bc19c-lureを切り替え、実ファイル適用前の計画を確認できる-webkit-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/intake-wizard-Packet-File--bc19c-lureを切り替え、実ファイル適用前の計画を確認できる-webkit-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/intake-wizard-Packet-File--bc19c-lureを切り替え、実ファイル適用前の計画を確認できる-webkit-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  11) [webkit] › e2e/intake-wizard.spec.ts:600:1 › Adopted Delta Markdown Exporterで採用済みdeltaだけをMarkdownへ書き出せる 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      605 |
+      606 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 607 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      608 |   await page.getByRole("button", { name: "export valid" }).click();
+      609 |   await expect(page.getByRole("heading", { name: "Adopted Delta Markdown Exporter: valid" })).toBeVisible();
+      610 |   await expect(page.getByText("adopted delta markdown exportはvalidです")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:607:75
+
+    Error Context: test-results/intake-wizard-Adopted-Delt-d1369-で採用済みdeltaだけをMarkdownへ書き出せる-webkit/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid', exact: true }) resolved to 2 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid', exact: true })
+
+
+      605 |
+      606 |   await page.getByRole("button", { name: "delta valid" }).click();
+    > 607 |   await page.getByRole("button", { name: "decision valid", exact: true }).click();
+          |                                                                           ^
+      608 |   await page.getByRole("button", { name: "export valid" }).click();
+      609 |   await expect(page.getByRole("heading", { name: "Adopted Delta Markdown Exporter: valid" })).toBeVisible();
+      610 |   await expect(page.getByText("adopted delta markdown exportはvalidです")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:607:75
+
+    Error Context: test-results/intake-wizard-Adopted-Delt-d1369-で採用済みdeltaだけをMarkdownへ書き出せる-webkit-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/intake-wizard-Adopted-Delt-d1369-で採用済みdeltaだけをMarkdownへ書き出せる-webkit-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/intake-wizard-Adopted-Delt-d1369-で採用済みdeltaだけをMarkdownへ書き出せる-webkit-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  12) [webkit] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める 
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid' }) resolved to 3 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">diff decision valid</button> aka getByRole('button', { name: 'diff decision valid' })
+        3) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid' })
+
+
+      907 |   await page.getByRole("button", { name: "detail failure" }).click();
+      908 |   await page.getByRole("button", { name: "repair valid" }).click();
+    > 909 |   await page.getByRole("button", { name: "decision valid" }).click();
+          |                                                              ^
+      910 |   await expect(page.getByRole("heading", { name: "Repair Delta Priority Decision Workspace: valid" })).toBeVisible();
+      911 |   await expect(page.getByText("repair delta priority decision workspaceはvalidです")).toBeVisible();
+      912 |   await expect(page.getByText("採用 1件 / 保留 1件 / 却下 1件")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:909:62
+
+    Error Context: test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-webkit/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: locator.click: Error: strict mode violation: getByRole('button', { name: 'decision valid' }) resolved to 3 elements:
+        1) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Delta Decision Reviewサンプル操作').getByRole('button', { name: 'decision valid' })
+        2) <button type="button" class="primary-button">diff decision valid</button> aka getByRole('button', { name: 'diff decision valid' })
+        3) <button type="button" class="primary-button">decision valid</button> aka getByLabel('Repair Delta Priority Decision Workspaceサンプル操作').getByRole('button', { name: 'decision valid' })
+
+    Call log:
+      - waiting for getByRole('button', { name: 'decision valid' })
+
+
+      907 |   await page.getByRole("button", { name: "detail failure" }).click();
+      908 |   await page.getByRole("button", { name: "repair valid" }).click();
+    > 909 |   await page.getByRole("button", { name: "decision valid" }).click();
+          |                                                              ^
+      910 |   await expect(page.getByRole("heading", { name: "Repair Delta Priority Decision Workspace: valid" })).toBeVisible();
+      911 |   await expect(page.getByText("repair delta priority decision workspaceはvalidです")).toBeVisible();
+      912 |   await expect(page.getByText("採用 1件 / 保留 1件 / 却下 1件")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:909:62
+
+    Error Context: test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-webkit-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-webkit-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-webkit-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  12 failed
+    [chromium] › e2e/intake-wizard.spec.ts:313:1 › Delta Decision Reviewでempty valid failureを切り替え、採用済みdeltaだけを次回packet対象にできる 
+    [chromium] › e2e/intake-wizard.spec.ts:338:1 › Packet File Apply Plannerでempty valid failureを切り替え、実ファイル適用前の計画を確認できる 
+    [chromium] › e2e/intake-wizard.spec.ts:600:1 › Adopted Delta Markdown Exporterで採用済みdeltaだけをMarkdownへ書き出せる 
+    [chromium] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める 
+    [firefox] › e2e/intake-wizard.spec.ts:313:1 › Delta Decision Reviewでempty valid failureを切り替え、採用済みdeltaだけを次回packet対象にできる 
+    [firefox] › e2e/intake-wizard.spec.ts:338:1 › Packet File Apply Plannerでempty valid failureを切り替え、実ファイル適用前の計画を確認できる 
+    [firefox] › e2e/intake-wizard.spec.ts:600:1 › Adopted Delta Markdown Exporterで採用済みdeltaだけをMarkdownへ書き出せる 
+    [firefox] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める 
+    [webkit] › e2e/intake-wizard.spec.ts:313:1 › Delta Decision Reviewでempty valid failureを切り替え、採用済みdeltaだけを次回packet対象にできる 
+    [webkit] › e2e/intake-wizard.spec.ts:338:1 › Packet File Apply Plannerでempty valid failureを切り替え、実ファイル適用前の計画を確認できる 
+    [webkit] › e2e/intake-wizard.spec.ts:600:1 › Adopted Delta Markdown Exporterで採用済みdeltaだけをMarkdownへ書き出せる 
+    [webkit] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める 
+  93 passed (2.7m)
+[ELIFECYCLE] Command failed with exit code 1.

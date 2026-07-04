@@ -1,0 +1,15 @@
+AIDD Control Plane MVP 037 検証要約
+
+pnpm install --frozen-lockfile: pass
+pnpm run lint: pass
+pnpm run typecheck: pass
+pnpm run test: 68 tests passed
+pnpm run build: pass
+pnpm run test:e2e: 105 passed / Chromium, Firefox, WebKit
+pnpm run doctor:aidd: pass
+pnpm run capture:mvp037: pass
+
+修正メモ:
+- Codex execは600秒でtimeoutしたが、実装差分は生成されていたため独立検証で継続。
+- 新規ボタン名 decision valid が既存Delta Decision Reviewと衝突し、E2E strict modeで失敗。
+- 新規操作を priority valid / priority failure に変更し、3ブラウザE2Eで再検証した。

@@ -1,0 +1,14 @@
+<p>MVP 036では、失敗ログを <code>failed</code> / <code>evidence_missing</code> / <code>timeout</code> のrepair deltaに変換しました。今回は、そのrepair deltaを <strong>採用 / 保留 / 却下</strong> に分ける <strong>Repair Delta Priority Decision Workspace</strong> を追加しました。</p>
+<p>今回作ったのは <strong>Repair Delta Priority Decision Workspace</strong> です。</p>
+  -&gt; Repair Delta Priority Decision Workspace
+<li>UIに <code>Repair Delta Priority Decision Workspace</code> セクションを追加</li>
+<p><img src="assets/aidd-control-plane-mvp037-empty.png" alt="MVP037 empty" loading="lazy"></p>
+<p><img src="assets/aidd-control-plane-mvp037-valid.png" alt="MVP037 valid" loading="lazy"></p>
+<p><img src="assets/aidd-control-plane-mvp037-failure.png" alt="MVP037 failure" loading="lazy"></p>
+<p><img src="assets/aidd-control-plane-mvp037-terminal-evidence.png" alt="MVP037 terminal evidence" loading="lazy"></p>
+checked MVP: AIDD Control Plane MVP 037 Repair Delta Priority Decision Workspace</code></pre>
+<p>今回、<code>standards/aidd-control-plane-mvp-v0.1.md</code> に <code>Repair Delta Priority Decision Workspace</code> を追加しました。</p>
+aidd-control-plane-mvp037-empty.png   229003
+aidd-control-plane-mvp037-valid.png   252919
+aidd-control-plane-mvp037-failure.png   222633
+aidd-control-plane-mvp037-terminal-evidence.png   149586

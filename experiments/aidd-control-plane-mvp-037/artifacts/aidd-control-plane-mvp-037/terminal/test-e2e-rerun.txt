@@ -1,0 +1,318 @@
+$ playwright test
+
+Running 105 tests using 1 worker
+
+  ✓    1 [chromium] › e2e/intake-wizard.spec.ts:9:1 › MVP 031の初期empty stateとworkflow artifact監査と標準更新候補Queueが表示される (1.2s)
+  ✓    2 [chromium] › e2e/intake-wizard.spec.ts:72:1 › Packet Apply Command Composerでempty valid failureを切り替え、反映直前コマンドを確認できる (1.0s)
+  ✓    3 [chromium] › e2e/intake-wizard.spec.ts:93:1 › Run Authorization Gateでempty valid failureを切り替え、実行前承認を確認できる (1.2s)
+  ✓    4 [chromium] › e2e/intake-wizard.spec.ts:132:1 › Codex Run Queueでempty valid failureを切り替え、実行queueとReview Findingを確認できる (910ms)
+  ✓    5 [chromium] › e2e/intake-wizard.spec.ts:161:1 › Run Result Review Synthesizerでempty valid failureを切り替え、Review RecordとLearning Logへのdeltaを確認できる (1.4s)
+  ✓    6 [chromium] › e2e/intake-wizard.spec.ts:206:1 › Next Increment Plannerでempty valid failureを切り替え、次の1インクリメント計画を確認できる (1.6s)
+  ✓    7 [chromium] › e2e/intake-wizard.spec.ts:238:1 › CI Workflow Artifact Auditorでvalidとfailureを切り替え、不足artifactを次回依頼へ変換できる (941ms)
+  ✓    8 [chromium] › e2e/intake-wizard.spec.ts:259:1 › Spec Update Proposal Queueでempty valid failureを切り替え、Codex prompt deltaを確認できる (882ms)
+  ✓    9 [chromium] › e2e/intake-wizard.spec.ts:285:1 › AI Task Packet Delta Apply Previewでempty valid failureを切り替え、Codex prompt patchを確認できる (960ms)
+  ✓   10 [chromium] › e2e/intake-wizard.spec.ts:313:1 › Delta Decision Reviewでempty valid failureを切り替え、採用済みdeltaだけを次回packet対象にできる (1.3s)
+  ✓   11 [chromium] › e2e/intake-wizard.spec.ts:338:1 › Packet File Apply Plannerでempty valid failureを切り替え、実ファイル適用前の計画を確認できる (2.0s)
+  ✓   12 [chromium] › e2e/intake-wizard.spec.ts:377:1 › Safe Patch Review Workspaceでempty valid failureを切り替え、危険なpatchを止められる (979ms)
+  ✓   13 [chromium] › e2e/intake-wizard.spec.ts:403:1 › Diff Bundle Rollback Evidence Workspaceでempty valid failureを切り替え、戻せる証跡なしのpatch適用を止められる (1.2s)
+  ✓   14 [chromium] › e2e/intake-wizard.spec.ts:442:1 › Bundle Decision Ledgerでapplied rejected deferredの判断と証跡保存先を確認できる (1.5s)
+  ✓   15 [chromium] › e2e/intake-wizard.spec.ts:473:1 › Diff Bundle Decision Ledgerでempty valid failureを切り替え、標準接続と失敗検出を確認できる (1.9s)
+  ✓   16 [chromium] › e2e/intake-wizard.spec.ts:503:1 › Adopted Bundle Exporterでempty valid failureを切り替え、採用済みbundleだけのexportと失敗検出を確認できる (2.0s)
+  ✓   17 [chromium] › e2e/intake-wizard.spec.ts:538:1 › Exported Packet Preflight Reviewerでempty valid failureを切り替え、次工程前のpacket検査を確認できる (2.3s)
+  ✓   18 [chromium] › e2e/intake-wizard.spec.ts:568:1 › Packet Draft Workspaceでempty valid failureを切り替え、次回ファイルドラフトを確認できる (1.2s)
+  ✓   19 [chromium] › e2e/intake-wizard.spec.ts:600:1 › Adopted Delta Markdown Exporterで採用済みdeltaだけをMarkdownへ書き出せる (1.9s)
+  ✓   20 [chromium] › e2e/intake-wizard.spec.ts:624:1 › fixture駆動Mock CI Serviceでvalid failure timeoutを切り替えられる (2.1s)
+  ✓   21 [chromium] › e2e/intake-wizard.spec.ts:639:1 › E2Eからmock CI serviceのcontrol endpointを叩いてUI反映を確認する (1.5s)
+  ✓   22 [chromium] › e2e/intake-wizard.spec.ts:656:1 › テンプレートを選択して未適用failure stateを表示できる (728ms)
+  ✓   23 [chromium] › e2e/intake-wizard.spec.ts:665:1 › テンプレートを適用すると初期値と生成結果にリスクと証跡要件が入る (1.0s)
+  ✓   24 [chromium] › e2e/intake-wizard.spec.ts:682:1 › サンプルアプリを入力するとready stateになり生成結果が表示される (1.8s)
+  ✓   25 [chromium] › e2e/intake-wizard.spec.ts:696:1 › 主要機能を削除するとinsufficient stateとmissing fieldsが表示される (1.9s)
+  ✓   26 [chromium] › e2e/intake-wizard.spec.ts:706:1 › validサンプルを適用すると全ゲート成功と3ブラウザE2E成功と証跡が表示される (743ms)
+  ✓   27 [chromium] › e2e/intake-wizard.spec.ts:736:1 › failureサンプルを適用すると壊れたURLと古いログをReview Findingへ戻す (819ms)
+  ✓   28 [chromium] › e2e/intake-wizard.spec.ts:765:1 › 証跡不足サンプルを適用するとコマンド成功後もreadyではない (749ms)
+  ✓   29 [chromium] › e2e/intake-wizard.spec.ts:777:1 › RPG Trial 007のCI証跡をDogfood Evidence Binderとして表示する (695ms)
+  ✓   30 [chromium] › e2e/intake-wizard.spec.ts:789:1 › RPG dogfood証跡から次回AI Task Packet再利用計画を表示する (652ms)
+  ✓   31 [chromium] › e2e/intake-wizard.spec.ts:801:1 › 新規アプリ案からDogfood証跡入りAI Task Packet seedを生成する (797ms)
+  ✓   32 [chromium] › e2e/intake-wizard.spec.ts:818:1 › Dogfood Packet Markdown Reviewで3つの反映前Markdownを確認できる (801ms)
+  ✓   33 [chromium] › e2e/intake-wizard.spec.ts:849:1 › Verification Run Detailでempty valid failureを切り替え、command別証跡を確認できる (1.4s)
+  ✓   34 [chromium] › e2e/intake-wizard.spec.ts:874:1 › Evidence Repair Delta Generatorでfailed evidence_missing timeoutを次回依頼へ戻せる (1.4s)
+  ✘   35 [chromium] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める (1.7s)
+  ✘   36 [chromium] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める (retry #1) (1.8s)
+  ✓   37 [firefox] › e2e/intake-wizard.spec.ts:9:1 › MVP 031の初期empty stateとworkflow artifact監査と標準更新候補Queueが表示される (2.1s)
+  ✓   38 [firefox] › e2e/intake-wizard.spec.ts:72:1 › Packet Apply Command Composerでempty valid failureを切り替え、反映直前コマンドを確認できる (1.0s)
+  ✓   39 [firefox] › e2e/intake-wizard.spec.ts:93:1 › Run Authorization Gateでempty valid failureを切り替え、実行前承認を確認できる (2.3s)
+  ✓   40 [firefox] › e2e/intake-wizard.spec.ts:132:1 › Codex Run Queueでempty valid failureを切り替え、実行queueとReview Findingを確認できる (2.5s)
+  ✓   41 [firefox] › e2e/intake-wizard.spec.ts:161:1 › Run Result Review Synthesizerでempty valid failureを切り替え、Review RecordとLearning Logへのdeltaを確認できる (2.5s)
+  ✓   42 [firefox] › e2e/intake-wizard.spec.ts:206:1 › Next Increment Plannerでempty valid failureを切り替え、次の1インクリメント計画を確認できる (2.3s)
+  ✓   43 [firefox] › e2e/intake-wizard.spec.ts:238:1 › CI Workflow Artifact Auditorでvalidとfailureを切り替え、不足artifactを次回依頼へ変換できる (2.6s)
+  ✓   44 [firefox] › e2e/intake-wizard.spec.ts:259:1 › Spec Update Proposal Queueでempty valid failureを切り替え、Codex prompt deltaを確認できる (2.1s)
+  ✓   45 [firefox] › e2e/intake-wizard.spec.ts:285:1 › AI Task Packet Delta Apply Previewでempty valid failureを切り替え、Codex prompt patchを確認できる (2.6s)
+  ✓   46 [firefox] › e2e/intake-wizard.spec.ts:313:1 › Delta Decision Reviewでempty valid failureを切り替え、採用済みdeltaだけを次回packet対象にできる (2.3s)
+  ✓   47 [firefox] › e2e/intake-wizard.spec.ts:338:1 › Packet File Apply Plannerでempty valid failureを切り替え、実ファイル適用前の計画を確認できる (2.0s)
+  ✓   48 [firefox] › e2e/intake-wizard.spec.ts:377:1 › Safe Patch Review Workspaceでempty valid failureを切り替え、危険なpatchを止められる (1.9s)
+  ✓   49 [firefox] › e2e/intake-wizard.spec.ts:403:1 › Diff Bundle Rollback Evidence Workspaceでempty valid failureを切り替え、戻せる証跡なしのpatch適用を止められる (2.2s)
+  ✓   50 [firefox] › e2e/intake-wizard.spec.ts:442:1 › Bundle Decision Ledgerでapplied rejected deferredの判断と証跡保存先を確認できる (1.9s)
+  ✓   51 [firefox] › e2e/intake-wizard.spec.ts:473:1 › Diff Bundle Decision Ledgerでempty valid failureを切り替え、標準接続と失敗検出を確認できる (2.1s)
+  ✓   52 [firefox] › e2e/intake-wizard.spec.ts:503:1 › Adopted Bundle Exporterでempty valid failureを切り替え、採用済みbundleだけのexportと失敗検出を確認できる (2.2s)
+  ✓   53 [firefox] › e2e/intake-wizard.spec.ts:538:1 › Exported Packet Preflight Reviewerでempty valid failureを切り替え、次工程前のpacket検査を確認できる (2.2s)
+  ✓   54 [firefox] › e2e/intake-wizard.spec.ts:568:1 › Packet Draft Workspaceでempty valid failureを切り替え、次回ファイルドラフトを確認できる (1.9s)
+  ✓   55 [firefox] › e2e/intake-wizard.spec.ts:600:1 › Adopted Delta Markdown Exporterで採用済みdeltaだけをMarkdownへ書き出せる (2.3s)
+  ✓   56 [firefox] › e2e/intake-wizard.spec.ts:624:1 › fixture駆動Mock CI Serviceでvalid failure timeoutを切り替えられる (2.6s)
+  ✓   57 [firefox] › e2e/intake-wizard.spec.ts:639:1 › E2Eからmock CI serviceのcontrol endpointを叩いてUI反映を確認する (2.6s)
+  ✓   58 [firefox] › e2e/intake-wizard.spec.ts:656:1 › テンプレートを選択して未適用failure stateを表示できる (1.5s)
+  ✓   59 [firefox] › e2e/intake-wizard.spec.ts:665:1 › テンプレートを適用すると初期値と生成結果にリスクと証跡要件が入る (1.8s)
+  ✓   60 [firefox] › e2e/intake-wizard.spec.ts:682:1 › サンプルアプリを入力するとready stateになり生成結果が表示される (1.9s)
+  ✓   61 [firefox] › e2e/intake-wizard.spec.ts:696:1 › 主要機能を削除するとinsufficient stateとmissing fieldsが表示される (2.2s)
+  ✓   62 [firefox] › e2e/intake-wizard.spec.ts:706:1 › validサンプルを適用すると全ゲート成功と3ブラウザE2E成功と証跡が表示される (1.9s)
+  ✓   63 [firefox] › e2e/intake-wizard.spec.ts:736:1 › failureサンプルを適用すると壊れたURLと古いログをReview Findingへ戻す (1.5s)
+  ✓   64 [firefox] › e2e/intake-wizard.spec.ts:765:1 › 証跡不足サンプルを適用するとコマンド成功後もreadyではない (1.5s)
+  ✓   65 [firefox] › e2e/intake-wizard.spec.ts:777:1 › RPG Trial 007のCI証跡をDogfood Evidence Binderとして表示する (1.5s)
+  ✓   66 [firefox] › e2e/intake-wizard.spec.ts:789:1 › RPG dogfood証跡から次回AI Task Packet再利用計画を表示する (1.2s)
+  ✓   67 [firefox] › e2e/intake-wizard.spec.ts:801:1 › 新規アプリ案からDogfood証跡入りAI Task Packet seedを生成する (885ms)
+  ✓   68 [firefox] › e2e/intake-wizard.spec.ts:818:1 › Dogfood Packet Markdown Reviewで3つの反映前Markdownを確認できる (1.6s)
+  ✓   69 [firefox] › e2e/intake-wizard.spec.ts:849:1 › Verification Run Detailでempty valid failureを切り替え、command別証跡を確認できる (2.4s)
+  ✓   70 [firefox] › e2e/intake-wizard.spec.ts:874:1 › Evidence Repair Delta Generatorでfailed evidence_missing timeoutを次回依頼へ戻せる (2.6s)
+  ✘   71 [firefox] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める (2.5s)
+  ✘   72 [firefox] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める (retry #1) (2.0s)
+  ✓   73 [webkit] › e2e/intake-wizard.spec.ts:9:1 › MVP 031の初期empty stateとworkflow artifact監査と標準更新候補Queueが表示される (1.3s)
+  ✓   74 [webkit] › e2e/intake-wizard.spec.ts:72:1 › Packet Apply Command Composerでempty valid failureを切り替え、反映直前コマンドを確認できる (768ms)
+  ✓   75 [webkit] › e2e/intake-wizard.spec.ts:93:1 › Run Authorization Gateでempty valid failureを切り替え、実行前承認を確認できる (777ms)
+  ✓   76 [webkit] › e2e/intake-wizard.spec.ts:132:1 › Codex Run Queueでempty valid failureを切り替え、実行queueとReview Findingを確認できる (739ms)
+  ✓   77 [webkit] › e2e/intake-wizard.spec.ts:161:1 › Run Result Review Synthesizerでempty valid failureを切り替え、Review RecordとLearning Logへのdeltaを確認できる (818ms)
+  ✓   78 [webkit] › e2e/intake-wizard.spec.ts:206:1 › Next Increment Plannerでempty valid failureを切り替え、次の1インクリメント計画を確認できる (861ms)
+  ✓   79 [webkit] › e2e/intake-wizard.spec.ts:238:1 › CI Workflow Artifact Auditorでvalidとfailureを切り替え、不足artifactを次回依頼へ変換できる (750ms)
+  ✓   80 [webkit] › e2e/intake-wizard.spec.ts:259:1 › Spec Update Proposal Queueでempty valid failureを切り替え、Codex prompt deltaを確認できる (778ms)
+  ✓   81 [webkit] › e2e/intake-wizard.spec.ts:285:1 › AI Task Packet Delta Apply Previewでempty valid failureを切り替え、Codex prompt patchを確認できる (756ms)
+  ✓   82 [webkit] › e2e/intake-wizard.spec.ts:313:1 › Delta Decision Reviewでempty valid failureを切り替え、採用済みdeltaだけを次回packet対象にできる (815ms)
+  ✓   83 [webkit] › e2e/intake-wizard.spec.ts:338:1 › Packet File Apply Plannerでempty valid failureを切り替え、実ファイル適用前の計画を確認できる (967ms)
+  ✓   84 [webkit] › e2e/intake-wizard.spec.ts:377:1 › Safe Patch Review Workspaceでempty valid failureを切り替え、危険なpatchを止められる (807ms)
+  ✓   85 [webkit] › e2e/intake-wizard.spec.ts:403:1 › Diff Bundle Rollback Evidence Workspaceでempty valid failureを切り替え、戻せる証跡なしのpatch適用を止められる (759ms)
+  ✓   86 [webkit] › e2e/intake-wizard.spec.ts:442:1 › Bundle Decision Ledgerでapplied rejected deferredの判断と証跡保存先を確認できる (831ms)
+  ✓   87 [webkit] › e2e/intake-wizard.spec.ts:473:1 › Diff Bundle Decision Ledgerでempty valid failureを切り替え、標準接続と失敗検出を確認できる (881ms)
+  ✓   88 [webkit] › e2e/intake-wizard.spec.ts:503:1 › Adopted Bundle Exporterでempty valid failureを切り替え、採用済みbundleだけのexportと失敗検出を確認できる (933ms)
+  ✓   89 [webkit] › e2e/intake-wizard.spec.ts:538:1 › Exported Packet Preflight Reviewerでempty valid failureを切り替え、次工程前のpacket検査を確認できる (892ms)
+  ✓   90 [webkit] › e2e/intake-wizard.spec.ts:568:1 › Packet Draft Workspaceでempty valid failureを切り替え、次回ファイルドラフトを確認できる (763ms)
+  ✓   91 [webkit] › e2e/intake-wizard.spec.ts:600:1 › Adopted Delta Markdown Exporterで採用済みdeltaだけをMarkdownへ書き出せる (868ms)
+  ✓   92 [webkit] › e2e/intake-wizard.spec.ts:624:1 › fixture駆動Mock CI Serviceでvalid failure timeoutを切り替えられる (793ms)
+  ✓   93 [webkit] › e2e/intake-wizard.spec.ts:639:1 › E2Eからmock CI serviceのcontrol endpointを叩いてUI反映を確認する (1.3s)
+  ✓   94 [webkit] › e2e/intake-wizard.spec.ts:656:1 › テンプレートを選択して未適用failure stateを表示できる (660ms)
+  ✓   95 [webkit] › e2e/intake-wizard.spec.ts:665:1 › テンプレートを適用すると初期値と生成結果にリスクと証跡要件が入る (739ms)
+  ✓   96 [webkit] › e2e/intake-wizard.spec.ts:682:1 › サンプルアプリを入力するとready stateになり生成結果が表示される (841ms)
+  ✓   97 [webkit] › e2e/intake-wizard.spec.ts:696:1 › 主要機能を削除するとinsufficient stateとmissing fieldsが表示される (827ms)
+  ✓   98 [webkit] › e2e/intake-wizard.spec.ts:706:1 › validサンプルを適用すると全ゲート成功と3ブラウザE2E成功と証跡が表示される (718ms)
+  ✓   99 [webkit] › e2e/intake-wizard.spec.ts:736:1 › failureサンプルを適用すると壊れたURLと古いログをReview Findingへ戻す (728ms)
+  ✓  100 [webkit] › e2e/intake-wizard.spec.ts:765:1 › 証跡不足サンプルを適用するとコマンド成功後もreadyではない (715ms)
+  ✓  101 [webkit] › e2e/intake-wizard.spec.ts:777:1 › RPG Trial 007のCI証跡をDogfood Evidence Binderとして表示する (614ms)
+  ✓  102 [webkit] › e2e/intake-wizard.spec.ts:789:1 › RPG dogfood証跡から次回AI Task Packet再利用計画を表示する (624ms)
+  ✓  103 [webkit] › e2e/intake-wizard.spec.ts:801:1 › 新規アプリ案からDogfood証跡入りAI Task Packet seedを生成する (727ms)
+  ✓  104 [webkit] › e2e/intake-wizard.spec.ts:818:1 › Dogfood Packet Markdown Reviewで3つの反映前Markdownを確認できる (724ms)
+  ✓  105 [webkit] › e2e/intake-wizard.spec.ts:849:1 › Verification Run Detailでempty valid failureを切り替え、command別証跡を確認できる (793ms)
+  ✓  106 [webkit] › e2e/intake-wizard.spec.ts:874:1 › Evidence Repair Delta Generatorでfailed evidence_missing timeoutを次回依頼へ戻せる (806ms)
+  ✘  107 [webkit] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める (889ms)
+  ✘  108 [webkit] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める (retry #1) (1.1s)
+
+
+  1) [chromium] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByLabel('Repair Delta Priority Decision details').getByText('Review Record')
+    Expected: visible
+    Error: strict mode violation: getByLabel('Repair Delta Priority Decision details').getByText('Review Record') resolved to 6 elements:
+        1) <dt>Review Record</dt> aka getByText('Review Record', { exact: true }).nth(1)
+        2) <dd>同じfailed commandが再発した場合は変更を採用せずReview Recordへ戻す。</dd> aka getByLabel('Repair Delta Priority Decision details').getByText('同じfailed command')
+        3) <dt>Review Record</dt> aka getByText('Review Record', { exact: true }).nth(2)
+        4) <dd>timeout対策はFirefox除外ではなく安定化設定が必要なため、この候補は却下してRevie…</dd> aka getByText('timeout対策はFirefox')
+        5) <dt>Review Record</dt> aka getByText('Review Record', { exact: true }).nth(3)
+        6) <p>AIDD-Spec接続: AIDD-Spec v0.1 / AI Task Packet / Co…</p> aka getByText('AIDD-Spec接続: AIDD-Spec v0.1')
+
+    Call log:
+      - Expect "toBeVisible" with timeout 90000ms
+      - waiting for getByLabel('Repair Delta Priority Decision details').getByText('Review Record')
+
+
+      915 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("repair-delta-timeout: rejected")).toBeVisible();
+      916 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("AIDD-Spec v0.1")).toBeVisible();
+    > 917 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Review Record")).toBeVisible();
+          |                                                                                                      ^
+      918 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Learning Log")).toBeVisible();
+      919 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Verification Evidence")).toBeVisible();
+      920 |   await expect(page.getByLabel("Adopted repair delta export").getByText("採用済みrepair deltaだけを次回へ進める")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:917:102
+
+    Error Context: test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-chromium/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByLabel('Repair Delta Priority Decision details').getByText('Review Record')
+    Expected: visible
+    Error: strict mode violation: getByLabel('Repair Delta Priority Decision details').getByText('Review Record') resolved to 6 elements:
+        1) <dt>Review Record</dt> aka getByText('Review Record', { exact: true }).nth(1)
+        2) <dd>同じfailed commandが再発した場合は変更を採用せずReview Recordへ戻す。</dd> aka getByLabel('Repair Delta Priority Decision details').getByText('同じfailed command')
+        3) <dt>Review Record</dt> aka getByText('Review Record', { exact: true }).nth(2)
+        4) <dd>timeout対策はFirefox除外ではなく安定化設定が必要なため、この候補は却下してRevie…</dd> aka getByText('timeout対策はFirefox')
+        5) <dt>Review Record</dt> aka getByText('Review Record', { exact: true }).nth(3)
+        6) <p>AIDD-Spec接続: AIDD-Spec v0.1 / AI Task Packet / Co…</p> aka getByText('AIDD-Spec接続: AIDD-Spec v0.1')
+
+    Call log:
+      - Expect "toBeVisible" with timeout 90000ms
+      - waiting for getByLabel('Repair Delta Priority Decision details').getByText('Review Record')
+
+
+      915 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("repair-delta-timeout: rejected")).toBeVisible();
+      916 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("AIDD-Spec v0.1")).toBeVisible();
+    > 917 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Review Record")).toBeVisible();
+          |                                                                                                      ^
+      918 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Learning Log")).toBeVisible();
+      919 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Verification Evidence")).toBeVisible();
+      920 |   await expect(page.getByLabel("Adopted repair delta export").getByText("採用済みrepair deltaだけを次回へ進める")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:917:102
+
+    Error Context: test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-chromium-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-chromium-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [firefox] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByLabel('Repair Delta Priority Decision details').getByText('Review Record')
+    Expected: visible
+    Error: strict mode violation: getByLabel('Repair Delta Priority Decision details').getByText('Review Record') resolved to 6 elements:
+        1) <dt>Review Record</dt> aka getByText('Review Record', { exact: true }).nth(1)
+        2) <dd>同じfailed commandが再発した場合は変更を採用せずReview Recordへ戻す。</dd> aka getByLabel('Repair Delta Priority Decision details').getByText('同じfailed command')
+        ...
+
+    Call log:
+      - Expect "toBeVisible" with timeout 90000ms
+      - waiting for getByLabel('Repair Delta Priority Decision details').getByText('Review Record')
+
+
+      915 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("repair-delta-timeout: rejected")).toBeVisible();
+      916 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("AIDD-Spec v0.1")).toBeVisible();
+    > 917 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Review Record")).toBeVisible();
+          |                                                                                                      ^
+      918 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Learning Log")).toBeVisible();
+      919 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Verification Evidence")).toBeVisible();
+      920 |   await expect(page.getByLabel("Adopted repair delta export").getByText("採用済みrepair deltaだけを次回へ進める")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:917:102
+
+    Error Context: test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-firefox/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByLabel('Repair Delta Priority Decision details').getByText('Review Record')
+    Expected: visible
+    Error: strict mode violation: getByLabel('Repair Delta Priority Decision details').getByText('Review Record') resolved to 6 elements:
+        1) <dt>Review Record</dt> aka getByText('Review Record', { exact: true }).nth(1)
+        2) <dd>同じfailed commandが再発した場合は変更を採用せずReview Recordへ戻す。</dd> aka getByLabel('Repair Delta Priority Decision details').getByText('同じfailed command')
+        ...
+
+    Call log:
+      - Expect "toBeVisible" with timeout 90000ms
+      - waiting for getByLabel('Repair Delta Priority Decision details').getByText('Review Record')
+
+
+      915 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("repair-delta-timeout: rejected")).toBeVisible();
+      916 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("AIDD-Spec v0.1")).toBeVisible();
+    > 917 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Review Record")).toBeVisible();
+          |                                                                                                      ^
+      918 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Learning Log")).toBeVisible();
+      919 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Verification Evidence")).toBeVisible();
+      920 |   await expect(page.getByLabel("Adopted repair delta export").getByText("採用済みrepair deltaだけを次回へ進める")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:917:102
+
+    Error Context: test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-firefox-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-firefox-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-firefox-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [webkit] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByLabel('Repair Delta Priority Decision details').getByText('Review Record')
+    Expected: visible
+    Error: strict mode violation: getByLabel('Repair Delta Priority Decision details').getByText('Review Record') resolved to 6 elements:
+        1) <dt>Review Record</dt> aka getByText('Review Record', { exact: true }).nth(1)
+        2) <dd>同じfailed commandが再発した場合は変更を採用せずReview Recordへ戻す。</dd> aka getByLabel('Repair Delta Priority Decision details').getByText('同じfailed command')
+        3) <dt>Review Record</dt> aka getByText('Review Record', { exact: true }).nth(2)
+        4) <dd>timeout対策はFirefox除外ではなく安定化設定が必要なため、この候補は却下してRevie…</dd> aka getByText('timeout対策はFirefox')
+        5) <dt>Review Record</dt> aka getByText('Review Record', { exact: true }).nth(3)
+        6) <p>AIDD-Spec接続: AIDD-Spec v0.1 / AI Task Packet / Co…</p> aka getByText('AIDD-Spec接続: AIDD-Spec v0.1')
+
+    Call log:
+      - Expect "toBeVisible" with timeout 90000ms
+      - waiting for getByLabel('Repair Delta Priority Decision details').getByText('Review Record')
+
+
+      915 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("repair-delta-timeout: rejected")).toBeVisible();
+      916 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("AIDD-Spec v0.1")).toBeVisible();
+    > 917 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Review Record")).toBeVisible();
+          |                                                                                                      ^
+      918 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Learning Log")).toBeVisible();
+      919 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Verification Evidence")).toBeVisible();
+      920 |   await expect(page.getByLabel("Adopted repair delta export").getByText("採用済みrepair deltaだけを次回へ進める")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:917:102
+
+    Error Context: test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-webkit/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByLabel('Repair Delta Priority Decision details').getByText('Review Record')
+    Expected: visible
+    Error: strict mode violation: getByLabel('Repair Delta Priority Decision details').getByText('Review Record') resolved to 6 elements:
+        1) <dt>Review Record</dt> aka getByText('Review Record', { exact: true }).nth(1)
+        2) <dd>同じfailed commandが再発した場合は変更を採用せずReview Recordへ戻す。</dd> aka getByLabel('Repair Delta Priority Decision details').getByText('同じfailed command')
+        3) <dt>Review Record</dt> aka getByText('Review Record', { exact: true }).nth(2)
+        4) <dd>timeout対策はFirefox除外ではなく安定化設定が必要なため、この候補は却下してRevie…</dd> aka getByText('timeout対策はFirefox')
+        5) <dt>Review Record</dt> aka getByText('Review Record', { exact: true }).nth(3)
+        6) <p>AIDD-Spec接続: AIDD-Spec v0.1 / AI Task Packet / Co…</p> aka getByText('AIDD-Spec接続: AIDD-Spec v0.1')
+
+    Call log:
+      - Expect "toBeVisible" with timeout 90000ms
+      - waiting for getByLabel('Repair Delta Priority Decision details').getByText('Review Record')
+
+
+      915 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("repair-delta-timeout: rejected")).toBeVisible();
+      916 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("AIDD-Spec v0.1")).toBeVisible();
+    > 917 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Review Record")).toBeVisible();
+          |                                                                                                      ^
+      918 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Learning Log")).toBeVisible();
+      919 |   await expect(page.getByLabel("Repair Delta Priority Decision details").getByText("Verification Evidence")).toBeVisible();
+      920 |   await expect(page.getByLabel("Adopted repair delta export").getByText("採用済みrepair deltaだけを次回へ進める")).toBeVisible();
+        at <workspace>/experiments/aidd-control-plane-mvp-037/generated-repo/e2e/intake-wizard.spec.ts:917:102
+
+    Error Context: test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-webkit-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-webkit-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/intake-wizard-Repair-Delta-685ff-ceで採用・保留・却下を分け採用済みだけを次回へ進める-webkit-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [chromium] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める 
+    [firefox] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める 
+    [webkit] › e2e/intake-wizard.spec.ts:903:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める 
+  102 passed (2.6m)
+[ELIFECYCLE] Command failed with exit code 1.
