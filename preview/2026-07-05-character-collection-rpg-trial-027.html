@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane MVP 016：CI workflowの「artifact保存漏れ」を先に見つける</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SagaForge Trial 027：5人連携予約で「単発ボタン戦闘」から一歩進める</title><style>
 :root {
   color-scheme: light;
   --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
@@ -164,7 +164,7 @@ th { background:#f1f5f9; }
 <a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-013.html"><span class="chapter-num">MVP 13</span>AIDD Control Plane MVP 013：CI証跡判断をUI内mockから独立mock serviceへ切り出そうとして分かった境界線</a>
 <a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-014.html"><span class="chapter-num">MVP 14</span>AIDD Control Plane MVP 014：CI証跡を「画面内サンプル」から独立Mock Serviceへ切り出す</a>
 <a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-015.html"><span class="chapter-num">MVP 15</span>AIDD Control Plane MVP 015：Mock CI ServiceをfixtureとDocker Compose経路へ進める</a>
-<a class="chapter-link current" href="2026-07-02-aidd-control-plane-mvp-016.html"><span class="chapter-num">MVP 16</span>AIDD Control Plane MVP 016：CI workflowの「artifact保存漏れ」を先に見つける</a>
+<a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-016.html"><span class="chapter-num">MVP 16</span>AIDD Control Plane MVP 016：CI workflowの「artifact保存漏れ」を先に見つける</a>
 <a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-017.html"><span class="chapter-num">MVP 17</span>AIDD Control Plane MVP 017：失敗ログを「標準更新候補」に戻すQueueを作った</a>
 <a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-018.html"><span class="chapter-num">MVP 18</span>AIDD Control Plane MVP 018：標準更新候補を「次回AI Task Packet差分」として採用前レビューする</a>
 <a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-019.html"><span class="chapter-num">MVP 19</span>AIDD Control Plane MVP 019：改善差分を「採用・却下・保留」に分けて次回AI依頼へ進める</a>
@@ -214,7 +214,7 @@ th { background:#f1f5f9; }
 <a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-024.html"><span class="chapter-num">Dogfood 24</span>SagaForge Trial 024: 陣形位置の被弾・AUTO判断・召喚交換Ptで周回ループを濃くする</a>
 <a class="chapter-link " href="2026-07-05-character-collection-rpg-trial-025.html"><span class="chapter-num">Dogfood 25</span>SagaForge Trial 025: 継続周回・補助効果・召喚交換Ptで「周回して育てる」圧を強める</a>
 <a class="chapter-link " href="2026-07-05-character-collection-rpg-trial-026.html"><span class="chapter-num">Dogfood 26</span>SagaForge Trial 026: 3周AUTOリハーサルとクエスト別成長で「周回場所を選ぶ」感覚を入れる</a>
-<a class="chapter-link " href="2026-07-05-character-collection-rpg-trial-027.html"><span class="chapter-num">Dogfood 27</span>SagaForge Trial 027：5人連携予約で「単発ボタン戦闘」から一歩進める</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link current" href="2026-07-05-character-collection-rpg-trial-027.html"><span class="chapter-num">Dogfood 27</span>SagaForge Trial 027：5人連携予約で「単発ボタン戦闘」から一歩進める</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
 <a class="chapter-link past " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">過去記事 02</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
 <a class="chapter-link past " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">過去記事 03</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">過去記事 04</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
@@ -224,119 +224,56 @@ th { background:#f1f5f9; }
 <a class="chapter-link past " href="2026-06-28-mobile-state-contract.html"><span class="chapter-num">過去記事 08</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-29-api-failure-state.html"><span class="chapter-num">過去記事 09</span>「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-30-playwright-api-state.html"><span class="chapter-num">過去記事 10</span>Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する</a>
-<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-02-aidd-control-plane-mvp-015.html"><span>前の記事</span>AIDD Control Plane MVP 015：Mock CI ServiceをfixtureとDocker Compose経路へ進める</a><a class="next" href="2026-07-02-aidd-control-plane-mvp-017.html"><span>次の記事</span>AIDD Control Plane MVP 017：失敗ログを「標準更新候補」に戻すQueueを作った</a></nav><article><h1>AIDD Control Plane MVP 016：CI workflowの「artifact保存漏れ」を先に見つける</h1>
-<p>前回のMVP 015では、Mock CI Serviceをfixture駆動にし、Docker Compose経路とNode fallback経路で同じ<code>/health</code>、<code>/state</code>、<code>/__control/state</code>を確認できるようにしました。</p>
-<p>ただし、CI連携の話を進めると、次の落とし穴が残ります。</p>
-<blockquote>CIコマンドは並んでいるのに、レビューに必要なartifactが保存されていない。</blockquote>
-<p>これはAI駆動開発ではかなり危険です。料理でいえば、手順は書いてあるのに、味見の記録、失敗した写真、材料の残量メモが残っていない状態です。あとから人間や別のAIが確認できません。</p>
-<p>今回はAIDD Control Plane MVP 016として、GitHub Actions workflowを静的監査し、品質gateとartifact保存の不足をReview Finding、AI Task Packet Delta、AIDD-Spec更新候補へ戻す「CI Workflow Artifact Auditor」を追加しました。</p>
-<h2>読者の悩み</h2>
-<p>AIに「CIを追加して」と頼むと、よく次のような結果になります。</p>
+<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-05-character-collection-rpg-trial-026.html"><span>前の記事</span>SagaForge Trial 026: 3周AUTOリハーサルとクエスト別成長で「周回場所を選ぶ」感覚を入れる</a><span></span></nav><article><h1>SagaForge Trial 027：5人連携予約で「単発ボタン戦闘」から一歩進める</h1>
+<p>前回までの星紋遠征隊は、ホーム、スタイル、5人編成、クエスト、周回、交換所、召喚の導線をかなり増やしました。それでも、ユーザー評価の「全然ロマサガRSとは程遠い」に照らすと、まだ大きな差分が残っていました。</p>
+<h2>前回の何がロマサガRSから遠かったか</h2>
 <ul>
-<li><code>lint</code>や<code>test</code>は実行している</li>
-<li>でも<code>playwright-report</code>がartifact保存されていない</li>
-<li><code>test-results</code>が残らない</li>
-<li>terminal evidenceがCI artifactに含まれない</li>
-<li><code>mock:doctor</code>や<code>doctor:aidd</code>が抜ける</li>
-<li>成功/失敗の結果が次回の依頼文に戻らない</li>
+<li>5人編成は見えるが、戦闘中は単発ボタンを押す感覚が強く、隊列全体で行動を組む体験が弱かった。</li>
+<li>BP、弱点、補助、回復、OD風ゲージは存在していたが、1ターン内の判断としてまとまっていなかった。</li>
+<li>編成画面で5人を並べても、戦闘テンポに「5人で攻めている」実感がまだ薄かった。</li>
 </ul>
-<p>画面上は「CIあり」に見えても、あとから検証できないならAIDD-Spec的には弱い証跡です。</p>
-<h2>今回の仮説</h2>
-<p>今回の仮説は次です。</p>
-<blockquote>CI workflowを実行結果だけでなく、実行前の定義ファイルとして静的監査し、必須gateとartifact保存pathをUI・doctor・E2Eで確認すれば、AIDD Control Planeは「CIがある」から「再レビューできる証跡が残る」へ進む。</blockquote>
-<p>AIDD Control Planeの価値は、AIにコードを書かせることそのものではありません。AIに渡す前のチェックリストと、AIが作った後の証跡を、同じ流れで確認できることです。</p>
-<h2>実験内容</h2>
-<p><code>experiments/aidd-control-plane-mvp-016/generated-repo</code>に、MVP 015を引き継いで次を追加しました。</p>
+<h2>今回どの差分を潰したか</h2>
+<p>Trial 027では、プレイアブル版の戦闘に <strong>5人連携予約 / 1ターン一括解決</strong> を追加しました。</p>
 <ul>
-<li><code>.github/workflows/aidd-control-plane.yml</code></li>
-<li>UIの「CI Workflow Artifact Auditor」セクション</li>
-<li>valid / failure / emptyのworkflow監査サンプル</li>
-<li>workflow監査ロジック</li>
-<li>Review Finding / AI Task Packet Delta / AIDD-Spec更新候補への変換</li>
-<li><code>doctor:aidd</code>によるworkflow tokenとartifact path検査</li>
-<li><code>capture:mvp016</code></li>
-<li>日本語Unit/E2Eテスト</li>
+<li>各隊員カードを押すと、通常攻撃、瞬閃、双竜破、癒光陣、星紋号令、継承技へ行動が切り替わる。</li>
+<li>予約BPと現在BPを比較できる。</li>
+<li>敵の弱点に合う行動には「弱点候補」を表示する。</li>
+<li>予約内容から連携率を計算し、まとめて1ターンを解決する。</li>
+<li>連携率が高い場合は追加ダメージと「予約連携」ログが出る。</li>
+<li>自動予約ボタンで、敵弱点、隊列HP、補助状態をもとに5人分の行動を埋める。</li>
 </ul>
-<p>workflowには次のgateを含めています。</p>
-<pre><code>pnpm install --frozen-lockfile
-pnpm run lint
-pnpm run typecheck
-pnpm run test
-pnpm run build
-pnpm run doctor:aidd
-pnpm run mock:doctor
-pnpm run test:e2e</code></pre>
-<p>artifact保存対象は次です。</p>
-<pre><code>coverage
-playwright-report
-test-results
-experiments/aidd-control-plane-mvp-016/artifacts/terminal</code></pre>
-<h2>画面キャプチャ</h2>
-<h3>empty / initial：workflow未設定の不足を最初に見せる</h3>
-<p><img src="assets/aidd-control-plane-mvp016-empty.png" alt="MVP016 empty state" loading="lazy"></p>
-<p>emptyでは、workflowやartifact pathが未設定の状態を表示します。重要なのは、空欄をただの空欄で終わらせず、「何を足すべきか」をReview FindingとAI Task Packet Deltaへ戻すことです。</p>
-<h3>filled / valid：gateとartifact保存が揃った状態</h3>
-<p><img src="assets/aidd-control-plane-mvp016-valid.png" alt="MVP016 valid state" loading="lazy"></p>
-<p>validでは、<code>lint</code>、<code>typecheck</code>、<code>test</code>、<code>build</code>、<code>doctor:aidd</code>、<code>mock:doctor</code>、3ブラウザE2Eがworkflowに含まれ、coverage、Playwright report、test-results、terminal evidenceがartifact保存される状態を確認できます。</p>
-<h3>failure：artifact保存漏れを修理指示へ変換する</h3>
-<p><img src="assets/aidd-control-plane-mvp016-failure.png" alt="MVP016 failure state" loading="lazy"></p>
-<p>failureでは、<code>doctor:aidd</code>や<code>mock:doctor</code>のgate不足、<code>playwright-report</code>や<code>test-results</code>のartifact保存漏れを検出します。単に赤く表示するだけでなく、必要な上流情報、標準更新候補、次回Codex prompt deltaまで表示します。</p>
-<h3>terminal evidence：検証ログを画像として残す</h3>
-<p><img src="assets/aidd-control-plane-mvp016-terminal-evidence.png" alt="MVP016 terminal evidence" loading="lazy"></p>
-<p>記事用にterminal evidence画像も作成しました。公開証跡では、Markdown本文だけでなく画像内にもローカルパスやホスト名が残らないように確認する必要があります。</p>
-<h2>失敗 / 修正</h2>
-<p>今回の実装では、Codexが一通り実装した後、3ブラウザE2Eで失敗しました。</p>
-<p>原因は、画面上に同じ文言が複数出ていたことです。</p>
-<pre><code>strict mode violation:
-getByText(&#x27;AIDD-Spec更新候補&#x27;) resolved to 2 elements</code></pre>
-<p>これはUIの失敗というより、テストの指定が曖昧だった問題です。Playwrightのstrict modeは、曖昧なlocatorを見つけると止めてくれます。AIDD-Spec的には良い失敗です。人間が読む文言と、テストが狙う要素を分ける必要があるからです。</p>
-<p>修正では、見出しは<code>getByRole(&quot;heading&quot;, { name: &quot;AIDD-Spec更新候補&quot; })</code>で確認し、リスト内に複数出る文言は<code>.first()</code>で意図を明確にしました。</p>
-<p>もう1つの運用上のメモとして、CodexがE2E修正ループに入りそうだったため、十分な差分が出た時点で停止し、独立検証へ切り替えました。AIの自己申告ではなく、こちらで個別コマンドを実行して確認しています。</p>
-<p>push後の初回GitHub Actionsでは、<code>actions/setup-node</code>の<code>cache: pnpm</code>がpnpm有効化前に走り、<code>Unable to locate executable file: pnpm</code>で失敗しました。これはアプリ品質ではなくCI定義の順序問題です。MVP 016の狙い通り、workflow自体も検査対象として扱い、<code>cache: pnpm</code>を外して<code>corepack enable</code>後に通常の<code>pnpm install --frozen-lockfile</code>を実行する形へ修正しました。さらに、成功時に<code>test-results</code>や<code>coverage</code>が空でartifact upload warningになる問題も見つかったため、次回の本格coverage導入までの暫定証跡READMEを生成し、artifact保存自体は常に残るようにしました。</p>
+<p>これにより、単に「ボタンを押すとHPが減る」ではなく、5人編成、BP管理、弱点、回復、補助、OD風ゲージが同じ判断面に乗るようになりました。</p>
+<p><img src="assets/2026-07-05-character-collection-rpg-trial-027-battle.png" alt="Trial 027 playable battle screenshot" loading="lazy"></p>
+<h2>プレイアブルURL</h2>
+<ul>
+<li>公開URL: https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html</li>
+</ul>
+<p>アプリ本体では、実在IP名、公式素材、ロゴ、キャラ、公式文言、公式確率は使っていません。記事上では、ユーザーが期待する体験差分を説明する文脈としてだけ参照しています。</p>
 <h2>検証ログ</h2>
-<p>最終確認は次の通りです。</p>
-<pre><code>pnpm install --frozen-lockfile: pass
-pnpm run lint: pass
-pnpm run typecheck: pass
-pnpm run test: pass
-pnpm run build: pass
-pnpm run doctor:aidd: pass
-pnpm run mock:doctor: pass
-pnpm run test:e2e: pass</code></pre>
-<p>3ブラウザE2Eは33件通過しました。</p>
-<pre><code>33 passed (1.1m)</code></pre>
-<h2>読者が使えるチェックリスト</h2>
+<pre><code>python3 scripts/build_preview.py
+node /tmp/check-sagaforge-trial027.mjs
+curl -I https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html
+curl -I https://ttomac-mini.tail352b67.ts.net/sagaforge-app/assets/party-key-art.png</code></pre>
+<p><img src="assets/2026-07-05-character-collection-rpg-trial-027-terminal.png" alt="Trial 027 terminal evidence" loading="lazy"></p>
+<h2>まだ遠い点</h2>
+<ul>
+<li>連携予約は入ったが、技ごとの固有演出、キャラ別カットイン、行動順の割り込み、状態異常の持続可視化はまだ簡易的。</li>
+<li>スタイル育成は数値変化中心で、技Rank、限界突破、継承、ピース変換が長期育成の手触りとしては浅い。</li>
+<li>クエスト周回と育成効率の比較は増えたが、イベント報酬、ミッション、交換所、召喚の循環はまだ情報量が足りない。</li>
+</ul>
+<h2>次に潰す差分</h2>
+<p>次回は、戦闘テンポをさらに近づけるために、以下を優先します。</p>
+<ol>
+<li>技ごとの小さな演出差、連携時の段階演出、勝利時の能力値アップ表示を強化する。</li>
+<li>スタイル別の得意技、継承候補、覚醒後BP変化をもっと明確にする。</li>
+<li>クエスト周回後に「どのスタイルを育てるか」へ自然に戻るリザルト導線を濃くする。</li>
+</ol>
+<h2>AIDD-Specへのメモ</h2>
+<p>今回の修正は、「見た目のRPG画面」ではなく「ユーザーが期待する操作単位」を検証対象にする必要がある、という学びです。AIDD Control Plane側では、次のような観点をAI Task Packetに入れるべきです。</p>
 <table>
-<tr><th>チェック項目</th><th>何を確認したいのか</th><th>なぜ必要か</th></tr>
-<tr><td>workflowファイルがある</td><td>CIが口約束ではなく定義されているか</td><td>AIの完了報告だけに依存しないため</td></tr>
-<tr><td>installが固定されている</td><td><code>pnpm install --frozen-lockfile</code>で再現できるか</td><td>依存関係のずれを防ぐため</td></tr>
-<tr><td>lint/typecheck/test/buildがある</td><td>基本品質gateがCIで走るか</td><td>ローカルだけ成功を避けるため</td></tr>
-<tr><td>doctor:aiddがある</td><td>AIDD-Spec固有の抜けを検査するか</td><td>通常テストで見えない証跡不足を拾うため</td></tr>
-<tr><td>mock:doctorがある</td><td>mock service contractをCIでも確認するか</td><td>UIとmockの接続が形だけになるのを防ぐため</td></tr>
-<tr><td>3ブラウザE2Eがある</td><td>Chromiumだけの成功ではないか</td><td>Firefox / WebKit差分を早く見つけるため</td></tr>
-<tr><td>coverageを保存する</td><td>テスト量の証跡が残るか</td><td>後からレビューしやすくするため</td></tr>
-<tr><td>playwright-reportを保存する</td><td>E2E失敗時に画面・traceを追えるか</td><td>失敗原因を再現しやすくするため</td></tr>
-<tr><td>test-resultsを保存する</td><td>rawなE2E結果が残るか</td><td>HTML reportだけに依存しないため</td></tr>
-<tr><td>terminal evidenceを保存する</td><td>実行ログがartifactとして残るか</td><td>記事・レビュー・次回改善に使えるため</td></tr>
+<tr><th>観点</th><th>今回の具体化</th></tr>
+<tr><td>期待体験の粒度</td><td>戦闘は単発ボタンではなく、5人分の行動予約と1ターン解決を要求する</td></tr>
+<tr><td>状態の結合</td><td>編成、BP、弱点、回復、補助、ODを同じ画面上の判断にする</td></tr>
+<tr><td>検証方法</td><td>プレイアブルURLで予約カード、自動予約、予約ターン実行が見えることを確認する</td></tr>
 </table>
-<h2>AIDD-Spec / AIDD Control Plane SaaSへの接続</h2>
-<p>MVP 016は、AIDD-Spec v0.1の次のartifactに接続します。</p>
-<ul>
-<li>Verification Evidence</li>
-<li>Test Plan</li>
-<li>Review Record</li>
-<li>Learning Log</li>
-<li>External Integration Contract</li>
-<li>AI Task Packet</li>
-</ul>
-<p>AIDD Control Plane SaaSとして見ると、これは「GitHub連携」の前段です。いきなりAPI tokenを扱う前に、workflow定義が必要な証跡を残す形になっているかを先に確認する。これにより、実GitHub Actions APIと接続した後も、ただの成功バッジ表示で終わりにくくなります。</p>
-<p>note記事としても、ここに一次情報があります。「AIでCIを作りました」という一般論ではなく、実際にE2Eがstrict modeで落ち、locatorを直し、3ブラウザで通したログと画像がある。AI量産記事よりも、こうした実験した本人しか書けない証跡の方が長く価値を持つはずです。</p>
-<h2>次回</h2>
-<p>次回の自然な改善対象は、CI workflow定義から一歩進んだ「GitHub Actions artifact URLの取り込み」です。</p>
-<ul>
-<li>mockではなく実CI artifact URLをEvidence Binderへ貼る</li>
-<li>CI run URL、artifact URL、Playwright report URLの整合性を検査する</li>
-<li>workflow成功でもartifact欠落ならReview Findingへ戻す</li>
-<li>公開記事とpreviewでCI証跡画像をより見やすくする</li>
-</ul>
-<p>AIDD Control Planeは、AIにコードを書かせるSaaSではなく、誰でもベストに近いAI駆動開発フローと設計ドキュメントを作るための入口に近づいています。MVP 016では、その入口に「CI workflowの証跡保存チェック」を追加しました。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-02-aidd-control-plane-mvp-015.html"><span>前の記事</span>AIDD Control Plane MVP 015：Mock CI ServiceをfixtureとDocker Compose経路へ進める</a><a class="next" href="2026-07-02-aidd-control-plane-mvp-017.html"><span>次の記事</span>AIDD Control Plane MVP 017：失敗ログを「標準更新候補」に戻すQueueを作った</a></nav></main></div></body></html>
+<p>この差分はまだ第一段階ですが、「前よりはキャラ収集スマホRPGの構造に近い」と触って分かる方向へ進めました。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-05-character-collection-rpg-trial-026.html"><span>前の記事</span>SagaForge Trial 026: 3周AUTOリハーサルとクエスト別成長で「周回場所を選ぶ」感覚を入れる</a><span></span></nav></main></div></body></html>

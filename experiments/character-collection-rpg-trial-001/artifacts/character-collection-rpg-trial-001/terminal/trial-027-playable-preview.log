@@ -1,0 +1,50 @@
+$ python3 scripts/build_preview.py
+Wrote 84 articles to WORKSPACE/preview
+
+$ node tmp-check-sagaforge-trial027.mjs
+OK trial027 playable: 5人連携予約UIと予約ターン実行を確認し、screenshotを保存
+
+$ curl -I https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html
+HTTP/2 200 
+content-type: text/html
+date: Sat, 04 Jul 2026 19:20:32 GMT
+last-modified: Sat, 04 Jul 2026 19:17:57 GMT
+server: SimpleHTTP/0.6 Python/3.9.6
+content-length: 58652
+
+
+$ curl -I https://ttomac-mini.tail352b67.ts.net/sagaforge-app/assets/party-key-art.png
+HTTP/2 200 
+content-type: image/png
+date: Sat, 04 Jul 2026 19:20:32 GMT
+last-modified: Fri, 03 Jul 2026 17:18:53 GMT
+server: SimpleHTTP/0.6 Python/3.9.6
+content-length: 2868814
+
+
+$ curl -I https://ttomac-mini.tail352b67.ts.net/sagaforge-app/assets/battle-ruins.png
+HTTP/2 200 
+content-type: image/png
+date: Sat, 04 Jul 2026 19:20:32 GMT
+last-modified: Fri, 03 Jul 2026 17:18:53 GMT
+server: SimpleHTTP/0.6 Python/3.9.6
+content-length: 2481271
+
+$ test -s preview/sagaforge-app/index.html && test -s preview/assets/2026-07-05-character-collection-rpg-trial-027-battle.png && test -s preview/assets/2026-07-05-character-collection-rpg-trial-027-terminal.png
+OK
+$ curl -I https://ttomac-mini.tail352b67.ts.net/2026-07-05-character-collection-rpg-trial-027.html
+HTTP/2 200 
+content-type: text/html
+date: Sat, 04 Jul 2026 19:21:08 GMT
+last-modified: Sat, 04 Jul 2026 19:20:58 GMT
+server: SimpleHTTP/0.6 Python/3.9.6
+content-length: 44220
+
+$ curl -I https://ttomac-mini.tail352b67.ts.net/assets/2026-07-05-character-collection-rpg-trial-027-battle.png
+HTTP/2 200 
+content-type: image/png
+date: Sat, 04 Jul 2026 19:21:08 GMT
+last-modified: Sat, 04 Jul 2026 19:20:31 GMT
+server: SimpleHTTP/0.6 Python/3.9.6
+content-length: 469954
+
