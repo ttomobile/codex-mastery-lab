@@ -1,0 +1,13 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane MVP 042：検証結果をReview Recordへ自動で戻す</title><style>
+<a href="2026-07-05-aidd-control-plane-mvp-042.html">MVP42｜AIDD Control Plane MVP 042：検証結果をReview Recordへ自動で戻す</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link current" href="2026-07-05-aidd-control-plane-mvp-042.html"><span class="chapter-num">MVP 42</span>AIDD Control Plane MVP 042：検証結果をReview Recordへ自動で戻す</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-05-aidd-control-plane-mvp-041.html"><span>前の記事</span>AIDD Control Plane MVP 041：検証結果を「1行ずつ」束ねる</a><span></span></nav><article><h1>AIDD Control Plane MVP 042：検証結果をReview Recordへ自動で戻す</h1>
+  -&gt; Review Record Receipt Synthesizer
+<p>今回作ったのは <strong>Review Record Receipt Synthesizer</strong> です。</p>
+<li>UIに <code>Review Record Receipt Synthesizer</code> セクションを追加</li>
+<p><img src="assets/aidd-control-plane-mvp042-terminal-evidence.png" alt="MVP042 terminal evidence" loading="lazy"></p>
+checked MVP: AIDD Control Plane MVP 042 Review Record Receipt Synthesizer</code></pre>
+aidd-control-plane-mvp042-empty.png 222123
+aidd-control-plane-mvp042-valid.png 275228
+aidd-control-plane-mvp042-failure.png 186714
+aidd-control-plane-mvp042-terminal-evidence.png 66849
