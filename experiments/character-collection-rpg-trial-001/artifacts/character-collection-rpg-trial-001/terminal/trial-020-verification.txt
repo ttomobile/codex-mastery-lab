@@ -1,0 +1,30 @@
+## build preview
+Wrote 72 articles to WORKSPACE/preview
+
+## local playable files
+preview playable exists
+party asset exists
+battle asset exists
+preview/sagaforge-app/index.html True 31954
+preview/2026-07-04-character-collection-rpg-trial-020.html True 41250
+preview/assets/2026-07-04-character-collection-rpg-trial-020-party-formation.png True 247312
+preview/assets/2026-07-04-character-collection-rpg-trial-020-battle-growth.png True 240951
+
+## Playwright local verification
+星紋遠征隊 SagaForge Trial 020
+growth cards 1
+screenshots:
+- assets/2026-07-04-character-collection-rpg-trial-020-party-formation.png
+- assets/2026-07-04-character-collection-rpg-trial-020-quest-list.png
+- assets/2026-07-04-character-collection-rpg-trial-020-battle-growth.png
+- assets/2026-07-04-character-collection-rpg-trial-020-failure.png
+
+## public http checks
+https://PUBLIC_PREVIEW/sagaforge-app/index.html -> http=200
+https://PUBLIC_PREVIEW/sagaforge-app/assets/party-key-art.png -> http=200
+https://PUBLIC_PREVIEW/sagaforge-app/assets/battle-ruins.png -> http=200
+https://PUBLIC_PREVIEW/sagaforge-app/assets/crystal-guardian.png -> http=200
+https://PUBLIC_PREVIEW/sagaforge-app/assets/summon-altar.png -> http=200
+
+## public text leak scan
+no matches for private host, tailnet host, or local user path in Trial 020 article, preview article, playable, or this evidence log
