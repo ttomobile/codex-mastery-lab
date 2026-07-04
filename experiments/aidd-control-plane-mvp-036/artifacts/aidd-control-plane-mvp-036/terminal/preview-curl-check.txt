@@ -1,0 +1,14 @@
+<p>MVP 035では、Verification Run Detailとしてcommand別exit codeとartifact pathを見える化しました。今回はその次段として、失敗分類を次回AI Task Packet / Codex promptへ戻す <strong>Evidence Repair Delta Generator</strong> を追加しました。</p>
+<p>今回作ったのは <strong>Evidence Repair Delta Generator</strong> です。</p>
+  -&gt; Evidence Repair Delta Generator
+<li>UIに <code>Evidence Repair Delta Generator</code> セクションを追加</li>
+<p><img src="assets/aidd-control-plane-mvp036-empty.png" alt="MVP036 empty" loading="lazy"></p>
+<h3>terminal evidence</h3>
+<p><img src="assets/aidd-control-plane-mvp036-terminal-evidence.png" alt="MVP036 terminal evidence" loading="lazy"></p>
+checked MVP: AIDD Control Plane MVP 036 Evidence Repair Delta Generator</code></pre>
+<p>今回、<code>standards/aidd-control-plane-mvp-v0.1.md</code> に <code>Evidence Repair Delta Generator</code> を追加しました。</p>
+<li>Evidence Repair Delta Generator: 失敗分類を次回依頼の差分へ変換する</li>
+aidd-control-plane-mvp036-empty.png   219964
+aidd-control-plane-mvp036-valid.png   269802
+aidd-control-plane-mvp036-failure.png   175282
+aidd-control-plane-mvp036-terminal-evidence.png    60225

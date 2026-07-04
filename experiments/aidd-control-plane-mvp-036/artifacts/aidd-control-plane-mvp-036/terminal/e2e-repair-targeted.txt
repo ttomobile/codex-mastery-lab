@@ -1,0 +1,7 @@
+
+Running 3 tests using 1 worker
+
+  ✘  1 [chromium] › e2e/intake-wizard.spec.ts:872:1 › Evidence Repair Delta Generatorでfailed evidence_missing timeoutを次回依頼へ戻せる (2.1m)
+  ✘  2 [chromium] › e2e/intake-wizard.spec.ts:872:1 › Evidence Repair Delta Generatorでfailed evidence_missing timeoutを次回依頼へ戻せる (retry #1) (2.1m)
+  ✘  3 [firefox] › e2e/intake-wizard.spec.ts:872:1 › Evidence Repair Delta Generatorでfailed evidence_missing timeoutを次回依頼へ戻せる (2.0m)
+  ✘  4 [firefox] › e2e/intake-wizard.spec.ts:872:1 › Evidence Repair Delta Generatorでfailed evidence_missing timeoutを次回依頼へ戻せる (retry #1) (2.0m)

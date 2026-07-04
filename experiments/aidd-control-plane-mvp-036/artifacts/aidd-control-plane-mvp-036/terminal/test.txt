@@ -1,0 +1,124 @@
+$ vitest run
+
+ RUN  v3.2.6 WORKSPACE/experiments/aidd-control-plane-mvp-036/generated-repo
+
+ ❯ tests/intake.test.ts (67 tests | 1 failed) 69ms
+   ✓ Project Intake Wizardのドメインロジック > empty stateを判定できる 4ms
+   ✓ Project Intake Wizardのドメインロジック > テンプレート選択後に未適用failure stateを判定できる 1ms
+   ✓ Project Intake Wizardのドメインロジック > 必須項目が不足しているinsufficient stateを判定できる 1ms
+   ✓ Project Intake Wizardのドメインロジック > ready stateを判定できる 1ms
+   ✓ Project Intake Wizardのドメインロジック > Packet Apply Command Composerはempty valid failureを判定できる 1ms
+   ✓ Project Intake Wizardのドメインロジック > Run Authorization Gateはempty valid failureを日本語Review Findingで判定できる 5ms
+   ✓ Project Intake Wizardのドメインロジック > Codex Run Queueはempty valid failureを日本語Review Findingで判定できる 3ms
+   ✓ Project Intake Wizardのドメインロジック > Run Result Review Synthesizerはempty valid failureを標準Review Findingで判定できる 3ms
+   ✓ Project Intake Wizardのドメインロジック > Next Increment Plannerはレビュー結果を次の1インクリメント計画へ変換できる 4ms
+   ✓ Project Intake Wizardのドメインロジック > Verification Runの成功サンプルは全ゲートと3ブラウザE2Eと証跡が揃う 0ms
+   ✓ Project Intake Wizardのドメインロジック > Artifact Evidence Binderのemptyサンプルは不足証跡として判定できる 1ms
+   ✓ Project Intake Wizardのドメインロジック > Artifact Evidence BinderのvalidサンプルはCI URLとPlaywright report URLを束ねる 0ms
+   ✓ Project Intake Wizardのドメインロジック > Evidence Gap Repair Plannerのvalidサンプルは不足0件になる 0ms
+   ✓ Project Intake Wizardのドメインロジック > Evidence Gap Repair Plannerのfailureサンプルは複数不足と修理指示を決定的に返す 0ms
+   ✓ Project Intake Wizardのドメインロジック > Artifact Evidence Binderのfailureサンプルは壊れたURL、不足証跡、古いログを返す 0ms
+   ✓ Project Intake Wizardのドメインロジック > CI Artifact Importerのvalidサンプルはcommit SHA、job、artifactを検証できる 0ms
+   ✓ Project Intake Wizardのドメインロジック > CI Artifact Importerのfailureサンプルは短いcommit SHA、失敗job、不足artifactを返す 0ms
+   ✓ Project Intake Wizardのドメインロジック > GitHub Actions Artifact Fetch Planはrun URLからowner、repo、run idとAPI endpointを生成できる 0ms
+   ✓ Project Intake Wizardのドメインロジック > GitHub Actions Artifact Fetch Planのfailureサンプルはrun id、token scope、artifact不足を返す 0ms
+   ✓ Project Intake Wizardのドメインロジック > CI Workflow Artifact Auditorのemptyサンプルはworkflowとgateとartifact不足を返す 1ms
+   ✓ Project Intake Wizardのドメインロジック > Spec Update Proposal Queueのemptyサンプルは候補なしとして判定できる 0ms
+   ✓ Project Intake Wizardのドメインロジック > Spec Update Proposal QueueのvalidサンプルはReview FindingとLearning Logから標準更新候補を作る 1ms
+   ✓ Project Intake Wizardのドメインロジック > Spec Update Proposal Queueのfailureサンプルは対象文書とacceptance criteriaとverification commandとprompt delta不足を日本語で返す 0ms
+   ✓ Project Intake Wizardのドメインロジック > AI Task Packet Delta Apply Previewのemptyサンプルは採用前として判定できる 0ms
+   ✓ Project Intake Wizardのドメインロジック > AI Task Packet Delta Apply Previewのvalidサンプルは次回AI Task PacketとCodex prompt patchを生成できる 1ms
+   ✓ Project Intake Wizardのドメインロジック > AI Task Packet Delta Apply Previewのfailureサンプルは不足4項目を日本語で返す 0ms
+   ✓ Project Intake Wizardのドメインロジック > Delta Decision Reviewのemptyサンプルは判断待ちなしとして判定できる 0ms
+   ✓ Project Intake Wizardのドメインロジック > Delta Decision Reviewのvalidサンプルは採用済みdeltaだけを次回packet対象にする 1ms
+   ✓ Project Intake Wizardのドメインロジック > Delta Decision Reviewのfailureサンプルは判断者・理由・rollback・検証コマンド・再発防止不足を返す 0ms
+   ✓ Project Intake Wizardのドメインロジック > Packet File Apply Plannerのemptyサンプルは適用前計画なしとして判定できる 0ms
+   ✓ Project Intake Wizardのドメインロジック > Packet File Apply Plannerのvalidサンプルは採用済みdeltaだけを4対象ファイル計画へ含める 2ms
+   ✓ Project Intake Wizardのドメインロジック > Packet File Apply Plannerのfailureサンプルは不足項目と未採用delta混入をReview Findingへ変換する 0ms
+   ✓ Project Intake Wizardのドメインロジック > CI Workflow Artifact Auditorのvalidサンプルは必須gateとartifact保存を確認できる 0ms
+   ✓ Project Intake Wizardのドメインロジック > CI Workflow Artifact Auditorのfailureサンプルは不足artifactをReview FindingとAI Task Packet DeltaとAIDD-Spec更新候補に変換する 0ms
+   ✓ Project Intake Wizardのドメインロジック > Verification Runの失敗サンプルはreadyではない 0ms
+   ✓ Project Intake Wizardのドメインロジック > Verification Runの証跡不足サンプルはコマンド成功後もreadyではない 0ms
+   ✓ Project Intake Wizardのドメインロジック > App Type Templatesを4件以上持ち、各テンプレートにリスクと証跡要件がある 1ms
+   ✓ Project Intake Wizardのドメインロジック > Generated Product Briefにアプリ名、対象ユーザー、非ゴールが含まれる 1ms
+   ✓ Project Intake Wizardのドメインロジック > AI Task PacketとVerification Planにテンプレート名、リスク、証跡要件、Verification Runが含まれる 1ms
+   ✓ Project Intake Wizardのドメインロジック > Review RecordとLearning Logが失敗を次回AI Task Packet Deltaへ戻す 0ms
+   ✓ Project Intake Wizardのドメインロジック > 成功サンプルでも残リスクと次回改善案を出せる 0ms
+   ✓ Project Intake Wizardのドメインロジック > Generated Codex Promptに品質ゲートと状態契約が含まれる 1ms
+   ✓ Project Intake Wizardのドメインロジック > Adopted Delta Markdown Exporterのemptyサンプルは書き出し待ちとして判定できる 0ms
+   ✓ Project Intake Wizardのドメインロジック > Adopted Delta Markdown Exporterのvalidサンプルは採用済みdeltaだけをMarkdownへ入れる 1ms
+   ✓ Project Intake Wizardのドメインロジック > Adopted Delta Markdown Exporterのfailureサンプルは未採用delta混入と証跡不足を返す 0ms
+   ✓ Project Intake Wizardのドメインロジック > Packet Draft Workspaceのemptyサンプルはドラフト前として判定できる 0ms
+   ✓ Project Intake Wizardのドメインロジック > Packet Draft Workspaceのvalidサンプルは4種類の次回ファイルドラフトとコピー用Codex promptを生成できる 1ms
+   ✓ Project Intake Wizardのドメインロジック > Packet Draft Workspaceのfailureサンプルは本文不足・重複・未採用delta混入をReview Findingへ変換する 0ms
+   ✓ Project Intake Wizardのドメインロジック > Safe Patch Review Workspaceのemptyサンプルはpatch候補前として判定できる 0ms
+   ✓ Project Intake Wizardのドメインロジック > Safe Patch Review Workspaceのvalidサンプルは4種類のpatch候補とrollback commandを生成できる 1ms
+   ✓ Project Intake Wizardのドメインロジック > Safe Patch Review Workspaceのfailureサンプルは危険なpath・diff過大・ローカルパス混入をReview Findingへ変換する 0ms
+   ✓ Project Intake Wizardのドメインロジック > Diff Bundle Rollback Evidence Workspaceのemptyサンプルはbundle作成前として判定できる 0ms
+   ✓ Project Intake Wizardのドメインロジック > Diff Bundle Rollback Evidence Workspaceのvalidサンプルはdry-run成功とrollback evidenceとreviewer承認を生成できる 1ms
+   ✓ Project Intake Wizardのドメインロジック > Diff Bundle Rollback Evidence Workspaceのfailureサンプルは危険path・dry-run失敗・rollback不足・未承認をReview Findingへ変換する 2ms
+   ✓ Project Intake Wizardのドメインロジック > Diff Bundle Decision Ledgerのemptyサンプルは判断前として判定できる 0ms
+   ✓ Project Intake Wizardのドメインロジック > Diff Bundle Decision Ledgerのvalidサンプルは標準接続と採用済みverificationを持つ 1ms
+   ✓ Project Intake Wizardのドメインロジック > Diff Bundle Decision Ledgerのfailureサンプルは未判断、理由不足、証跡不足、rollback未確認、local path、採用済みverification不足を検出する 0ms
+   ✓ Project Intake Wizardのドメインロジック > Adopted Bundle Exporterのemptyサンプルはexport前として判定できる 0ms
+   ✓ Project Intake Wizardのドメインロジック > Adopted Bundle Exporterのvalidサンプルは採用済みbundleだけをAIDD-Specへ接続してexportする 3ms
+   ✓ Project Intake Wizardのドメインロジック > Adopted Bundle Exporterのfailureサンプルは却下・保留・未判断bundle混入、review evidence不足、rollback condition不足、verification command不足、local path/host混入、AIDD-Spec接続不足を検出する 0ms
+   ✓ Project Intake Wizardのドメインロジック > Exported Packet Preflight Reviewerのemptyサンプルは次工程へ渡すpacketなしとして判定できる 0ms
+   ✓ Project Intake Wizardのドメインロジック > Exported Packet Preflight ReviewerのvalidサンプルはFirefoxを含む3ブラウザとAIDD-Spec接続を維持する 1ms
+   ✓ Project Intake Wizardのドメインロジック > Exported Packet Preflight Reviewerのfailureサンプルは未採用bundle混入、Firefox除外、浅い検証、local path/host/tailnet、rollback不足、evidence不足、AIDD-Spec接続不足を検出する 0ms
+   ✓ Project Intake Wizardのドメインロジック > Verification Run Detailはempty valid failureでcommand別exit codeとartifact pathを監査する 2ms
+   × Project Intake Wizardのドメインロジック > Evidence Repair Delta Generatorはfailed evidence_missing timeoutを次回AI Task Packetへ戻す 12ms
+     → expected [ 'source detail不足', …(21) ] to deeply equal ArrayContaining{…}
+   ✓ Project Intake Wizardのドメインロジック > Dogfood App Idea Packet Generatorはアプリ案とテンプレートから検証可能なseedを作る 0ms
+   ✓ Project Intake Wizardのドメインロジック > Dogfood Packet Markdown Reviewはseedを3つのMarkdown反映前プレビューへ分ける 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/intake.test.ts > Project Intake Wizardのドメインロジック > Evidence Repair Delta Generatorはfailed evidence_missing timeoutを次回AI Task Packetへ戻す
+AssertionError: expected [ 'source detail不足', …(21) ] to deeply equal ArrayContaining{…}
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[33m@@ -1,6 +1,6 @@[39m
+[32m- ArrayContaining [[39m
+[31m+ [[39m
+[2m    "source detail不足",[22m
+[2m    "terminal evidence不足",[22m
+[2m    "failure screenshot不足",[22m
+[2m    "failed repair delta不足",[22m
+[2m    "evidence_missing repair delta不足",[22m
+[33m@@ -11,9 +11,14 @@[39m
+[2m    "repair-delta-broken: AI Task Packet delta不足",[22m
+[2m    "repair-delta-broken: rollback condition不足",[22m
+[2m    "repair-delta-broken: Learning Log note不足",[22m
+[2m    "repair-delta-broken: evidence path不足",[22m
+[2m    "repair-delta-broken: firefox不足",[22m
+[31m+   "repair-delta-broken: webkit不足",[39m
+[2m    "repair-delta-broken: Firefox除外",[22m
+[2m    "local path / host / tailnet混入",[22m
+[32m-   "AIDD-Spec接続不足",[39m
+[31m+   "AI Task Packet接続不足",[39m
+[31m+   "Verification Evidence接続不足",[39m
+[31m+   "Review Record接続不足",[39m
+[31m+   "Learning Log接続不足",[39m
+[31m+   "Rollback Plan接続不足",[39m
+[2m  ][22m
+
+ ❯ tests/intake.test.ts:1070:34
+    1068|     const failureReview = evaluateEvidenceRepairDeltaGenerator(createF…
+    1069|     expect(failureReview.status).toBe("failure");
+    1070|     expect(failureReview.issues).toEqual(expect.arrayContaining([
+       |                                  ^
+    1071|       "source detail不足",
+    1072|       "terminal evidence不足",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 66 passed (67)
+   Start at  17:09:00
+   Duration  586ms (transform 191ms, setup 0ms, collect 207ms, tests 69ms, environment 0ms, prepare 68ms)
+
+[ELIFECYCLE] Test failed. See above for more details.

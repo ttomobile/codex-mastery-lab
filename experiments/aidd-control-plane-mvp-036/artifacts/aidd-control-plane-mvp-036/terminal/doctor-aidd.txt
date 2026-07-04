@@ -1,0 +1,4 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd failed
+- missing MVP036 UI token: failure screenshot不足
+[ELIFECYCLE] Command failed with exit code 1.
