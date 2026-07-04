@@ -1,0 +1,15 @@
+# local preview curl check
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane MVP 039：AIに渡す直前の「1回分の手渡しパック」をレビューする</title><style>
+<a href="2026-07-05-aidd-control-plane-mvp-039.html">MVP39｜AIDD Control Plane MVP 039：AIに渡す直前の「1回分の手渡しパック」をレビューする</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link current" href="2026-07-05-aidd-control-plane-mvp-039.html"><span class="chapter-num">MVP 39</span>AIDD Control Plane MVP 039：AIに渡す直前の「1回分の手渡しパック」をレビューする</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-04-aidd-control-plane-mvp-038.html"><span>前の記事</span>AIDD Control Plane MVP 038：採用済み修正を「次の1回で実行する分」だけに絞る</a><span></span></nav><article><h1>AIDD Control Plane MVP 039：AIに渡す直前の「1回分の手渡しパック」をレビューする</h1>
+<p>今回作ったのは <strong>One-Run Handoff Pack Reviewer</strong> です。</p>
+  -&gt; One-Run Handoff Pack Reviewer
+<li>UIに <code>One-Run Handoff Pack Reviewer</code> セクションを追加</li>
+checked MVP: AIDD Control Plane MVP 039 One-Run Handoff Pack Reviewer</code></pre>
+<p>今回、<code>standards/aidd-control-plane-mvp-v0.1.md</code> に <code>One-Run Handoff Pack Reviewer</code> を追加しました。</p>
+<p>One-Run Handoff Pack Reviewerは、その束を確認する画面です。</p>
+aidd-control-plane-mvp039-empty.png 234337 bytes
+aidd-control-plane-mvp039-valid.png 312323 bytes
+aidd-control-plane-mvp039-failure.png 223327 bytes
+aidd-control-plane-mvp039-terminal-evidence.png 59439 bytes

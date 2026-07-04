@@ -1,0 +1,83 @@
+## pnpm-install.txt
+Already up to date
+Done in 173ms using pnpm v11.9.0
+
+## lint.txt
+$ eslint . --max-warnings=0
+
+## typecheck.txt
+$ tsc --noEmit
+
+## test.txt
+$ vitest run
+
+ RUN  v3.2.6 WORKSPACE/experiments/aidd-control-plane-mvp-039/generated-repo
+
+ ✓ tests/intake.test.ts (70 tests) 20ms
+
+ Test Files  1 passed (1)
+      Tests  70 passed (70)
+   Start at  01:01:36
+   Duration  281ms (transform 87ms, setup 0ms, collect 94ms, tests 20ms, environment 0ms, prepare 32ms)
+
+
+## build.txt
+   Generating static pages (0/4) ...
+   Generating static pages (1/4)
+   Generating static pages (2/4)
+   Generating static pages (3/4)
+ ✓ Generating static pages (4/4)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                  Size  First Load JS
+┌ ○ /                                     60.3 kB         162 kB
+└ ○ /_not-found                             994 B         103 kB
++ First Load JS shared by all              102 kB
+  ├ chunks/616-e0d475b5f2ccd266.js          46 kB
+  ├ chunks/d085631e-50eabbdcd8b40584.js   54.2 kB
+  └ other shared chunks (total)            1.9 kB
+
+Route (pages)                                Size  First Load JS
+─ ○ /404                                    226 B        98.7 kB
++ First Load JS shared by all             98.4 kB
+  ├ chunks/framework-5ff70145279bf59c.js  59.8 kB
+  ├ chunks/main-df03063a2eadac62.js       36.8 kB
+  └ other shared chunks (total)           1.86 kB
+
+○  (Static)  prerendered as static content
+
+
+## test-e2e.txt
+  ✓   89 [webkit] › e2e/intake-wizard.spec.ts:477:1 › Diff Bundle Decision Ledgerでempty valid failureを切り替え、標準接続と失敗検出を確認できる (812ms)
+  ✓   90 [webkit] › e2e/intake-wizard.spec.ts:507:1 › Adopted Bundle Exporterでempty valid failureを切り替え、採用済みbundleだけのexportと失敗検出を確認できる (868ms)
+  ✓   91 [webkit] › e2e/intake-wizard.spec.ts:542:1 › Exported Packet Preflight Reviewerでempty valid failureを切り替え、次工程前のpacket検査を確認できる (925ms)
+  ✓   92 [webkit] › e2e/intake-wizard.spec.ts:572:1 › Packet Draft Workspaceでempty valid failureを切り替え、次回ファイルドラフトを確認できる (887ms)
+  ✓   93 [webkit] › e2e/intake-wizard.spec.ts:604:1 › Adopted Delta Markdown Exporterで採用済みdeltaだけをMarkdownへ書き出せる (913ms)
+  ✓   94 [webkit] › e2e/intake-wizard.spec.ts:628:1 › fixture駆動Mock CI Serviceでvalid failure timeoutを切り替えられる (1.1s)
+  ✓   95 [webkit] › e2e/intake-wizard.spec.ts:643:1 › E2Eからmock CI serviceのcontrol endpointを叩いてUI反映を確認する (1.3s)
+  ✓   96 [webkit] › e2e/intake-wizard.spec.ts:660:1 › テンプレートを選択して未適用failure stateを表示できる (680ms)
+  ✓   97 [webkit] › e2e/intake-wizard.spec.ts:669:1 › テンプレートを適用すると初期値と生成結果にリスクと証跡要件が入る (754ms)
+  ✓   98 [webkit] › e2e/intake-wizard.spec.ts:686:1 › サンプルアプリを入力するとready stateになり生成結果が表示される (888ms)
+  ✓   99 [webkit] › e2e/intake-wizard.spec.ts:700:1 › 主要機能を削除するとinsufficient stateとmissing fieldsが表示される (881ms)
+  ✓  100 [webkit] › e2e/intake-wizard.spec.ts:710:1 › validサンプルを適用すると全ゲート成功と3ブラウザE2E成功と証跡が表示される (795ms)
+  ✓  101 [webkit] › e2e/intake-wizard.spec.ts:740:1 › failureサンプルを適用すると壊れたURLと古いログをReview Findingへ戻す (762ms)
+  ✓  102 [webkit] › e2e/intake-wizard.spec.ts:769:1 › 証跡不足サンプルを適用するとコマンド成功後もreadyではない (695ms)
+  ✓  103 [webkit] › e2e/intake-wizard.spec.ts:781:1 › RPG Trial 007のCI証跡をDogfood Evidence Binderとして表示する (633ms)
+  ✓  104 [webkit] › e2e/intake-wizard.spec.ts:793:1 › RPG dogfood証跡から次回AI Task Packet再利用計画を表示する (651ms)
+  ✓  105 [webkit] › e2e/intake-wizard.spec.ts:805:1 › 新規アプリ案からDogfood証跡入りAI Task Packet seedを生成する (726ms)
+  ✓  106 [webkit] › e2e/intake-wizard.spec.ts:822:1 › Dogfood Packet Markdown Reviewで3つの反映前Markdownを確認できる (747ms)
+  ✓  107 [webkit] › e2e/intake-wizard.spec.ts:853:1 › Verification Run Detailでempty valid failureを切り替え、command別証跡を確認できる (839ms)
+  ✓  108 [webkit] › e2e/intake-wizard.spec.ts:878:1 › Evidence Repair Delta Generatorでfailed evidence_missing timeoutを次回依頼へ戻せる (812ms)
+  ✓  109 [webkit] › e2e/intake-wizard.spec.ts:907:1 › Repair Delta Priority Decision Workspaceで採用・保留・却下を分け採用済みだけを次回へ進める (881ms)
+  ✓  110 [webkit] › e2e/intake-wizard.spec.ts:941:1 › Execution Priority Set Builderでexecute_nowだけをCodex prompt previewへ入れる (885ms)
+  ✓  111 [webkit] › e2e/intake-wizard.spec.ts:974:1 › One-Run Handoff Pack Reviewerでexecute_nowだけを次の1回の手渡しパックへ変換できる (932ms)
+
+  111 passed (2.7m)
+
+## doctor-aidd.txt
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+checked files: 25
+checked scripts: lint, typecheck, test, test:coverage, build, test:e2e, doctor:aidd, mock:start, mock:stop, mock:doctor, capture:mvp024, capture:mvp025, capture:mvp026, capture:mvp027, capture:mvp028, capture:mvp029, capture:mvp030, capture:mvp031, capture:mvp032, capture:mvp033, capture:mvp035, capture:mvp036, capture:mvp037, capture:mvp038, capture:mvp039
+checked MVP: AIDD Control Plane MVP 039 One-Run Handoff Pack Reviewer

@@ -1,0 +1,2 @@
+# leak scan after sanitize
+no concrete local path/host/private network leaks in public article/preview/mvp039 terminal logs

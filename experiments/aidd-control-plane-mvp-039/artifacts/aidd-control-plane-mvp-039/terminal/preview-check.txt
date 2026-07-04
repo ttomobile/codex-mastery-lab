@@ -1,0 +1,12 @@
+# preview article check
+242:<p>今回作ったのは <strong>One-Run Handoff Pack Reviewer</strong> です。</p>
+246:  -&gt; One-Run Handoff Pack Reviewer
+252:<li>UIに <code>One-Run Handoff Pack Reviewer</code> セクションを追加</li>
+288:checked MVP: AIDD Control Plane MVP 039 One-Run Handoff Pack Reviewer</code></pre>
+304:<p>今回、<code>standards/aidd-control-plane-mvp-v0.1.md</code> に <code>One-Run Handoff Pack Reviewer</code> を追加しました。</p>
+306:<p>One-Run Handoff Pack Reviewerは、その束を確認する画面です。</p>
+# preview asset check
+  234337 preview/assets/aidd-control-plane-mvp039-empty.png
+  312323 preview/assets/aidd-control-plane-mvp039-valid.png
+  223327 preview/assets/aidd-control-plane-mvp039-failure.png
+   59439 preview/assets/aidd-control-plane-mvp039-terminal-evidence.png
