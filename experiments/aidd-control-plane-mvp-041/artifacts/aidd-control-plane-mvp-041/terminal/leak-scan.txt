@@ -1,3 +1,3 @@
 Leak scan targets: article, preview article, MVP041 terminal artifacts
-Sensitive tokens: /Users/tto, ttomac-mini, .ts.net, tailnet, 127.0.0.1, private IPv4 ranges
+Sensitive token classes: HOME_PATH, HOSTNAME, PRIVATE_DOMAIN, PRIVATE_NETWORK_LABEL, LOOPBACK, private IPv4 ranges
 Result: search_files found no true sensitive leak in article or terminal artifacts; preview matches were numeric article names containing 010, not private IPs.

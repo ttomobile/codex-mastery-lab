@@ -25,7 +25,7 @@ Trial 027では、プレイアブル版の戦闘に **5人連携予約 / 1ター
 
 ## プレイアブルURL
 
-- 公開URL: https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html
+- 公開URL: https://<public-preview>/sagaforge-app/index.html
 
 アプリ本体では、実在IP名、公式素材、ロゴ、キャラ、公式文言、公式確率は使っていません。記事上では、ユーザーが期待する体験差分を説明する文脈としてだけ参照しています。
 
@@ -34,8 +34,8 @@ Trial 027では、プレイアブル版の戦闘に **5人連携予約 / 1ター
 ```text
 python3 scripts/build_preview.py
 node /tmp/check-sagaforge-trial027.mjs
-curl -I https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html
-curl -I https://ttomac-mini.tail352b67.ts.net/sagaforge-app/assets/party-key-art.png
+curl -I https://<public-preview>/sagaforge-app/index.html
+curl -I https://<public-preview>/sagaforge-app/assets/party-key-art.png
 ```
 
 ![Trial 027 terminal evidence](assets/2026-07-05-character-collection-rpg-trial-027-terminal.png)

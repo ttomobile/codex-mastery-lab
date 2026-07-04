@@ -24,7 +24,7 @@ Trial 028では、プレイアブル版の戦闘画面に **技演出ステッ�
 
 ## プレイアブルURL
 
-- 公開URL: https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html
+- 公開URL: https://<public-preview>/sagaforge-app/index.html
 
 アプリ本体には、実在IP名、公式素材、ロゴ、キャラ、公式文言、公式確率を入れていません。記事上では、ユーザー期待との差分説明の文脈としてのみ参照しています。
 
@@ -33,8 +33,8 @@ Trial 028では、プレイアブル版の戦闘画面に **技演出ステッ�
 ```text
 python3 scripts/build_preview.py
 node scripts/capture-sagaforge-playable-trial028.mjs
-curl -I https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html
-curl -I https://ttomac-mini.tail352b67.ts.net/sagaforge-app/assets/party-key-art.png
+curl -I https://<public-preview>/sagaforge-app/index.html
+curl -I https://<public-preview>/sagaforge-app/assets/party-key-art.png
 ```
 
 ![Trial 028 terminal evidence](assets/2026-07-05-character-collection-rpg-trial-028-terminal.png)
