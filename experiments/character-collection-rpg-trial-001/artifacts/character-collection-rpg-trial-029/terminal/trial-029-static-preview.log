@@ -1,0 +1,8 @@
+$ python3 -m py_compile scripts/build_preview.py
+$ node --check scripts/capture-sagaforge-playable-trial029.mjs
+$ python3 scripts/build_preview.py
+Wrote 87 articles to WORKSPACE/preview
+$ node scripts/capture-sagaforge-playable-trial029.mjs
+screenshots captured: 2026-07-05-character-collection-rpg-trial-029-home-advice.png, 2026-07-05-character-collection-rpg-trial-029-battle-cutin.png, 2026-07-05-character-collection-rpg-trial-029-training-advice.png
+evidence: {"title":"星紋遠征隊 SagaForge Trial 029","trial":"非侵害スマホRPG体験パターン / Trial 029","advice":["周回前","育成優先","素材導線"],"cutins":["1.紅槍リオ通常攻撃通常演出BP0 / OD+7","2.翠策ミナ星紋号令補助演出BP2 / OD+22","3.銀術セナ通常攻撃通常演出BP0 / OD+7","4.盾士ガル瞬閃通常演出BP3 / OD+15","5.弓姫ノア通常攻撃通常演出BP0 / OD+7"],"tabs":["ホーム","スタイル","育成","編成","周回","戦闘","交換","召喚","状態"]}
+verified: Trial 029 playable exposes home/training growth advice, next-loop material route, chain cut-in reservation cards, and auto-plan linkage

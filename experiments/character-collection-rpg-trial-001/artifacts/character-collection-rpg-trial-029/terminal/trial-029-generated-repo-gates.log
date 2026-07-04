@@ -1,0 +1,48 @@
+$ pnpm run lint
+
+> sagaforge-trial-001@0.1.0 lint WORKSPACE/experiments/character-collection-rpg-trial-001/generated-repo
+> eslint .
+
+$ pnpm run typecheck
+
+> sagaforge-trial-001@0.1.0 typecheck WORKSPACE/experiments/character-collection-rpg-trial-001/generated-repo
+> tsc --noEmit
+
+$ pnpm run test
+
+> sagaforge-trial-001@0.1.0 test WORKSPACE/experiments/character-collection-rpg-trial-001/generated-repo
+> vitest run
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.9 [39m[90mWORKSPACE/experiments/character-collection-rpg-trial-001/generated-repo[39m
+
+ [32m✓[39m src/domain/rpg.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m12 passed[39m[22m[90m (12)[39m
+[2m   Start at [22m 08:21:33
+[2m   Duration [22m 1.08s[2m (transform 48ms, setup 79ms, import 34ms, tests 10ms, environment 802ms)[22m
+
+$ pnpm run build
+
+> sagaforge-trial-001@0.1.0 build WORKSPACE/experiments/character-collection-rpg-trial-001/generated-repo
+> next build
+
+▲ Next.js 16.2.9 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 2.3s
+  Running TypeScript ...
+  Finished TypeScript in 3.4s ...
+  Collecting page data using 4 workers ...
+  Generating static pages using 4 workers (0/3) ...
+✓ Generating static pages using 4 workers (3/3) in 417ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+

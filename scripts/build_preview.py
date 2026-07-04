@@ -95,6 +95,7 @@ DOGFOOD_ORDER = [
     '2026-07-05-character-collection-rpg-trial-026.md',
     '2026-07-05-character-collection-rpg-trial-027.md',
     '2026-07-05-character-collection-rpg-trial-028.md',
+    '2026-07-05-character-collection-rpg-trial-029.md',
 ]
 
 PAST_ARTICLES_ORDER = [
@@ -378,6 +379,7 @@ def main():
         '2026-07-05-character-collection-rpg-trial-026-*.png',
         '2026-07-05-character-collection-rpg-trial-027-*.png',
         '2026-07-05-character-collection-rpg-trial-028-*.png',
+        '2026-07-05-character-collection-rpg-trial-029-*.png',
     ]
     for asset in [p for pattern in asset_patterns for p in ASSETS.glob(pattern)]:
         shutil.copy2(asset, OUT_ASSETS / asset.name)
