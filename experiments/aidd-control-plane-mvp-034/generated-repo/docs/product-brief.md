@@ -8,7 +8,7 @@ Run Result Review Synthesizerは、Codex Run Queueの完了runをReview Record�
 
 - 成功runからsourceRunId、outcome、score、Review Finding、Review Record link、Learning Logを生成する。
 - AI Task Packet delta、Codex prompt delta、Verification commandを次回依頼へ戻せる形にする。
-- terminal evidence不足、screenshot不足、Firefox除外、doctor:aidd未実行、rollback未確認、local path/host/tailnet混入、prompt delta不足を標準Review Findingへ変換する。
+- terminal evidence不足、screenshot不足、Firefox除外、doctor:aidd未実行、rollback未確認、ローカル環境名/非公開URL混入、prompt delta不足を標準Review Findingへ変換する。
 
 ## 非ゴール
 

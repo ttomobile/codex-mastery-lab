@@ -1392,7 +1392,7 @@ export default function Home() {
           <p className="eyebrow">Exported Packet Preflight Reviewer</p>
           <h2 id="exported-packet-preflight-title">Exported Packet Preflight Reviewer: {exportedPacketPreflightReview.status}</h2>
           <p>
-            MVP030では、export済みpacketを次工程へ渡す直前に、未採用bundle混入、Firefox除外、浅い検証、local path/host/tailnet、rollback不足、evidence不足、AIDD-Spec接続不足を検査します。
+            MVP030では、export済みpacketを次工程へ渡す直前に、未採用bundle混入、Firefox除外、浅い検証、ローカル環境名/非公開URL、rollback不足、evidence不足、AIDD-Spec接続不足を検査します。
           </p>
         </div>
         <div className={`verification-summary ${exportedPacketPreflightReview.status === "valid" ? "is-ready" : "is-not-ready"}`} aria-live="polite">
@@ -1422,7 +1422,7 @@ export default function Home() {
                   <div><dt>AIDD-Spec接続</dt><dd>{packet.aiddSpecConnections.length > 0 ? packet.aiddSpecConnections.join(" / ") : "未登録"}</dd></div>
                 </dl>
                 <pre aria-label={`${packet.packetId} preflight markdown`}>{packet.markdownBody || "未登録"}</pre>
-                {packet.containsLocalPath ? <p className="failure-state">local path/host/tailnet混入あり</p> : <p className="applied-state">local path/host/tailnet混入なし</p>}
+                {packet.containsLocalPath ? <p className="failure-state">ローカル環境名/非公開URL混入あり</p> : <p className="applied-state">ローカル環境名/非公開URL混入なし</p>}
               </article>
             ))}
           </div>

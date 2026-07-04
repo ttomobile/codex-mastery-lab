@@ -32,7 +32,7 @@ AI実行後のレビュー結果を見て「で、次は何をすればいいの
    - failure screenshot不足
    - rollback条件不足
    - Codex prompt draft不足
-   - local path / host / tailnet / private URL混入
+   - ローカル環境名 / 非公開URL混入
 
 ## データ/ロジック
 - `src/lib/intake.ts` に NextIncrementPlan / NextIncrementFinding / sample factory / evaluate関数を追加する。

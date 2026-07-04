@@ -102,7 +102,7 @@ checked MVP: AIDD Control Plane MVP 034 Next Increment Planner
 | 3ブラウザE2Eを残す | FirefoxやWebKitを除外していないか | 片方だけ動くUIを見逃さないため |
 | required evidenceを書く | terminal、empty/valid/failure画像、preview確認があるか | 記事化とレビューに使える一次情報にするため |
 | rollback conditionを書く | 失敗時に採用を止める条件があるか | 自動化しても危険な変更を止めるため |
-| local path/host/tailnetを除去する | 公開不可情報が混ざっていないか | 公開可能な記事と証跡にするため |
+| ローカル環境名や非公開URLを除去する | 公開不可情報が混ざっていないか | 公開可能な記事と証跡にするため |
 
 ## AIDD-Spec / SaaSへの接続
 
