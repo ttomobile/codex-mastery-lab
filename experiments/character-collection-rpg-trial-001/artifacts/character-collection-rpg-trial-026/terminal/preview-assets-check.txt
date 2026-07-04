@@ -1,0 +1,3 @@
+preview/assets/2026-07-05-character-collection-rpg-trial-026-home-density.png OK   238839 bytes
+preview/assets/2026-07-05-character-collection-rpg-trial-026-auto-loop.png OK   194427 bytes
+preview/assets/2026-07-05-character-collection-rpg-trial-026-training-after-loop.png OK   166009 bytes

@@ -1,0 +1,27 @@
+# https://<preview-host>/sagaforge-app/index.html
+HTTP/2 200 
+content-type: text/html
+date: Sat, 04 Jul 2026 17:20:24 GMT
+last-modified: Sat, 04 Jul 2026 17:17:31 GMT
+server: SimpleHTTP/0.6 Python/3.9.6
+content-length: 53720
+
+
+# https://<preview-host>/sagaforge-app/assets/party-key-art.png
+HTTP/2 200 
+content-type: image/png
+date: Sat, 04 Jul 2026 17:20:24 GMT
+last-modified: Fri, 03 Jul 2026 17:18:53 GMT
+server: SimpleHTTP/0.6 Python/3.9.6
+content-length: 2868814
+
+
+# https://<preview-host>/assets/2026-07-05-character-collection-rpg-trial-026-home-density.png
+HTTP/2 200 
+content-type: image/png
+date: Sat, 04 Jul 2026 17:20:24 GMT
+last-modified: Sat, 04 Jul 2026 17:19:07 GMT
+server: SimpleHTTP/0.6 Python/3.9.6
+content-length: 238839
+
+
