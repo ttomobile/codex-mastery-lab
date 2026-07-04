@@ -1,0 +1,4 @@
+<preview-host>/sagaforge-app/index.html http=200
+<preview-host>/sagaforge-app/assets/party-key-art.png http=200
+<preview-host>/sagaforge-app/assets/battle-ruins.png http=200
+<preview-host>/assets/2026-07-05-character-collection-rpg-trial-025-home-loop.png http=200

@@ -1,0 +1,5 @@
+preview/2026-07-05-character-collection-rpg-trial-025.html exists=True bytes=46753
+preview/sagaforge-app/index.html exists=True bytes=50406
+preview/assets/2026-07-05-character-collection-rpg-trial-025-home-loop.png exists=True bytes=227825
+preview/assets/2026-07-05-character-collection-rpg-trial-025-battle-status.png exists=True bytes=326817
+preview/assets/2026-07-05-character-collection-rpg-trial-025-gacha-exchange.png exists=True bytes=386564
