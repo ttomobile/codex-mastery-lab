@@ -254,7 +254,7 @@ th { background:#f1f5f9; }
 <li>UIに <code>One-Run Handoff Pack Reviewer</code> セクションを追加</li>
 <li><code>handoff empty</code> / <code>handoff valid</code> / <code>handoff failure</code> を追加</li>
 <li>valid状態で、source execution set、execute_now delta id、AI Task Packet patch、Codex prompt、検証コマンド、3ブラウザ、必要証跡、rollback、note記事観点を表示</li>
-<li>failure状態で、source不足、patch不足、prompt不足、検証不足、Firefox除外、証跡不足、rollback不足、AIDD-Spec接続不足、local path / host / tailnet / private URL混入を検出</li>
+<li>failure状態で、source不足、patch不足、prompt不足、検証不足、Firefox除外、証跡不足、rollback不足、AIDD-Spec接続不足、ローカルパス / 端末名 / 非公開ネットワーク名 / private URL混入を検出</li>
 </ol>
 <h2>画面キャプチャ</h2>
 <h3>empty：まだ手渡しパックがない</h3>
@@ -300,7 +300,7 @@ checked MVP: AIDD Control Plane MVP 039 One-Run Handoff Pack Reviewer</code></pr
 <tr><td>terminal証跡がある</td><td>実行ログを残すか</td><td>AIの「完了しました」を証拠にしないため</td></tr>
 <tr><td>empty/valid/failure画像がある</td><td>主要状態を目で確認できるか</td><td>記事とレビューで再現性を持たせるため</td></tr>
 <tr><td>rollback条件がある</td><td>失敗時に止める条件があるか</td><td>悪い変更を広げないため</td></tr>
-<tr><td>local path/host/tailnet混入を検査する</td><td>公開できない環境情報がないか</td><td>note記事やpreviewへ内部情報を漏らさないため</td></tr>
+<tr><td>ローカルパス/端末名/非公開ネットワーク名の混入を検査する</td><td>公開できない環境情報がないか</td><td>note記事やpreviewへ内部情報を漏らさないため</td></tr>
 </table>
 <h2>AIDD-Spec / SaaSへの接続</h2>
 <p>今回、<code>standards/aidd-control-plane-mvp-v0.1.md</code> に <code>One-Run Handoff Pack Reviewer</code> を追加しました。</p>

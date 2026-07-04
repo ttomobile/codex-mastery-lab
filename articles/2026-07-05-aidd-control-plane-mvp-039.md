@@ -46,7 +46,7 @@ Evidence Repair Delta Generator
 2. UIに `One-Run Handoff Pack Reviewer` セクションを追加
 3. `handoff empty` / `handoff valid` / `handoff failure` を追加
 4. valid状態で、source execution set、execute_now delta id、AI Task Packet patch、Codex prompt、検証コマンド、3ブラウザ、必要証跡、rollback、note記事観点を表示
-5. failure状態で、source不足、patch不足、prompt不足、検証不足、Firefox除外、証跡不足、rollback不足、AIDD-Spec接続不足、local path / host / tailnet / private URL混入を検出
+5. failure状態で、source不足、patch不足、prompt不足、検証不足、Firefox除外、証跡不足、rollback不足、AIDD-Spec接続不足、ローカルパス / 端末名 / 非公開ネットワーク名 / private URL混入を検出
 
 ## 画面キャプチャ
 
@@ -116,7 +116,7 @@ checked MVP: AIDD Control Plane MVP 039 One-Run Handoff Pack Reviewer
 | terminal証跡がある | 実行ログを残すか | AIの「完了しました」を証拠にしないため |
 | empty/valid/failure画像がある | 主要状態を目で確認できるか | 記事とレビューで再現性を持たせるため |
 | rollback条件がある | 失敗時に止める条件があるか | 悪い変更を広げないため |
-| local path/host/tailnet混入を検査する | 公開できない環境情報がないか | note記事やpreviewへ内部情報を漏らさないため |
+| ローカルパス/端末名/非公開ネットワーク名の混入を検査する | 公開できない環境情報がないか | note記事やpreviewへ内部情報を漏らさないため |
 
 ## AIDD-Spec / SaaSへの接続
 
