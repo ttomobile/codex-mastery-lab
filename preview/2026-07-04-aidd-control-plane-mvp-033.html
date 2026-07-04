@@ -107,7 +107,8 @@ th { background:#f1f5f9; }
 <a href="2026-07-04-aidd-control-plane-mvp-036.html">MVP36｜AIDD Control Plane MVP 036：失敗ログを「次回AI依頼の差分」に変える</a>
 <a href="2026-07-04-aidd-control-plane-mvp-037.html">MVP37｜AIDD Control Plane MVP 037：修正候補を「全部やる」から「次に採用する1つ」へ絞る</a>
 <a href="2026-07-04-aidd-control-plane-mvp-038.html">MVP38｜AIDD Control Plane MVP 038：採用済み修正を「次の1回で実行する分」だけに絞る</a>
-<a href="2026-07-05-aidd-control-plane-mvp-039.html">MVP39｜AIDD Control Plane MVP 039：AIに渡す直前の「1回分の手渡しパック」をレビューする</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a href="2026-07-05-aidd-control-plane-mvp-039.html">MVP39｜AIDD Control Plane MVP 039：AIに渡す直前の「1回分の手渡しパック」をレビューする</a>
+<a href="2026-07-05-aidd-control-plane-mvp-040.html">MVP40｜AIDD Control Plane MVP 040：AIに投げた「その瞬間」のレシートを残す</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
 <a href="2026-07-02-character-collection-rpg-trial-002.html">Dogfood02｜AIDD Control Plane Dogfood 002：画像素材と戦闘シーンを入れて、キャラ収集RPGを“遊べそう”に近づける</a>
 <a href="2026-07-03-character-collection-rpg-trial-003.html">Dogfood03｜AIDD Control Plane Dogfood 003：キャラ収集RPGに「操作すると変わる」を入れる</a>
 <a href="2026-07-03-character-collection-rpg-trial-004.html">Dogfood04｜AIDD Control Plane Dogfood 004：キャラ収集RPGの操作をmock backendへ保存する</a>
@@ -185,7 +186,8 @@ th { background:#f1f5f9; }
 <a class="chapter-link " href="2026-07-04-aidd-control-plane-mvp-036.html"><span class="chapter-num">MVP 36</span>AIDD Control Plane MVP 036：失敗ログを「次回AI依頼の差分」に変える</a>
 <a class="chapter-link " href="2026-07-04-aidd-control-plane-mvp-037.html"><span class="chapter-num">MVP 37</span>AIDD Control Plane MVP 037：修正候補を「全部やる」から「次に採用する1つ」へ絞る</a>
 <a class="chapter-link " href="2026-07-04-aidd-control-plane-mvp-038.html"><span class="chapter-num">MVP 38</span>AIDD Control Plane MVP 038：採用済み修正を「次の1回で実行する分」だけに絞る</a>
-<a class="chapter-link " href="2026-07-05-aidd-control-plane-mvp-039.html"><span class="chapter-num">MVP 39</span>AIDD Control Plane MVP 039：AIに渡す直前の「1回分の手渡しパック」をレビューする</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link " href="2026-07-05-aidd-control-plane-mvp-039.html"><span class="chapter-num">MVP 39</span>AIDD Control Plane MVP 039：AIに渡す直前の「1回分の手渡しパック」をレビューする</a>
+<a class="chapter-link " href="2026-07-05-aidd-control-plane-mvp-040.html"><span class="chapter-num">MVP 40</span>AIDD Control Plane MVP 040：AIに投げた「その瞬間」のレシートを残す</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
 <a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-002.html"><span class="chapter-num">Dogfood 02</span>AIDD Control Plane Dogfood 002：画像素材と戦闘シーンを入れて、キャラ収集RPGを“遊べそう”に近づける</a>
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-003.html"><span class="chapter-num">Dogfood 03</span>AIDD Control Plane Dogfood 003：キャラ収集RPGに「操作すると変わる」を入れる</a>
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-004.html"><span class="chapter-num">Dogfood 04</span>AIDD Control Plane Dogfood 004：キャラ収集RPGの操作をmock backendへ保存する</a>
@@ -297,7 +299,7 @@ checked MVP: AIDD Control Plane MVP 033 Run Result Review Synthesizer</code></pr
 <tr><td>3ブラウザE2Eを保つ</td><td>Chromium / Firefox / WebKitを除外していないか</td><td>片方だけ動くUIを見逃さないため</td></tr>
 <tr><td>doctor:aiddを通す</td><td>AIDD固有の必須tokenやcapture scriptがあるか</td><td>一般テストだけでは見えない運用条件を守るため</td></tr>
 <tr><td>rollback確認がある</td><td>失敗時に戻す条件が残っているか</td><td>実験を安全に続けるため</td></tr>
-<tr><td>local path/host/tailnetを除去する</td><td>公開記事や証跡にローカル環境名が混ざっていないか</td><td>公開可能な一次情報にするため</td></tr>
+<tr><td>local path/host/private networkを除去する</td><td>公開記事や証跡にローカル環境名が混ざっていないか</td><td>公開可能な一次情報にするため</td></tr>
 <tr><td>prompt deltaがある</td><td>次回AIへ何を直させるか書けているか</td><td>同じ失敗を繰り返さないため</td></tr>
 </table>
 <h2>AIDD-Spec / SaaSへの接続</h2>

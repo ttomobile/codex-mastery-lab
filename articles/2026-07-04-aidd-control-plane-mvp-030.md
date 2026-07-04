@@ -27,7 +27,7 @@ MVP 030では、次の確認項目を追加しました。
 - evidence paths
 - rollback plan
 - AIDD-Spec connections
-- local path / host / tailnet混入検出
+- local path / host / private network混入検出
 
 ## 実験内容
 
@@ -59,7 +59,7 @@ valid状態では、採用済みbundle由来のpacketだけが並びます。Chr
 
 ![MVP030 failure state](../assets/aidd-control-plane-mvp030-failure.png)
 
-failure状態では、却下bundle混入、Firefox除外、浅い検証、local path / host / tailnet混入、rollback不足、evidence不足、AIDD-Spec接続不足をReview Findingとして表示します。便利な自動実行より、まず止めるべきものを止める設計です。
+failure状態では、却下bundle混入、Firefox除外、浅い検証、local path / host / private network混入、rollback不足、evidence不足、AIDD-Spec接続不足をReview Findingとして表示します。便利な自動実行より、まず止めるべきものを止める設計です。
 
 ### terminal evidence：実際に通した検証ログ
 
@@ -95,7 +95,7 @@ pnpm run capture:mvp030: pass
 | 未採用bundle混入を止める | rejected / deferred / undecidedが次回AI依頼に入っていないか | 一度却下した案をAIが再利用してしまうのを防ぐため |
 | Firefoxを含める | ChromiumだけのE2Eに落ちていないか | 3ブラウザで崩れる差分を早く見つけるため |
 | 浅い検証を止める | `pnpm run test` だけで完了扱いにしていないか | UI・build・doctor・E2Eまで含めた完了条件を守るため |
-| local path / host / tailnetを検出する | 公開できない環境情報が混ざっていないか | note・GitHub・artifactへ不要な情報を出さないため |
+| local path / host / private networkを検出する | 公開できない環境情報が混ざっていないか | note・GitHub・artifactへ不要な情報を出さないため |
 | rollback planを確認する | 失敗時に何を戻すか書かれているか | AI差分を安全に試すため |
 | evidence pathを確認する | どのログ・画像・reportを残すか決まっているか | 後から「本当に検証したか」を追えるようにするため |
 | AIDD-Spec接続を確認する | AI Task Packet / Verification Evidence / Review Record / Learning Log / Rollback Planへつながっているか | 単なるプロンプトではなく、再現可能な開発フローにするため |

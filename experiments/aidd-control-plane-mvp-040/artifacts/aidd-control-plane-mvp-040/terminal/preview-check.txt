@@ -1,0 +1,10 @@
+Codex Run Start Receipt Auditor OK
+aidd-control-plane-mvp040-empty.png OK
+aidd-control-plane-mvp040-valid.png OK
+aidd-control-plane-mvp040-failure.png OK
+aidd-control-plane-mvp040-terminal-evidence.png OK
+AIDD Control Plane SaaS化 OK
+preview/assets/aidd-control-plane-mvp040-empty.png True 240350
+preview/assets/aidd-control-plane-mvp040-valid.png True 214858
+preview/assets/aidd-control-plane-mvp040-failure.png True 182897
+preview/assets/aidd-control-plane-mvp040-terminal-evidence.png True 67230

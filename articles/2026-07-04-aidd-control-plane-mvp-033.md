@@ -107,7 +107,7 @@ checked MVP: AIDD Control Plane MVP 033 Run Result Review Synthesizer
 | 3ブラウザE2Eを保つ | Chromium / Firefox / WebKitを除外していないか | 片方だけ動くUIを見逃さないため |
 | doctor:aiddを通す | AIDD固有の必須tokenやcapture scriptがあるか | 一般テストだけでは見えない運用条件を守るため |
 | rollback確認がある | 失敗時に戻す条件が残っているか | 実験を安全に続けるため |
-| local path/host/tailnetを除去する | 公開記事や証跡にローカル環境名が混ざっていないか | 公開可能な一次情報にするため |
+| local path/host/private networkを除去する | 公開記事や証跡にローカル環境名が混ざっていないか | 公開可能な一次情報にするため |
 | prompt deltaがある | 次回AIへ何を直させるか書けているか | 同じ失敗を繰り返さないため |
 
 ## AIDD-Spec / SaaSへの接続

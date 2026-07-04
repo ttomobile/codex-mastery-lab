@@ -107,7 +107,8 @@ th { background:#f1f5f9; }
 <a href="2026-07-04-aidd-control-plane-mvp-036.html">MVP36｜AIDD Control Plane MVP 036：失敗ログを「次回AI依頼の差分」に変える</a>
 <a href="2026-07-04-aidd-control-plane-mvp-037.html">MVP37｜AIDD Control Plane MVP 037：修正候補を「全部やる」から「次に採用する1つ」へ絞る</a>
 <a href="2026-07-04-aidd-control-plane-mvp-038.html">MVP38｜AIDD Control Plane MVP 038：採用済み修正を「次の1回で実行する分」だけに絞る</a>
-<a href="2026-07-05-aidd-control-plane-mvp-039.html">MVP39｜AIDD Control Plane MVP 039：AIに渡す直前の「1回分の手渡しパック」をレビューする</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a href="2026-07-05-aidd-control-plane-mvp-039.html">MVP39｜AIDD Control Plane MVP 039：AIに渡す直前の「1回分の手渡しパック」をレビューする</a>
+<a href="2026-07-05-aidd-control-plane-mvp-040.html">MVP40｜AIDD Control Plane MVP 040：AIに投げた「その瞬間」のレシートを残す</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
 <a href="2026-07-02-character-collection-rpg-trial-002.html">Dogfood02｜AIDD Control Plane Dogfood 002：画像素材と戦闘シーンを入れて、キャラ収集RPGを“遊べそう”に近づける</a>
 <a href="2026-07-03-character-collection-rpg-trial-003.html">Dogfood03｜AIDD Control Plane Dogfood 003：キャラ収集RPGに「操作すると変わる」を入れる</a>
 <a href="2026-07-03-character-collection-rpg-trial-004.html">Dogfood04｜AIDD Control Plane Dogfood 004：キャラ収集RPGの操作をmock backendへ保存する</a>
@@ -185,7 +186,8 @@ th { background:#f1f5f9; }
 <a class="chapter-link " href="2026-07-04-aidd-control-plane-mvp-036.html"><span class="chapter-num">MVP 36</span>AIDD Control Plane MVP 036：失敗ログを「次回AI依頼の差分」に変える</a>
 <a class="chapter-link " href="2026-07-04-aidd-control-plane-mvp-037.html"><span class="chapter-num">MVP 37</span>AIDD Control Plane MVP 037：修正候補を「全部やる」から「次に採用する1つ」へ絞る</a>
 <a class="chapter-link " href="2026-07-04-aidd-control-plane-mvp-038.html"><span class="chapter-num">MVP 38</span>AIDD Control Plane MVP 038：採用済み修正を「次の1回で実行する分」だけに絞る</a>
-<a class="chapter-link " href="2026-07-05-aidd-control-plane-mvp-039.html"><span class="chapter-num">MVP 39</span>AIDD Control Plane MVP 039：AIに渡す直前の「1回分の手渡しパック」をレビューする</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link " href="2026-07-05-aidd-control-plane-mvp-039.html"><span class="chapter-num">MVP 39</span>AIDD Control Plane MVP 039：AIに渡す直前の「1回分の手渡しパック」をレビューする</a>
+<a class="chapter-link " href="2026-07-05-aidd-control-plane-mvp-040.html"><span class="chapter-num">MVP 40</span>AIDD Control Plane MVP 040：AIに投げた「その瞬間」のレシートを残す</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
 <a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-002.html"><span class="chapter-num">Dogfood 02</span>AIDD Control Plane Dogfood 002：画像素材と戦闘シーンを入れて、キャラ収集RPGを“遊べそう”に近づける</a>
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-003.html"><span class="chapter-num">Dogfood 03</span>AIDD Control Plane Dogfood 003：キャラ収集RPGに「操作すると変わる」を入れる</a>
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-004.html"><span class="chapter-num">Dogfood 04</span>AIDD Control Plane Dogfood 004：キャラ収集RPGの操作をmock backendへ保存する</a>
@@ -240,7 +242,7 @@ th { background:#f1f5f9; }
 <li>evidence paths</li>
 <li>rollback plan</li>
 <li>AIDD-Spec connections</li>
-<li>local path / host / tailnet混入検出</li>
+<li>local path / host / private network混入検出</li>
 </ul>
 <h2>実験内容</h2>
 <p><code>experiments/aidd-control-plane-mvp-030/generated-repo</code> に、MVP 029をベースにしたNext.js + TypeScriptアプリを作りました。Codexには <code>Exported Packet Preflight Reviewer</code> の実装を依頼しましたが、600秒でタイムアウトしました。そこで、生成された差分をHermes側で独立検証し、必要なログと画像証跡を保存しました。</p>
@@ -257,7 +259,7 @@ th { background:#f1f5f9; }
 <p>valid状態では、採用済みbundle由来のpacketだけが並びます。Chromium / Firefox / WebKitの3ブラウザ、標準的な検証深度、rollback plan、evidence path、AIDD-Spec接続が同じ場所で確認できます。</p>
 <h3>failure：危険なpacketを止める状態</h3>
 <p><img src="assets/aidd-control-plane-mvp030-failure.png" alt="MVP030 failure state" loading="lazy"></p>
-<p>failure状態では、却下bundle混入、Firefox除外、浅い検証、local path / host / tailnet混入、rollback不足、evidence不足、AIDD-Spec接続不足をReview Findingとして表示します。便利な自動実行より、まず止めるべきものを止める設計です。</p>
+<p>failure状態では、却下bundle混入、Firefox除外、浅い検証、local path / host / private network混入、rollback不足、evidence不足、AIDD-Spec接続不足をReview Findingとして表示します。便利な自動実行より、まず止めるべきものを止める設計です。</p>
 <h3>terminal evidence：実際に通した検証ログ</h3>
 <p><img src="assets/aidd-control-plane-mvp030-terminal-evidence.png" alt="MVP030 terminal evidence" loading="lazy"></p>
 <p>記事に載せるための主張ではなく、実際に実行した一次情報としてterminal evidenceを残しました。</p>
@@ -281,7 +283,7 @@ pnpm run capture:mvp030: pass</code></pre>
 <tr><td>未採用bundle混入を止める</td><td>rejected / deferred / undecidedが次回AI依頼に入っていないか</td><td>一度却下した案をAIが再利用してしまうのを防ぐため</td></tr>
 <tr><td>Firefoxを含める</td><td>ChromiumだけのE2Eに落ちていないか</td><td>3ブラウザで崩れる差分を早く見つけるため</td></tr>
 <tr><td>浅い検証を止める</td><td><code>pnpm run test</code> だけで完了扱いにしていないか</td><td>UI・build・doctor・E2Eまで含めた完了条件を守るため</td></tr>
-<tr><td>local path / host / tailnetを検出する</td><td>公開できない環境情報が混ざっていないか</td><td>note・GitHub・artifactへ不要な情報を出さないため</td></tr>
+<tr><td>local path / host / private networkを検出する</td><td>公開できない環境情報が混ざっていないか</td><td>note・GitHub・artifactへ不要な情報を出さないため</td></tr>
 <tr><td>rollback planを確認する</td><td>失敗時に何を戻すか書かれているか</td><td>AI差分を安全に試すため</td></tr>
 <tr><td>evidence pathを確認する</td><td>どのログ・画像・reportを残すか決まっているか</td><td>後から「本当に検証したか」を追えるようにするため</td></tr>
 <tr><td>AIDD-Spec接続を確認する</td><td>AI Task Packet / Verification Evidence / Review Record / Learning Log / Rollback Planへつながっているか</td><td>単なるプロンプトではなく、再現可能な開発フローにするため</td></tr>
