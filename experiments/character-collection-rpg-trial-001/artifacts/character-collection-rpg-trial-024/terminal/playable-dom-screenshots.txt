@@ -1,0 +1,6 @@
+{
+  "ok": true,
+  "positionText": "1.紅槍リオ\n前衛 HP100%\n2.翠策ミナ\n前衛 HP100%\n3.銀術セナ\n後衛 HP100%\n4.盾士ガル\n後衛 HP84%\n5.弓姫ノア\n後衛 HP100%",
+  "hasAutoLog": true,
+  "pityText": "90/150Pt。召喚ごとに交換Ptが増え、重複はピースと突破判断へつながる。"
+}
