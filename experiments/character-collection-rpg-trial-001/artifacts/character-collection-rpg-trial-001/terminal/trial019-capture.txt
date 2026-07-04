@@ -1,0 +1,3 @@
+screenshots captured: 2026-07-04-character-collection-rpg-trial-019-home-density.png, 2026-07-04-character-collection-rpg-trial-019-expedition-return.png, 2026-07-04-character-collection-rpg-trial-019-awaken-training.png, 2026-07-04-character-collection-rpg-trial-019-multi-enemy-battle.png, 2026-07-04-character-collection-rpg-trial-019-gacha-style-pieces.png, 2026-07-04-character-collection-rpg-trial-019-failure-state.png
+evidence: {"title":"星紋遠征隊 SagaForge Trial 019","tabs":["ホーム","スタイル","育成","編成","周回","戦闘","召喚","状態"],"dailyCards":4,"enemyCards":2,"stamina":"54/80"}
+verified: Trial 019 playable has dense home, daily/gift/expedition loop, awakening training, multi-enemy BP battle, style-piece gacha, failure state

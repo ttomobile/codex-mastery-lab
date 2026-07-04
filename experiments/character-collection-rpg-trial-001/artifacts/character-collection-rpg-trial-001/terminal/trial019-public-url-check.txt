@@ -1,0 +1,4 @@
+200 PUBLIC_URL/sagaforge-app/index.html
+200 PUBLIC_URL/sagaforge-app/assets/party-key-art.png
+200 PUBLIC_URL/assets/2026-07-04-character-collection-rpg-trial-019-home-density.png
+200 PUBLIC_URL/2026-07-04-character-collection-rpg-trial-019.html
