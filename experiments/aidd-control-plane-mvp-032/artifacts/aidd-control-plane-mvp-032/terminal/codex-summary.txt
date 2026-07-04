@@ -1,0 +1,12 @@
+実行済みチェック:
+- pnpm run lint: pass
+- pnpm run typecheck: pass
+- pnpm run test: pass (63 tests)
+- pnpm run test:coverage: pass
+- pnpm run build: pass (Next.js 15.5.20; ESLint plugin detection warningのみ)
+- pnpm run test:e2e: pass (90 tests / Chromium, Firefox, WebKit)
+- pnpm run doctor:aidd: pass
+- pnpm run mock:doctor: pass
+
+Codex実行メモ:
+- codex execはMVP032実装後のbuild確認中に600秒timeoutしたため、Hermes側で個別コマンドを再実行して検証した。

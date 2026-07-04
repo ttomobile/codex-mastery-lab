@@ -113,6 +113,7 @@ AIに「いい感じに作って」と頼む時代は終わる。これから必
 - 2026-06-29: 「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する — 第6章 Design Contract、第7章 System Contract、第9章 AI Task Packet、第10章 Verification Evidence、第12章 雑プロンプト vs AI Task Packet に接続。
 - 2026-06-30: 「Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する」 — 第7章 System Contract、第9章 AI Task Packet、第10章 Verification Evidence、第12章 雑プロンプト vs AI Task Packet、第16章 AI実装レビューを3層に分ける に接続。
 - 2026-07-03: 「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する — 第9章 AI Task Packet、第10章 Verification Evidence、第11章 Learning Log、第12章 雑プロンプト vs AI Task Packet に接続。
+- 2026-07-04: 「Codexに実行してよいと言った後を迷子にしない：Run QueueをVerification Evidenceへつなぐ」 — 第9章 AI Task Packet、第10章 Verification Evidence、第11章 Learning Log、第18章 AIDD Control PlaneのMVP に接続。
 
 各記事は以下のどれかに分類する。
 

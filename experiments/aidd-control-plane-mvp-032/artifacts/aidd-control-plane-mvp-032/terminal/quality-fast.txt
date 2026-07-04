@@ -1,0 +1,25 @@
+## pnpm run lint
+$ eslint . --max-warnings=0
+## pnpm run typecheck
+$ tsc --noEmit
+## pnpm run test
+$ vitest run
+
+ RUN  v3.2.6 WORKSPACE/experiments/aidd-control-plane-mvp-032/generated-repo
+
+ ✓ tests/intake.test.ts (63 tests) 19ms
+
+ Test Files  1 passed (1)
+      Tests  63 passed (63)
+   Start at  09:12:54
+   Duration  255ms (transform 75ms, setup 0ms, collect 77ms, tests 19ms, environment 0ms, prepare 34ms)
+
+## pnpm run doctor:aidd
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+checked files: 19
+checked scripts: lint, typecheck, test, test:coverage, build, test:e2e, doctor:aidd, mock:start, mock:stop, mock:doctor, capture:mvp024, capture:mvp025, capture:mvp026, capture:mvp027, capture:mvp028, capture:mvp029, capture:mvp030, capture:mvp031, capture:mvp032
+checked MVP: AIDD Control Plane MVP 032 Codex Run Queue
+## pnpm run mock:doctor
+$ node scripts/mock-doctor.mjs
+mock:doctor passed

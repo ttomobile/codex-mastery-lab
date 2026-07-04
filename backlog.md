@@ -58,6 +58,8 @@
 - [x] 次回候補: API失敗状態をPlaywrightの実ブラウザE2Eで検証する契約をAI Task Packetに入れる（2026-06-30 playwright-api-state）
 - [ ] 次回候補: AIDD Control Planeの入力フォームから Playwright E2E Contract を生成するMVPを作る
 - [ ] 次回候補: Verification Evidence LiteをAIDD Control Planeの自動doctor UIに接続し、ログ/GIF/残リスクの不足を画面で止める
+- [x] 次回候補: Run Authorization GateでvalidになったCodex実行をRun Queueとして追跡し、waiting/running/succeeded/failed/evidence_missingと証跡不足をReview Findingへ戻す（2026-07-04: AIDD Control Plane MVP 032）
+- [ ] 次回候補: Codex Run Queueの各itemをVerification Evidence Run Detailへ展開し、command別exit code、artifact path、失敗分類を持たせる
 
 - [ ] 2つのCodexに実装案を競わせる
 - [ ] Codex実装をHermesがレビューする二段構え
