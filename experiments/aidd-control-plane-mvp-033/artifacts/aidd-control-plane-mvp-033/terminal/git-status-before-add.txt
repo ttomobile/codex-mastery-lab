@@ -1,0 +1,80 @@
+ M preview/001-series-roadmap.html
+ M preview/2026-06-27-accessibility-contract-vibe-faq.html
+ M preview/2026-06-27-contact-api-threat-model.html
+ M preview/2026-06-27-performance-budget-vibe-gallery.html
+ M preview/2026-06-27-security-baseline-contact-form.html
+ M preview/2026-06-27-watchflow-trial-001.html
+ M preview/2026-06-27-watchflow-trial-002.html
+ M preview/2026-06-27-watchflow-trial-003.html
+ M preview/2026-06-27-watchflow-trial-004.html
+ M preview/2026-06-27-watchflow-trial-005.html
+ M preview/2026-06-28-agents-skill-explained.html
+ M preview/2026-06-28-aidd-app-clone-lab-proof.html
+ M preview/2026-06-28-aidd-control-plane-mvp-001.html
+ M preview/2026-06-28-aidd-control-plane-mvp-002.html
+ M preview/2026-06-28-aidd-control-plane-mvp-003.html
+ M preview/2026-06-28-aidd-spec-v0.1-workflow-saas.html
+ M preview/2026-06-28-mobile-state-contract.html
+ M preview/2026-06-29-aidd-control-plane-mvp-004.html
+ M preview/2026-06-29-api-failure-state.html
+ M preview/2026-06-30-aidd-control-plane-mvp-005.html
+ M preview/2026-06-30-aidd-control-plane-mvp-006.html
+ M preview/2026-06-30-aidd-control-plane-mvp-007.html
+ M preview/2026-06-30-aidd-control-plane-mvp-008.html
+ M preview/2026-06-30-aidd-control-plane-mvp-009.html
+ M preview/2026-06-30-aidd-control-plane-mvp-010.html
+ M preview/2026-06-30-playwright-api-state.html
+ M preview/2026-07-01-aidd-control-plane-mvp-011.html
+ M preview/2026-07-01-aidd-control-plane-mvp-012.html
+ M preview/2026-07-02-aidd-control-plane-mvp-013.html
+ M preview/2026-07-02-aidd-control-plane-mvp-014.html
+ M preview/2026-07-02-aidd-control-plane-mvp-015.html
+ M preview/2026-07-02-aidd-control-plane-mvp-016.html
+ M preview/2026-07-02-aidd-control-plane-mvp-017.html
+ M preview/2026-07-02-aidd-control-plane-mvp-018.html
+ M preview/2026-07-02-character-collection-rpg-trial-001.html
+ M preview/2026-07-02-character-collection-rpg-trial-002.html
+ M preview/2026-07-03-aidd-control-plane-mvp-019.html
+ M preview/2026-07-03-aidd-control-plane-mvp-020.html
+ M preview/2026-07-03-aidd-control-plane-mvp-021.html
+ M preview/2026-07-03-aidd-control-plane-mvp-022.html
+ M preview/2026-07-03-aidd-control-plane-mvp-023.html
+ M preview/2026-07-03-aidd-control-plane-mvp-024.html
+ M preview/2026-07-03-aidd-control-plane-mvp-025.html
+ M preview/2026-07-03-aidd-control-plane-mvp-026.html
+ M preview/2026-07-03-aidd-control-plane-mvp-027.html
+ M preview/2026-07-03-aidd-control-plane-mvp-028.html
+ M preview/2026-07-03-character-collection-rpg-trial-003.html
+ M preview/2026-07-03-character-collection-rpg-trial-004.html
+ M preview/2026-07-03-character-collection-rpg-trial-005.html
+ M preview/2026-07-03-character-collection-rpg-trial-006.html
+ M preview/2026-07-03-character-collection-rpg-trial-007.html
+ M preview/2026-07-03-character-collection-rpg-trial-008.html
+ M preview/2026-07-03-character-collection-rpg-trial-009.html
+ M preview/2026-07-03-character-collection-rpg-trial-010.html
+ M preview/2026-07-03-character-collection-rpg-trial-011.html
+ M preview/2026-07-03-character-collection-rpg-trial-012.html
+ M preview/2026-07-03-character-collection-rpg-trial-013.html
+ M preview/2026-07-03-character-collection-rpg-trial-014.html
+ M preview/2026-07-03-verification-evidence-lite.html
+ M preview/2026-07-04-aidd-control-plane-mvp-029.html
+ M preview/2026-07-04-aidd-control-plane-mvp-030.html
+ M preview/2026-07-04-aidd-control-plane-mvp-031.html
+ M preview/2026-07-04-aidd-control-plane-mvp-032.html
+ M preview/2026-07-04-character-collection-rpg-trial-015.html
+ M preview/2026-07-04-character-collection-rpg-trial-016.html
+ M preview/2026-07-04-character-collection-rpg-trial-017.html
+ M preview/index.html
+ M scripts/build_preview.py
+ M standards/aidd-control-plane-mvp-v0.1.md
+?? articles/2026-07-04-aidd-control-plane-mvp-033.md
+?? assets/aidd-control-plane-mvp033-empty.png
+?? assets/aidd-control-plane-mvp033-failure.png
+?? assets/aidd-control-plane-mvp033-terminal-evidence.png
+?? assets/aidd-control-plane-mvp033-valid.png
+?? experiments/aidd-control-plane-mvp-033/
+?? preview/2026-07-04-aidd-control-plane-mvp-033.html
+?? preview/assets/aidd-control-plane-mvp033-empty.png
+?? preview/assets/aidd-control-plane-mvp033-failure.png
+?? preview/assets/aidd-control-plane-mvp033-terminal-evidence.png
+?? preview/assets/aidd-control-plane-mvp033-valid.png
