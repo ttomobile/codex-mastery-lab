@@ -1,0 +1,6 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+checked files: 26
+checked scripts: lint, typecheck, test, test:coverage, build, test:e2e, doctor:aidd, mock:start, mock:stop, mock:doctor, capture:mvp024, capture:mvp025, capture:mvp026, capture:mvp027, capture:mvp028, capture:mvp029, capture:mvp030, capture:mvp031, capture:mvp032, capture:mvp033, capture:mvp035, capture:mvp036, capture:mvp037, capture:mvp038, capture:mvp040, capture:mvp041
+checked MVP: AIDD Control Plane MVP 041 Verification Evidence Receipt Binder
+exit_code=0

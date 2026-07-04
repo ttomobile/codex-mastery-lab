@@ -1,0 +1,6 @@
+--- preview article ---
+aidd-control-plane-mvp041-empty.png   236028 bytes
+aidd-control-plane-mvp041-valid.png   156609 bytes
+aidd-control-plane-mvp041-failure.png   176202 bytes
+aidd-control-plane-mvp041-terminal-evidence.png    65333 bytes
+preview-check passed

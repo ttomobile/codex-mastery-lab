@@ -1,0 +1,3 @@
+MVP041 public article/preview/terminal artifact leak scan passed.
+Scope: article 041, preview article 041, MVP041 terminal logs.
+Note: generated demo source intentionally contains localhost/private-network examples for detector tests and was not treated as published article prose.
