@@ -356,6 +356,7 @@ def main():
         '2026-07-04-character-collection-rpg-trial-018-*.png',
         '2026-07-04-character-collection-rpg-trial-019-*.png',
         '2026-07-04-character-collection-rpg-trial-020-*.png',
+        '2026-07-04-character-collection-rpg-trial-021-*.png',
     ]
     for asset in [p for pattern in asset_patterns for p in ASSETS.glob(pattern)]:
         shutil.copy2(asset, OUT_ASSETS / asset.name)

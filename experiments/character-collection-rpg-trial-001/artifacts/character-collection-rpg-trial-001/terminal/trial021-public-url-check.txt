@@ -1,0 +1,6 @@
+-- public URL check --
+https://PUBLIC_PREVIEW/sagaforge-app/index.html -> http=200
+https://PUBLIC_PREVIEW/sagaforge-app/assets/party-key-art.png -> http=200
+https://PUBLIC_PREVIEW/sagaforge-app/assets/battle-ruins.png -> http=200
+https://PUBLIC_PREVIEW/sagaforge-app/assets/crystal-guardian.png -> http=200
+https://PUBLIC_PREVIEW/sagaforge-app/assets/summon-altar.png -> http=200

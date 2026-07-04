@@ -1,0 +1,6 @@
+title: 星紋遠征隊 SagaForge Trial 021
+style detail includes: true true true
+battle result: コマンド選択: BPを管理してOD連携を狙う
+ability log visible: 7
+exchange log: SS輝片x5を交換。育成/出撃資源に反映しました。
+failure: 幻晶購入のmock決済が失敗しました。残高は増やしません。
