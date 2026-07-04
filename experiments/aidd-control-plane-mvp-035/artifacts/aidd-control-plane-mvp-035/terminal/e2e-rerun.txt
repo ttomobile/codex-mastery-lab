@@ -1,0 +1,8 @@
+$ playwright test
+
+Running 99 tests using 1 worker
+
+  ✘   1 [chromium] › e2e/intake-wizard.spec.ts:9:1 › MVP 031の初期empty stateとworkflow artifact監査と標準更新候補Queueが表示される (2.1m)
+  ✘   2 [chromium] › e2e/intake-wizard.spec.ts:9:1 › MVP 031の初期empty stateとworkflow artifact監査と標準更新候補Queueが表示される (retry #1) (2.1m)
+  ✘   3 [chromium] › e2e/intake-wizard.spec.ts:69:1 › Packet Apply Command Composerでempty valid failureを切り替え、反映直前コマンドを確認できる (2.1m)
+  ✘   4 [chromium] › e2e/intake-wizard.spec.ts:69:1 › Packet Apply Command Composerでempty valid failureを切り替え、反映直前コマンドを確認できる (retry #1) (2.1m)

@@ -1,0 +1,14 @@
+<p>MVP 034では、Run Result ReviewとLearning Logから <strong>次の1インクリメント</strong> を決める <code>Next Increment Planner</code> を作りました。今回は、その手前の証跡粒度を細かくします。Codex Run Queueのitemを、command別exit code、artifact path、失敗分類、修正指示へ分解する <strong>Verification Run Detail</strong> を追加しました。</p>
+<p>今回作ったのは <strong>Verification Run Detail</strong> です。</p>
+  -&gt; Verification Run Detail
+<li>UIに <code>Verification Run Detail</code> セクションを追加</li>
+<p><img src="assets/aidd-control-plane-mvp035-empty.png" alt="MVP035 empty" loading="lazy"></p>
+<p>次の失敗はE2Eでした。初回は前MVPの見出し <code>MVP 035: Next Increment Planner</code> を期待していたため、現在の <code>MVP 035: Verification Run Detail</code> と合わず失敗しました。また <code>chromium / firefox / webkit</code> の文字列が複数箇所にあり、Playwright strict modeで曖昧になりました。期待見出しを更新し、対象を <code>Verification Run Detail details</code> 内に限定して再実行しました。</p>
+checked MVP: AIDD Control Plane MVP 035 Verification Run Detail</code></pre>
+<p>今回、<code>standards/aidd-control-plane-mvp-v0.1.md</code> に <code>Verification Run Detail</code> を追加しました。</p>
+<li>Verification Run Detail: command別のexit codeとartifact pathへ分解する</li>
+<p>次回は、Verification Run DetailをRun Result Reviewへさらに強く接続し、失敗分類ごとにAI Task Packet deltaを自動生成する導線を改善します。特に、failed / evidence_missing / timeoutを別々に扱い、次回Codex promptへ戻す粒度を上げます。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-04-aidd-control-plane-mvp-034.html"><span>前の記事</span>AIDD Control Plane MVP 034：AIレビュー結果を「次の1インクリメント」へ変える</a><span></span></nav></main></div></body></html>
+aidd-control-plane-mvp035-empty.png bytes=213412
+aidd-control-plane-mvp035-valid.png bytes=292585
+aidd-control-plane-mvp035-failure.png bytes=202752
+aidd-control-plane-mvp035-terminal-evidence.png bytes=58699

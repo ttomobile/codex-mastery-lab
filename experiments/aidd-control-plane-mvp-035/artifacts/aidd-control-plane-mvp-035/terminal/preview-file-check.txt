@@ -1,0 +1,4 @@
+asset ok: aidd-control-plane-mvp035-empty.png
+asset ok: aidd-control-plane-mvp035-valid.png
+asset ok: aidd-control-plane-mvp035-failure.png
+asset ok: aidd-control-plane-mvp035-terminal-evidence.png

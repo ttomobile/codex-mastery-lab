@@ -1,0 +1,1 @@
+/bin/bash: line 4: codex: command not found
