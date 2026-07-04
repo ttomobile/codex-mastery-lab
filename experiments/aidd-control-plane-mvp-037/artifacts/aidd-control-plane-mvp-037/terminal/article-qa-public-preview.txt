@@ -1,0 +1,22 @@
+--- curl article title and section ---
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane MVP 037：修正候補を「全部やる」から「次に採用する1つ」へ絞る</title><style>
+<a href="2026-06-27-watchflow-trial-005.html">第06回｜WatchFlow Trial 005：91点から100点へ、Firefox/CI/artifactまで通して実験を閉じる</a><div class="nav-section-title">AIDD Control Plane SaaS化</div><a href="2026-06-28-aidd-control-plane-mvp-001.html">MVP01｜AIDD Control Plane MVP 001：AIDD-SpecをSaaSの画面に落とし込む最初の実装</a>
+<a href="2026-07-04-aidd-control-plane-mvp-037.html">MVP37｜AIDD Control Plane MVP 037：修正候補を「全部やる」から「次に採用する1つ」へ絞る</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a href="2026-07-03-verification-evidence-lite.html">過去記事11｜「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></details></div><div class="layout "><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">WatchFlow本編、AIDD Control Plane SaaS化、過去記事を分けて読めるプレビュー</p><div class="nav-section-title">WatchFlow 100点チャレンジ</div><a class="chapter-link " href="001-series-roadmap.html"><span class="chapter-num">第01回</span>WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-005.html"><span class="chapter-num">第06回</span>WatchFlow Trial 005：91点から100点へ、Firefox/CI/artifactまで通して実験を閉じる</a><div class="nav-section-title">AIDD Control Plane SaaS化</div><a class="chapter-link " href="2026-06-28-aidd-control-plane-mvp-001.html"><span class="chapter-num">MVP 01</span>AIDD Control Plane MVP 001：AIDD-SpecをSaaSの画面に落とし込む最初の実装</a>
+<a class="chapter-link current" href="2026-07-04-aidd-control-plane-mvp-037.html"><span class="chapter-num">MVP 37</span>AIDD Control Plane MVP 037：修正候補を「全部やる」から「次に採用する1つ」へ絞る</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-04-aidd-control-plane-mvp-036.html"><span>前の記事</span>AIDD Control Plane MVP 036：失敗ログを「次回AI依頼の差分」に変える</a><span></span></nav><article><h1>AIDD Control Plane MVP 037：修正候補を「全部やる」から「次に採用する1つ」へ絞る</h1>
+<p>MVP 036では、失敗ログを <code>failed</code> / <code>evidence_missing</code> / <code>timeout</code> のrepair deltaに変換しました。今回は、そのrepair deltaを <strong>採用 / 保留 / 却下</strong> に分ける <strong>Repair Delta Priority Decision Workspace</strong> を追加しました。</p>
+<p>今回作ったのは <strong>Repair Delta Priority Decision Workspace</strong> です。</p>
+  -&gt; Repair Delta Priority Decision Workspace
+<li>UIに <code>Repair Delta Priority Decision Workspace</code> セクションを追加</li>
+checked MVP: AIDD Control Plane MVP 037 Repair Delta Priority Decision Workspace</code></pre>
+<p>今回、<code>standards/aidd-control-plane-mvp-v0.1.md</code> に <code>Repair Delta Priority Decision Workspace</code> を追加しました。</p>
+--- index classification ---
+target_before_past= True
+target_after_control_heading= True
+--- assets ---
+aidd-control-plane-mvp037-empty.png 229003
+aidd-control-plane-mvp037-valid.png 252919
+aidd-control-plane-mvp037-failure.png 222633
+aidd-control-plane-mvp037-terminal-evidence.png 149586

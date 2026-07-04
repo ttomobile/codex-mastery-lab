@@ -1,0 +1,8 @@
+Wrote 77 articles to WORKSPACE/preview
+
+--- article exists in preview ---
+ok
+asset ok: aidd-control-plane-mvp037-empty.png
+asset ok: aidd-control-plane-mvp037-valid.png
+asset ok: aidd-control-plane-mvp037-failure.png
+asset ok: aidd-control-plane-mvp037-terminal-evidence.png
