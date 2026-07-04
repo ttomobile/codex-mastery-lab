@@ -1,0 +1,22 @@
+SagaForge Trial 023 playable verification
+
+Commands run:
+- python3 scripts/build_preview.py
+- node /tmp/check-sagaforge-023.mjs
+
+Result:
+Wrote 77 articles to preview
+{
+  "ok": true,
+  "checked": [
+    "battle weakness",
+    "enemy action",
+    "gacha detail transition"
+  ],
+  "screenshots": 2
+}
+
+Notes:
+- The first local checker attempt used a CommonJS require inside an ES module and was corrected before the passing run.
+- A strict text selector was replaced with tab-scoped selectors before the passing run.
+- Final run verified the changed playable behavior and produced the two Trial 023 screenshots.

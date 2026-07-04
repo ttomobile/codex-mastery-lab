@@ -1,0 +1,3 @@
+SagaForge Trial 023 leak scan
+patterns: public host token, local workspace path tokens
+result: no matches

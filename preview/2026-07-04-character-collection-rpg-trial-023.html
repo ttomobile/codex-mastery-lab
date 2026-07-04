@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane Dogfood 020：SagaForgeを「周回で育つスマホRPGループ」へ寄せる</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SagaForge Trial 023: 敵行動・弱点・勝利リザルト・召喚詳細導線を足す</title><style>
 :root {
   color-scheme: light;
   --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
@@ -197,10 +197,10 @@ th { background:#f1f5f9; }
 <a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-017.html"><span class="chapter-num">Dogfood 17</span>AIDD Control Plane Dogfood 017：SagaForgeに戦闘テンポ・育成ボード・周回導線を足す</a>
 <a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-018.html"><span class="chapter-num">Dogfood 18</span>AIDD Control Plane Dogfood 018：SagaForgeに再戦・ピース限界突破・5人連携順を足す</a>
 <a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-019.html"><span class="chapter-num">Dogfood 19</span>AIDD Control Plane Dogfood 019：SagaForgeを「起動直後のスマホRPG拠点」へ寄せる</a>
-<a class="chapter-link current" href="2026-07-04-character-collection-rpg-trial-020.html"><span class="chapter-num">Dogfood 20</span>AIDD Control Plane Dogfood 020：SagaForgeを「周回で育つスマホRPGループ」へ寄せる</a>
+<a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-020.html"><span class="chapter-num">Dogfood 20</span>AIDD Control Plane Dogfood 020：SagaForgeを「周回で育つスマホRPGループ」へ寄せる</a>
 <a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-021.html"><span class="chapter-num">Dogfood 21</span>AIDD Control Plane Dogfood 021：SagaForgeにスタイル詳細・アビリティ・交換所を足す</a>
 <a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-022.html"><span class="chapter-num">Dogfood 22</span>SagaForge Trial 022: 同一キャラの複数スタイルと継承技をプレイアブルに入れる</a>
-<a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-023.html"><span class="chapter-num">Dogfood 23</span>SagaForge Trial 023: 敵行動・弱点・勝利リザルト・召喚詳細導線を足す</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link current" href="2026-07-04-character-collection-rpg-trial-023.html"><span class="chapter-num">Dogfood 23</span>SagaForge Trial 023: 敵行動・弱点・勝利リザルト・召喚詳細導線を足す</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
 <a class="chapter-link past " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">過去記事 02</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
 <a class="chapter-link past " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">過去記事 03</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">過去記事 04</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
@@ -210,85 +210,108 @@ th { background:#f1f5f9; }
 <a class="chapter-link past " href="2026-06-28-mobile-state-contract.html"><span class="chapter-num">過去記事 08</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-29-api-failure-state.html"><span class="chapter-num">過去記事 09</span>「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-30-playwright-api-state.html"><span class="chapter-num">過去記事 10</span>Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する</a>
-<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-04-character-collection-rpg-trial-019.html"><span>前の記事</span>AIDD Control Plane Dogfood 019：SagaForgeを「起動直後のスマホRPG拠点」へ寄せる</a><a class="next" href="2026-07-04-character-collection-rpg-trial-021.html"><span>次の記事</span>AIDD Control Plane Dogfood 021：SagaForgeにスタイル詳細・アビリティ・交換所を足す</a></nav><article><h1>AIDD Control Plane Dogfood 020：SagaForgeを「周回で育つスマホRPGループ」へ寄せる</h1>
-<p>前回Trial 019では、ホームの情報密度、デイリー、プレゼント、遠征、複数敵バトルを追加した。これで「一般的なファンタジーRPGの説明画面」からは一歩進んだが、ユーザーがロマサガRS的な体験に期待する構造から見ると、まだ決定的に弱いところがあった。</p>
+<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-04-character-collection-rpg-trial-022.html"><span>前の記事</span>SagaForge Trial 022: 同一キャラの複数スタイルと継承技をプレイアブルに入れる</a><span></span></nav><article><h1>SagaForge Trial 023: 敵行動・弱点・勝利リザルト・召喚詳細導線を足す</h1>
+<p>前回までで、星紋遠征隊はホーム、スタイル、5人編成、クエスト、BP/OD風バトル、育成、召喚、交換所まで触れる状態になった。けれど、ユーザーの「全然ロマサガRSとは程遠い」という評価に照らすと、まだ単なる一般的なファンタジーRPGに見える部分が残っていた。</p>
+<blockquote>注意: アプリ本体では実在IP、公式素材、商標、ロゴ、公式文言、公式確率、公式UIの完全コピーは使わない。この記事では、期待される体験パターンを説明する文脈としてのみ実在タイトル名に触れる。</blockquote>
 <h2>前回の何がロマサガRSから遠かったか</h2>
-<p>ユーザー評価の「全然ロマサガRSとは程遠い」を、今回も出発点にした。Trial 019時点で遠かったのは主に次の3点。</p>
-<ol>
-<li><strong>陣形が固定に近かった</strong>  </li>
-</ol>
-<p>   5人編成と前衛/中衛/後衛は見えたが、陣形を選ぶ、補正を見る、初期BP/OD/行動順が変わる、という判断が弱かった。</p>
-<ol>
-<li><strong>クエストが「一覧から出撃」止まりだった</strong>  </li>
-</ol>
-<p>   消費スタミナと推奨戦力はあったが、章、難易度、Wave数、周回対象というスマホRPGの読み取り情報がまだ薄かった。</p>
-<ol>
-<li><strong>戦闘後の育成実感が足りなかった</strong>  </li>
-</ol>
-<p>   勝利報酬は出たが、周回で能力値が伸び、技Rankが上がり、同じクエストを再戦する循環が弱かった。</p>
+<p>Trial 022では、同一キャラの複数スタイル、別スタイル切替、継承技コマンドを入れた。これは「キャラではなくスタイル単位で集める」方向へ寄せる改善だった。一方で、まだ次の不足があった。</p>
+<table>
+<tr><th>不足</th><th>なぜ遠く見えるか</th><th>今回の扱い</th></tr>
+<tr><td>戦闘後の成長が弱い</td><td>勝っても素材が増えるだけに見え、周回でキャラが伸びる感覚が薄い</td><td>勝利リザルトに能力値、技Rank、スタイルEXP、次の判断を表示</td></tr>
+<tr><td>敵が反撃しない</td><td>ボタンを押すだけのデモに見え、ターン制バトルの読み合いがない</td><td>敵行動、被ダメ、回復判断、敗北導線を追加</td></tr>
+<tr><td>弱点・相性がない</td><td>どの技を選んでも同じで、BP/技選択の意味が薄い</td><td>敵カードに弱点を表示し、Weak時にダメージ/OD/ログを変化</td></tr>
+<tr><td>召喚結果が行き止まり</td><td>10連結果を見ても育成や編成に戻る理由が弱い</td><td>結果カードクリックでスタイル詳細へ遷移、重複ピースを反映</td></tr>
+</table>
 <h2>今回どの差分を潰したか</h2>
-<p>今回は記事より先に <code>playables/sagaforge-app/index.html</code> を更新し、触れるプレイアブル版の体験をTrial 020へ進めた。アプリ本体には実在IP名、公式素材、ロゴ、商標、公式文言、公式確率は入れていない。</p>
+<p>今回のMVPは「周回する理由がある」手触りを1段階だけ強くすることに絞った。</p>
+<ol>
+<li><strong>敵行動と弱点表示</strong></li>
+</ol>
+<p>   - 敵カードに <code>弱点: 斬 / 突 / 陽 / 術</code> を表示。</p>
+<p>   - スキル選択後、敵が <code>晶牙</code> や <code>翼刃</code> で反撃する。</p>
+<p>   - HPが低いとログに「回復判断が必要」と出る。</p>
+<ol>
+<li><strong>WeakとBP/ODの意味づけ</strong></li>
+</ol>
+<p>   - 弱点を突くと <code>Weak! 技Rank上昇候補</code> と表示。</p>
+<p>   - Weak時はダメージとOD上昇が増え、どの技を押すかに少し意味が出た。</p>
+<ol>
+<li><strong>勝利リザルトの強化</strong></li>
+</ol>
+<p>   - 勝利後に <code>能力値アップ</code>、<code>技Rank+1</code>、<code>スタイルEXP</code>、<code>勝利報酬</code> をカード表示。</p>
+<p>   - <code>育成へ</code>、<code>交換所へ</code>、<code>編成を見直す</code> の導線を並べた。</p>
+<ol>
+<li><strong>召喚結果からスタイル詳細へ</strong></li>
+</ol>
+<p>   - 10連結果カードを押すとスタイル詳細へ移動する。</p>
+<p>   - 重複カードでは追加ピースを入れ、限界突破候補として見せる。</p>
+<h2>触れる導線</h2>
 <ul>
-<li><strong>陣形切替を追加</strong></li>
+<li>プレイアブル: プレビュー配信の <code>/sagaforge-app/index.html</code></li>
+<li>推奨確認順: ホーム → 周回 → 出撃 → 戦闘で敵弱点を見てスキル選択 → 勝利リザルト → 召喚 → 結果カードクリック → スタイル詳細</li>
 </ul>
-<p>  - 「流星の楔」「疾風の列」「堅守の盾」の3種類を用意。</p>
-<p>  - 陣形ごとに補正、初期BP、初期OD、総戦闘力、行動順が変わる。</p>
-<p>  - 編成画面で選択中/変更が見えるようにした。</p>
+<h2>スクリーンショット</h2>
+<p><img src="assets/2026-07-04-character-collection-rpg-trial-023-battle-weakness.png" alt="Trial 023 弱点と敵行動" loading="lazy"></p>
+<p><img src="assets/2026-07-04-character-collection-rpg-trial-023-gacha-detail.png" alt="Trial 023 召喚からスタイル詳細" loading="lazy"></p>
+<h2>実装メモ</h2>
+<p>変更対象は、ユーザーがすぐ触れる静的プレイアブル版を優先した。</p>
 <ul>
-<li><strong>クエストを章・難易度・Waveつきにした</strong></li>
+<li><code>playables/sagaforge-app/index.html</code></li>
 </ul>
-<p>  - <code>第1章 ... NORMAL/HARD</code>、<code>外伝 ... VERY HARD</code>、育成クエストを表示。</p>
-<p>  - Wave数、消費スタミナ、推奨戦力、初回/周回報酬を同じカードで読める。</p>
-<p>  - 前回クエストの周回予約ボタンを追加した。</p>
+<p>  - Trial 023へ更新。</p>
+<p>  - <code>weaknessBonus()</code> を追加し、敵弱点とWeakログを実装。</p>
+<p>  - <code>enemyTurn()</code> を追加し、敵反撃、被ダメ、回復判断、敗北導線を実装。</p>
+<p>  - <code>nextRound()</code> の敵データに弱点、攻撃力、技名を追加。</p>
+<p>  - 勝利リザルトに能力値、技Rank、スタイルEXP、次の判断カードを追加。</p>
+<p>  - <code>openGachaStyle()</code> を追加し、召喚結果カードからスタイル詳細へ遷移。</p>
 <ul>
-<li><strong>勝利後の能力値アップと再戦導線を追加</strong></li>
+<li><code>scripts/build_preview.py</code></li>
 </ul>
-<p>  - 勝利時に5人分の <code>HP+ / 腕力+ / 知力+ / 技Rank+1</code> を表示。</p>
-<p>  - 報酬カードに周回回数、ピース、素材、贈り物を表示。</p>
-<p>  - <code>同じクエストを再戦</code> と <code>育成へ</code> を勝利画面に並べた。</p>
-<p><img src="assets/2026-07-04-character-collection-rpg-trial-020-party-formation.png" alt="Trial 020 陣形選択" loading="lazy"></p>
-<p><img src="assets/2026-07-04-character-collection-rpg-trial-020-quest-list.png" alt="Trial 020 クエスト一覧" loading="lazy"></p>
-<p><img src="assets/2026-07-04-character-collection-rpg-trial-020-battle-growth.png" alt="Trial 020 勝利後の能力値アップ" loading="lazy"></p>
-<p><img src="assets/2026-07-04-character-collection-rpg-trial-020-failure.png" alt="Trial 020 失敗状態" loading="lazy"></p>
+<p>  - Trial 023記事と画像コピー対象を追加。</p>
+<p>  - <code>playables/sagaforge-app/</code> が <code>preview/sagaforge-app/</code> にコピーされる状態を維持。</p>
 <h2>検証ログ</h2>
-<p>変更範囲は静的プレイアブルなので、preview生成、Playwright操作、スクリーンショット取得、公開URLのHTTP確認を行った。</p>
-<pre><code>Wrote 72 articles to WORKSPACE/preview
-Playwright local verification:
-- title: 星紋遠征隊 SagaForge Trial 020
-- opened 編成 and selected 疾風の列
-- opened 周回 and selected 第1章 裂光の丘 1-5 HARD
-- executed battle commands until 能力値アップ card appeared
-- opened 状態 and triggered 決済失敗
-growth cards: 1</code></pre>
-<p>公開URL確認では、プレイアブルHTMLと主要画像がHTTP 200で返ることを確認した。</p>
-<pre><code>https://PUBLIC_PREVIEW/sagaforge-app/index.html -&gt; http=200
-https://PUBLIC_PREVIEW/sagaforge-app/assets/party-key-art.png -&gt; http=200
-https://PUBLIC_PREVIEW/sagaforge-app/assets/battle-ruins.png -&gt; http=200
-https://PUBLIC_PREVIEW/sagaforge-app/assets/crystal-guardian.png -&gt; http=200
-https://PUBLIC_PREVIEW/sagaforge-app/assets/summon-altar.png -&gt; http=200</code></pre>
-<h2>まだ遠い点</h2>
-<p>まだ本物の商用スマホRPGの手触りには遠い。</p>
+<p>今回の検証は、静的プレイアブルのDOM操作とプレビュー生成を中心に行った。</p>
+<pre><code>python3 scripts/build_preview.py
+node /tmp/check-sagaforge-023.mjs
+curl -I &lt;preview-host&gt;/sagaforge-app/index.html
+curl -I &lt;preview-host&gt;/sagaforge-app/assets/party-key-art.png</code></pre>
+<p>主な確認内容:</p>
 <ul>
-<li>スタイル詳細に、耐性、アビリティ、継承技、技覚醒ツリーがない。</li>
-<li>バトル中の敵行動、状態異常、ターン開始/攻撃時/勝利時アビリティ発動がない。</li>
-<li>連携演出はログ中心で、カットイン、段階的な演出昇格、テンポ調整が弱い。</li>
-<li>周回報酬が交換所、ミッション、イベントポイント、スタイルピース目標へまだ接続していない。</li>
-<li>ホームにショップ、交換所、お知らせ、ログインボーナス、イベント期間表示の階層がない。</li>
+<li>公開URLが <code>http=200</code> を返す。</li>
+<li>主要画像が <code>http=200</code> を返す。</li>
+<li>戦闘画面で敵弱点が見える。</li>
+<li>スキル実行後に敵行動ログが増える。</li>
+<li>召喚結果カードを押すとスタイル詳細へ移動する。</li>
+<li><code>scripts/build_preview.py</code> 後も <code>preview/sagaforge-app/index.html</code> が存在する。</li>
+</ul>
+<h2>まだ遠い点</h2>
+<p>今回で「戦闘と周回の意味」は少し近づいたが、まだロマサガRS的な期待には遠い。</p>
+<ul>
+<li>敵行動は入ったが、<strong>状態異常、耐性、全体/単体の見極め、敵ごとの行動パターン</strong> はまだ薄い。</li>
+<li>勝利リザルトはカード化したが、<strong>能力値アップ演出やテンポの気持ちよさ</strong> はまだ弱い。</li>
+<li>召喚結果から詳細へ行けるが、<strong>未所持/所持済み、天井/交換、提供一覧風の判断材料</strong> はまだない。</li>
+<li>編成は5人と陣形があるが、<strong>陣形位置による被弾、ロール別の役割、オート周回判断</strong> が弱い。</li>
 </ul>
 <h2>次に潰す差分</h2>
-<p>次回は、次の1〜3点に絞る。</p>
+<p>次回は、次の1〜3個に絞る。</p>
 <ol>
-<li><strong>スタイル詳細</strong>：アビリティ、耐性、継承技、技覚醒コストをカード一覧から開けるようにする。</li>
-<li><strong>バトル中アビリティ</strong>：ターン開始、攻撃時、被弾時、勝利時に小ログと数値変化を出す。</li>
-<li><strong>イベント交換所</strong>：周回報酬を交換所へ接続し、ホームのイベント導線に戻す。</li>
+<li><strong>陣形位置と敵攻撃対象</strong></li>
 </ol>
-<h2>AIDD-Specへの戻し</h2>
-<p>今回の学びは、AI Task Packetに「5人編成」「Round」「BP/OD」とだけ書いても、まだ体験は浅くなりやすいということだった。スマホRPGらしさを出すには、<strong>周回で何が増え、次にどの画面へ戻り、どの判断が変わるか</strong>まで受け入れ条件に入れる必要がある。</p>
-<p>次回以降のAI Task Packetには、次を追加する。</p>
+<p>   - 前衛が狙われやすい、後衛が安全、盾役がかばう、などを入れる。</p>
+<ol>
+<li><strong>勝利リザルト演出</strong></li>
+</ol>
+<p>   - 能力値アップを順番に表示し、周回で伸びる気持ちよさを強める。</p>
+<ol>
+<li><strong>召喚から交換/突破へ</strong></li>
+</ol>
+<p>   - 重複ピースを限界突破ボタンへ直結し、召喚→育成のループを短くする。</p>
+<h2>AIDD-Specへの学び</h2>
+<p>「キャラ収集RPG」とだけ書いても、AIは見た目だけのカードやバトルボタンを作りがちだった。今回の改善から、AI Task Packetには次のような受け入れ条件が必要だと分かる。</p>
 <ul>
-<li>陣形は複数用意し、補正、初期BP/OD、行動順、総戦闘力へ反映する。</li>
-<li>クエストは章、難易度、Wave、消費、推奨戦力、初回/周回報酬を表示する。</li>
-<li>勝利後は報酬だけでなく、能力値アップ、技Rank、スタイルピース、再戦、育成導線を同時に出す。</li>
+<li>敵には弱点、攻撃、行動ログがある。</li>
+<li>プレイヤーの技選択はBP、OD、Weak、被ダメに影響する。</li>
+<li>勝利後は素材だけでなく、能力値、技Rank、スタイルEXPが表示される。</li>
+<li>召喚結果は行き止まりではなく、スタイル詳細、育成、限界突破へ接続する。</li>
 </ul>
-<h2>公開URL</h2>
-<p>プレイアブル版：<code>/sagaforge-app/index.html</code></p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-04-character-collection-rpg-trial-019.html"><span>前の記事</span>AIDD Control Plane Dogfood 019：SagaForgeを「起動直後のスマホRPG拠点」へ寄せる</a><a class="next" href="2026-07-04-character-collection-rpg-trial-021.html"><span>次の記事</span>AIDD Control Plane Dogfood 021：SagaForgeにスタイル詳細・アビリティ・交換所を足す</a></nav></main></div></body></html>
+<p>料理のレシピで言えば、「カレーを作る」だけでは足りない。具材を切る順番、炒める時間、味見のタイミングまで書くと再現性が上がる。同じように、AIDD-Specでは「どの画面が、次のどの判断へつながるか」をチェックリストに落とす必要がある。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-04-character-collection-rpg-trial-022.html"><span>前の記事</span>SagaForge Trial 022: 同一キャラの複数スタイルと継承技をプレイアブルに入れる</a><span></span></nav></main></div></body></html>

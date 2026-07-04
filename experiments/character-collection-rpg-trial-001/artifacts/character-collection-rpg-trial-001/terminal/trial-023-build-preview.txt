@@ -1,0 +1,12 @@
+SagaForge Trial 023 preview build
+
+Command:
+- python3 scripts/build_preview.py
+
+Result:
+Wrote 77 articles to preview
+
+Verified files:
+- preview/sagaforge-app/index.html
+- preview/assets/2026-07-04-character-collection-rpg-trial-023-battle-weakness.png
+- preview/assets/2026-07-04-character-collection-rpg-trial-023-gacha-detail.png

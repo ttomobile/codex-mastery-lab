@@ -1,0 +1,12 @@
+SagaForge Trial 023 public URL check
+
+app http=200 bytes=41936
+party_asset http=200 bytes=2868814
+battle_asset http=200 bytes=2481271
+article_image http=200 bytes=263486
+
+Checked endpoints:
+- /sagaforge-app/index.html
+- /sagaforge-app/assets/party-key-art.png
+- /sagaforge-app/assets/battle-ruins.png
+- /assets/2026-07-04-character-collection-rpg-trial-023-battle-weakness.png
