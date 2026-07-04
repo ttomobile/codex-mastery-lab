@@ -1,0 +1,7 @@
+{
+  "title": "星紋遠征隊 SagaForge Trial 022",
+  "trial": true,
+  "inherited": true,
+  "styleSwitch": true,
+  "log": true
+}

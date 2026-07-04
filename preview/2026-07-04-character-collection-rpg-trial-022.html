@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SagaForge Trial 022: 同一キャラの複数スタイルと継承技をプレイアブルに入れる</title><style>
 :root {
   color-scheme: light;
   --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
@@ -196,8 +196,8 @@ th { background:#f1f5f9; }
 <a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-019.html"><span class="chapter-num">Dogfood 19</span>AIDD Control Plane Dogfood 019：SagaForgeを「起動直後のスマホRPG拠点」へ寄せる</a>
 <a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-020.html"><span class="chapter-num">Dogfood 20</span>AIDD Control Plane Dogfood 020：SagaForgeを「周回で育つスマホRPGループ」へ寄せる</a>
 <a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-021.html"><span class="chapter-num">Dogfood 21</span>AIDD Control Plane Dogfood 021：SagaForgeにスタイル詳細・アビリティ・交換所を足す</a>
-<a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-022.html"><span class="chapter-num">Dogfood 22</span>SagaForge Trial 022: 同一キャラの複数スタイルと継承技をプレイアブルに入れる</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
-<a class="chapter-link past current" href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">過去記事 02</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a class="chapter-link current" href="2026-07-04-character-collection-rpg-trial-022.html"><span class="chapter-num">Dogfood 22</span>SagaForge Trial 022: 同一キャラの複数スタイルと継承技をプレイアブルに入れる</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link past " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">過去記事 02</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
 <a class="chapter-link past " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">過去記事 03</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">過去記事 04</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-28-agents-skill-explained.html"><span class="chapter-num">過去記事 05</span>AGENTS.mdとaidd-app-clone-lab skillは何に効いたのか：100点化手順を読み解く</a>
@@ -206,200 +206,100 @@ th { background:#f1f5f9; }
 <a class="chapter-link past " href="2026-06-28-mobile-state-contract.html"><span class="chapter-num">過去記事 08</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-29-api-failure-state.html"><span class="chapter-num">過去記事 09</span>「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-30-playwright-api-state.html"><span class="chapter-num">過去記事 10</span>Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する</a>
-<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-06-27-accessibility-contract-vibe-faq.html"><span>前の記事</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a><a class="next" href="2026-06-27-security-baseline-contact-form.html"><span>次の記事</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a></nav><article><h1>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</h1>
-<blockquote>2026-06-27 / Codex Mastery Lab 日次ドラフト  </blockquote>
-<blockquote>想定読了時間: 約10分  </blockquote>
-<blockquote>種別: Experiment / Failure / Template</blockquote>
-<p><img src="assets/2026-06-27-performance-budget-reverse-chain.svg" alt="Performance Budget reverse chain" loading="lazy"></p>
-<h2>操作キャプチャ</h2>
-<p>バイブコーディング版を実際にブラウザで操作したGIF。</p>
-<p><img src="assets/2026-06-27-performance-vibe-demo.gif" alt="バイブコーディング版ギャラリーの操作GIF" loading="lazy"></p>
-<p>指示を見直した版を実際にブラウザで操作したGIF。</p>
-<p><img src="assets/2026-06-27-performance-fixed-demo.gif" alt="指示見直し版ギャラリーの操作GIF" loading="lazy"></p>
-<h2>前回の振り返り</h2>
-<p>前回はFAQ検索アプリを題材に、見た目が動いていてもアクセシビリティ上の関係が不足することを確認した。検索欄がどの結果リストを操作しているのか、no results状態がどう伝わるのか、キーボード操作で文脈が壊れないかを、最初からAIへ伝える必要があると分かった。</p>
-<p>今回のテーマは性能である。見た目を良くする指示は便利だが、ファイルサイズ、装飾コスト、アニメーション配慮、証拠ファイルが抜けると、後から品質を判断しにくくなる。</p>
-<h2>今回やること</h2>
-<p>Codexに日本語で「プレミアムなSaaSギャラリー」を作らせる。ブラウザでバイブ版と修正版を操作し、GIFで比較する。そのうえで Performance Budget と Asset Policy をAI Task Packetへ戻す。</p>
-<h2>1. 今日の問い</h2>
-<p>前回は、雑に作ったFAQ検索アプリをアクセシビリティ観点で監査し、<code>aria-controls</code> やリストセマンティクスを AI Task Packet に戻した。今日の問いは性能である。</p>
-<blockquote>Codexに「プレミアムでビジュアルなSaaSギャラリーを作って」と雑に頼むと、見た目は良くなる。しかし、後工程のPerformance / Lighthouse監査が必要とする予算・証拠・資産方針は成果物に残るのか？</blockquote>
-<p>料理でいえば、完成写真だけでは同じ味を再現できない。材料、分量、火加減、手順、失敗しやすいポイントが必要になる。Webアプリでも同じで、見た目だけでは足りない。AIが作ったUIを運用・監査できる共通説明書にするには、Performance Budget を前工程の仕様として渡す必要があるのではないか、という仮説を検証した。</p>
-<h2>2. 仮説</h2>
-<p>今回の仮説は次の通り。</p>
-<blockquote>「premium」「visual」という曖昧な指示は、CSSの肥大化、重い装飾、外部画像/CDN、motion配慮漏れを誘発しやすい。たとえ今回Codexが外部依存を避けても、Performance BudgetとAsset Policyを事前に渡さなければ、後工程で何を合格とするかが曖昧になる。</blockquote>
-<p>今回はM4 Mac mini / 16GB RAM / 256GB SSDの制約環境で回すため、LighthouseやPlaywrightの追加インストールはしない。代わりに、静的ファイルサイズ、CSS行数、外部参照、画像寸法、motion fallback、証拠ファイルの有無を監査する軽量スクリプトを作った。これはLighthouseの代替ではないが、「前工程へ戻すべき情報」を抽出するには十分である。</p>
-<h2>3. 実験環境</h2>
-<pre><code>2026-06-27 12:34:44 JST
-ProductName:    macOS
-ProductVersion: 26.5.1
-BuildVersion:   25F80
-Disk:           228Gi total / 140Gi available
-Codex CLI:      codex-cli 0.142.3</code></pre>
-<p>実験ディレクトリ:</p>
-<pre><code>/path/to/project-root/experiments/2026-06-27-performance-budget-vibe-gallery/</code></pre>
-<p>ログ:</p>
-<pre><code>/path/to/project-root/experiments/2026-06-27-performance-budget-vibe-gallery/logs/</code></pre>
-<h2>4. 実験計画</h2>
-<p><code>PLAN.md</code> には、今回の監査カテゴリを次の3つに絞って書いた。</p>
+<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-04-character-collection-rpg-trial-021.html"><span>前の記事</span>AIDD Control Plane Dogfood 021：SagaForgeにスタイル詳細・アビリティ・交換所を足す</a><span></span></nav><article><h1>SagaForge Trial 022: 同一キャラの複数スタイルと継承技をプレイアブルに入れる</h1>
+<p>前回までで、星紋遠征隊はホーム、5人編成、クエスト、Round制バトル、育成、召喚、交換所まで触れる状態になった。けれど、ユーザーの「全然ロマサガRSとは程遠い」という評価に照らすと、まだ大きな不足が残っていた。</p>
+<blockquote>注意: アプリ本体では実在IP、公式素材、商標、ロゴ、公式文言、公式確率、公式UIの完全コピーは使わない。この記事では、期待される体験パターンを説明する文脈としてのみ実在タイトル名に触れる。</blockquote>
+<h2>前回の何がロマサガRSから遠かったか</h2>
+<p>Trial 021で交換所、スタイル詳細、耐性、アビリティ発動ログは入った。しかし、まだ次の点が弱かった。</p>
+<table>
+<tr><th>不足</th><th>なぜ遠く見えるか</th><th>今回の扱い</th></tr>
+<tr><td>同一キャラの複数スタイル感が薄い</td><td>「キャラを1枚持つ」一般的RPGに見え、スタイル収集・使い分けの判断がない</td><td>スタイル詳細に別スタイル候補を追加し、切替で編成と戦闘へ反映</td></tr>
+<tr><td>継承技が説明止まり</td><td>スタイル詳細には継承技があったが、バトルで押せない</td><td>バトルに「継承技」コマンドを追加</td></tr>
+<tr><td>スタイル選択が編成テンポへつながらない</td><td>詳細画面を見ても、行動順・戦力・コマンドが変わる感覚が薄い</td><td>切替後に5人編成カード、行動順、武器表示、継承技ボタンを更新</td></tr>
+</table>
+<h2>今回どの差分を潰したか</h2>
+<p>今回のMVPは、見た目の豪華さではなく「スタイル単位で遊ぶ構造」を1段階だけ具体化することに絞った。</p>
 <ol>
-<li>Performance / Lighthouse proxy</li>
-<li>Dependency / Asset / Version Health</li>
-<li>Build / Console / Verification Evidence</li>
+<li><strong>別スタイル切替</strong></li>
 </ol>
-<p>ここでの狙いは、単に小さなページを高速化することではない。後工程の監査で必要になる情報を、どの標準成果物へ戻すべきかを見ることである。</p>
-<h2>5. Codexへ渡した雑プロンプト</h2>
-<p>実際に渡したプロンプトはこれである。</p>
-<pre><code>このgitリポジトリ内で、`experiments/2026-06-27-performance-budget-vibe-gallery/vibe-app` に小さな静的SaaSプロダクトギャラリーを作ってください。
-HTML、CSS、素のJavaScriptだけを使ってください。日本語のプロダクト紹介ページとして、ヒーロー、6つの機能カード、簡単な図解、導入効果の声、小さな絞り込みUIを入れてください。
-シンプルにしてください。依存パッケージはインストールしないでください。`vibe-app` ディレクトリの外は変更しないでください。完了したら終了してください。</code></pre>
-<p>実行コマンド:</p>
-<pre><code>codex exec --sandbox danger-full-access &quot;このgitリポジトリ内で、experiments/2026-06-27-performance-budget-vibe-gallery/vibe-app に小さな静的SaaSプロダクトギャラリーを作ってください。HTML、CSS、素のJavaScriptだけを使ってください。日本語のプロダクト紹介ページとして、ヒーロー、6つの機能カード、簡単な図解、導入効果の声、小さな絞り込みUIを入れてください。シンプルにしてください。依存パッケージはインストールしないでください。vibe-app ディレクトリの外は変更しないでください。完了したら終了してください。&quot;</code></pre>
-<p>Codexは <code>vibe-app</code> に3ファイルを作った。</p>
-<pre><code>index.html  176 lines
-styles.css  605 lines
-app.js       31 lines</code></pre>
-<p>Codexの最終報告はこうだった。</p>
-<pre><code>静的SaaSギャラリーを `vibe-app` に作りました。
-ヒーロー、6つのビジュアルなプロダクトカード、導入効果の声、素のJavaScriptによるカテゴリ絞り込みを含めました。
-依存パッケージはインストールせず、外部アセットも参照せず、変更は `vibe-app` 内に限定しました。
-検証: 作成ファイル一式を確認し、http、@import、url(...) の外部参照がないことを確認しました。</code></pre>
-<p>ここで面白いのは、Codexがかなり良い判断をしていることだ。外部画像やCDNを使わず、CSSだけでビジュアルを作った。雑プロンプトとしては優秀である。しかし、後工程で見ると別の問題が出る。</p>
-<h2>6. 軽量な性能監査を作った</h2>
-<p>今回作った監査スクリプトは <code>audit_static_performance.py</code> である。チェック内容は次の通り。</p>
+<p>   - 紅槍リオ、翠策ミナ、銀術セナ、盾士ガル、弓姫ノアに別スタイル候補を追加。</p>
+<p>   - 例: <code>紅槍リオ【朱き先陣】</code> から <code>紅槍リオ【放浪の剣客】</code> へ切替できる。</p>
+<ol>
+<li><strong>継承技のバトル反映</strong></li>
+</ol>
+<p>   - バトル画面に <code>継承技</code> ボタンを追加。</p>
+<p>   - 現在スタイルの継承技名とBPコストが表示される。</p>
+<p>   - 押すとログに「継承技: 別スタイル経験を反映」と出る。</p>
+<ol>
+<li><strong>編成への反映</strong></li>
+</ol>
+<p>   - 編成カードに <code>継承: 技名</code> を表示。</p>
+<p>   - スタイル切替で総戦闘力、武器種、ロール、行動順ラベルが変わる。</p>
+<h2>触れる導線</h2>
 <ul>
-<li>HTML / CSS / JS のサイズ</li>
-<li>合計静的バイト数</li>
-<li>CSS行数</li>
-<li>外部ネットワーク参照の有無</li>
-<li><code>&lt;img&gt;</code> がある場合の <code>width</code> / <code>height</code> と <code>loading=&quot;lazy&quot;</code></li>
-<li>Performance Budgetの証拠ファイル有無</li>
-<li><code>backdrop-filter</code> / <code>box-shadow</code> / <code>transition</code> / <code>transform</code> などの装飾コスト</li>
-<li><code>prefers-reduced-motion</code> の有無</li>
-<li>consoleログの残存</li>
+<li>プレイアブル: プレビュー配信の <code>/sagaforge-app/index.html</code></li>
 </ul>
-<p>実行コマンド:</p>
-<pre><code>node --check experiments/2026-06-27-performance-budget-vibe-gallery/vibe-app/app.js
-python3 experiments/2026-06-27-performance-budget-vibe-gallery/audit_static_performance.py experiments/2026-06-27-performance-budget-vibe-gallery/vibe-app</code></pre>
-<p>結果:</p>
-<pre><code>APP: experiments/2026-06-27-performance-budget-vibe-gallery/vibe-app
-SIZES: html=6958 css=10154 js=906 total=18018 css_lines=605
-合格: HTMLサイズが予算内 — 7512 &lt;= 16000
-合格: CSSサイズが予算内 — 10154 &lt;= 12000
-合格: JSサイズが予算内 — 906 &lt;= 5000
-合格: 静的ファイル合計サイズが予算内 — 18572 &lt;= 32000
-不合格: CSS行数がレビューしやすい範囲内 — 605 &lt;= 360
-合格: 外部ネットワーク資産を参照していない — found 0
-不合格: Performance Budgetが成果物に文書化されている
-不合格: 重くなりやすい視覚表現CSSが上限内 — found 20 tokens
-不合格: 動き/transitionにprefers-reduced-motionの代替がある
-合格: consoleログがJSに残っていない</code></pre>
-<p>ここで重要なのは、ファイルサイズ自体は合格していることだ。総量18KBなので、単純に「重い」とは言えない。しかしCSSが605行まで伸び、Performance Budgetの証拠がなく、motion fallbackもない。つまり、性能欠陥は「現在のページが遅い」ではなく、「後工程で継続監査できる共通説明書になっていない」ことにある。</p>
-<p><img src="assets/2026-06-27-performance-budget-comparison.svg" alt="Performance Budget comparison" loading="lazy"></p>
-<h2>7. 欠陥から理想状態を定義する</h2>
-<p>今回の代表findingをAIDD-Spec標準形式で書く。</p>
-<pre><code>category: Performance / Lighthouse Proxy
-finding: 小さな静的ページにもかかわらず、Performance Budgetの証拠がなく、CSSが605行まで増えていた。
-severity: medium
-observed_by: audit_static_performance.py
-ideal_state: AI生成UIのTask Packetには、合計バイト数、CSS/JSサイズ、アセット取得方針、motion fallback、証跡ファイルなど、測定可能な予算が含まれている。
-fix_instruction: AI Task PacketにPerformance Budget契約とAsset Policyを追加し、PERFORMANCE_BUDGET.md と静的監査出力を必須にする。
-needed_upstream_info:
-  - Performance Budget
-  - Asset Policy
-  - Rendering Strategy
-  - Verification Evidence
-standard_update:
-  document: aidd-spec-ai-task-packet-standard-v0.1.md
-  field: performance_budget_contract + asset_policy
-codex_prompt_delta: |
-  静的ファイル合計は32KB以下、CSSは12KB以下かつ360行以下、JSは5KB以下にする。外部アセット/CDN/url()を避ける。reduced-motion fallbackを入れ、実測サイズ付きのPERFORMANCE_BUDGET.mdを作る。
-verification:
-  command: python3 experiments/2026-06-27-performance-budget-vibe-gallery/audit_static_performance.py experiments/2026-06-27-performance-budget-vibe-gallery/fixed-app
-  expected: 合格</code></pre>
-<p>このfindingから逆算すると、AI Task Packetには少なくとも以下が必要になる。</p>
+<h2>スクリーンショット</h2>
+<p><img src="assets/2026-07-04-character-collection-rpg-trial-022-style-switch.png" alt="Trial 022 スタイル切替" loading="lazy"></p>
+<p><img src="assets/2026-07-04-character-collection-rpg-trial-022-inherited-skill.png" alt="Trial 022 バトル継承技" loading="lazy"></p>
+<h2>実装メモ</h2>
+<p>変更対象は、安定して触れる静的プレイアブル版を優先した。</p>
 <ul>
-<li><code>performance_budget_contract.total_static_bytes</code></li>
-<li><code>performance_budget_contract.css_budget</code></li>
-<li><code>performance_budget_contract.js_budget</code></li>
-<li><code>performance_budget_contract.motion_policy</code></li>
-<li><code>asset_policy.external_network_assets</code></li>
-<li><code>asset_policy.image_dimensions_required</code></li>
-<li><code>asset_policy.font_policy</code></li>
-<li><code>verification_evidence.files_to_attach</code></li>
+<li><code>playables/sagaforge-app/index.html</code></li>
 </ul>
-<h2>8. 改善版 AI Task Packet v0.2</h2>
-<p>次に、Codexへ改善版のTask Packetを渡した。要点は以下である。</p>
-<pre><code># AI Task Packet v0.2: Performance Budget付き静的SaaSギャラリー
-
-## Performance Budget契約
-- `index.html + styles.css + app.js` の静的ファイル合計は32KB以下にする。
-- `styles.css` は12KB以下、かつ360行以下にする。
-- `app.js` は5KB以下にする。
-- 外部ネットワーク資産を避ける。`http://`、`https://`、CSS `@import`、`url(...)` 参照を使わない。
-- リモート画像ではなく、CSS、単純なインラインSVG、意味のあるHTMLを使う。
-- 重くなりやすい描画効果を上限内に抑える。
-- transitionを使う場合は、`@media (prefers-reduced-motion: reduce)` の代替を入れる。
-
-## 検証証拠
-`fixed-app/` の中に短い `PERFORMANCE_BUDGET.md` を作り、予算値、実測サイズ、実行したコマンド、トレードオフを記録する。</code></pre>
-<p>実行コマンド:</p>
-<pre><code>codex exec --sandbox danger-full-access &quot;experiments/2026-06-27-performance-budget-vibe-gallery/AI_TASK_PACKET_v0.2.md を読んで、その内容どおりに実装してください。変更は experiments/2026-06-27-performance-budget-vibe-gallery/fixed-app 内に閉じ込めてください。依存パッケージはインストールしないでください。可能であれば検証コマンドを実行し、結果を報告してから終了してください。&quot;</code></pre>
-<h2>9. 修正後の結果</h2>
-<p>Codexは <code>fixed-app</code> に以下を作った。</p>
-<pre><code>index.html
-styles.css
-app.js
-PERFORMANCE_BUDGET.md</code></pre>
-<p>こちらでも検証を再実行した。</p>
-<pre><code>APP: experiments/2026-06-27-performance-budget-vibe-gallery/fixed-app
-SIZES: html=4930 css=6742 js=796 total=12468 css_lines=349
-合格: HTMLサイズが予算内 — 5514 &lt;= 16000
-合格: CSSサイズが予算内 — 6742 &lt;= 12000
-合格: JSサイズが予算内 — 796 &lt;= 5000
-合格: 静的ファイル合計サイズが予算内 — 13052 &lt;= 32000
-合格: CSS行数がレビューしやすい範囲内 — 349 &lt;= 360
-合格: 外部ネットワーク資産を参照していない — found 0
-合格: Performance Budgetが成果物に文書化されている
-合格: 重くなりやすい視覚表現CSSが上限内 — found 5 tokens
-合格: 動き/transitionにprefers-reduced-motionの代替がある
-合格: consoleログがJSに残っていない</code></pre>
-<p>HTTP配信も確認した。</p>
-<pre><code>status 200
-bytes 4930
-content_type text/html
-has title True
-has gallery True</code></pre>
-<p>差分として大きいのは、単にCSSが短くなったことではない。<code>PERFORMANCE_BUDGET.md</code> が成果物として残ったことである。これにより、後工程のレビュー担当は「何を測ったのか」「どの予算を守ったのか」「どんなトレードオフを選んだのか」を再確認できる。</p>
-<h2>10. AIDD-Specへの反映</h2>
-<p>今回、標準仕様ファイルを更新した。</p>
-<pre><code>/path/to/project-root/standards/aidd-spec-ai-task-packet-standard-v0.1.md</code></pre>
-<p>追加した主なフィールド:</p>
-<pre><code>performance_budget_contract:
-  total_static_bytes: string
-  css_budget: string
-  js_budget: string
-  lighthouse_targets: []
-  motion_policy: string
-asset_policy:
-  external_network_assets: string
-  image_dimensions_required: boolean
-  lazy_loading_policy: string
-  font_policy: string</code></pre>
-<p>AIDD Control Planeにするなら、これはフォームになる。たとえば「ページ種別: ランディングページ」「想定端末: mobile first」「画像利用: あり/なし」「第三者CDN: 禁止/許可」「Lighthouse目標: 90以上」のように入力し、AI Task Packetと監査スクリプトを自動生成する。</p>
-<h2>11. CTO視点の考察</h2>
-<p>今回の学びは、AIが悪いコードを書いたという話ではない。むしろCodexは雑プロンプトでもかなり良い判断をした。外部依存なし、Vanilla JS、静的HTML、見た目もそれなりに成立していた。</p>
-<p>危険なのは、良い判断が「偶然」に依存していることだ。ある日別のAI、別のモデル、別のプロンプトで同じ「premium visual」を渡したら、Unsplash画像、Google Fonts、重いアニメーション、外部analyticsが入り込むかもしれない。標準仕様は、AIの善意に頼らないためにある。</p>
-<p>料理なら、盛り付け写真が美しくても、材料の分量や火加減が別途必要になる。AI駆動開発でも、見た目のUI指示とは別に、Performance BudgetとAsset Policyを説明書として渡す必要がある。</p>
-<h2>12. 明日から使えるチェックリスト</h2>
+<p>  - Trial 022へ更新。</p>
+<p>  - <code>styleVariants</code> を追加。</p>
+<p>  - <code>switchVariant()</code> で同一キャラの別スタイル切替を実装。</p>
+<p>  - <code>useInheritedSkill()</code> で継承技コマンドを実装。</p>
+<p>  - <code>renderParty()</code> で編成、行動順、バトルの武器表示、継承技ボタンを同期。</p>
 <ul>
-<li>AIに「premium」「visual」「rich」と言うなら、同時に予算を書く</li>
-<li>CSS/JS/総量の上限を書く</li>
-<li>外部画像/CDN/フォントの許可方針を書く</li>
-<li>画像を使うなら width/height と lazy loading を書く</li>
-<li>motionを使うなら <code>prefers-reduced-motion</code> を書く</li>
-<li>Lighthouse目標値だけでなく、Lite実験用の静的監査も用意する</li>
-<li>Codexの口頭報告ではなく、証拠ファイルを成果物に残す</li>
+<li><code>scripts/build_preview.py</code></li>
 </ul>
-<h2>13. 次回検証</h2>
-<p>次は、同じPerformance Budgetを「事前に渡す」だけでなく、実ブラウザのLighthouse/axe/Playwrightにどこまで軽量に接続できるかを試す。制約環境では重い依存を避ける必要があるため、まずは既存ブラウザの有無、追加インストールなしで取れるメトリクス、そしてAIDD Control Planeが自動保存すべきEvidenceの粒度を検証したい。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-06-27-accessibility-contract-vibe-faq.html"><span>前の記事</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a><a class="next" href="2026-06-27-security-baseline-contact-form.html"><span>次の記事</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a></nav></main></div></body></html>
+<p>  - Trial 022記事と画像コピー対象を追加。</p>
+<p>  - <code>playables/sagaforge-app/</code> が <code>preview/sagaforge-app/</code> にコピーされる状態を維持。</p>
+<h2>検証ログ</h2>
+<p>今回の検証は、静的プレイアブルを中心に行った。</p>
+<pre><code>python3 scripts/build_preview.py
+node /tmp/check-sagaforge-022.mjs
+curl -I &lt;preview-host&gt;/sagaforge-app/index.html
+curl -I &lt;preview-host&gt;/sagaforge-app/assets/party-key-art.png</code></pre>
+<p>主な確認内容:</p>
+<ul>
+<li>スタイル画面で別スタイル切替ボタンが表示される。</li>
+<li>切替後、スタイル名・ロール・武器・継承技が画面に反映される。</li>
+<li>バトル画面に継承技ボタンがあり、クリックでログが増える。</li>
+<li><code>scripts/build_preview.py</code> 後も <code>preview/sagaforge-app/index.html</code> が存在する。</li>
+<li>公開URLと主要画像URLが <code>http=200</code> を返す。</li>
+</ul>
+<h2>まだ遠い点</h2>
+<p>今回で「スタイル構造」は一歩近づいたが、まだロマサガRS的な期待には遠い。</p>
+<ul>
+<li>スタイル切替はあるが、<strong>キャラ詳細・所持スタイル一覧・未所持スタイル表示</strong> まではない。</li>
+<li>技Rankや能力値上昇はログ中心で、<strong>戦闘後リザルトの気持ちよさ</strong> がまだ弱い。</li>
+<li>バトルはBP/OD/継承技があるが、<strong>連携演出、行動順、敵行動、状態異常、耐性相性</strong> はまだ薄い。</li>
+<li>ガチャは10連結果表示だけで、<strong>演出段階、被りピース、天井/交換、スタイル詳細への遷移</strong> が弱い。</li>
+</ul>
+<h2>次に潰す差分</h2>
+<p>次回は、次の1〜3個に絞る。</p>
+<ol>
+<li><strong>戦闘リザルト強化</strong></li>
+</ol>
+<p>   - HP、能力値、技Rank、スタイル経験値、報酬カードをもっと気持ちよく表示する。</p>
+<ol>
+<li><strong>敵行動と耐性/弱点</strong></li>
+</ol>
+<p>   - ただ殴るだけでなく、弱点属性、Resist、敵の全体攻撃、回復判断を入れる。</p>
+<ol>
+<li><strong>ガチャからスタイル詳細へ</strong></li>
+</ol>
+<p>   - 10連結果のカードを押すと、スタイル詳細/育成/編成へ移動できるようにする。</p>
+<h2>AIDD-Specへの学び</h2>
+<p>今回の差分は、AIDD Task Packetに「キャラ収集RPG」とだけ書いても不足することを示している。必要なのは、次のような具体的な体験契約だった。</p>
+<ul>
+<li>キャラではなくスタイル単位でカードを持つ。</li>
+<li>同一キャラに複数スタイルがある。</li>
+<li>別スタイルの技を継承候補として表示する。</li>
+<li>継承技は説明だけでなく、戦闘コマンドとして触れる。</li>
+<li>スタイル切替は編成戦力、行動順、戦闘UIへ反映される。</li>
+</ul>
+<p>これは「完成イメージを雑に伝える」だけでは抜けやすい。料理のレシピで言えば、材料名だけでなく、下ごしらえ、火加減、盛り付けまで書く必要がある。AIDD-Specでは、この粒度をAI Task Packetの受け入れ条件に入れるべきだと分かった。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-04-character-collection-rpg-trial-021.html"><span>前の記事</span>AIDD Control Plane Dogfood 021：SagaForgeにスタイル詳細・アビリティ・交換所を足す</a><span></span></nav></main></div></body></html>
