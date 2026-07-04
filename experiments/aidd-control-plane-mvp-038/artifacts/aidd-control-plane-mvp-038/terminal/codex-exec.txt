@@ -1,0 +1,19 @@
+Codex execution log (sanitized summary)
+
+Command:
+codex exec --sandbox danger-full-access "$(cat ../CODEX_PROMPT.md)"
+
+Result:
+- Codex implemented AIDD Control Plane MVP 038 in generated-repo.
+- Added Execution Priority Set Builder types, factories, evaluator, UI, unit test, E2E test, doctor checks, and capture script.
+- Codex self-report was not used as final evidence; independent verification logs are saved separately.
+
+Independent verification files:
+- pnpm-install.txt
+- lint.txt
+- typecheck.txt
+- test.txt
+- build.txt
+- test-e2e.txt
+- doctor-aidd.txt
+- capture-mvp038.txt

@@ -1,0 +1,15 @@
+AIDD Control Plane MVP 038 Execution Priority Set Builder
+
+Independent verification summary:
+- pnpm install --frozen-lockfile: pass
+- pnpm run lint: pass
+- pnpm run typecheck: pass
+- pnpm run test: 69 tests passed
+- pnpm run build: pass
+- pnpm run test:e2e: 108 passed / Chromium, Firefox, WebKit
+- pnpm run doctor:aidd: pass
+
+Key evidence:
+- execute_now / next_increment / learning_log routes are separated.
+- Codex prompt preview includes execute_now only.
+- failure state detects duplicate priority, budget shortage, missing verification commands, rollback shortage, unadopted delta mixing, Firefox exclusion, and local path/host/private network leakage.

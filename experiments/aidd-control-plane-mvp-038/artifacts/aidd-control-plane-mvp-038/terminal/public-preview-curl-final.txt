@@ -1,0 +1,15 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane MVP 038：採用済み修正を「次の1回で実行する分」だけに絞る</title><style>
+<a href="2026-07-04-aidd-control-plane-mvp-038.html">MVP38｜AIDD Control Plane MVP 038：採用済み修正を「次の1回で実行する分」だけに絞る</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link current" href="2026-07-04-aidd-control-plane-mvp-038.html"><span class="chapter-num">MVP 38</span>AIDD Control Plane MVP 038：採用済み修正を「次の1回で実行する分」だけに絞る</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-04-aidd-control-plane-mvp-037.html"><span>前の記事</span>AIDD Control Plane MVP 037：修正候補を「全部やる」から「次に採用する1つ」へ絞る</a><span></span></nav><article><h1>AIDD Control Plane MVP 038：採用済み修正を「次の1回で実行する分」だけに絞る</h1>
+<p>今回作ったのは <strong>Execution Priority Set Builder</strong> です。</p>
+  -&gt; Execution Priority Set Builder
+<li>UIに <code>Execution Priority Set Builder</code> セクションを追加</li>
+<p><img src="assets/aidd-control-plane-mvp038-terminal-evidence.png" alt="MVP038 terminal evidence" loading="lazy"></p>
+checked MVP: AIDD Control Plane MVP 038 Execution Priority Set Builder</code></pre>
+<p>今回、<code>standards/aidd-control-plane-mvp-v0.1.md</code> に <code>Execution Priority Set Builder</code> を追加しました。</p>
+aidd-control-plane-mvp038-empty.png bytes=239154
+aidd-control-plane-mvp038-valid.png bytes=266798
+aidd-control-plane-mvp038-failure.png bytes=196790
+aidd-control-plane-mvp038-terminal-evidence.png bytes=143813
+
