@@ -1,0 +1,15 @@
+$ playwright test
+
+Running 9 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/verification-run-detail.spec.ts:3:1 › empty状態ではrepair delta未選択とpacketへ進めない理由を表示する (586ms)
+  ✓  2 [chromium] › e2e/verification-run-detail.spec.ts:13:1 › ready状態では採用済みdeltaだけをnext packet previewへ入れる (334ms)
+  ✓  3 [chromium] › e2e/verification-run-detail.spec.ts:45:1 › failure状態では未判断と未採用delta混入と公開前ブロックを表示する (307ms)
+  ✓  4 [firefox] › e2e/verification-run-detail.spec.ts:3:1 › empty状態ではrepair delta未選択とpacketへ進めない理由を表示する (823ms)
+  ✓  5 [firefox] › e2e/verification-run-detail.spec.ts:13:1 › ready状態では採用済みdeltaだけをnext packet previewへ入れる (532ms)
+  ✓  6 [firefox] › e2e/verification-run-detail.spec.ts:45:1 › failure状態では未判断と未採用delta混入と公開前ブロックを表示する (446ms)
+  ✓  7 [webkit] › e2e/verification-run-detail.spec.ts:3:1 › empty状態ではrepair delta未選択とpacketへ進めない理由を表示する (803ms)
+  ✓  8 [webkit] › e2e/verification-run-detail.spec.ts:13:1 › ready状態では採用済みdeltaだけをnext packet previewへ入れる (436ms)
+  ✓  9 [webkit] › e2e/verification-run-detail.spec.ts:45:1 › failure状態では未判断と未採用delta混入と公開前ブロックを表示する (419ms)
+
+  9 passed (9.0s)

@@ -1,0 +1,4 @@
+<p>前回のMVP 050では、Verification Run Detailの失敗をEvidence Repair Deltaへ変換しました。今回はその次です。作ったdeltaをすべて実行するのではなく、<strong>採用 / 保留 / 却下</strong>に分け、採用済みdeltaだけを次回AI Task PacketとCodex promptへ進める <strong>Repair Delta Priority Decision Workspace</strong> を作りました。</p>
+<p><code>experiments/aidd-control-plane-mvp-051/generated-repo/</code> に、Next.js + TypeScript + pnpmで <strong>Repair Delta Priority Decision Workspace</strong> を実装しました。</p>
+<p><img src="assets/aidd-control-plane-mvp051-ready.png" alt="MVP051 ready" loading="lazy"></p>
+  -&gt; Repair Delta Priority Decision Workspace

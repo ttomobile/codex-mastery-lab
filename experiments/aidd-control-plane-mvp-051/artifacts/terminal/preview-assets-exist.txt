@@ -1,0 +1,5 @@
+aidd-control-plane-mvp051-empty.png True 256061
+aidd-control-plane-mvp051-ready.png True 609152
+aidd-control-plane-mvp051-failure.png True 327937
+aidd-control-plane-mvp051-terminal-evidence.png True 55092
+RESULT PASS
