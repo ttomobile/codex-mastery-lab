@@ -1,0 +1,3 @@
+public playable: http=200 bytes=90845
+party asset: http=200 bytes=2868814
+trial037 article: http=200 bytes=51927

@@ -1,0 +1,2 @@
+playable Trial037= True forecast= True local_path= False
+article Trial037= True forecast= True local_path= False
