@@ -1,0 +1,12 @@
+index_has_control_section True
+index_has_mvp050 True
+index_before_past True
+article_has_title True
+article_has_empty True
+article_has_ready True
+article_has_failure True
+article_has_terminal True
+aidd-control-plane-mvp050-empty.png 211345
+aidd-control-plane-mvp050-ready.png 557409
+aidd-control-plane-mvp050-failure.png 233934
+aidd-control-plane-mvp050-terminal-evidence.png 53922
