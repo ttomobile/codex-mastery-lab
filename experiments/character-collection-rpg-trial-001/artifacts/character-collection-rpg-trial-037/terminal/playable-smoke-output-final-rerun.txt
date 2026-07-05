@@ -1,0 +1,8 @@
+## fresh playable smoke rerun
+playable smoke OK {
+  "title": "星紋遠征隊 SagaForge Trial 037",
+  "active": "styles",
+  "stylePlan": "紅槍リオ: 突破可能Style Lv.42 / 技:瞬閃 Rank18 / 閃き62% / 次:編成役割を維持翠策ミナ: 周回/召喚でピース集めStyle Lv.41 / 技:星紋号令 Rank16 / 閃き58% / 次:編成役割を維持銀術セナ: 突破可能Style Lv.38 / 技:癒光陣 Rank14 / 閃き71% / 次:今回の育成優先盾士ガル: 3周で突破圏Style Lv.37 / 技:挑発の盾打 Rank12 / 閃き42% / 次:編成役割を維持弓姫ノア: 周回/召喚でピース集めStyle Lv.34 / 技:星雫射ち Rank10 / 閃き55% / 次:編成役割を維持",
+  "forecast": "周回先裂光の丘 1-1 NORMALを3周 / 消費24 / 弱点斬/突伸びるスタイル銀術セナ: ピース+6候補、技Rank+1、限界突破候補素材予報記憶片+54 / 技書+6 / ピース+18。交換所でSS輝片+訓練書まで届く次の画面育成で突破→編成→再戦",
+  "publicIpLeak": false
+}

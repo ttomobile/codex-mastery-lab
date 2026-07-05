@@ -1,0 +1,2 @@
+## fresh playable JS syntax rerun
+JS syntax OK: playable script extracted from index.html
