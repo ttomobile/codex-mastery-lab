@@ -24,7 +24,7 @@
 - [ ] Codex CLI の sandbox / full-auto / danger-full-access の挙動比較
 - [ ] 小規模repoでの TDD ワークフロー: RED→Codex→GREEN→人間レビュー
 - [ ] HermesからCodexを呼ぶ時のPTY/非PTY/バックグラウンド実行の安定性
-- [ ] M4 Mac mini 16GBで安全な並列Codex数の測定
+- [ ] 制約のあるローカル環境で安全な並列Codex数の測定
 - [ ] Codex実行ログを記事素材として自動整理する仕組み
 
 ## Phase 1: 開発品質
@@ -59,7 +59,7 @@
 - [ ] 次回候補: AIDD Control Planeの入力フォームから Playwright E2E Contract を生成するMVPを作る
 - [ ] 次回候補: Verification Evidence LiteをAIDD Control Planeの自動doctor UIに接続し、ログ/GIF/残リスクの不足を画面で止める
 - [x] 次回候補: Run Authorization GateでvalidになったCodex実行をRun Queueとして追跡し、waiting/running/succeeded/failed/evidence_missingと証跡不足をReview Findingへ戻す（2026-07-04: AIDD Control Plane MVP 032）
-- [ ] 次回候補: Codex Run Queueの各itemをVerification Evidence Run Detailへ展開し、command別exit code、artifact path、失敗分類を持たせる
+- [x] 次回候補: Codex Run Queueの各itemをVerification Evidence Run Detailへ展開し、command別exit code、artifact path、失敗分類を持たせる（2026-07-06: AIDD Control Plane MVP 049）
 - [x] 次回候補: Review Record Receipt Synthesizerのfindingをexecute_now / next_increment / learning_logへ分け、execute_nowだけを次回Codex promptへ入れるAction Queueを作る（2026-07-05: AIDD Control Plane MVP 043）
 
 - [ ] 2つのCodexに実装案を競わせる

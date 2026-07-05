@@ -1,0 +1,3 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+MVP049 verification run detail, AIDD-Spec connections, tests, and capture script are present.
