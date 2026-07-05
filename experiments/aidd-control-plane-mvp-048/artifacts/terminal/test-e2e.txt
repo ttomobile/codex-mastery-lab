@@ -1,0 +1,15 @@
+$ playwright test
+
+Running 9 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/readiness-gate.spec.ts:3:1 › empty状態ではOne-Run Execution Readiness Gateの必要入力を表示する (504ms)
+  ✓  2 [chromium] › e2e/readiness-gate.spec.ts:13:1 › ready状態ではexecute_now 1件だけをCodex command previewへ表示する (337ms)
+  ✓  3 [chromium] › e2e/readiness-gate.spec.ts:34:1 › blocked状態では不足と危険条件を日本語で表示する (366ms)
+  ✓  4 [firefox] › e2e/readiness-gate.spec.ts:3:1 › empty状態ではOne-Run Execution Readiness Gateの必要入力を表示する (868ms)
+  ✓  5 [firefox] › e2e/readiness-gate.spec.ts:13:1 › ready状態ではexecute_now 1件だけをCodex command previewへ表示する (678ms)
+  ✓  6 [firefox] › e2e/readiness-gate.spec.ts:34:1 › blocked状態では不足と危険条件を日本語で表示する (921ms)
+  ✓  7 [webkit] › e2e/readiness-gate.spec.ts:3:1 › empty状態ではOne-Run Execution Readiness Gateの必要入力を表示する (1.2s)
+  ✓  8 [webkit] › e2e/readiness-gate.spec.ts:13:1 › ready状態ではexecute_now 1件だけをCodex command previewへ表示する (685ms)
+  ✓  9 [webkit] › e2e/readiness-gate.spec.ts:34:1 › blocked状態では不足と危険条件を日本語で表示する (614ms)
+
+  9 passed (12.7s)
