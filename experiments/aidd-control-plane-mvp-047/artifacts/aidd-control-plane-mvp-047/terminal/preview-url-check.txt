@@ -1,0 +1,14 @@
+<a href="2026-06-27-watchflow-trial-005.html">第06回｜WatchFlow Trial 005：91点から100点へ、Firefox/CI/artifactまで通して実験を閉じる</a><div class="nav-section-title">AIDD Control Plane SaaS化</div><a href="2026-06-28-aidd-control-plane-mvp-001.html">MVP01｜AIDD Control Plane MVP 001：AIDD-SpecをSaaSの画面に落とし込む最初の実装</a>
+<a href="2026-07-03-verification-evidence-lite.html">過去記事11｜「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></details></div><div class="layout "><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">WatchFlow本編、AIDD Control Plane SaaS化、過去記事を分けて読めるプレビュー</p><div class="nav-section-title">WatchFlow 100点チャレンジ</div><a class="chapter-link " href="001-series-roadmap.html"><span class="chapter-num">第01回</span>WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-005.html"><span class="chapter-num">第06回</span>WatchFlow Trial 005：91点から100点へ、Firefox/CI/artifactまで通して実験を閉じる</a><div class="nav-section-title">AIDD Control Plane SaaS化</div><a class="chapter-link " href="2026-06-28-aidd-control-plane-mvp-001.html"><span class="chapter-num">MVP 01</span>AIDD Control Plane MVP 001：AIDD-SpecをSaaSの画面に落とし込む最初の実装</a>
+  -&gt; Review Finding Action Queue
+<p><code>experiments/aidd-control-plane-mvp-047/generated-repo/</code> に、<strong>Review Finding Action Queue</strong> を追加しました。</p>
+<p><img src="assets/aidd-control-plane-mvp047-empty.png" alt="MVP047 empty" loading="lazy"></p>
+<p>emptyでは、Review Finding Action Queueを作る前に必要な材料を見せます。source review、finding list、priority reason、verification command、required evidence、rollbackがなければ、次のCodex実行へ進めません。</p>
+checked MVP: AIDD Control Plane MVP 047 Review Finding Action Queue</code></pre>
+<p><code>standards/aidd-control-plane-mvp-v0.1.md</code> では、Review Finding Action Queueを「Review Findingを次に実行する行動キューへ変換し、execute_now / next_increment / learning_logを混ぜずに扱う」部品として扱います。</p>
+<p>次回は、Review Finding Action Queueの<code>execute_now</code> itemを、実際にCodexへ渡す直前の <strong>One-Run Execution Readiness Gate</strong> へ接続します。</p>
+aidd-control-plane-mvp047-empty.png 255156 bytes
+aidd-control-plane-mvp047-valid.png 349418 bytes
+aidd-control-plane-mvp047-failure.png 222653 bytes
+aidd-control-plane-mvp047-terminal-evidence.png 104833 bytes

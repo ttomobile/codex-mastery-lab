@@ -1,0 +1,1 @@
+Codex CLI was invoked with HOME/.local/bin/codex exec --sandbox danger-full-access and timed out at 600s after producing MVP047 files. Hermes independent verification then passed lint/typecheck/test/build/e2e/doctor:aidd/capture.
