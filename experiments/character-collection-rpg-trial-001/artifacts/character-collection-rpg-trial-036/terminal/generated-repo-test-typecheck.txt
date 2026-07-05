@@ -1,0 +1,17 @@
+$ pnpm run test
+
+> sagaforge-trial-001@0.1.0 test WORKSPACE/experiments/character-collection-rpg-trial-001/generated-repo
+> vitest run
+
+RUN v4.1.9 WORKSPACE/experiments/character-collection-rpg-trial-001/generated-repo
+
+✓ src/domain/rpg.test.ts (12 tests) 10ms
+
+Test Files  1 passed (1)
+Tests       12 passed (12)
+Duration    1.10s
+
+$ pnpm run typecheck
+
+> sagaforge-trial-001@0.1.0 typecheck WORKSPACE/experiments/character-collection-rpg-trial-001/generated-repo
+> tsc --noEmit
