@@ -1,0 +1,4 @@
+$ python3 scripts/build_preview.py
+Wrote 90 articles to /Users/tto/codex-mastery-lab/preview
+preview playable exists
+preview article exists

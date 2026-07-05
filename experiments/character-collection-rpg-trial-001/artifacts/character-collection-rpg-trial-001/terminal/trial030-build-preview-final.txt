@@ -1,0 +1,6 @@
+$ python3 scripts/build_preview.py
+Wrote 90 articles to /Users/tto/codex-mastery-lab/preview
+$ test copied trial030 assets
+asset home ok
+asset dojo ok
+asset battle ok

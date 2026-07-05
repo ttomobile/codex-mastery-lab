@@ -1,0 +1,1 @@
+$ node --check extracted playables/sagaforge-app script

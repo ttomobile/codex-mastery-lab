@@ -1,0 +1,48 @@
+$ pnpm run lint
+
+> sagaforge-trial-001@0.1.0 lint /Users/tto/codex-mastery-lab/experiments/character-collection-rpg-trial-001/generated-repo
+> eslint .
+
+$ pnpm run typecheck
+
+> sagaforge-trial-001@0.1.0 typecheck /Users/tto/codex-mastery-lab/experiments/character-collection-rpg-trial-001/generated-repo
+> tsc --noEmit
+
+$ pnpm run test
+
+> sagaforge-trial-001@0.1.0 test /Users/tto/codex-mastery-lab/experiments/character-collection-rpg-trial-001/generated-repo
+> vitest run
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.9 [39m[90m/Users/tto/codex-mastery-lab/experiments/character-collection-rpg-trial-001/generated-repo[39m
+
+ [32m✓[39m src/domain/rpg.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m12 passed[39m[22m[90m (12)[39m
+[2m   Start at [22m 10:22:46
+[2m   Duration [22m 961ms[2m (transform 41ms, setup 70ms, import 29ms, tests 8ms, environment 712ms)[22m
+
+$ pnpm run build
+
+> sagaforge-trial-001@0.1.0 build /Users/tto/codex-mastery-lab/experiments/character-collection-rpg-trial-001/generated-repo
+> next build
+
+▲ Next.js 16.2.9 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1922ms
+  Running TypeScript ...
+  Finished TypeScript in 3.2s ...
+  Collecting page data using 4 workers ...
+  Generating static pages using 4 workers (0/3) ...
+✓ Generating static pages using 4 workers (3/3) in 482ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+

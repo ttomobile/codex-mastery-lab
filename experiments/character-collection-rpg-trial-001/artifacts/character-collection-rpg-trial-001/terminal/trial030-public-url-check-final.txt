@@ -1,0 +1,6 @@
+$ curl public playable/article/assets after final rebuild (host redacted)
+PUBLIC_HOST/sagaforge-app/index.html http=200 bytes=67401
+PUBLIC_HOST/assets/2026-07-05-character-collection-rpg-trial-030-home.png http=200 bytes=338803
+PUBLIC_HOST/assets/2026-07-05-character-collection-rpg-trial-030-dojo.png http=200 bytes=160600
+PUBLIC_HOST/assets/2026-07-05-character-collection-rpg-trial-030-battle.png http=200 bytes=577313
+PUBLIC_HOST/2026-07-05-character-collection-rpg-trial-030.html http=200 bytes=47561
