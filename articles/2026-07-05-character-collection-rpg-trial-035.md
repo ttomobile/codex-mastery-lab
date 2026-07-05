@@ -86,5 +86,5 @@ AIDD Control PlaneのAI Task Packetには、今後「リザルト分解契約」
 
 ## 公開URL
 
-- プレイアブル: https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html
+- プレイアブル: `preview/sagaforge-app/index.html`（公開前に実際の配信URLへ差し替え）
 - 記事プレビュー: `preview/2026-07-05-character-collection-rpg-trial-035.html`
