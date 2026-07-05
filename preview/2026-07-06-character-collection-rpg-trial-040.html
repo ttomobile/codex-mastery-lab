@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SagaForge Trial 040: 勝利後スタイル成長ボードで周回から育成へ戻す</title><style>
 :root {
   color-scheme: light;
   --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
@@ -262,310 +262,73 @@ th { background:#f1f5f9; }
 <a class="chapter-link " href="2026-07-06-character-collection-rpg-trial-037.html"><span class="chapter-num">Dogfood 37</span>SagaForge Trial 037: 周回前に3周AUTO結果予報とスタイル別育成メモを出す</a>
 <a class="chapter-link " href="2026-07-06-character-collection-rpg-trial-038.html"><span class="chapter-num">Dogfood 38</span>SagaForge Trial 038: 3周AUTO後のリザルト束をホームと周回画面に残す</a>
 <a class="chapter-link " href="2026-07-06-character-collection-rpg-trial-039.html"><span class="chapter-num">Dogfood 39</span>SagaForge Trial 039: 予約ターン解決リールで5人連携の手触りを強める</a>
-<a class="chapter-link " href="2026-07-06-character-collection-rpg-trial-040.html"><span class="chapter-num">Dogfood 40</span>SagaForge Trial 040: 勝利後スタイル成長ボードで周回から育成へ戻す</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link current" href="2026-07-06-character-collection-rpg-trial-040.html"><span class="chapter-num">Dogfood 40</span>SagaForge Trial 040: 勝利後スタイル成長ボードで周回から育成へ戻す</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
 <a class="chapter-link past " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">過去記事 02</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
 <a class="chapter-link past " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">過去記事 03</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">過去記事 04</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-28-agents-skill-explained.html"><span class="chapter-num">過去記事 05</span>AGENTS.mdとaidd-app-clone-lab skillは何に効いたのか：100点化手順を読み解く</a>
 <a class="chapter-link past " href="2026-06-28-aidd-app-clone-lab-proof.html"><span class="chapter-num">過去記事 06</span>WatchFlow 100点ナレッジを別アプリに移植する：StudyStreamとDrillSwipeで再実証</a>
 <a class="chapter-link past " href="2026-06-28-aidd-spec-v0.1-workflow-saas.html"><span class="chapter-num">過去記事 07</span>AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</a>
-<a class="chapter-link past current" href="2026-06-28-mobile-state-contract.html"><span class="chapter-num">過去記事 08</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a>
+<a class="chapter-link past " href="2026-06-28-mobile-state-contract.html"><span class="chapter-num">過去記事 08</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-29-api-failure-state.html"><span class="chapter-num">過去記事 09</span>「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a>
 <a class="chapter-link past " href="2026-06-30-playwright-api-state.html"><span class="chapter-num">過去記事 10</span>Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する</a>
-<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-06-28-aidd-spec-v0.1-workflow-saas.html"><span>前の記事</span>AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</a><a class="next" href="2026-06-29-api-failure-state.html"><span>次の記事</span>「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a></nav><article><h1>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</h1>
-<blockquote>2026-06-28 / Codex Mastery Lab 日次ドラフト  </blockquote>
-<blockquote>想定読了時間: 約10分  </blockquote>
-<blockquote>種別: Experiment / Template / Failure  </blockquote>
-<blockquote>将来の書籍章: 第6章 Design Contract、第9章 AI Task Packet、第10章 Verification Evidence、第12章 雑プロンプト vs AI Task Packet</blockquote>
-<p><img src="assets/2026-06-28-mobile-state-reverse-chain.svg" alt="Mobile State reverse chain" loading="lazy"></p>
-<h2>前回の振り返り</h2>
-<p>前回は問い合わせAPIを題材に、<code>POST /api/contact</code> が動くだけでは後工程の監査に耐えないことを確認した。雑な指示でもCodexは入力検証やbody size limitを入れたが、CSRF、Origin許可リスト、rate limit、request id、非PII監査ログ、保持方針、エラーレスポンス契約、証拠ファイルは抜けた。</p>
-<p>そこから、AIDD-SpecのAI Task Packetに API Security Contract / API Operations Contract を追加した。つまり「もっと安全に」ではなく、後工程が確認できるフィールドへ分解する必要がある、という学びだった。</p>
-<p>今回は画面側に戻る。ただし、PCで見たフォームではなく、スマホで使う小さなフォームを扱う。</p>
-<h2>今回やること</h2>
-<p>今日の題材は、日本語UIの「リマインダー予約メモ」である。件名、日付、時間、通知方法、メモを入力し、送信すると予約内容が表示されるだけの小さな静的Webアプリを作る。</p>
-<p>検証したい問いはこれだ。</p>
-<blockquote>Codexに「スマホでも使いやすそうなフォームを作って」と雑に頼んだとき、後工程が必要とする状態設計、エラー復帰、フォーカス移動、タップ領域、モーション配慮、検証証拠は残るのか？</blockquote>
-<p>スマホUIは、見た目が縦長に収まっていれば合格に見えやすい。しかし実務ではそこで困る。必須入力でエラーになったとき、どの項目が悪いのか。送信後に画面のどこを読めばいいのか。キーボードだけで操作したとき、フォーカスが見えるのか。後からレビューする人が、何を根拠に「スマホ対応済み」と言えるのか。</p>
-<p>料理のレシピで言えば、「おいしく作る」だけでは不十分で、火加減、加熱時間、失敗しやすいポイント、完成の目安が必要になる。スマホフォームも同じで、「スマホでも使いやすそう」ではなく、チェックできる条件に分解する必要がある。</p>
-<h2>仮説</h2>
-<p>今回の仮説は次の通り。</p>
-<blockquote>Codexは雑プロンプトでも、レスポンシブな見た目、visible label、必須属性、送信後の表示までは作れる。しかし、項目別エラーと <code>aria-describedby</code>、エラー/成功/空状態の分離、送信後の結果領域focus、<code>:focus-visible</code>、<code>prefers-reduced-motion</code>、<code>MOBILE_STATE_EVIDENCE.md</code> は、AI Task Packetに明示しない限り抜けやすい。</blockquote>
-<p>監査カテゴリは3つに絞った。</p>
+<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-06-character-collection-rpg-trial-039.html"><span>前の記事</span>SagaForge Trial 039: 予約ターン解決リールで5人連携の手触りを強める</a><span></span></nav><article><h1>SagaForge Trial 040: 勝利後スタイル成長ボードで周回から育成へ戻す</h1>
+<p>前回までの SagaForge / 星紋遠征隊は、ホーム、スタイル、5人編成、クエスト、遠征、召喚、BP/OD風の戦闘、予約ターン解決リールまで増やしてきた。それでもユーザー評価どおり、初期の版は「ロマサガRSで期待される体験」からかなり遠かった。単にファンタジーRPGの画面を増やすだけでは足りず、スタイル単位で周回し、成長し、突破判断をして、またクエストへ戻る循環が必要だった。</p>
+<h2>前回の何がロマサガRSから遠かったか</h2>
+<p>Trial 039では、5人の予約ターンを実行したあとに、誰がどの技を使い、弱点、BP、OD、回復、連携がどう解決されたかをカードで残した。これは戦闘テンポの改善だった。</p>
+<p>しかし、まだ遠かった点は次の3つ。</p>
 <ol>
-<li>Design Quality / Mobile Interaction</li>
-<li>Accessibility</li>
-<li>Build / Lint / Format / Console</li>
+<li>勝利後に「誰の能力値が上がったか」「どの技Rankが伸びたか」が、育成判断としてまとまっていなかった。</li>
+<li>スタイルピースが50を超えても、ホームや勝利画面から「今すぐ突破へ行く」導線が弱かった。</li>
+<li>周回リザルト、ホーム、育成、交換所がそれぞれ存在するだけで、プレイヤーが次に何を押すべきかが薄かった。</li>
 </ol>
-<h2>実験環境</h2>
-<pre><code>実行日時: 2026-06-28 09:00:54 JST
-Machine: Apple M4 Mac mini / 16GB RAM / 256GB SSD
-OS: macOS 26.5.1 / Build 25F80
-Codex CLI: codex-cli 0.142.3
-Disk: 228Gi total / 136Gi available
-Repo: /path/to/project-root
-Experiment: /path/to/project-root/experiments/2026-06-28-mobile-state-contract</code></pre>
-<p>実験前の <code>git status --short</code> は空だった。そこから <code>experiments/2026-06-28-mobile-state-contract/PLAN.md</code> を作り、今回の検証計画を固定した。</p>
-<h2>Step 1: Codexに雑に作らせる</h2>
-<p>実際にCodexへ渡した雑プロンプトはこれである。</p>
-<pre><code>このgitリポジトリ内で、experiments/2026-06-28-mobile-state-contract/vibe-app に、日本語UIの小さな静的Webアプリを作ってください。
-
-アプリは「リマインダー予約メモ」です。
-- 件名、日付、時間、通知方法、メモを入力する
-- 送信すると予約内容が画面に表示される
-- vanilla HTML/CSS/JavaScriptのみを使う
-- 依存パッケージはインストールしない
-- 見た目はスマホでも使いやすそうにする
-- ただしシンプルでよい
-- 変更は vibe-app ディレクトリ内だけに閉じる
-- 可能なら node --check も実行して終了する</code></pre>
-<p>実行コマンドは、Codex CLIの日本語プロンプトをファイル経由で渡した。</p>
-<pre><code>codex exec --sandbox danger-full-access &quot;$(python3 -c &#x27;from pathlib import Path; print(Path(&quot;experiments/2026-06-28-mobile-state-contract/prompt-vibe.txt&quot;).read_text())&#x27;)&quot; \
-  | tee experiments/2026-06-28-mobile-state-contract/logs/codex-vibe.log</code></pre>
-<p>なお、最初に日本語プロンプトを直接シェルコマンドへ入れたところ、実行環境のセキュリティスキャンで「confusable Unicode characters」の警告により保留になった。そこで、プロンプトを <code>prompt-vibe.txt</code> に保存し、ASCIIのシェルコマンドから読み込む形に変えた。この失敗は今後の運用メモとして重要である。日本語プロンプト自体が悪いのではなく、シェルコマンドに直接長い日本語を埋め込むと、実行環境側の検査に引っかかることがある。</p>
-<p>Codexが生成したファイルは次の3つだった。</p>
-<pre><code>vibe-app/index.html
-vibe-app/style.css
-vibe-app/script.js</code></pre>
-<p>良かった点は多い。</p>
+<h2>今回どの差分を潰したか</h2>
+<p>Trial 040では、プレイアブル版を優先して次を追加した。</p>
 <ul>
-<li><code>lang=&quot;ja&quot;</code> とviewportがある</li>
-<li>visible labelがある</li>
-<li><code>type=&quot;date&quot;</code> / <code>type=&quot;time&quot;</code> を使っている</li>
-<li>必須項目に <code>required</code> がある</li>
-<li>送信時は <code>textContent</code> で結果を描画している</li>
-<li>入力欄とボタンの <code>min-height</code> が48px以上</li>
-<li>外部依存がない</li>
-<li><code>node --check</code> が成功した</li>
+<li>ホームに <strong>突破候補レーダー / 周回後の戻り先</strong> を追加。</li>
+<li>勝利後の戦闘画面に <strong>勝利後スタイル成長ボード / Trial 040</strong> を追加。</li>
+<li>各スタイルごとに、HP上昇、能力値上昇、技Rank、ピース、現在ピース数、突破候補、次の遷移先を表示。</li>
+<li>ピース50以上かつ突破上限未満なら「突破へ」ボタンを出し、育成画面へ戻せるようにした。</li>
+<li>既存の予約ターン解決、AUTO周回、交換所、育成、召喚導線は壊さず維持した。</li>
 </ul>
-<p>つまり、雑プロンプトだからといって、必ず低品質なものが出るわけではない。Codexは「スマホでも使いやすそう」という曖昧な言葉から、かなり自然な初手を打っている。</p>
-<h2>Step 2: バイブ版をブラウザで操作する</h2>
-<p>操作GIFはこれである。</p>
-<p><img src="assets/2026-06-28-mobile-state-vibe.gif" alt="vibe app gif" loading="lazy"></p>
-<p>キャプチャは既存の軽量スクリプトを使った。</p>
-<pre><code>node scripts/capture_app_gif.js \
-  experiments/2026-06-28-mobile-state-contract/vibe-app \
-  assets/2026-06-28-mobile-state-vibe.gif</code></pre>
-<p>ブラウザコンソールは次の通り。</p>
-<pre><code>No console messages captured.</code></pre>
-<p>画面を見ると、フォームとしては成立している。入力して送信すると予約内容が出る。スマホ幅でも大きく崩れる雰囲気はない。</p>
-<p>しかし、ここで「よし、できた」と言うと危ない。後工程のレビューは、見た目だけではなく、状態遷移と再検証可能性を見る。</p>
-<h2>Step 3: 静的監査を作る</h2>
-<p>今回の監査スクリプトでは、次をチェックした。</p>
+<p><img src="assets/2026-07-06-character-collection-rpg-trial-040-home.png" alt="Trial 040 home breakthrough radar" loading="lazy"></p>
+<p><img src="assets/2026-07-06-character-collection-rpg-trial-040-growth-result.png" alt="Trial 040 growth result" loading="lazy"></p>
+<h2>実装メモ</h2>
+<p>対象は <code>playables/sagaforge-app/index.html</code>。記事より先に、毎回触れる公開URLの体験を改善した。</p>
+<p>主な追加点は次の通り。</p>
 <ul>
-<li><code>index.html</code> / <code>style.css</code> / <code>script.js</code> があるか</li>
-<li><code>lang=&quot;ja&quot;</code> とviewportがあるか</li>
-<li>主要入力にvisible labelがあるか</li>
-<li>必須入力のエラー表示先が <code>aria-describedby</code> で結び付いているか</li>
-<li>エラー/成功/空状態の live region が分離されているか</li>
-<li>送信後に結果領域へfocus移動するか</li>
-<li>件名/メモに <code>maxlength</code> があるか</li>
-<li>スマホのタップ領域が44px以上か</li>
-<li><code>:focus-visible</code> があるか</li>
-<li><code>prefers-reduced-motion</code> があるか</li>
-<li>外部ネットワーク資産を使っていないか</li>
-<li><code>console.log</code> で入力値を出していないか</li>
-<li><code>MOBILE_STATE_EVIDENCE.md</code> があるか</li>
-<li>証拠ファイルに状態設計/検証コマンド/既知制約があるか</li>
+<li><code>renderBreakthroughRadar()</code></li>
+<li><code>breakthroughStatus()</code></li>
+<li><code>renderGrowthResultCards()</code></li>
+<li>ホームの <code>breakthroughRadar</code> パネル</li>
+<li>戦闘画面の <code>growthResultPanel</code> / <code>growthResultCards</code></li>
+<li>勝利時 <code>nextRound()</code> から成長ボードを表示する接続</li>
+<li><code>scripts/build_preview.py</code> の記事順と Trial 040 画像コピー設定</li>
 </ul>
-<p>実行コマンド:</p>
-<pre><code>node --check experiments/2026-06-28-mobile-state-contract/vibe-app/script.js
-python3 experiments/2026-06-28-mobile-state-contract/audit_mobile_state.py \
-  experiments/2026-06-28-mobile-state-contract/vibe-app</code></pre>
-<p>結果はこうなった。</p>
-<pre><code>合格: index.html / style.css / script.js が存在する
-合格: 日本語UIで lang=ja と viewport がある
-合格: 主要入力に visible label がある
-不合格: 必須入力のエラー表示先が aria-describedby で結び付いている
-不合格: エラー/成功/空状態の live region が分離されている
-不合格: 送信後に結果領域へ focus 移動する
-不合格: 件名/メモに maxlength がある
-合格: スマホのタップ領域が44px以上で明示されている
-不合格: キーボードフォーカスが :focus-visible で見える
-不合格: モーションに prefers-reduced-motion がある
-合格: 外部ネットワーク資産を使っていない
-合格: console.log で入力値を出していない
-不合格: MOBILE_STATE_EVIDENCE.md がある
-不合格: 証拠ファイルに状態設計/検証コマンド/既知制約がある
-SUMMARY: 6 passed / 8 failed</code></pre>
-<p>ここで重要なのは、不合格の多くが「アプリが動かない」ではないことだ。アプリは動く。見た目も悪くない。だが、後工程が合格にするための説明書が足りない。</p>
-<h2>Step 4: 欠陥を標準フォーマットで記録する</h2>
-<p>代表findingは次の通り。</p>
-<pre><code>category: Accessibility / Mobile Interaction
-finding: バイブ版は必須入力のエラー表示を aria-describedby で入力欄に結び付けておらず、送信成功後も結果領域へfocus移動しなかった。
-severity: high
-observed_by: audit_mobile_state.py
-ideal_state: スマホフォームでは、エラー時に最初の不正項目へfocusし、項目別エラーをaria-describedbyで伝える。成功時は結果領域へfocusし、利用者が次に読む場所を迷わない。
-fix_instruction: 必須項目ごとのエラー要素、aria-describedby、aria-invalid、エラーsummary、成功live region、結果領域tabindex=-1とfocus()を追加する。
-needed_upstream_info:
-  - State Design
-  - Accessibility Contract
-  - Mobile Interaction Contract
-standard_update:
-  document: AI Task Packet Standard
-  field: mobile_interaction_contract.state_transition_focus
-codex_prompt_delta: |
-  送信エラー時は最初の不正項目へfocusし、送信成功時は結果領域へfocusする。必須項目のエラーはaria-describedbyで入力欄に結び付ける。
-verification:
-  command: python3 experiments/2026-06-28-mobile-state-contract/audit_mobile_state.py experiments/2026-06-28-mobile-state-contract/fixed-app
-  expected: SUMMARY: 14 passed / 0 failed</code></pre>
-<p>もう1つは証拠ファイルである。</p>
-<pre><code>category: Verification Evidence
-finding: バイブ版には、空状態、エラー状態、成功状態、スマホ操作配慮、検証コマンド、既知制約を記録した証拠ファイルがなかった。
-severity: medium
-ideal_state: 後工程のレビュー担当が、チャットログではなくリポジトリ内の証拠ファイルから状態設計と検証結果を確認できる。
-fix_instruction: fixed-app/MOBILE_STATE_EVIDENCE.md を作り、状態設計、スマホ操作配慮、検証コマンド、既知制約を日本語で記録する。
-needed_upstream_info:
-  - Verification Evidence
-  - Definition of Done
-standard_update:
-  document: AI Task Packet Standard
-  field: verification_evidence.mobile_state_file</code></pre>
-<h2>Step 5: AI Task Packet v0.5を作る</h2>
-<p>改善版では、Codexに次を渡した。全文は <code>experiments/2026-06-28-mobile-state-contract/AI_TASK_PACKET_v0.5.md</code> に保存している。</p>
-<pre><code>## State Design
-- 空状態: まだ予約がないこと、入力後に予約できることを説明する。
-- エラー状態: 必須項目ごとにエラーを表示し、aria-describedbyで入力欄と結び付ける。
-- 成功状態: 成功メッセージと予約内容を表示し、結果領域へfocus移動する。
-- 編集復帰: 再編集できる導線を置く。
-
-## Accessibility Contract
-- すべての入力にvisible labelを置く。
-- 必須項目のエラー表示は aria-describedby で結ぶ。
-- エラー/成功状態を aria-live=&quot;polite&quot; の領域で知らせる。
-- 送信後は結果領域に tabindex=&quot;-1&quot; を付けて `.focus()` する。
-- キーボードフォーカスは `:focus-visible` で明確に見える。
-
-## Mobile Interaction Contract
-- 主要タップ領域は44px以上。
-- 360px幅でも横スクロールしない。
-- 入力欄はスマホキーボードに適した type/inputmode/autocomplete を使う。
-- ボタンは画面下部に近い位置でも押しやすい余白を持つ。
-- モーションを使う場合は `prefers-reduced-motion` を用意する。使わない場合も方針をCSSまたは証拠ファイルに明記する。
-
-## Verification Evidence
-`fixed-app/MOBILE_STATE_EVIDENCE.md` を作成し、次を日本語で記録する。
-- 空状態
-- エラー状態
-- 成功状態
-- スマホ操作配慮
-- 検証コマンド
-- 既知制約</code></pre>
-<p>実行コマンド:</p>
-<pre><code>codex exec --sandbox danger-full-access &quot;$(python3 -c &#x27;from pathlib import Path; print(Path(&quot;experiments/2026-06-28-mobile-state-contract/prompt-fixed.txt&quot;).read_text())&#x27;)&quot; \
-  | tee experiments/2026-06-28-mobile-state-contract/logs/codex-fixed.log</code></pre>
-<p>Codexは <code>fixed-app/</code> に次を作った。</p>
-<pre><code>fixed-app/index.html
-fixed-app/style.css
-fixed-app/script.js
-fixed-app/MOBILE_STATE_EVIDENCE.md</code></pre>
-<h2>Step 6: 改善版をブラウザで操作する</h2>
-<p>改善版の操作GIFはこれである。</p>
-<p><img src="assets/2026-06-28-mobile-state-fixed.gif" alt="fixed app gif" loading="lazy"></p>
-<p>ブラウザコンソールはバイブ版と同じく静かだった。</p>
-<pre><code>No console messages captured.</code></pre>
-<p>画面上は、バイブ版より少し説明的になった。必須ラベル、状態表示、再編集ボタンが増えたため、単純な見た目だけなら少し堅く見える。しかし、後工程にとってはこの「説明的であること」が価値になる。</p>
-<h2>Step 7: 再監査する</h2>
-<p>再実行したコマンド:</p>
-<pre><code>node --check experiments/2026-06-28-mobile-state-contract/fixed-app/script.js
-python3 experiments/2026-06-28-mobile-state-contract/audit_mobile_state.py \
-  experiments/2026-06-28-mobile-state-contract/fixed-app</code></pre>
-<p>結果:</p>
-<pre><code>合格: index.html / style.css / script.js が存在する
-合格: 日本語UIで lang=ja と viewport がある
-合格: 主要入力に visible label がある
-合格: 必須入力のエラー表示先が aria-describedby で結び付いている
-合格: エラー/成功/空状態の live region が分離されている
-合格: 送信後に結果領域へ focus 移動する
-合格: 件名/メモに maxlength がある
-合格: スマホのタップ領域が44px以上で明示されている
-合格: キーボードフォーカスが :focus-visible で見える
-合格: モーションに prefers-reduced-motion がある
-合格: 外部ネットワーク資産を使っていない
-合格: console.log で入力値を出していない
-合格: MOBILE_STATE_EVIDENCE.md がある
-合格: 証拠ファイルに状態設計/検証コマンド/既知制約がある
-SUMMARY: 14 passed / 0 failed</code></pre>
-<p>雑プロンプト版は <code>6 passed / 8 failed</code>、AI Task Packet版は <code>14 passed / 0 failed</code> だった。</p>
-<h2>逆算: 前工程で何を渡すべきだったか</h2>
-<p>今回の結果を逆算すると、最初からCodexへ渡すべきだった情報は次である。</p>
-<table>
-<tr><th>欠陥</th><th>必要だった前工程情報</th><th>AIDD-Spec成果物</th><th>AI Task Packet項目</th></tr>
-<tr><td>項目別エラーがない</td><td>必須項目ごとのエラー文言と接続方法</td><td>Accessibility Contract</td><td><code>aria-describedby</code>, <code>aria-invalid</code></td></tr>
-<tr><td>成功後に読む場所が分からない</td><td>状態遷移後のfocus方針</td><td>Mobile Interaction Contract</td><td><code>state_transition_focus</code></td></tr>
-<tr><td>スマホ操作の証拠がない</td><td>監査で見るviewport/tap/focus条件</td><td>Verification Evidence</td><td><code>MOBILE_STATE_EVIDENCE.md</code></td></tr>
-<tr><td>maxlengthがない</td><td>入力制約と安全な描画</td><td>Security / Privacy Contract</td><td><code>input_validation</code>, <code>safe_rendering</code></td></tr>
-<tr><td>focus-visible / reduced-motionがない</td><td>キーボード・モーション配慮</td><td>Mobile Interaction Contract</td><td><code>reduced_motion_policy</code></td></tr>
-</table>
-<p>つまり、必要なのは「スマホ対応してください」ではない。後工程がチェックできる形で、少なくとも次を渡す必要がある。</p>
-<pre><code>mobile_interaction_contract:
-  target_viewports:
-    - &quot;360px mobile width without horizontal scroll&quot;
-  touch_targets: &quot;Primary inputs and buttons must be at least 44px high; prefer 48px in forms.&quot;
-  input_keyboard_policy:
-    - &quot;Use type=date for date input and type=time for time input when acceptable.&quot;
-    - &quot;Use inputmode and autocomplete intentionally.&quot;
-  state_transition_focus: &quot;On validation error, focus first invalid field. On success, focus result panel with tabindex=-1.&quot;
-  reduced_motion_policy: &quot;Provide prefers-reduced-motion or document no-motion policy.&quot;
-  mobile_overflow_policy: &quot;Single column by default at 360px; no horizontal scroll.&quot;</code></pre>
-<h2>AIDD-Specへの反映</h2>
-<p><code>standards/aidd-spec-ai-task-packet-standard-v0.1.md</code> を更新し、次を追加した。</p>
+<p>アプリ本体には、実在IP名、公式ロゴ、公式キャラ、公式素材、公式文言、公式確率は入れていない。この記事では、ユーザー評価の文脈説明としてロマサガRS名を使っている。</p>
+<h2>検証</h2>
+<pre><code>node syntax check: OK
+playwright interaction: title=星紋遠征隊 SagaForge Trial 040 / growthResultPanel=true / breakthroughRadar=5 / growthResultCards=5
+preview build: Wrote articles to preview and copied playables/sagaforge-app
+public URL: /sagaforge-app/index.html http=200
+public assets: party-key-art.png, battle-ruins.png, crystal-guardian.png, summon-altar.png http=200</code></pre>
+<h2>まだ遠い点</h2>
+<p>まだ「ロマサガRSそのもの」ではなく、非侵害の体験パターンを段階的に近づけている途中。</p>
 <ul>
-<li><code>mobile_interaction_contract.target_viewports</code></li>
-<li><code>mobile_interaction_contract.touch_targets</code></li>
-<li><code>mobile_interaction_contract.input_keyboard_policy</code></li>
-<li><code>mobile_interaction_contract.state_transition_focus</code></li>
-<li><code>mobile_interaction_contract.reduced_motion_policy</code></li>
-<li><code>mobile_interaction_contract.mobile_overflow_policy</code></li>
-<li><code>verification_evidence.mobile_state_file</code> の考え方</li>
-<li>AI Task Packet Liteテンプレートの Mobile Interaction Contract欄</li>
+<li>勝利後成長はカード表示までで、能力値アップ演出や連続ポップ、速度切替はない。</li>
+<li>スタイル育成はピース、Lv、技Rank、覚醒を持つが、育成曲線や複数スタイル継承の深さはまだ浅い。</li>
+<li>周回の長期モチベーション、難易度解放、ミッション報酬、交換優先順位はまだ薄い。</li>
+<li>ガチャ結果から即編成、即突破、即再戦へ行く導線はさらに強化できる。</li>
 </ul>
-<p>AIDD Control Planeにするなら、これは自由記述ではなくフォーム化できる。</p>
+<h2>次に潰す差分</h2>
+<p>次は、召喚と育成の戻り先をさらに強くする。</p>
 <ul>
-<li>画面種別: フォーム</li>
-<li>対象viewport: 360px / 720px</li>
-<li>必須入力: 件名、日付、時間</li>
-<li>エラー時focus: 最初の不正項目</li>
-<li>成功時focus: 結果領域</li>
-<li>タップ領域: 44px以上</li>
-<li>証拠ファイル: 必須</li>
+<li>10連結果の重複ピースを、結果画面で「突破可能」「解放可能」「継承候補」として分類する。</li>
+<li>育成画面で、突破前後の戦闘力、OD初期値、BP効率の変化を比較する。</li>
+<li>クエスト選択時に、弱点、推奨戦力、育成対象、初回報酬、周回報酬を1枚で比較できるようにする。</li>
 </ul>
-<p>これを入力すると、AI Task Packetと監査スクリプトの雛形が自動生成される、というのがSaaS化の仮説である。</p>
-<h2>実務で使うならどうするか</h2>
-<p>小さなフォームでも、最初から全部を重く書く必要はない。しかし、最低限のチェックリストは必要だ。</p>
+<h2>公開URL</h2>
 <ul>
-<li>画面の空状態、エラー状態、成功状態を書いたか</li>
-<li>必須項目ごとのエラー文言を書いたか</li>
-<li><code>aria-describedby</code> でエラーと入力欄を結んだか</li>
-<li>エラー時と成功時のfocus移動を書いたか</li>
-<li>スマホのタップ領域を数値で書いたか</li>
-<li>360px幅で横スクロールしない条件を書いたか</li>
-<li>検証コマンドと証拠ファイルを要求したか</li>
-</ul>
-<p>この程度なら、駆け出し〜中堅の開発者でも日々の実装単位に入れられる。むしろ、後からレビューで指摘するより、最初にAI Task Packetへ入れる方が安い。</p>
-<h2>今回の学び</h2>
-<p>第一に、Codexは雑プロンプトでもかなり良い。今回も、日本語UI、スマホらしい余白、<code>textContent</code>、48px以上の入力欄までは自律的に入った。</p>
-<p>第二に、後工程が必要とする「状態遷移の説明」は抜ける。特に、成功後にどこへfocusするか、エラー時にどの項目へ戻すか、証拠ファイルとして何を残すかは、AIが勝手に完璧には補わない。</p>
-<p>第三に、スマホ対応は見た目の問題だけではない。利用者が指で押す、キーボードで入力する、エラーから戻る、送信後に読む、という一連の操作説明が必要である。</p>
-<h2>明日から使えるチェックリスト</h2>
-<ul>
-<li><input type="checkbox" disabled> 「スマホ対応」ではなく、対象viewportを数値で書く</li>
-<li><input type="checkbox" disabled> タップ領域は44px以上、できれば48pxと明記する</li>
-<li><input type="checkbox" disabled> 必須入力のエラーは <code>aria-describedby</code> で入力欄に結ぶ</li>
-<li><input type="checkbox" disabled> エラー時は最初の不正項目、成功時は結果領域へfocusする</li>
-<li><input type="checkbox" disabled> <code>:focus-visible</code> と <code>prefers-reduced-motion</code> を確認する</li>
-<li><input type="checkbox" disabled> 状態設計と検証結果を証拠ファイルに残す</li>
-</ul>
-<h2>次回検証</h2>
-<p>次回は、今回のMobile Interaction Contractをもう少し実HTTPの検証に寄せたい。候補は、問い合わせAPIで Origin拒否 / CSRF拒否 / rate limit 429 のnegative testを実HTTPで自動化すること。UIの状態設計とAPIの失敗状態をつなげると、AIDD-Specの <code>State Design</code> と <code>API Operations Contract</code> がより実務に近づく。</p>
-<h2>付録: 生ログ / 参照ファイル</h2>
-<ul>
-<li>Experiment: <code>/path/to/project-root/experiments/2026-06-28-mobile-state-contract/</code></li>
-<li>Vibe prompt: <code>/path/to/project-root/experiments/2026-06-28-mobile-state-contract/prompt-vibe.txt</code></li>
-<li>Fixed Task Packet: <code>/path/to/project-root/experiments/2026-06-28-mobile-state-contract/AI_TASK_PACKET_v0.5.md</code></li>
-<li>Vibe audit log: <code>/path/to/project-root/experiments/2026-06-28-mobile-state-contract/logs/vibe-audit.log</code></li>
-<li>Fixed audit log: <code>/path/to/project-root/experiments/2026-06-28-mobile-state-contract/logs/fixed-audit.log</code></li>
-<li>Vibe GIF: <code>/path/to/project-root/assets/2026-06-28-mobile-state-vibe.gif</code></li>
-<li>Fixed GIF: <code>/path/to/project-root/assets/2026-06-28-mobile-state-fixed.gif</code></li>
-<li>Standard updated: <code>/path/to/project-root/standards/aidd-spec-ai-task-packet-standard-v0.1.md</code></li>
-</ul></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-06-28-aidd-spec-v0.1-workflow-saas.html"><span>前の記事</span>AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</a><a class="next" href="2026-06-29-api-failure-state.html"><span>次の記事</span>「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a></nav></main></div></body></html>
+<li>プレイアブル: https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html</li>
+<li>プレビュー記事: https://ttomac-mini.tail352b67.ts.net/2026-07-06-character-collection-rpg-trial-040.html</li>
+</ul></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-06-character-collection-rpg-trial-039.html"><span>前の記事</span>SagaForge Trial 039: 予約ターン解決リールで5人連携の手触りを強める</a><span></span></nav></main></div></body></html>
