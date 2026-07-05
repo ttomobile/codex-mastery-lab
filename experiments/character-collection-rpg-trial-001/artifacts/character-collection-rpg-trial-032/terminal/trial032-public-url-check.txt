@@ -1,0 +1,5 @@
+PUBLIC/sagaforge-app/index.html http=200 bytes=74172
+PUBLIC/sagaforge-app/assets/party-key-art.png http=200 bytes=2868814
+PUBLIC/sagaforge-app/assets/battle-ruins.png http=200 bytes=2481271
+PUBLIC/assets/2026-07-05-character-collection-rpg-trial-032-battle-abilities.png http=200 bytes=708016
+PUBLIC/assets/2026-07-05-character-collection-rpg-trial-032-gacha-steps.png http=200 bytes=417229
