@@ -1,0 +1,6 @@
+http://127.0.0.1:41739/index.html 66787 False True
+http://127.0.0.1:41739/2026-07-06-aidd-control-plane-mvp-049.html 57023 True True
+http://127.0.0.1:41739/assets/aidd-control-plane-mvp049-empty.png 260769 nonzero= True
+http://127.0.0.1:41739/assets/aidd-control-plane-mvp049-ready.png 417669 nonzero= True
+http://127.0.0.1:41739/assets/aidd-control-plane-mvp049-failure.png 307977 nonzero= True
+http://127.0.0.1:41739/assets/aidd-control-plane-mvp049-terminal-evidence.png 42663 nonzero= True
