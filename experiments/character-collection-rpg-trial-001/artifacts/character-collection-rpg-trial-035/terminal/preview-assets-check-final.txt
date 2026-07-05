@@ -1,0 +1,5 @@
+preview/sagaforge-app/index.html: exists=True bytes=85841
+preview/2026-07-05-character-collection-rpg-trial-035.html: exists=True bytes=52002
+preview/assets/2026-07-05-character-collection-rpg-trial-035-home.png: exists=True bytes=572530
+preview/assets/2026-07-05-character-collection-rpg-trial-035-battle-counters.png: exists=True bytes=719407
+preview/assets/2026-07-05-character-collection-rpg-trial-035-result-timeline.png: exists=True bytes=901982
