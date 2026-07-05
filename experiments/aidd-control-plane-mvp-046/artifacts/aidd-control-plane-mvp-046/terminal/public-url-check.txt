@@ -1,0 +1,15 @@
+<a href="2026-06-27-watchflow-trial-005.html">第06回｜WatchFlow Trial 005：91点から100点へ、Firefox/CI/artifactまで通して実験を閉じる</a><div class="nav-section-title">AIDD Control Plane SaaS化</div><a href="2026-06-28-aidd-control-plane-mvp-001.html">MVP01｜AIDD Control Plane MVP 001：AIDD-SpecをSaaSの画面に落とし込む最初の実装</a>
+<a href="2026-07-03-verification-evidence-lite.html">過去記事11｜「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></details></div><div class="layout "><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">WatchFlow本編、AIDD Control Plane SaaS化、過去記事を分けて読めるプレビュー</p><div class="nav-section-title">WatchFlow 100点チャレンジ</div><a class="chapter-link " href="001-series-roadmap.html"><span class="chapter-num">第01回</span>WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-005.html"><span class="chapter-num">第06回</span>WatchFlow Trial 005：91点から100点へ、Firefox/CI/artifactまで通して実験を閉じる</a><div class="nav-section-title">AIDD Control Plane SaaS化</div><a class="chapter-link " href="2026-06-28-aidd-control-plane-mvp-001.html"><span class="chapter-num">MVP 01</span>AIDD Control Plane MVP 001：AIDD-SpecをSaaSの画面に落とし込む最初の実装</a>
+<p>MVP 046では、<strong>Run Result Review Synthesizer</strong> を追加しました。</p>
+  -&gt; Run Result Review Synthesizer
+<p>emptyでは、Run Result Review Synthesizerが何を材料として必要とするかを見せます。ログがあるだけでは不十分で、source run id、score、prompt delta、verification command、rollback、privacy確認までそろって初めて次回へ渡せます。</p>
+<tr><td><code>pnpm run test:e2e</code></td><td>pass</td><td>126 passed。Chromium / Firefox / WebKit</td></tr>
+<pre><code>126 passed (6.1m)</code></pre>
+checked MVP: AIDD Control Plane MVP 046 Run Result Review Synthesizer</code></pre>
+<p><code>standards/aidd-control-plane-mvp-v0.1.md</code> では、Run Result Review Synthesizerを「Codex Run Queueの実行結果を、標準Review Finding、AI Task Packet delta、Codex prompt delta、Verification command、Learning Logへ合成する」部品として扱います。</p>
+<p>次回は、Run Result Review Synthesizerで作った修正材料を、さらに <strong>Review Finding Action Queue</strong> や次回の1インクリメント計画へつなげます。</p>
+aidd-control-plane-mvp046-empty.png 228811
+aidd-control-plane-mvp046-valid.png 268314
+aidd-control-plane-mvp046-failure.png 204868
+aidd-control-plane-mvp046-terminal-evidence.png 135518

@@ -1,0 +1,9 @@
+html_exists True size 56543
+aidd-control-plane-mvp046-empty.png True 228811
+aidd-control-plane-mvp046-valid.png True 268314
+aidd-control-plane-mvp046-failure.png True 204868
+aidd-control-plane-mvp046-terminal-evidence.png True 135518
+contains Run Result Review Synthesizer True
+contains AIDD Control Plane SaaS化 True
+contains 126 passed True
+contains doctor:aidd passed True

@@ -1,0 +1,18 @@
+$ node scripts/capture-mvp046.mjs
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+page.goto: net::ERR_CONNECTION_REFUSED at LOCAL_APP_URL/
+Call log:
+  - navigating to "LOCAL_APP_URL/", waiting until "networkidle"
+
+    at WORKSPACE/experiments/aidd-control-plane-mvp-046/generated-repo/scripts/capture-mvp046.mjs:22:12 {
+  log: [
+    '  - navigating to "LOCAL_APP_URL/", waiting until "networkidle"'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.23.1
+[ELIFECYCLE] Command failed with exit code 1.

@@ -1,0 +1,10 @@
+pnpm install --frozen-lockfile: pass
+pnpm run lint: pass
+pnpm run typecheck: pass
+pnpm run test: pass (76 tests)
+pnpm run build: pass (Next.js production build)
+pnpm run test:e2e: pass (126 passed / Chromium, Firefox, WebKit)
+pnpm run doctor:aidd: pass
+first capture:mvp046: failed because app server was not running; fixed by starting local dev server and rerunning capture.
+Run Result Review Synthesizer: valid / failure / empty screenshots captured.
+Verification Evidence Receipt -> Review Finding -> AI Task Packet delta -> Codex prompt delta -> needed upstream info -> standard update -> verification command -> Learning Log note.
