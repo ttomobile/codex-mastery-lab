@@ -1,0 +1,53 @@
+SagaForge Trial 039 verification
+
+Changed scope:
+- playables/sagaforge-app/index.html
+- scripts/build_preview.py
+- articles/2026-07-06-character-collection-rpg-trial-039.md
+- assets/2026-07-06-character-collection-rpg-trial-039-home.png
+- assets/2026-07-06-character-collection-rpg-trial-039-battle-resolve.png
+
+Commands and observed output:
+
+1) HTML script syntax check
+$ node - <<'NODE'
+const fs=require('fs');
+const html=fs.readFileSync('playables/sagaforge-app/index.html','utf8');
+const script=html.match(/<script>([\s\S]*)<\/script>/)[1];
+new Function(script);
+console.log('script syntax ok', script.length);
+NODE
+script syntax ok 54794
+
+2) Playwright interaction and screenshot capture
+$ node [inline Playwright script using generated repo @playwright/test]
+{
+  "title": "星紋遠征隊 SagaForge Trial 039",
+  "reel": true,
+  "cards": 5,
+  "summary": "予約ターン解決: 合計187 / 回復0 / 弱点3件 / 連携率94% / 残BP11/13 / OD100%"
+}
+
+3) Preview build
+$ python3 scripts/build_preview.py
+Wrote 106 articles to WORKSPACE/preview
+
+4) Preview file existence
+$ test -s preview/sagaforge-app/index.html && test -s preview/2026-07-06-character-collection-rpg-trial-039.html && test -s preview/assets/2026-07-06-character-collection-rpg-trial-039-home.png && test -s preview/assets/2026-07-06-character-collection-rpg-trial-039-battle-resolve.png && echo 'preview files ok'
+preview files ok
+
+5) Preview script syntax
+$ node [inline syntax check against preview/sagaforge-app/index.html]
+preview script syntax ok true true
+
+6) Public URL health
+200 https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html
+200 https://ttomac-mini.tail352b67.ts.net/sagaforge-app/assets/party-key-art.png
+200 https://ttomac-mini.tail352b67.ts.net/sagaforge-app/assets/battle-ruins.png
+200 https://ttomac-mini.tail352b67.ts.net/sagaforge-app/assets/crystal-guardian.png
+200 https://ttomac-mini.tail352b67.ts.net/sagaforge-app/assets/summon-altar.png
+200 https://ttomac-mini.tail352b67.ts.net/2026-07-06-character-collection-rpg-trial-039.html
+
+7) Public content check
+https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html Trial039=True reel=True
+https://ttomac-mini.tail352b67.ts.net/2026-07-06-character-collection-rpg-trial-039.html Trial039=True reel=True
