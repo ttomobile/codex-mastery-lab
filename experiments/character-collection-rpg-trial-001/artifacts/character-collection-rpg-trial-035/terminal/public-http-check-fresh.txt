@@ -1,0 +1,5 @@
+200 https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html
+200 https://ttomac-mini.tail352b67.ts.net/assets/2026-07-05-character-collection-rpg-trial-035-home.png
+200 https://ttomac-mini.tail352b67.ts.net/assets/2026-07-05-character-collection-rpg-trial-035-battle-counters.png
+200 https://ttomac-mini.tail352b67.ts.net/assets/2026-07-05-character-collection-rpg-trial-035-result-timeline.png
+200 https://ttomac-mini.tail352b67.ts.net/2026-07-05-character-collection-rpg-trial-035.html
