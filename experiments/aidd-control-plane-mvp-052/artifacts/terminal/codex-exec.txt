@@ -1,0 +1,2 @@
+$ codex exec --sandbox danger-full-access "$(sed -n '1,80p' CODEX_PROMPT.md)"
+codex: command not found

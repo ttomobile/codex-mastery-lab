@@ -1,0 +1,9 @@
+node_modules
+.next
+coverage
+playwright-report
+test-results
+*.tsbuildinfo
+artifacts/screenshots/aidd-control-plane-mvp049-*.png
+artifacts/terminal/capture-mvp049.txt
+scripts/capture-mvp049.mjs

@@ -1,0 +1,14 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane MVP 052：Codexへ投げる前に「実行予算」と停止条件を見る</title><style>
+<a href="2026-07-06-aidd-control-plane-mvp-052.html">MVP52｜AIDD Control Plane MVP 052：Codexへ投げる前に「実行予算」と停止条件を見る</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link current" href="2026-07-06-aidd-control-plane-mvp-052.html"><span class="chapter-num">MVP 52</span>AIDD Control Plane MVP 052：Codexへ投げる前に「実行予算」と停止条件を見る</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-06-aidd-control-plane-mvp-051.html"><span>前の記事</span>AIDD Control Plane MVP 051：失敗修正deltaを「全部投げない」ための優先判断画面</a><span></span></nav><article><h1>AIDD Control Plane MVP 052：Codexへ投げる前に「実行予算」と停止条件を見る</h1>
+<p>前回のMVP 051では、失敗ログから作ったRepair Deltaを <strong>採用 / 保留 / 却下</strong> に分けました。今回は、その次です。採用済みdeltaをCodexへ渡す前に、<strong>実行予算・停止条件・fallback action</strong> を見る小さな画面、MVP 052 <strong>Codex Run Budget Gate</strong> を作りました。</p>
+<p><code>experiments/aidd-control-plane-mvp-052/generated-repo/</code> に、Next.js + TypeScript + pnpmで <strong>Codex Run Budget Gate</strong> を実装しました。</p>
+<p><img src="assets/aidd-control-plane-mvp052-empty.png" alt="MVP052 empty" loading="lazy"></p>
+<h3>terminal evidence</h3>
+<p><img src="assets/aidd-control-plane-mvp052-terminal-evidence.png" alt="MVP052 terminal evidence" loading="lazy"></p>
+<tr><td><code>pnpm run capture:mvp052</code></td><td>pass</td><td>empty / ready / failure / terminal evidenceを生成</td></tr>
+aidd-control-plane-mvp052-empty.png 240711
+aidd-control-plane-mvp052-ready.png 351465
+aidd-control-plane-mvp052-failure.png 308102
+aidd-control-plane-mvp052-terminal-evidence.png 67674

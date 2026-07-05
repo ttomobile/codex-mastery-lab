@@ -1,0 +1,392 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane MVP 052：Codexへ投げる前に「実行予算」と停止条件を見る</title><style>
+:root {
+  color-scheme: light;
+  --fg:#172033; --muted:#667085; --bg:#f5f7fb; --card:#fff; --line:#d9e2f1;
+  --accent:#1d4ed8; --accent2:#7c3aed; --code:#0f172a; --soft:#eef4ff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif; background:var(--bg); color:var(--fg); line-height:1.82; }
+a { color: var(--accent); }
+.layout { display:grid; grid-template-columns: 300px minmax(0, 1fr); min-height:100vh; }
+aside { position:sticky; top:0; height:100vh; overflow:auto; padding:22px; background:#0b1220; color:#e5eefc; }
+.brand { font-weight:800; line-height:1.35; margin:0 0 16px; font-size:18px; letter-spacing:-.01em; }
+.series-note { color:#9fb4d8; font-size:12px; margin:0 0 18px; }
+.chapter-link { color:#c7d7ff; text-decoration:none; display:block; padding:10px 10px; border:1px solid rgba(255,255,255,.08); border-radius:12px; margin:8px 0; font-size:14px; background:rgba(255,255,255,.03); }
+.chapter-link:hover, .chapter-link.current { color:#fff; background:rgba(59,130,246,.22); border-color:rgba(147,197,253,.45); }
+.chapter-num { color:#93c5fd; font-weight:700; font-size:12px; display:block; margin-bottom:2px; }
+.nav-section-title { color:#93c5fd; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; margin:18px 0 8px; }
+.chapter-link.past { color:#d7e1f7; background:rgba(255,255,255,.02); }
+.chapter-link.past .chapter-num { color:#a8b6d8; }
+main { max-width: 980px; padding: 42px 34px 80px; }
+article { background:var(--card); padding:42px 48px; border:1px solid var(--line); border-radius:24px; box-shadow:0 18px 50px rgba(15,23,42,.08); }
+h1 { font-size: clamp(28px, 5vw, 42px); line-height:1.24; margin: 0 0 22px; letter-spacing:-.03em; }
+h2 { font-size: clamp(22px, 3vw, 28px); margin: 46px 0 14px; padding-top:10px; border-top:1px solid #edf1f7; }
+h3 { font-size: 20px; margin: 30px 0 10px; }
+p { margin: 14px 0; }
+blockquote { margin: 18px 0; padding: 14px 18px; border-left: 4px solid var(--accent); background:#eff6ff; color:#1e3a8a; border-radius: 10px; }
+pre { background:var(--code); color:#e2e8f0; padding:18px; border-radius:14px; overflow:auto; line-height:1.55; font-size:13px; white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; }
+pre code { white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow-wrap:anywhere; word-break:break-word; }
+p code, li code { background:#eef2ff; color:#1e3a8a; padding:2px 5px; border-radius:5px; white-space:normal; }
+ul, ol { padding-left:1.45em; }
+li { overflow-wrap:anywhere; }
+img { max-width:100%; border:1px solid var(--line); border-radius:14px; background:white; margin:18px 0; height:auto; }
+table { border-collapse: collapse; width:100%; margin:18px 0; font-size:14px; display:block; overflow-x:auto; }
+th, td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; min-width:120px; }
+th { background:#f1f5f9; }
+.meta { color:var(--muted); font-size:14px; margin-bottom:24px; }
+.hero { background:linear-gradient(135deg,#eff6ff,#faf5ff); border:1px solid #dbeafe; border-radius:24px; padding:28px; margin-bottom:22px; }
+.chapter-nav { display:flex; gap:12px; justify-content:space-between; margin:24px 0; }
+.chapter-nav a { flex:1; text-decoration:none; background:var(--soft); border:1px solid var(--line); border-radius:14px; padding:14px; color:#17315f; }
+.chapter-nav .next { text-align:right; }
+.chapter-nav span { display:block; color:var(--muted); font-size:12px; }
+.home-grid { display:grid; gap:14px; padding:0; list-style:none; }
+.home-grid li a { display:block; padding:18px; background:#fff; border:1px solid var(--line); border-radius:16px; text-decoration:none; box-shadow:0 8px 24px rgba(15,23,42,.05); }
+.mobile-index { display:none; background:#0b1220; padding:12px 16px; position:sticky; top:0; z-index:10; }
+.mobile-index details { color:#e5eefc; }
+.mobile-index summary { cursor:pointer; font-weight:700; }
+.mobile-index a { color:#c7d7ff; display:block; padding:8px 0; }
+@media (max-width: 900px) {
+  .layout { display:block; }
+  aside { display:none; }
+  .mobile-index { display:block; }
+  main { padding:16px; max-width:none; }
+  article { padding:24px 18px; border-radius:18px; }
+  .chapter-nav { flex-direction:column; }
+  .chapter-nav .next { text-align:left; }
+  pre { font-size:12px; padding:14px; }
+}
+@media (max-width: 480px) {
+  body { line-height:1.75; }
+  main { padding:10px; }
+  article { padding:20px 14px; border-radius:14px; }
+  h1 { font-size:28px; }
+  h2 { font-size:22px; }
+}
+</style></head><body><div class="mobile-index"><details><summary>目次を開く</summary><div class="nav-section-title">WatchFlow 100点チャレンジ</div><a href="001-series-roadmap.html">第01回｜WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
+<a href="2026-06-27-watchflow-trial-001.html">第02回｜WatchFlow Trial 001：雑プロンプトからNext.js動画アプリはどこまで作れるか</a>
+<a href="2026-06-27-watchflow-trial-002.html">第03回｜WatchFlow Trial 002：61点から75点へ、AI Task Packetに失点を戻す</a>
+<a href="2026-06-27-watchflow-trial-003.html">第04回｜WatchFlow Trial 003：75点から84点へ、mock serviceとアクセシビリティを詰める</a>
+<a href="2026-06-27-watchflow-trial-004.html">第05回｜WatchFlow Trial 004：84点から91点へ、mock serviceをE2Eの実依存にする</a>
+<a href="2026-06-27-watchflow-trial-005.html">第06回｜WatchFlow Trial 005：91点から100点へ、Firefox/CI/artifactまで通して実験を閉じる</a><div class="nav-section-title">AIDD Control Plane SaaS化</div><a href="2026-06-28-aidd-control-plane-mvp-001.html">MVP01｜AIDD Control Plane MVP 001：AIDD-SpecをSaaSの画面に落とし込む最初の実装</a>
+<a href="2026-06-28-aidd-control-plane-mvp-002.html">MVP02｜AIDD Control Plane MVP 002：AI Task PacketをJSON Contract Checkerで検査する</a>
+<a href="2026-06-28-aidd-control-plane-mvp-003.html">MVP03｜AIDD Control Plane MVP 003：実行ログとスクリーンショットをVerification Evidenceにまとめる</a>
+<a href="2026-06-29-aidd-control-plane-mvp-004.html">MVP04｜AIDD Control Plane MVP 004：AIに頼む前の質問から、設計書と依頼書を作る</a>
+<a href="2026-06-30-aidd-control-plane-mvp-005.html">MVP05｜AIDD Control Plane MVP 005：アプリ種別テンプレートで、白紙の依頼を減らす</a>
+<a href="2026-06-30-aidd-control-plane-mvp-006.html">MVP06｜AIDD Control Plane MVP 006：AI依頼書と検証ログをつなぐ Verification Run Tracker</a>
+<a href="2026-06-30-aidd-control-plane-mvp-007.html">MVP07｜AIDD Control Plane MVP 007：失敗ログを次回のAI依頼書へ戻す Review &amp; Learning Log</a>
+<a href="2026-06-30-aidd-control-plane-mvp-008.html">MVP08｜AIDD Control Plane MVP 008：テスト結果を「証拠つき」にする Artifact Evidence Binder</a>
+<a href="2026-06-30-aidd-control-plane-mvp-009.html">MVP09｜AIDD Control Plane MVP 009：CIの「通りました」を証拠に変える CI Artifact Importer</a>
+<a href="2026-06-30-aidd-control-plane-mvp-010.html">MVP10｜AIDD Control Plane MVP 010：CIのURLから「何を取りに行くべきか」まで見える化する GitHub Actions Artifact Fetch Plan</a>
+<a href="2026-07-01-aidd-control-plane-mvp-011.html">MVP11｜AIDD Control Plane MVP 011：足りない証跡を次の修正依頼へ変える Evidence Gap Repair Planner</a>
+<a href="2026-07-01-aidd-control-plane-mvp-012.html">MVP12｜AIDD Control Plane MVP 012：CI run URLを貼った後の「証跡が取れたか」をmockで判断する</a>
+<a href="2026-07-02-aidd-control-plane-mvp-013.html">MVP13｜AIDD Control Plane MVP 013：CI証跡判断をUI内mockから独立mock serviceへ切り出そうとして分かった境界線</a>
+<a href="2026-07-02-aidd-control-plane-mvp-014.html">MVP14｜AIDD Control Plane MVP 014：CI証跡を「画面内サンプル」から独立Mock Serviceへ切り出す</a>
+<a href="2026-07-02-aidd-control-plane-mvp-015.html">MVP15｜AIDD Control Plane MVP 015：Mock CI ServiceをfixtureとDocker Compose経路へ進める</a>
+<a href="2026-07-02-aidd-control-plane-mvp-016.html">MVP16｜AIDD Control Plane MVP 016：CI workflowの「artifact保存漏れ」を先に見つける</a>
+<a href="2026-07-02-aidd-control-plane-mvp-017.html">MVP17｜AIDD Control Plane MVP 017：失敗ログを「標準更新候補」に戻すQueueを作った</a>
+<a href="2026-07-02-aidd-control-plane-mvp-018.html">MVP18｜AIDD Control Plane MVP 018：標準更新候補を「次回AI Task Packet差分」として採用前レビューする</a>
+<a href="2026-07-03-aidd-control-plane-mvp-019.html">MVP19｜AIDD Control Plane MVP 019：改善差分を「採用・却下・保留」に分けて次回AI依頼へ進める</a>
+<a href="2026-07-03-aidd-control-plane-mvp-020.html">MVP20｜AIDD Control Plane MVP 020：採用した改善だけを次回AI Task Packet Markdownへ書き出す</a>
+<a href="2026-07-03-aidd-control-plane-mvp-021.html">MVP21｜AIDD Control Plane MVP 021：採用済みdeltaをファイルへ反映する前に、適用計画を作る</a>
+<a href="2026-07-03-aidd-control-plane-mvp-022.html">MVP22｜AIDD Control Plane MVP 022：次回AI依頼ファイルを、書く前にドラフトとして確認する</a>
+<a href="2026-07-03-aidd-control-plane-mvp-023.html">MVP23｜AIDD Control Plane MVP 023：AIがファイルを書き換える前に、patch候補を安全確認する</a>
+<a href="2026-07-03-aidd-control-plane-mvp-024.html">MVP24｜AIDD Control Plane MVP 024：patchを当てる前に、戻せる証跡を保存する</a>
+<a href="2026-07-03-aidd-control-plane-mvp-025.html">MVP25｜AIDD Control Plane MVP 025：アプリ案を、いきなり実装依頼にしない</a>
+<a href="2026-07-03-aidd-control-plane-mvp-026.html">MVP26｜AIDD Control Plane MVP 026：AIに渡す前に「実行コマンド」も止める</a>
+<a href="2026-07-03-aidd-control-plane-mvp-027.html">MVP27｜AIDD Control Plane MVP 027：patchを当てる前に、戻せる証跡を束ねる</a>
+<a href="2026-07-03-aidd-control-plane-mvp-028.html">MVP28｜AIDD Control Plane MVP 028：patchを当てる前に「採用・却下・保留」の理由を残す</a>
+<a href="2026-07-04-aidd-control-plane-mvp-029.html">MVP29｜AIDD Control Plane MVP 029：採用済みbundleだけを次回AI依頼へ書き出す</a>
+<a href="2026-07-04-aidd-control-plane-mvp-030.html">MVP30｜AIDD Control Plane MVP 030：AIに渡す直前のpacketをもう一度止める</a>
+<a href="2026-07-04-aidd-control-plane-mvp-031.html">MVP31｜AIDD Control Plane MVP 031：AI実行の直前に「誰が許可したか」を残す</a>
+<a href="2026-07-04-aidd-control-plane-mvp-032.html">MVP32｜AIDD Control Plane MVP 032：Codex実行をQueueとして追跡する</a>
+<a href="2026-07-04-aidd-control-plane-mvp-033.html">MVP33｜AIDD Control Plane MVP 033：実行結果を次回AI指示へ戻す</a>
+<a href="2026-07-04-aidd-control-plane-mvp-034.html">MVP34｜AIDD Control Plane MVP 034：AIレビュー結果を「次の1インクリメント」へ変える</a>
+<a href="2026-07-04-aidd-control-plane-mvp-035.html">MVP35｜AIDD Control Plane MVP 035：E2E成功を「command別の証跡」に分解する</a>
+<a href="2026-07-04-aidd-control-plane-mvp-036.html">MVP36｜AIDD Control Plane MVP 036：失敗ログを「次回AI依頼の差分」に変える</a>
+<a href="2026-07-04-aidd-control-plane-mvp-037.html">MVP37｜AIDD Control Plane MVP 037：修正候補を「全部やる」から「次に採用する1つ」へ絞る</a>
+<a href="2026-07-04-aidd-control-plane-mvp-038.html">MVP38｜AIDD Control Plane MVP 038：採用済み修正を「次の1回で実行する分」だけに絞る</a>
+<a href="2026-07-05-aidd-control-plane-mvp-039.html">MVP39｜AIDD Control Plane MVP 039：AIに渡す直前の「1回分の手渡しパック」をレビューする</a>
+<a href="2026-07-05-aidd-control-plane-mvp-040.html">MVP40｜AIDD Control Plane MVP 040：AIに投げた「その瞬間」のレシートを残す</a>
+<a href="2026-07-05-aidd-control-plane-mvp-041.html">MVP41｜AIDD Control Plane MVP 041：検証結果を「1行ずつ」束ねる</a>
+<a href="2026-07-05-aidd-control-plane-mvp-042.html">MVP42｜AIDD Control Plane MVP 042：検証結果をReview Recordへ自動で戻す</a>
+<a href="2026-07-05-aidd-control-plane-mvp-043.html">MVP43｜AIDD Control Plane MVP 043：Review Findingを次の1手に変えるAction Queue</a>
+<a href="2026-07-05-aidd-control-plane-mvp-044.html">MVP44｜AIDD Control Plane MVP 044：Codexを走らせる直前に止めるReadiness Gate</a>
+<a href="2026-07-05-aidd-control-plane-mvp-045.html">MVP45｜AIDD Control Plane MVP 045：検証ログをReview Recordへ渡せる形に束ねる</a>
+<a href="2026-07-05-aidd-control-plane-mvp-046.html">MVP46｜AIDD Control Plane MVP 046：検証結果を次のAI依頼へ戻すSynthesizerを作る</a>
+<a href="2026-07-05-aidd-control-plane-mvp-047.html">MVP47｜AIDD Control Plane MVP 047：Review Findingを「次にやる1件」へ仕分けるAction Queueを作る</a>
+<a href="2026-07-05-aidd-control-plane-mvp-048.html">MVP48｜AIDD Control Plane MVP 048：Codex実行の直前に「本当に走らせてよいか」を止めるReadiness Gate</a>
+<a href="2026-07-06-aidd-control-plane-mvp-049.html">MVP49｜AIDD Control Plane MVP 049：AI実行結果をcommand別の明細に分けるVerification Run Detail</a>
+<a href="2026-07-06-aidd-control-plane-mvp-050.html">MVP50｜AIDD Control Plane MVP 050：失敗ログを次回AI Task Packetへ戻すEvidence Repair Delta Generator</a>
+<a href="2026-07-06-aidd-control-plane-mvp-051.html">MVP51｜AIDD Control Plane MVP 051：失敗修正deltaを「全部投げない」ための優先判断画面</a>
+<a href="2026-07-06-aidd-control-plane-mvp-052.html">MVP52｜AIDD Control Plane MVP 052：Codexへ投げる前に「実行予算」と停止条件を見る</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a href="2026-07-02-character-collection-rpg-trial-002.html">Dogfood02｜AIDD Control Plane Dogfood 002：画像素材と戦闘シーンを入れて、キャラ収集RPGを“遊べそう”に近づける</a>
+<a href="2026-07-03-character-collection-rpg-trial-003.html">Dogfood03｜AIDD Control Plane Dogfood 003：キャラ収集RPGに「操作すると変わる」を入れる</a>
+<a href="2026-07-03-character-collection-rpg-trial-004.html">Dogfood04｜AIDD Control Plane Dogfood 004：キャラ収集RPGの操作をmock backendへ保存する</a>
+<a href="2026-07-03-character-collection-rpg-trial-005.html">Dogfood05｜AIDD Control Plane Dogfood 005：RPGプロトタイプを4つのmock serviceとaxe検査まで進める</a>
+<a href="2026-07-03-character-collection-rpg-trial-006.html">Dogfood06｜AIDD Control Plane Dogfood 006：RPGプロトタイプをroot CI artifactへ載せる</a>
+<a href="2026-07-03-character-collection-rpg-trial-007.html">Dogfood07｜AIDD Control Plane Dogfood 007：RPGプロトタイプをCI artifact込みで100点へ収束させる</a>
+<a href="2026-07-03-character-collection-rpg-trial-008.html">Dogfood08｜AIDD Control Plane Dogfood 008：RPGのCI証跡を、次のAI Task Packetへ再利用できる形に戻す</a>
+<a href="2026-07-03-character-collection-rpg-trial-009.html">Dogfood09｜AIDD Control Plane Dogfood 009：成功したRPG証跡を、次回AI Task Packetの初期値へ戻す</a>
+<a href="2026-07-03-character-collection-rpg-trial-010.html">Dogfood10｜AIDD Control Plane Dogfood 010：新しいアプリ案を、過去RPG証跡つきAI Task Packet seedへ変換する</a>
+<a href="2026-07-03-character-collection-rpg-trial-011.html">Dogfood11｜AIDD Control Plane Dogfood 011：新規アプリ案seedを、実ファイル反映前のMarkdownレビューへ進める</a>
+<a href="2026-07-03-character-collection-rpg-trial-012.html">Dogfood12｜AIDD Control Plane Dogfood 012：Markdownレビューを、適用前patch候補とrollback確認へ進める</a>
+<a href="2026-07-03-character-collection-rpg-trial-013.html">Dogfood13｜AIDD Control Plane Dogfood 013：diff bundleとrollback evidenceを、適用前の証跡セットへ束ねる</a>
+<a href="2026-07-03-character-collection-rpg-trial-014.html">Dogfood14｜AIDD Control Plane Dogfood 014：Diff Bundleを、採用・却下・保留の判断台帳へ進める</a>
+<a href="2026-07-04-character-collection-rpg-trial-015.html">Dogfood15｜AIDD Control Plane Dogfood 015：勝利報酬を「受け取れる/保留/受取済み」まで証跡化する</a>
+<a href="2026-07-04-character-collection-rpg-trial-016.html">Dogfood16｜AIDD Control Plane Dogfood 016：SagaForgeを「汎用RPG」からスマホキャラ収集RPGの骨格へ寄せる</a>
+<a href="2026-07-04-character-collection-rpg-trial-017.html">Dogfood17｜AIDD Control Plane Dogfood 017：SagaForgeに戦闘テンポ・育成ボード・周回導線を足す</a>
+<a href="2026-07-04-character-collection-rpg-trial-018.html">Dogfood18｜AIDD Control Plane Dogfood 018：SagaForgeに再戦・ピース限界突破・5人連携順を足す</a>
+<a href="2026-07-04-character-collection-rpg-trial-019.html">Dogfood19｜AIDD Control Plane Dogfood 019：SagaForgeを「起動直後のスマホRPG拠点」へ寄せる</a>
+<a href="2026-07-04-character-collection-rpg-trial-020.html">Dogfood20｜AIDD Control Plane Dogfood 020：SagaForgeを「周回で育つスマホRPGループ」へ寄せる</a>
+<a href="2026-07-04-character-collection-rpg-trial-021.html">Dogfood21｜AIDD Control Plane Dogfood 021：SagaForgeにスタイル詳細・アビリティ・交換所を足す</a>
+<a href="2026-07-04-character-collection-rpg-trial-022.html">Dogfood22｜SagaForge Trial 022: 同一キャラの複数スタイルと継承技をプレイアブルに入れる</a>
+<a href="2026-07-04-character-collection-rpg-trial-023.html">Dogfood23｜SagaForge Trial 023: 敵行動・弱点・勝利リザルト・召喚詳細導線を足す</a>
+<a href="2026-07-04-character-collection-rpg-trial-024.html">Dogfood24｜SagaForge Trial 024: 陣形位置の被弾・AUTO判断・召喚交換Ptで周回ループを濃くする</a>
+<a href="2026-07-05-character-collection-rpg-trial-025.html">Dogfood25｜SagaForge Trial 025: 継続周回・補助効果・召喚交換Ptで「周回して育てる」圧を強める</a>
+<a href="2026-07-05-character-collection-rpg-trial-026.html">Dogfood26｜SagaForge Trial 026: 3周AUTOリハーサルとクエスト別成長で「周回場所を選ぶ」感覚を入れる</a>
+<a href="2026-07-05-character-collection-rpg-trial-027.html">Dogfood27｜SagaForge Trial 027：5人連携予約で「単発ボタン戦闘」から一歩進める</a>
+<a href="2026-07-05-character-collection-rpg-trial-028.html">Dogfood28｜SagaForge Trial 028：技演出ステップと勝利後の育成戻りを足す</a>
+<a href="2026-07-05-character-collection-rpg-trial-029.html">Dogfood29｜SagaForge Trial 029：育成おすすめと連携カットイン予約で1周の判断をつなぐ</a>
+<a href="2026-07-05-character-collection-rpg-trial-030.html">Dogfood30｜SagaForge Trial 030: 技道場・閃き候補・ステージミッションで「周回したくなる理由」を足す</a>
+<a href="2026-07-05-character-collection-rpg-trial-031.html">Dogfood31｜SagaForge Trial 031: スタイル遠征とクエスト前相性で「誰を連れて周回するか」を強める</a>
+<a href="2026-07-05-character-collection-rpg-trial-032.html">Dogfood32｜SagaForge Trial 032: スタイル別アビリティ・遠征大成功・召喚段階演出を足す</a>
+<a href="2026-07-05-character-collection-rpg-trial-033.html">Dogfood33｜SagaForge Trial 033: イベントマップ・初回報酬・スタイル図鑑で周回導線を強める</a>
+<a href="2026-07-05-character-collection-rpg-trial-034.html">Dogfood34｜SagaForge Trial 034: 星ミッション同期とピース解放で記録帳から育成へ戻す</a>
+<a href="2026-07-05-character-collection-rpg-trial-035.html">Dogfood35｜SagaForge Trial 035: 勝利リザルトを段階表示にして、星条件と育成戻りを見える化する</a>
+<a href="2026-07-05-character-collection-rpg-trial-036.html">Dogfood36｜SagaForge Trial 036: ホームから日課プリセットで周回へ入る導線を足す</a>
+<a href="2026-07-06-character-collection-rpg-trial-037.html">Dogfood37｜SagaForge Trial 037: 周回前に3周AUTO結果予報とスタイル別育成メモを出す</a>
+<a href="2026-07-06-character-collection-rpg-trial-038.html">Dogfood38｜SagaForge Trial 038: 3周AUTO後のリザルト束をホームと周回画面に残す</a>
+<a href="2026-07-06-character-collection-rpg-trial-039.html">Dogfood39｜SagaForge Trial 039: 予約ターン解決リールで5人連携の手触りを強める</a>
+<a href="2026-07-06-character-collection-rpg-trial-040.html">Dogfood40｜SagaForge Trial 040: 勝利後スタイル成長ボードで周回から育成へ戻す</a><div class="nav-section-title">過去記事</div><a href="2026-06-27-accessibility-contract-vibe-faq.html">過去記事01｜雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a href="2026-06-27-performance-budget-vibe-gallery.html">過去記事02｜「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a href="2026-06-27-security-baseline-contact-form.html">過去記事03｜問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
+<a href="2026-06-27-contact-api-threat-model.html">過去記事04｜問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
+<a href="2026-06-28-agents-skill-explained.html">過去記事05｜AGENTS.mdとaidd-app-clone-lab skillは何に効いたのか：100点化手順を読み解く</a>
+<a href="2026-06-28-aidd-app-clone-lab-proof.html">過去記事06｜WatchFlow 100点ナレッジを別アプリに移植する：StudyStreamとDrillSwipeで再実証</a>
+<a href="2026-06-28-aidd-spec-v0.1-workflow-saas.html">過去記事07｜AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</a>
+<a href="2026-06-28-mobile-state-contract.html">過去記事08｜スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a>
+<a href="2026-06-29-api-failure-state.html">過去記事09｜「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a>
+<a href="2026-06-30-playwright-api-state.html">過去記事10｜Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する</a>
+<a href="2026-07-03-verification-evidence-lite.html">過去記事11｜「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></details></div><div class="layout "><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">WatchFlow本編、AIDD Control Plane SaaS化、過去記事を分けて読めるプレビュー</p><div class="nav-section-title">WatchFlow 100点チャレンジ</div><a class="chapter-link " href="001-series-roadmap.html"><span class="chapter-num">第01回</span>WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-001.html"><span class="chapter-num">第02回</span>WatchFlow Trial 001：雑プロンプトからNext.js動画アプリはどこまで作れるか</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-002.html"><span class="chapter-num">第03回</span>WatchFlow Trial 002：61点から75点へ、AI Task Packetに失点を戻す</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-003.html"><span class="chapter-num">第04回</span>WatchFlow Trial 003：75点から84点へ、mock serviceとアクセシビリティを詰める</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-004.html"><span class="chapter-num">第05回</span>WatchFlow Trial 004：84点から91点へ、mock serviceをE2Eの実依存にする</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-005.html"><span class="chapter-num">第06回</span>WatchFlow Trial 005：91点から100点へ、Firefox/CI/artifactまで通して実験を閉じる</a><div class="nav-section-title">AIDD Control Plane SaaS化</div><a class="chapter-link " href="2026-06-28-aidd-control-plane-mvp-001.html"><span class="chapter-num">MVP 01</span>AIDD Control Plane MVP 001：AIDD-SpecをSaaSの画面に落とし込む最初の実装</a>
+<a class="chapter-link " href="2026-06-28-aidd-control-plane-mvp-002.html"><span class="chapter-num">MVP 02</span>AIDD Control Plane MVP 002：AI Task PacketをJSON Contract Checkerで検査する</a>
+<a class="chapter-link " href="2026-06-28-aidd-control-plane-mvp-003.html"><span class="chapter-num">MVP 03</span>AIDD Control Plane MVP 003：実行ログとスクリーンショットをVerification Evidenceにまとめる</a>
+<a class="chapter-link " href="2026-06-29-aidd-control-plane-mvp-004.html"><span class="chapter-num">MVP 04</span>AIDD Control Plane MVP 004：AIに頼む前の質問から、設計書と依頼書を作る</a>
+<a class="chapter-link " href="2026-06-30-aidd-control-plane-mvp-005.html"><span class="chapter-num">MVP 05</span>AIDD Control Plane MVP 005：アプリ種別テンプレートで、白紙の依頼を減らす</a>
+<a class="chapter-link " href="2026-06-30-aidd-control-plane-mvp-006.html"><span class="chapter-num">MVP 06</span>AIDD Control Plane MVP 006：AI依頼書と検証ログをつなぐ Verification Run Tracker</a>
+<a class="chapter-link " href="2026-06-30-aidd-control-plane-mvp-007.html"><span class="chapter-num">MVP 07</span>AIDD Control Plane MVP 007：失敗ログを次回のAI依頼書へ戻す Review &amp; Learning Log</a>
+<a class="chapter-link " href="2026-06-30-aidd-control-plane-mvp-008.html"><span class="chapter-num">MVP 08</span>AIDD Control Plane MVP 008：テスト結果を「証拠つき」にする Artifact Evidence Binder</a>
+<a class="chapter-link " href="2026-06-30-aidd-control-plane-mvp-009.html"><span class="chapter-num">MVP 09</span>AIDD Control Plane MVP 009：CIの「通りました」を証拠に変える CI Artifact Importer</a>
+<a class="chapter-link " href="2026-06-30-aidd-control-plane-mvp-010.html"><span class="chapter-num">MVP 10</span>AIDD Control Plane MVP 010：CIのURLから「何を取りに行くべきか」まで見える化する GitHub Actions Artifact Fetch Plan</a>
+<a class="chapter-link " href="2026-07-01-aidd-control-plane-mvp-011.html"><span class="chapter-num">MVP 11</span>AIDD Control Plane MVP 011：足りない証跡を次の修正依頼へ変える Evidence Gap Repair Planner</a>
+<a class="chapter-link " href="2026-07-01-aidd-control-plane-mvp-012.html"><span class="chapter-num">MVP 12</span>AIDD Control Plane MVP 012：CI run URLを貼った後の「証跡が取れたか」をmockで判断する</a>
+<a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-013.html"><span class="chapter-num">MVP 13</span>AIDD Control Plane MVP 013：CI証跡判断をUI内mockから独立mock serviceへ切り出そうとして分かった境界線</a>
+<a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-014.html"><span class="chapter-num">MVP 14</span>AIDD Control Plane MVP 014：CI証跡を「画面内サンプル」から独立Mock Serviceへ切り出す</a>
+<a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-015.html"><span class="chapter-num">MVP 15</span>AIDD Control Plane MVP 015：Mock CI ServiceをfixtureとDocker Compose経路へ進める</a>
+<a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-016.html"><span class="chapter-num">MVP 16</span>AIDD Control Plane MVP 016：CI workflowの「artifact保存漏れ」を先に見つける</a>
+<a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-017.html"><span class="chapter-num">MVP 17</span>AIDD Control Plane MVP 017：失敗ログを「標準更新候補」に戻すQueueを作った</a>
+<a class="chapter-link " href="2026-07-02-aidd-control-plane-mvp-018.html"><span class="chapter-num">MVP 18</span>AIDD Control Plane MVP 018：標準更新候補を「次回AI Task Packet差分」として採用前レビューする</a>
+<a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-019.html"><span class="chapter-num">MVP 19</span>AIDD Control Plane MVP 019：改善差分を「採用・却下・保留」に分けて次回AI依頼へ進める</a>
+<a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-020.html"><span class="chapter-num">MVP 20</span>AIDD Control Plane MVP 020：採用した改善だけを次回AI Task Packet Markdownへ書き出す</a>
+<a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-021.html"><span class="chapter-num">MVP 21</span>AIDD Control Plane MVP 021：採用済みdeltaをファイルへ反映する前に、適用計画を作る</a>
+<a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-022.html"><span class="chapter-num">MVP 22</span>AIDD Control Plane MVP 022：次回AI依頼ファイルを、書く前にドラフトとして確認する</a>
+<a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-023.html"><span class="chapter-num">MVP 23</span>AIDD Control Plane MVP 023：AIがファイルを書き換える前に、patch候補を安全確認する</a>
+<a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-024.html"><span class="chapter-num">MVP 24</span>AIDD Control Plane MVP 024：patchを当てる前に、戻せる証跡を保存する</a>
+<a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-025.html"><span class="chapter-num">MVP 25</span>AIDD Control Plane MVP 025：アプリ案を、いきなり実装依頼にしない</a>
+<a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-026.html"><span class="chapter-num">MVP 26</span>AIDD Control Plane MVP 026：AIに渡す前に「実行コマンド」も止める</a>
+<a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-027.html"><span class="chapter-num">MVP 27</span>AIDD Control Plane MVP 027：patchを当てる前に、戻せる証跡を束ねる</a>
+<a class="chapter-link " href="2026-07-03-aidd-control-plane-mvp-028.html"><span class="chapter-num">MVP 28</span>AIDD Control Plane MVP 028：patchを当てる前に「採用・却下・保留」の理由を残す</a>
+<a class="chapter-link " href="2026-07-04-aidd-control-plane-mvp-029.html"><span class="chapter-num">MVP 29</span>AIDD Control Plane MVP 029：採用済みbundleだけを次回AI依頼へ書き出す</a>
+<a class="chapter-link " href="2026-07-04-aidd-control-plane-mvp-030.html"><span class="chapter-num">MVP 30</span>AIDD Control Plane MVP 030：AIに渡す直前のpacketをもう一度止める</a>
+<a class="chapter-link " href="2026-07-04-aidd-control-plane-mvp-031.html"><span class="chapter-num">MVP 31</span>AIDD Control Plane MVP 031：AI実行の直前に「誰が許可したか」を残す</a>
+<a class="chapter-link " href="2026-07-04-aidd-control-plane-mvp-032.html"><span class="chapter-num">MVP 32</span>AIDD Control Plane MVP 032：Codex実行をQueueとして追跡する</a>
+<a class="chapter-link " href="2026-07-04-aidd-control-plane-mvp-033.html"><span class="chapter-num">MVP 33</span>AIDD Control Plane MVP 033：実行結果を次回AI指示へ戻す</a>
+<a class="chapter-link " href="2026-07-04-aidd-control-plane-mvp-034.html"><span class="chapter-num">MVP 34</span>AIDD Control Plane MVP 034：AIレビュー結果を「次の1インクリメント」へ変える</a>
+<a class="chapter-link " href="2026-07-04-aidd-control-plane-mvp-035.html"><span class="chapter-num">MVP 35</span>AIDD Control Plane MVP 035：E2E成功を「command別の証跡」に分解する</a>
+<a class="chapter-link " href="2026-07-04-aidd-control-plane-mvp-036.html"><span class="chapter-num">MVP 36</span>AIDD Control Plane MVP 036：失敗ログを「次回AI依頼の差分」に変える</a>
+<a class="chapter-link " href="2026-07-04-aidd-control-plane-mvp-037.html"><span class="chapter-num">MVP 37</span>AIDD Control Plane MVP 037：修正候補を「全部やる」から「次に採用する1つ」へ絞る</a>
+<a class="chapter-link " href="2026-07-04-aidd-control-plane-mvp-038.html"><span class="chapter-num">MVP 38</span>AIDD Control Plane MVP 038：採用済み修正を「次の1回で実行する分」だけに絞る</a>
+<a class="chapter-link " href="2026-07-05-aidd-control-plane-mvp-039.html"><span class="chapter-num">MVP 39</span>AIDD Control Plane MVP 039：AIに渡す直前の「1回分の手渡しパック」をレビューする</a>
+<a class="chapter-link " href="2026-07-05-aidd-control-plane-mvp-040.html"><span class="chapter-num">MVP 40</span>AIDD Control Plane MVP 040：AIに投げた「その瞬間」のレシートを残す</a>
+<a class="chapter-link " href="2026-07-05-aidd-control-plane-mvp-041.html"><span class="chapter-num">MVP 41</span>AIDD Control Plane MVP 041：検証結果を「1行ずつ」束ねる</a>
+<a class="chapter-link " href="2026-07-05-aidd-control-plane-mvp-042.html"><span class="chapter-num">MVP 42</span>AIDD Control Plane MVP 042：検証結果をReview Recordへ自動で戻す</a>
+<a class="chapter-link " href="2026-07-05-aidd-control-plane-mvp-043.html"><span class="chapter-num">MVP 43</span>AIDD Control Plane MVP 043：Review Findingを次の1手に変えるAction Queue</a>
+<a class="chapter-link " href="2026-07-05-aidd-control-plane-mvp-044.html"><span class="chapter-num">MVP 44</span>AIDD Control Plane MVP 044：Codexを走らせる直前に止めるReadiness Gate</a>
+<a class="chapter-link " href="2026-07-05-aidd-control-plane-mvp-045.html"><span class="chapter-num">MVP 45</span>AIDD Control Plane MVP 045：検証ログをReview Recordへ渡せる形に束ねる</a>
+<a class="chapter-link " href="2026-07-05-aidd-control-plane-mvp-046.html"><span class="chapter-num">MVP 46</span>AIDD Control Plane MVP 046：検証結果を次のAI依頼へ戻すSynthesizerを作る</a>
+<a class="chapter-link " href="2026-07-05-aidd-control-plane-mvp-047.html"><span class="chapter-num">MVP 47</span>AIDD Control Plane MVP 047：Review Findingを「次にやる1件」へ仕分けるAction Queueを作る</a>
+<a class="chapter-link " href="2026-07-05-aidd-control-plane-mvp-048.html"><span class="chapter-num">MVP 48</span>AIDD Control Plane MVP 048：Codex実行の直前に「本当に走らせてよいか」を止めるReadiness Gate</a>
+<a class="chapter-link " href="2026-07-06-aidd-control-plane-mvp-049.html"><span class="chapter-num">MVP 49</span>AIDD Control Plane MVP 049：AI実行結果をcommand別の明細に分けるVerification Run Detail</a>
+<a class="chapter-link " href="2026-07-06-aidd-control-plane-mvp-050.html"><span class="chapter-num">MVP 50</span>AIDD Control Plane MVP 050：失敗ログを次回AI Task Packetへ戻すEvidence Repair Delta Generator</a>
+<a class="chapter-link " href="2026-07-06-aidd-control-plane-mvp-051.html"><span class="chapter-num">MVP 51</span>AIDD Control Plane MVP 051：失敗修正deltaを「全部投げない」ための優先判断画面</a>
+<a class="chapter-link current" href="2026-07-06-aidd-control-plane-mvp-052.html"><span class="chapter-num">MVP 52</span>AIDD Control Plane MVP 052：Codexへ投げる前に「実行予算」と停止条件を見る</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-002.html"><span class="chapter-num">Dogfood 02</span>AIDD Control Plane Dogfood 002：画像素材と戦闘シーンを入れて、キャラ収集RPGを“遊べそう”に近づける</a>
+<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-003.html"><span class="chapter-num">Dogfood 03</span>AIDD Control Plane Dogfood 003：キャラ収集RPGに「操作すると変わる」を入れる</a>
+<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-004.html"><span class="chapter-num">Dogfood 04</span>AIDD Control Plane Dogfood 004：キャラ収集RPGの操作をmock backendへ保存する</a>
+<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-005.html"><span class="chapter-num">Dogfood 05</span>AIDD Control Plane Dogfood 005：RPGプロトタイプを4つのmock serviceとaxe検査まで進める</a>
+<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-006.html"><span class="chapter-num">Dogfood 06</span>AIDD Control Plane Dogfood 006：RPGプロトタイプをroot CI artifactへ載せる</a>
+<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-007.html"><span class="chapter-num">Dogfood 07</span>AIDD Control Plane Dogfood 007：RPGプロトタイプをCI artifact込みで100点へ収束させる</a>
+<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-008.html"><span class="chapter-num">Dogfood 08</span>AIDD Control Plane Dogfood 008：RPGのCI証跡を、次のAI Task Packetへ再利用できる形に戻す</a>
+<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-009.html"><span class="chapter-num">Dogfood 09</span>AIDD Control Plane Dogfood 009：成功したRPG証跡を、次回AI Task Packetの初期値へ戻す</a>
+<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-010.html"><span class="chapter-num">Dogfood 10</span>AIDD Control Plane Dogfood 010：新しいアプリ案を、過去RPG証跡つきAI Task Packet seedへ変換する</a>
+<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-011.html"><span class="chapter-num">Dogfood 11</span>AIDD Control Plane Dogfood 011：新規アプリ案seedを、実ファイル反映前のMarkdownレビューへ進める</a>
+<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-012.html"><span class="chapter-num">Dogfood 12</span>AIDD Control Plane Dogfood 012：Markdownレビューを、適用前patch候補とrollback確認へ進める</a>
+<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-013.html"><span class="chapter-num">Dogfood 13</span>AIDD Control Plane Dogfood 013：diff bundleとrollback evidenceを、適用前の証跡セットへ束ねる</a>
+<a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-014.html"><span class="chapter-num">Dogfood 14</span>AIDD Control Plane Dogfood 014：Diff Bundleを、採用・却下・保留の判断台帳へ進める</a>
+<a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-015.html"><span class="chapter-num">Dogfood 15</span>AIDD Control Plane Dogfood 015：勝利報酬を「受け取れる/保留/受取済み」まで証跡化する</a>
+<a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-016.html"><span class="chapter-num">Dogfood 16</span>AIDD Control Plane Dogfood 016：SagaForgeを「汎用RPG」からスマホキャラ収集RPGの骨格へ寄せる</a>
+<a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-017.html"><span class="chapter-num">Dogfood 17</span>AIDD Control Plane Dogfood 017：SagaForgeに戦闘テンポ・育成ボード・周回導線を足す</a>
+<a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-018.html"><span class="chapter-num">Dogfood 18</span>AIDD Control Plane Dogfood 018：SagaForgeに再戦・ピース限界突破・5人連携順を足す</a>
+<a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-019.html"><span class="chapter-num">Dogfood 19</span>AIDD Control Plane Dogfood 019：SagaForgeを「起動直後のスマホRPG拠点」へ寄せる</a>
+<a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-020.html"><span class="chapter-num">Dogfood 20</span>AIDD Control Plane Dogfood 020：SagaForgeを「周回で育つスマホRPGループ」へ寄せる</a>
+<a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-021.html"><span class="chapter-num">Dogfood 21</span>AIDD Control Plane Dogfood 021：SagaForgeにスタイル詳細・アビリティ・交換所を足す</a>
+<a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-022.html"><span class="chapter-num">Dogfood 22</span>SagaForge Trial 022: 同一キャラの複数スタイルと継承技をプレイアブルに入れる</a>
+<a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-023.html"><span class="chapter-num">Dogfood 23</span>SagaForge Trial 023: 敵行動・弱点・勝利リザルト・召喚詳細導線を足す</a>
+<a class="chapter-link " href="2026-07-04-character-collection-rpg-trial-024.html"><span class="chapter-num">Dogfood 24</span>SagaForge Trial 024: 陣形位置の被弾・AUTO判断・召喚交換Ptで周回ループを濃くする</a>
+<a class="chapter-link " href="2026-07-05-character-collection-rpg-trial-025.html"><span class="chapter-num">Dogfood 25</span>SagaForge Trial 025: 継続周回・補助効果・召喚交換Ptで「周回して育てる」圧を強める</a>
+<a class="chapter-link " href="2026-07-05-character-collection-rpg-trial-026.html"><span class="chapter-num">Dogfood 26</span>SagaForge Trial 026: 3周AUTOリハーサルとクエスト別成長で「周回場所を選ぶ」感覚を入れる</a>
+<a class="chapter-link " href="2026-07-05-character-collection-rpg-trial-027.html"><span class="chapter-num">Dogfood 27</span>SagaForge Trial 027：5人連携予約で「単発ボタン戦闘」から一歩進める</a>
+<a class="chapter-link " href="2026-07-05-character-collection-rpg-trial-028.html"><span class="chapter-num">Dogfood 28</span>SagaForge Trial 028：技演出ステップと勝利後の育成戻りを足す</a>
+<a class="chapter-link " href="2026-07-05-character-collection-rpg-trial-029.html"><span class="chapter-num">Dogfood 29</span>SagaForge Trial 029：育成おすすめと連携カットイン予約で1周の判断をつなぐ</a>
+<a class="chapter-link " href="2026-07-05-character-collection-rpg-trial-030.html"><span class="chapter-num">Dogfood 30</span>SagaForge Trial 030: 技道場・閃き候補・ステージミッションで「周回したくなる理由」を足す</a>
+<a class="chapter-link " href="2026-07-05-character-collection-rpg-trial-031.html"><span class="chapter-num">Dogfood 31</span>SagaForge Trial 031: スタイル遠征とクエスト前相性で「誰を連れて周回するか」を強める</a>
+<a class="chapter-link " href="2026-07-05-character-collection-rpg-trial-032.html"><span class="chapter-num">Dogfood 32</span>SagaForge Trial 032: スタイル別アビリティ・遠征大成功・召喚段階演出を足す</a>
+<a class="chapter-link " href="2026-07-05-character-collection-rpg-trial-033.html"><span class="chapter-num">Dogfood 33</span>SagaForge Trial 033: イベントマップ・初回報酬・スタイル図鑑で周回導線を強める</a>
+<a class="chapter-link " href="2026-07-05-character-collection-rpg-trial-034.html"><span class="chapter-num">Dogfood 34</span>SagaForge Trial 034: 星ミッション同期とピース解放で記録帳から育成へ戻す</a>
+<a class="chapter-link " href="2026-07-05-character-collection-rpg-trial-035.html"><span class="chapter-num">Dogfood 35</span>SagaForge Trial 035: 勝利リザルトを段階表示にして、星条件と育成戻りを見える化する</a>
+<a class="chapter-link " href="2026-07-05-character-collection-rpg-trial-036.html"><span class="chapter-num">Dogfood 36</span>SagaForge Trial 036: ホームから日課プリセットで周回へ入る導線を足す</a>
+<a class="chapter-link " href="2026-07-06-character-collection-rpg-trial-037.html"><span class="chapter-num">Dogfood 37</span>SagaForge Trial 037: 周回前に3周AUTO結果予報とスタイル別育成メモを出す</a>
+<a class="chapter-link " href="2026-07-06-character-collection-rpg-trial-038.html"><span class="chapter-num">Dogfood 38</span>SagaForge Trial 038: 3周AUTO後のリザルト束をホームと周回画面に残す</a>
+<a class="chapter-link " href="2026-07-06-character-collection-rpg-trial-039.html"><span class="chapter-num">Dogfood 39</span>SagaForge Trial 039: 予約ターン解決リールで5人連携の手触りを強める</a>
+<a class="chapter-link " href="2026-07-06-character-collection-rpg-trial-040.html"><span class="chapter-num">Dogfood 40</span>SagaForge Trial 040: 勝利後スタイル成長ボードで周回から育成へ戻す</a><div class="nav-section-title">過去記事</div><a class="chapter-link past " href="2026-06-27-accessibility-contract-vibe-faq.html"><span class="chapter-num">過去記事 01</span>雑なFAQ検索アプリを監査して分かった、AI Task Packetに「アクセシビリティ契約」を入れるべき理由</a>
+<a class="chapter-link past " href="2026-06-27-performance-budget-vibe-gallery.html"><span class="chapter-num">過去記事 02</span>「プレミアムにして」で膨らむCSSを、Performance Budgetから逆算してAI Task Packetに入れる</a>
+<a class="chapter-link past " href="2026-06-27-security-baseline-contact-form.html"><span class="chapter-num">過去記事 03</span>問い合わせフォームのPIIを、Security BaselineからAI Task Packetへ逆算する</a>
+<a class="chapter-link past " href="2026-06-27-contact-api-threat-model.html"><span class="chapter-num">過去記事 04</span>問い合わせAPIのCSRF・Rate Limit・監査ログを、AI Task Packetへ逆算する</a>
+<a class="chapter-link past " href="2026-06-28-agents-skill-explained.html"><span class="chapter-num">過去記事 05</span>AGENTS.mdとaidd-app-clone-lab skillは何に効いたのか：100点化手順を読み解く</a>
+<a class="chapter-link past " href="2026-06-28-aidd-app-clone-lab-proof.html"><span class="chapter-num">過去記事 06</span>WatchFlow 100点ナレッジを別アプリに移植する：StudyStreamとDrillSwipeで再実証</a>
+<a class="chapter-link past " href="2026-06-28-aidd-spec-v0.1-workflow-saas.html"><span class="chapter-num">過去記事 07</span>AIDD-Spec v0.1を仕様書にする：AIエージェント開発ワークフローとSaaS化の最初の実演</a>
+<a class="chapter-link past " href="2026-06-28-mobile-state-contract.html"><span class="chapter-num">過去記事 08</span>スマホフォームは「見た目が収まる」だけでは足りない：Mobile Interaction ContractをAI Task Packetへ逆算する</a>
+<a class="chapter-link past " href="2026-06-29-api-failure-state.html"><span class="chapter-num">過去記事 09</span>「APIから取る雰囲気」では足りない：失敗状態契約をAI Task Packetへ逆算する</a>
+<a class="chapter-link past " href="2026-06-30-playwright-api-state.html"><span class="chapter-num">過去記事 10</span>Playwrightで失敗状態を本当に触る：API状態E2E契約をAI Task Packetへ逆算する</a>
+<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-06-aidd-control-plane-mvp-051.html"><span>前の記事</span>AIDD Control Plane MVP 051：失敗修正deltaを「全部投げない」ための優先判断画面</a><span></span></nav><article><h1>AIDD Control Plane MVP 052：Codexへ投げる前に「実行予算」と停止条件を見る</h1>
+<blockquote>2026-07-06 / Codex Mastery Lab  </blockquote>
+<blockquote>記事種別: Experiment / SaaS  </blockquote>
+<blockquote>将来の書籍章: 第10章 Verification Evidence、第11章 Learning Log、第12章 雑プロンプト vs AI Task Packet、第18章 AIDD Control PlaneのMVP</blockquote>
+<h2>タイトル案</h2>
+<p>Codexに投げる前の信号機：AI実装を始める前に利用枠・停止条件・fallbackを確認する</p>
+<h2>読者の悩み</h2>
+<p>AI駆動開発で次に直すことが決まると、ついすぐCodexへ投げたくなります。</p>
+<p>でも実際には、次のような失敗が起きます。</p>
+<ul>
+<li>もう利用枠が高いのに、新しい実装を始めて途中で止まる</li>
+<li>「失敗したらどこで止めるか」を決めず、修正ループが長引く</li>
+<li>lint / typecheck / unit / build / 3ブラウザE2Eのどこまで証跡を残すか曖昧になる</li>
+<li>Codexが使えないcron環境なのに、実装前提で計画してしまう</li>
+</ul>
+<p>前回のMVP 051では、失敗ログから作ったRepair Deltaを <strong>採用 / 保留 / 却下</strong> に分けました。今回は、その次です。採用済みdeltaをCodexへ渡す前に、<strong>実行予算・停止条件・fallback action</strong> を見る小さな画面、MVP 052 <strong>Codex Run Budget Gate</strong> を作りました。</p>
+<p>料理でいえば、作るメニューは決まったけれど、冷蔵庫の残り、調理時間、失敗した時の代替メニューを先に確認する感じです。AI開発でも、「作るもの」だけでなく「今実行してよい状態か」を見る必要があります。</p>
+<h2>今回の仮説</h2>
+<blockquote>採用済みdeltaをCodexへ渡す前にgo / brake / stopを判断すれば、途中停止、長時間ループ、証跡欠けを減らせる。</blockquote>
+<p>AIDD Control Planeは、単なる「AIにコードを書かせるボタン」ではありません。Product Brief、AI Task Packet、Verification Evidence、Review Record、Learning Logをつなぎ、<strong>いつ実行して、いつ止めるか</strong> まで扱うSaaSにする必要があります。</p>
+<h2>実験内容</h2>
+<p><code>experiments/aidd-control-plane-mvp-052/generated-repo/</code> に、Next.js + TypeScript + pnpmで <strong>Codex Run Budget Gate</strong> を実装しました。</p>
+<p>今回のチェック項目は次です。</p>
+<table>
+<tr><th>チェック項目</th><th>何を確認したいのか</th><th>なぜ必要か</th></tr>
+<tr><td>source packet id</td><td>どのAI Task Packetを実行するか</td><td>実行対象を後から追うため</td></tr>
+<tr><td>accepted repair delta</td><td>採用済みdeltaだけか</td><td>保留・却下まで混ぜて依頼を肥大化させないため</td></tr>
+<tr><td>primary / secondary usage</td><td>Codex利用枠が高すぎないか</td><td>検証途中の停止を避けるため</td></tr>
+<tr><td>max runtime minutes</td><td>何分で区切るか</td><td>長時間ループを防ぐため</td></tr>
+<tr><td>stop condition</td><td>どの失敗で止めるか</td><td>同じ失敗を繰り返さないため</td></tr>
+<tr><td>fallback action</td><td>実行できない時に何をするか</td><td>cronや利用枠の制約でも仕事を止めないため</td></tr>
+<tr><td>3ブラウザ</td><td>Chromium / Firefox / WebKitを含むか</td><td>片ブラウザだけの成功を避けるため</td></tr>
+<tr><td>Verification Evidence接続</td><td>コマンド別証跡を残すか</td><td>自己申告ではなく実行結果で確認するため</td></tr>
+<tr><td>local pathブロック</td><td>公開してはいけない文字列がないか</td><td>note/previewへ安全に出すため</td></tr>
+</table>
+<h2>画面キャプチャ</h2>
+<h3>empty：実行候補packetがない</h3>
+<p><img src="assets/aidd-control-plane-mvp052-empty.png" alt="MVP052 empty" loading="lazy"></p>
+<p>emptyでは、採用済みdeltaを含むAI Task Packetがないため、Codexを開始できないと表示します。ここで無理に進むと、また「いい感じに直して」という雑な依頼に戻ります。</p>
+<h3>ready：go判断とprompt preview</h3>
+<p><img src="assets/aidd-control-plane-mvp052-ready.png" alt="MVP052 ready" loading="lazy"></p>
+<p>readyでは、次を満たすと <code>go</code> になります。</p>
+<ul>
+<li>source packet idがある</li>
+<li>採用済みRepair Deltaが1つに絞られている</li>
+<li>primary / secondary usageがブレーキ閾値未満</li>
+<li>max runtime minutesが設定されている</li>
+<li>stop conditionとfallback actionがある</li>
+<li>lint / typecheck / test / build / test:e2e / doctor:aiddを検証する</li>
+<li>Chromium / Firefox / WebKitを含む</li>
+<li>AIDD-Spec v0.1のVerification Evidence / Review Record / Learning Log / Maintenance Runbookへ接続している</li>
+</ul>
+<p>重要なのは、<code>go</code> の時だけCodex prompt previewを表示することです。stop/emptyでは、そもそもCodexへ渡す文面を出しません。</p>
+<h3>failure：利用枠過多、停止条件不足、公開前ブロック</h3>
+<p><img src="assets/aidd-control-plane-mvp052-failure.png" alt="MVP052 failure" loading="lazy"></p>
+<p>failureでは、primary/secondary usage過多、max runtime不足、停止条件不足、fallback action不足、Firefox除外、AIDD-Spec接続不足、local path / host / private network URL混入を検出します。</p>
+<p>これは「AIを使わない」のではなく、「今は大きな実装を始めない」という判断です。代わりに、短い検証、記事化、証跡整理、AI Task Packetの縮小へ寄せられます。</p>
+<h3>terminal evidence</h3>
+<p><img src="assets/aidd-control-plane-mvp052-terminal-evidence.png" alt="MVP052 terminal evidence" loading="lazy"></p>
+<h2>失敗と修正</h2>
+<p>今回もcron環境では <code>codex: command not found</code> でした。<code>codex exec --sandbox danger-full-access</code> は実行できず、その失敗を <code>artifacts/terminal/codex-exec.txt</code> に保存しました。</p>
+<p>ただし、これは今回のテーマに合っています。Codexが使えない状態でも、AIDD Control Planeは「では何をするか」を提示する必要があります。MVP052のfallback actionは、Codexを開始せず、AI Task Packetを縮小して次回cronへ回す判断を扱います。</p>
+<p>また、最初のE2EではPlaywrightのstrict modeに2回引っかかりました。</p>
+<ol>
+<li><code>chromium / firefox / webkit</code> が複数箇所にあり、locatorが曖昧だった</li>
+<li><code>pnpm run test</code> が <code>pnpm run test:e2e</code> にも部分一致した</li>
+</ol>
+<p>修正として、<code>getByText(..., { exact: true })</code> を使い、3ブラウザE2Eを再実行しました。最終的にはChromium / Firefox / WebKitで9件すべて通過しました。</p>
+<h2>検証ログ</h2>
+<table>
+<tr><th>コマンド</th><th>結果</th><th>メモ</th></tr>
+<tr><td><code>pnpm install --frozen-lockfile</code></td><td>pass</td><td>lockfile固定で依存解決</td></tr>
+<tr><td><code>pnpm run lint</code></td><td>pass</td><td>ESLintエラーなし</td></tr>
+<tr><td><code>pnpm run typecheck</code></td><td>pass</td><td>TypeScriptエラーなし</td></tr>
+<tr><td><code>pnpm run test</code></td><td>pass</td><td>Vitest 3 tests</td></tr>
+<tr><td><code>pnpm run build</code></td><td>pass</td><td>Next.js build成功。ESLint plugin警告は既知の改善候補</td></tr>
+<tr><td><code>pnpm run test:e2e</code></td><td>pass</td><td>9 passed。Chromium / Firefox / WebKit</td></tr>
+<tr><td><code>pnpm run doctor:aidd</code></td><td>pass</td><td>MVP052 token、停止条件、fallback、3ブラウザ設定、画像名を確認</td></tr>
+<tr><td><code>pnpm run capture:mvp052</code></td><td>pass</td><td>empty / ready / failure / terminal evidenceを生成</td></tr>
+<tr><td><code>python3 scripts/codex_usage_kpi.py</code></td><td>pass</td><td>実Codex usageからBRAKE推奨を生成</td></tr>
+</table>
+<p>E2Eの最終結果は次です。</p>
+<pre><code>9 passed (11.9s)</code></pre>
+<p>unit testは次です。</p>
+<pre><code>Tests  3 passed (3)</code></pre>
+<p>Codex usage KPIの今回の実測は、secondary usageが高く、推奨は <code>BRAKE</code> でした。</p>
+<pre><code>recommendation: BRAKE
+secondary_used_percent: 96.0
+recommendation_detail: 新規Codex起動を止め、短い検証・ブログ・メディア圧縮へ寄せる。</code></pre>
+<p>この実測値は、MVP052のテーマそのものです。採用済みdeltaがあっても、利用枠が高ければ「今は大きなCodex実装を始めない」という判断が必要です。</p>
+<h2>読者が使えるチェックリスト</h2>
+<p>Codexへ投げる前に、次を確認します。</p>
+<table>
+<tr><th>チェック項目</th><th>何を確認したいのか</th><th>なぜ必要か</th></tr>
+<tr><td>実行対象packetは1つか</td><td>何を実行するか</td><td>依頼の責任範囲を明確にするため</td></tr>
+<tr><td>採用済みdeltaだけか</td><td>保留・却下が混ざっていないか</td><td>1回の変更を小さく保つため</td></tr>
+<tr><td>利用枠は高すぎないか</td><td>primary/secondary usage</td><td>検証途中の停止を避けるため</td></tr>
+<tr><td>max runtimeはあるか</td><td>何分で止めるか</td><td>長時間ループを防ぐため</td></tr>
+<tr><td>stop conditionはあるか</td><td>何が起きたら止めるか</td><td>同じ失敗を繰り返さないため</td></tr>
+<tr><td>fallback actionはあるか</td><td>実行できない時の代替行動</td><td>cronや環境差で仕事を止めないため</td></tr>
+<tr><td>検証コマンドは揃っているか</td><td>lint/typecheck/test/build/e2e/doctor</td><td>Codexの自己申告に頼らないため</td></tr>
+<tr><td>3ブラウザか</td><td>Chromium / Firefox / WebKit</td><td>WebKit/Firefoxだけの不具合を拾うため</td></tr>
+<tr><td>証跡保存先はあるか</td><td>terminalログとスクリーンショット</td><td>noteやレビューで説明できる一次情報にするため</td></tr>
+<tr><td>公開前ブロックはあるか</td><td>local pathやprivate URL</td><td>公開事故を避けるため</td></tr>
+</table>
+<h2>SaaS/AIDD-Specへの接続</h2>
+<p>MVP052で、AIDD Control Planeに「実行前ゲート」が入りました。</p>
+<ul>
+<li><strong>AIDD-Spec</strong>: AI Task Packetに実行予算、停止条件、fallback actionを追加する根拠になる</li>
+<li><strong>AIDD Control Plane</strong>: Codex実行前にgo / brake / stopを見せるSaaS画面になる</li>
+<li><strong>Verification Evidence</strong>: 実行できたか、止めたか、なぜ止めたかを証跡化する</li>
+<li><strong>Learning Log</strong>: 利用枠過多やCLI未検出を次回改善へ戻す</li>
+<li><strong>note記事</strong>: 「AIが作ったまとめ」ではなく、実際の失敗、ログ、スクリーンショットを持つ一次情報になる</li>
+</ul>
+<h2>次回</h2>
+<p>次回は、MVP052の実行前ゲートをさらに進め、<strong>stop時にAI Task Packetを自動縮小する提案</strong> を作るのが自然です。たとえば「E2E修正は次回へ回し、今回はdoctor:aiddと記事QAだけにする」のように、利用枠に応じた小さな代替packetを生成できると、AIDD Control Planeはより実用的になります。</p></article><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-06-aidd-control-plane-mvp-051.html"><span>前の記事</span>AIDD Control Plane MVP 051：失敗修正deltaを「全部投げない」ための優先判断画面</a><span></span></nav></main></div></body></html>
