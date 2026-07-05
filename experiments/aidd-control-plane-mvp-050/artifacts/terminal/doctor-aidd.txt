@@ -1,0 +1,3 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+MVP050 Evidence Repair Delta Generator, AIDD-Spec接続, capture script, 3ブラウザE2E設定, local pathブロック文言を確認しました。

@@ -1,0 +1,9 @@
+   ▲ Next.js 15.5.20
+   - Local:        http://<local-app>
+   - Network:      http://<local-app>
+
+ ✓ Starting...
+ ✓ Ready in 1062ms
+ ✓ Compiled / in 287ms (532 modules)
+ GET / 200 in 493ms
+ GET / 200 in 26ms

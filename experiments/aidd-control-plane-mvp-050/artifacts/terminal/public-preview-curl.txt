@@ -1,0 +1,12 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane MVP 050：失敗ログを次回AI Task Packetへ戻すEvidence Repair Delta Generator</title><style>
+<a href="2026-07-06-aidd-control-plane-mvp-050.html">MVP50｜AIDD Control Plane MVP 050：失敗ログを次回AI Task Packetへ戻すEvidence Repair Delta Generator</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link current" href="2026-07-06-aidd-control-plane-mvp-050.html"><span class="chapter-num">MVP 50</span>AIDD Control Plane MVP 050：失敗ログを次回AI Task Packetへ戻すEvidence Repair Delta Generator</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-06-aidd-control-plane-mvp-049.html"><span>前の記事</span>AIDD Control Plane MVP 049：AI実行結果をcommand別の明細に分けるVerification Run Detail</a><span></span></nav><article><h1>AIDD Control Plane MVP 050：失敗ログを次回AI Task Packetへ戻すEvidence Repair Delta Generator</h1>
+<p>前回のMVP 049では、Codex実行結果をcommand別のVerification Run Detailに分解しました。今回はその次です。command別明細で見つけた <code>failed</code> / <code>evidence_missing</code> / <code>timeout</code> を、次回のAI Task Packet delta、Codex prompt delta、検証command、rollback条件、Learning Logへ戻す <strong>Evidence Repair Delta Generator</strong> を作りました。</p>
+<p><code>experiments/aidd-control-plane-mvp-050/generated-repo/</code> に、Next.js + TypeScript + pnpmで <strong>Evidence Repair Delta Generator</strong> を実装しました。</p>
+<p><img src="assets/aidd-control-plane-mvp050-ready.png" alt="MVP050 ready" loading="lazy"></p>
+  -&gt; Evidence Repair Delta Generator
+aidd-control-plane-mvp050-empty.png 211345
+aidd-control-plane-mvp050-ready.png 557409
+aidd-control-plane-mvp050-failure.png 233934
+aidd-control-plane-mvp050-terminal-evidence.png 53922

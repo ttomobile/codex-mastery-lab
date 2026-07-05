@@ -1,0 +1,2 @@
+staged files checked 64
+OK: no user home path or private mesh host leaks in staged text files

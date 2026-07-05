@@ -1,0 +1,66 @@
+ articles/2026-07-06-aidd-control-plane-mvp-050.md  |  144 +
+ assets/aidd-control-plane-mvp050-empty.png         |  Bin 0 -> 211345 bytes
+ assets/aidd-control-plane-mvp050-failure.png       |  Bin 0 -> 233934 bytes
+ assets/aidd-control-plane-mvp050-ready.png         |  Bin 0 -> 557409 bytes
+ ...aidd-control-plane-mvp050-terminal-evidence.png |  Bin 0 -> 53922 bytes
+ .../aidd-control-plane-mvp-050/AI_TASK_PACKET.md   |   68 +
+ .../aidd-control-plane-mvp-050/CODEX_PROMPT.md     |   63 +
+ experiments/aidd-control-plane-mvp-050/README.md   |   32 +
+ .../aidd-control-plane-mvp050-empty.png            |  Bin 0 -> 211345 bytes
+ .../aidd-control-plane-mvp050-failure.png          |  Bin 0 -> 233934 bytes
+ .../aidd-control-plane-mvp050-ready.png            |  Bin 0 -> 557409 bytes
+ ...aidd-control-plane-mvp050-terminal-evidence.png |  Bin 0 -> 53922 bytes
+ .../artifacts/terminal/build-preview.txt           |    1 +
+ .../artifacts/terminal/build.txt                   |   34 +
+ .../artifacts/terminal/capture-mvp050.txt          |    2 +
+ .../artifacts/terminal/diff-cached-stat.txt        |   66 +
+ .../artifacts/terminal/doctor-aidd.txt             |    3 +
+ .../artifacts/terminal/lint.txt                    |    1 +
+ .../artifacts/terminal/pnpm-install.txt            |    2 +
+ .../artifacts/terminal/preview-local-check.txt     |    9 +
+ .../artifacts/terminal/public-preview-curl.txt     |   12 +
+ .../artifacts/terminal/staged-leak-check.txt       |    2 +
+ .../artifacts/terminal/test-e2e.txt                |   15 +
+ .../artifacts/terminal/test.txt                    |   11 +
+ .../artifacts/terminal/typecheck.txt               |    1 +
+ .../generated-repo/.gitignore                      |    9 +
+ .../generated-repo/AI_TASK_PACKET.md               |   49 +
+ .../generated-repo/CODEX_PROMPT.md                 |   28 +
+ .../generated-repo/README.md                       |   31 +
+ .../generated-repo/app/globals.css                 |  388 ++
+ .../generated-repo/app/layout.tsx                  |   15 +
+ .../generated-repo/app/page.tsx                    |  220 +
+ .../aidd-control-plane-mvp050-empty.png            |  Bin 0 -> 211345 bytes
+ .../aidd-control-plane-mvp050-failure.png          |  Bin 0 -> 233934 bytes
+ .../aidd-control-plane-mvp050-ready.png            |  Bin 0 -> 557409 bytes
+ ...aidd-control-plane-mvp050-terminal-evidence.png |  Bin 0 -> 53922 bytes
+ .../artifacts/terminal/capture-mvp050.txt          |    9 +
+ .../generated-repo/docs/learning-log.md            |   12 +
+ .../generated-repo/docs/product-brief.md           |   24 +
+ .../generated-repo/docs/review-record.md           |   27 +
+ .../generated-repo/docs/verification-plan.md       |   24 +
+ .../e2e/verification-run-detail.spec.ts            |   63 +
+ .../generated-repo/eslint.config.mjs               |   32 +
+ .../generated-repo/next-env.d.ts                   |    7 +
+ .../generated-repo/next.config.mjs                 |    5 +
+ .../generated-repo/package.json                    |   36 +
+ .../generated-repo/pages/404.tsx                   |    3 +
+ .../generated-repo/pages/_document.tsx             |   13 +
+ .../generated-repo/playwright.config.ts            |   26 +
+ .../generated-repo/pnpm-lock.yaml                  | 4808 ++++++++++++++++++++
+ .../generated-repo/pnpm-workspace.yaml             |   21 +
+ .../generated-repo/scripts/capture-mvp050.mjs      |  103 +
+ .../generated-repo/scripts/doctor-aidd.mjs         |   69 +
+ .../generated-repo/src/lib/verification-run.ts     |  259 ++
+ .../generated-repo/tests/verification-run.test.ts  |   57 +
+ .../generated-repo/tsconfig.json                   |   20 +
+ .../generated-repo/vitest.config.ts                |   11 +
+ preview/2026-07-06-aidd-control-plane-mvp-049.html |   10 +-
+ preview/2026-07-06-aidd-control-plane-mvp-050.html |  365 ++
+ preview/assets/aidd-control-plane-mvp050-empty.png |  Bin 0 -> 211345 bytes
+ .../assets/aidd-control-plane-mvp050-failure.png   |  Bin 0 -> 233934 bytes
+ preview/assets/aidd-control-plane-mvp050-ready.png |  Bin 0 -> 557409 bytes
+ ...aidd-control-plane-mvp050-terminal-evidence.png |  Bin 0 -> 53922 bytes
+ preview/index.html                                 |    8 +-
+ scripts/build_preview.py                           |    1 +
+ 65 files changed, 7212 insertions(+), 7 deletions(-)

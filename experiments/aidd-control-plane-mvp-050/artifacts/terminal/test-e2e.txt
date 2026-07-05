@@ -1,0 +1,15 @@
+$ playwright test
+
+Running 9 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/verification-run-detail.spec.ts:3:1 › empty状態ではfinding未読込とpacketへ戻す材料不足を表示する (641ms)
+  ✓  2 [chromium] › e2e/verification-run-detail.spec.ts:13:1 › ready状態では3つのrepair delta候補と必須項目を表示する (519ms)
+  ✓  3 [chromium] › e2e/verification-run-detail.spec.ts:42:1 › failure状態ではReview Finding draft風に不足と公開前ブロック理由を表示する (501ms)
+  ✓  4 [firefox] › e2e/verification-run-detail.spec.ts:3:1 › empty状態ではfinding未読込とpacketへ戻す材料不足を表示する (982ms)
+  ✓  5 [firefox] › e2e/verification-run-detail.spec.ts:13:1 › ready状態では3つのrepair delta候補と必須項目を表示する (520ms)
+  ✓  6 [firefox] › e2e/verification-run-detail.spec.ts:42:1 › failure状態ではReview Finding draft風に不足と公開前ブロック理由を表示する (474ms)
+  ✓  7 [webkit] › e2e/verification-run-detail.spec.ts:3:1 › empty状態ではfinding未読込とpacketへ戻す材料不足を表示する (793ms)
+  ✓  8 [webkit] › e2e/verification-run-detail.spec.ts:13:1 › ready状態では3つのrepair delta候補と必須項目を表示する (438ms)
+  ✓  9 [webkit] › e2e/verification-run-detail.spec.ts:42:1 › failure状態ではReview Finding draft風に不足と公開前ブロック理由を表示する (410ms)
+
+  9 passed (9.9s)
