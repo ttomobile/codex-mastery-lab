@@ -3,15 +3,31 @@ $ pnpm run test
 > sagaforge-trial-001@0.1.0 test WORKSPACE/experiments/character-collection-rpg-trial-001/generated-repo
 > vitest run
 
-RUN v4.1.9 WORKSPACE/experiments/character-collection-rpg-trial-001/generated-repo
 
-✓ src/domain/rpg.test.ts (12 tests) 10ms
+ RUN  v4.1.9 WORKSPACE/experiments/character-collection-rpg-trial-001/generated-repo
 
-Test Files  1 passed (1)
-Tests       12 passed (12)
-Duration    1.10s
+ ✓ src/domain/rpg.test.ts (12 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  22:29:41
+   Duration  805ms (transform 38ms, setup 74ms, import 26ms, tests 7ms, environment 589ms)
 
 $ pnpm run typecheck
 
 > sagaforge-trial-001@0.1.0 typecheck WORKSPACE/experiments/character-collection-rpg-trial-001/generated-repo
 > tsc --noEmit
+
+
+$ npm run test
+
+> sagaforge-trial-001@0.1.0 test
+> vitest run
+
+RUN v4.1.9 WORKSPACE/experiments/character-collection-rpg-trial-001/generated-repo
+
+✓ src/domain/rpg.test.ts (12 tests) 8ms
+
+Test Files  1 passed (1)
+Tests       12 passed (12)
+Duration    711ms

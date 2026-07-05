@@ -7,5 +7,5 @@ Wrote 101 articles to WORKSPACE/preview
 $ public URL check
 200 87673 PUBLIC_PREVIEW_URL/sagaforge-app/index.html
 200 394420 PUBLIC_PREVIEW_URL/assets/2026-07-05-character-collection-rpg-trial-036-daily-route.png
-200 719631 PUBLIC_PREVIEW_URL/assets/2026-07-05-character-collection-rpg-trial-036-battle-preset.png
+200 720872 PUBLIC_PREVIEW_URL/assets/2026-07-05-character-collection-rpg-trial-036-battle-preset.png
 200 51151 PUBLIC_PREVIEW_URL/2026-07-05-character-collection-rpg-trial-036.html
