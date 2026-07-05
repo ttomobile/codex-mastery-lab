@@ -1,0 +1,15 @@
+AIDD Control Plane MVP 045 terminal evidence
+
+pnpm install --frozen-lockfile: pass
+pnpm run lint: pass
+pnpm run typecheck: pass
+pnpm run test: pass
+pnpm run build: pass
+pnpm run test:e2e: pass (126 passed / Chromium, Firefox, WebKit)
+pnpm run doctor:aidd: pass
+
+実装メモ:
+- Verification Evidence Receipt Binderを追加。
+- commandResults / exitCode / durationMs / terminalLogPath / artifactPath / failureCategory / repairInstructionを束ねる。
+- Firefox除外、doctor:aidd不足、terminal/failure screenshot不足、local path/host/private network URL混入をblockedとして検出。
+- E2E初回は既存dev server再利用で古い画面を読んだため失敗。該当プロセスを停止して再実行し、3ブラウザで成功。
