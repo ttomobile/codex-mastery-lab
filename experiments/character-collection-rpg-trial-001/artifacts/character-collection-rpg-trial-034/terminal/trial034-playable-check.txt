@@ -1,0 +1,7 @@
+{
+  "unlockText": "解放可能 暁の祈り",
+  "currentScreenAfterUnlock": "styles",
+  "styleTextHasUnlocked": true,
+  "battleLogLength": 305,
+  "errors": []
+}
