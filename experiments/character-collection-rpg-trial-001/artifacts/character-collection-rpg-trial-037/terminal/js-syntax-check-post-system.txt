@@ -1,0 +1,2 @@
+## playable JS syntax check
+JS syntax OK: playable script extracted from index.html
