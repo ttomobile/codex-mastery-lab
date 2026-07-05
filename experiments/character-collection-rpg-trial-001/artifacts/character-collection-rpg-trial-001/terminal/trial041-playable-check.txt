@@ -1,0 +1,3 @@
+node syntax check: OK
+playwright interaction: {"title":"星紋遠征隊 SagaForge Trial 041","gachaClassifier":4,"homeClassifier":4,"trainingCompare":4,"questCompare":4,"status":"稼働中"}
+screenshots: trial041 home/gacha-classifier/training-compare/quest-compare

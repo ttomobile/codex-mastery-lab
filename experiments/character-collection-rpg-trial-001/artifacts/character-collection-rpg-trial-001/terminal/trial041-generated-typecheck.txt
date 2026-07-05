@@ -1,0 +1,3 @@
+
+> sagaforge-trial-001@0.1.0 typecheck WORKSPACE/experiments/character-collection-rpg-trial-001/generated-repo
+> tsc --noEmit

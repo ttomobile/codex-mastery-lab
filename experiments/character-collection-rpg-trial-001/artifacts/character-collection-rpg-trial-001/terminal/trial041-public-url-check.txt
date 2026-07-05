@@ -1,0 +1,9 @@
+preview files:
+preview/sagaforge-app/index.html OK
+preview article OK
+public asset party-key-art.png http=200
+public asset battle-ruins.png http=200
+public asset crystal-guardian.png http=200
+public asset summon-altar.png http=200
+public playable http=200
+public article http=200
