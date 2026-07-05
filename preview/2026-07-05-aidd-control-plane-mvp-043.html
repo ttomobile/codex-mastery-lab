@@ -242,7 +242,7 @@ th { background:#f1f5f9; }
 <blockquote>将来の書籍章: 第9章 AI Task Packet、第10章 Verification Evidence、第11章 Learning Log、第12章 雑プロンプト vs AI Task Packet、第18章 AIDD Control PlaneのMVP</blockquote>
 <h2>タイトル案</h2>
 <p>Review Findingを次の1手に変える：Action Queueでexecute_nowだけをCodexへ渡す</p>
-<h2>今日の問い</h2>
+<h2>読者の悩み</h2>
 <p>今日の問いはこれです。</p>
 <blockquote>検証結果からReview Recordを作ったあと、次のCodex依頼に「今やること」だけを安全に渡せるか？</blockquote>
 <p>MVP 042では、Verification Evidence Receipt BinderからReview Record / Learning Log / 次回AI Task Packet deltaを合成する <strong>Review Record Receipt Synthesizer</strong> を作りました。これで「検証ログをレビュー形式へ戻す」入口はできました。</p>
@@ -274,8 +274,9 @@ th { background:#f1f5f9; }
 <li>失敗したらどこでrollbackするか</li>
 </ol>
 <p>この判断を人間の頭の中に置くと、AI駆動開発はまた属人的になります。AIDD Control Planeにするなら、画面とデータモデルで止める必要があります。</p>
-<h2>今回やること</h2>
-<p>今回作ったのは <strong>Review Finding Action Queue</strong> です。</p>
+<h2>今回の仮説</h2>
+<p>今回の仮説は、Review Findingを <strong>execute_now / next_increment / learning_log</strong> に分け、Codex prompt previewへ入れてよいものを <strong>execute_nowだけ</strong> に制限すれば、次の1回の実行範囲を守れる、というものです。</p>
+<p>その仮説を試すために作ったのが <strong>Review Finding Action Queue</strong> です。</p>
 <p>役割は、Review Record Receipt Synthesizerの結果からReview Findingを受け取り、次の行動キューに変換することです。</p>
 <pre><code>Review Record Receipt Synthesizer
   -&gt; Review Finding Action Queue
@@ -312,7 +313,7 @@ Repo: codex-mastery-lab
 ?? logs/2026-07-05-env-precheck.log
 ?? scripts/codex_usage_kpi.py</code></pre>
 <p>この既存差分は今回のCodex promptで「触らない」と明示しました。実験では <code>experiments/aidd-control-plane-mvp-043/</code>、<code>assets/aidd-control-plane-mvp043-*.png</code>、標準文書、記事、preview更新だけを追加対象にしました。</p>
-<h2>実際にCodexへ渡した日本語プロンプト</h2>
+<h2>実験内容：実際にCodexへ渡した日本語プロンプト</h2>
 <p>今回のプロンプト全文は <code>experiments/aidd-control-plane-mvp-043/CODEX_PROMPT.md</code> に保存しています。主要部分をそのまま載せます。</p>
 <pre><code>目的: experiments/aidd-control-plane-mvp-043/generated-repo に、AIDD Control Plane MVP 043「Review Finding Action Queue」を実装してください。
 
@@ -381,7 +382,7 @@ expect(validQueue.codexPromptPreview).not.toContain(&quot;action-mvp043-learning
 await expect(page.getByLabel(&quot;Codex prompt preview&quot;)).not.toContainText(&quot;action-mvp043-next-increment-001&quot;);
 await expect(page.getByLabel(&quot;Codex prompt preview&quot;)).not.toContainText(&quot;action-mvp043-learning-log-001&quot;);
 await expect(page.getByLabel(&quot;Codex prompt preview&quot;)).toContainText(&quot;next_increment と learning_log はCodex prompt previewに混ぜません&quot;);</code></pre>
-<h2>ブラウザ操作キャプチャ</h2>
+<h2>画面キャプチャ</h2>
 <p>今回はGIFではなく、状態別スクリーンショットを保存しました。Control Planeの検証対象が「フォーム操作の滑らかさ」ではなく「状態と検査結果の読み取り」だったためです。</p>
 <h3>empty：まだAction Queueがない</h3>
 <p><img src="assets/aidd-control-plane-mvp043-empty.png" alt="MVP043 empty" loading="lazy"></p>
@@ -391,7 +392,7 @@ await expect(page.getByLabel(&quot;Codex prompt preview&quot;)).toContainText(&q
 <p><img src="assets/aidd-control-plane-mvp043-failure.png" alt="MVP043 failure" loading="lazy"></p>
 <h3>terminal evidence</h3>
 <p><img src="assets/aidd-control-plane-mvp043-terminal-evidence.png" alt="MVP043 terminal evidence" loading="lazy"></p>
-<h2>失敗と修正</h2>
+<h2>失敗/修正</h2>
 <p>今回の明確な失敗は2つありました。</p>
 <p>1つ目は、Codex実行が600秒でタイムアウトしたことです。実装途中で壊れたわけではありませんが、長いE2EをCodexに任せ切ると、最後の結果だけが曖昧になります。そこで、Codex後にHermes側で品質ゲートを個別実行しました。</p>
 <p>2つ目は、capture scriptの初回失敗です。</p>
@@ -402,7 +403,7 @@ page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:3030/</code></pre>
 pnpm run capture:mvp043</code></pre>
 <p>再実行は成功し、<code>assets/aidd-control-plane-mvp043-*.png</code> と <code>experiments/aidd-control-plane-mvp-043/artifacts/screenshots/</code> にスクリーンショットが保存されました。</p>
 <p>この失敗から分かったのは、capture scriptにも「起動前提」を明記する必要があることです。今後はcaptureコマンド自体がdev serverの起動確認をするか、記事内で必ず起動手順を明示します。</p>
-<h2>品質ゲート結果</h2>
+<h2>検証ログ</h2>
 <p>Codexのあと、こちらで次を実行しました。</p>
 <pre><code>pnpm install --frozen-lockfile
 pnpm run lint
@@ -496,7 +497,7 @@ checked MVP: AIDD Control Plane MVP 043 Review Finding Action Queue</code></pre>
 
 各action itemには priority reason / verification commands / required evidence / rollback condition / AIDD-Spec connection を必ず持たせる。
 execute_now以外がprompt previewに混入したらfailureとして表示し、E2Eで検証する。</code></pre>
-<h2>AIDD-Specへの反映</h2>
+<h2>AIDD-Spec / AIDD Control Plane SaaSへの接続</h2>
 <p><code>standards/aidd-control-plane-mvp-v0.1.md</code> に、MVP機能として <strong>Review Finding Action Queue</strong> を追加しました。</p>
 <p>追加した標準項目は次です。</p>
 <pre><code>Review Finding Action Queue:
@@ -516,7 +517,7 @@ Review Record Receipt Synthesizerで作られたReview Findingを、次に実行
 <li>local pathやhost名が混ざると公開前チェックで止まる</li>
 </ol>
 <p>これは「AIに何をやらせるか」を決める画面というより、「AIに今やらせないことを守る画面」です。AI駆動開発では、作業を増やすより、1回の作業範囲を守るほうが大事な場面が多いと感じました。</p>
-<h2>明日から使えるチェックリスト</h2>
+<h2>読者が使えるチェックリスト</h2>
 <ul>
 <li><input type="checkbox" disabled> Review Findingをそのまま次回promptへ貼っていないか</li>
 <li><input type="checkbox" disabled> findingごとにexecute_now / next_increment / learning_logを分けたか</li>
@@ -546,7 +547,7 @@ Review Record Receipt Synthesizerで作られたReview Findingを、次に実行
 <li>Review Findingは、priority reason、verification commands、required evidence、rollback conditionが揃って初めて次回実行に渡せる</li>
 <li>AIDD Control Planeの価値は「全部をAIへ渡す」ではなく「今渡してよいものだけを絞る」ことにある</li>
 </ul>
-<h2>次回への改善</h2>
+<h2>次回</h2>
 <p>次回は、このAction Queueから実際の <strong>One-run Codex command</strong> を作る前に、実行予算、所要時間、失敗時の停止条件をもう一段チェックしたいです。特にM4 Mac mini / 16GB RAMの制約では、3ブラウザE2Eを毎回フルで回すと重くなります。どの検証を毎回必須にし、どれを節目で回すかを、AIDD-SpecのVerification Planとして整理します。</p>
 <h2>付録：証跡パス</h2>
 <pre><code>Article: articles/2026-07-05-aidd-control-plane-mvp-043.md

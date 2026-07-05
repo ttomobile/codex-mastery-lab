@@ -8,7 +8,7 @@
 
 Review Findingを次の1手に変える：Action Queueでexecute_nowだけをCodexへ渡す
 
-## 今日の問い
+## 読者の悩み
 
 今日の問いはこれです。
 
@@ -53,9 +53,11 @@ Codex Run Start Receipt
 
 この判断を人間の頭の中に置くと、AI駆動開発はまた属人的になります。AIDD Control Planeにするなら、画面とデータモデルで止める必要があります。
 
-## 今回やること
+## 今回の仮説
 
-今回作ったのは **Review Finding Action Queue** です。
+今回の仮説は、Review Findingを **execute_now / next_increment / learning_log** に分け、Codex prompt previewへ入れてよいものを **execute_nowだけ** に制限すれば、次の1回の実行範囲を守れる、というものです。
+
+その仮説を試すために作ったのが **Review Finding Action Queue** です。
 
 役割は、Review Record Receipt Synthesizerの結果からReview Findingを受け取り、次の行動キューに変換することです。
 
@@ -111,7 +113,7 @@ logs/2026-07-05-env-precheck.log
 
 この既存差分は今回のCodex promptで「触らない」と明示しました。実験では `experiments/aidd-control-plane-mvp-043/`、`assets/aidd-control-plane-mvp043-*.png`、標準文書、記事、preview更新だけを追加対象にしました。
 
-## 実際にCodexへ渡した日本語プロンプト
+## 実験内容：実際にCodexへ渡した日本語プロンプト
 
 今回のプロンプト全文は `experiments/aidd-control-plane-mvp-043/CODEX_PROMPT.md` に保存しています。主要部分をそのまま載せます。
 
@@ -208,7 +210,7 @@ await expect(page.getByLabel("Codex prompt preview")).not.toContainText("action-
 await expect(page.getByLabel("Codex prompt preview")).toContainText("next_increment と learning_log はCodex prompt previewに混ぜません");
 ```
 
-## ブラウザ操作キャプチャ
+## 画面キャプチャ
 
 今回はGIFではなく、状態別スクリーンショットを保存しました。Control Planeの検証対象が「フォーム操作の滑らかさ」ではなく「状態と検査結果の読み取り」だったためです。
 
@@ -228,7 +230,7 @@ await expect(page.getByLabel("Codex prompt preview")).toContainText("next_increm
 
 ![MVP043 terminal evidence](../assets/aidd-control-plane-mvp043-terminal-evidence.png)
 
-## 失敗と修正
+## 失敗/修正
 
 今回の明確な失敗は2つありました。
 
@@ -252,7 +254,7 @@ pnpm run capture:mvp043
 
 この失敗から分かったのは、capture scriptにも「起動前提」を明記する必要があることです。今後はcaptureコマンド自体がdev serverの起動確認をするか、記事内で必ず起動手順を明示します。
 
-## 品質ゲート結果
+## 検証ログ
 
 Codexのあと、こちらで次を実行しました。
 
@@ -371,7 +373,7 @@ Review Findingを次のlaneに分類する。
 execute_now以外がprompt previewに混入したらfailureとして表示し、E2Eで検証する。
 ```
 
-## AIDD-Specへの反映
+## AIDD-Spec / AIDD Control Plane SaaSへの接続
 
 `standards/aidd-control-plane-mvp-v0.1.md` に、MVP機能として **Review Finding Action Queue** を追加しました。
 
@@ -401,7 +403,7 @@ AIDD Control Plane上では、このAction Queueは次のUIになります。
 
 これは「AIに何をやらせるか」を決める画面というより、「AIに今やらせないことを守る画面」です。AI駆動開発では、作業を増やすより、1回の作業範囲を守るほうが大事な場面が多いと感じました。
 
-## 明日から使えるチェックリスト
+## 読者が使えるチェックリスト
 
 - [ ] Review Findingをそのまま次回promptへ貼っていないか
 - [ ] findingごとにexecute_now / next_increment / learning_logを分けたか
@@ -438,7 +440,7 @@ Verification Evidence
 - Review Findingは、priority reason、verification commands、required evidence、rollback conditionが揃って初めて次回実行に渡せる
 - AIDD Control Planeの価値は「全部をAIへ渡す」ではなく「今渡してよいものだけを絞る」ことにある
 
-## 次回への改善
+## 次回
 
 次回は、このAction Queueから実際の **One-run Codex command** を作る前に、実行予算、所要時間、失敗時の停止条件をもう一段チェックしたいです。特にM4 Mac mini / 16GB RAMの制約では、3ブラウザE2Eを毎回フルで回すと重くなります。どの検証を毎回必須にし、どれを節目で回すかを、AIDD-SpecのVerification Planとして整理します。
 
