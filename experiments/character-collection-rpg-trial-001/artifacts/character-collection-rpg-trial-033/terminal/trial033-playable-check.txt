@@ -1,0 +1,8 @@
+{
+  "visibleMap": true,
+  "visibleBook": true,
+  "selectedQuest": "第1章 裂光の丘 1-5 HARD",
+  "afterCollectionClick": "styles",
+  "consoleCount": 0,
+  "console": []
+}

@@ -1,0 +1,2 @@
+assets/2026-07-05-character-collection-rpg-trial-033-event-map.png referenced= True exists= True bytes= 368824
+assets/2026-07-05-character-collection-rpg-trial-033-style-book.png referenced= True exists= True bytes= 277996
