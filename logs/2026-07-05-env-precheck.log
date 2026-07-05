@@ -1,0 +1,12 @@
+Sun Jul  5 09:02:39 JST 2026
+codex-cli 0.142.3
+ProductName:		macOS
+ProductVersion:		26.5.1
+BuildVersion:		25F80
+Darwin <host> 25.5.0 Darwin Kernel Version 25.5.0: Mon Apr 27 20:41:26 PDT 2026; root:xnu-12377.121.6~2/RELEASE_ARM64_T8132 arm64
+Filesystem      Size    Used   Avail Capacity iused ifree %iused  Mounted on
+/dev/disk2s5   228Gi    86Gi   105Gi    46%    2.0M  1.1G    0%   /System/Volumes/Data
+ M assets/2026-07-05-character-collection-rpg-trial-028-battle-stage.png
+ M preview/assets/2026-07-05-character-collection-rpg-trial-028-battle-stage.png
+?? logs/2026-07-05-env-precheck.log
+?? scripts/codex_usage_kpi.py

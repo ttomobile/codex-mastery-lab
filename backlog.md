@@ -60,6 +60,7 @@
 - [ ] 次回候補: Verification Evidence LiteをAIDD Control Planeの自動doctor UIに接続し、ログ/GIF/残リスクの不足を画面で止める
 - [x] 次回候補: Run Authorization GateでvalidになったCodex実行をRun Queueとして追跡し、waiting/running/succeeded/failed/evidence_missingと証跡不足をReview Findingへ戻す（2026-07-04: AIDD Control Plane MVP 032）
 - [ ] 次回候補: Codex Run Queueの各itemをVerification Evidence Run Detailへ展開し、command別exit code、artifact path、失敗分類を持たせる
+- [x] 次回候補: Review Record Receipt Synthesizerのfindingをexecute_now / next_increment / learning_logへ分け、execute_nowだけを次回Codex promptへ入れるAction Queueを作る（2026-07-05: AIDD Control Plane MVP 043）
 
 - [ ] 2つのCodexに実装案を競わせる
 - [ ] Codex実装をHermesがレビューする二段構え
