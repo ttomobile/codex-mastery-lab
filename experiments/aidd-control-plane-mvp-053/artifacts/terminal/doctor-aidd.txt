@@ -1,0 +1,3 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+MVP053 token、STOP/BRAKE縮小提案、minimum_verification、resume_condition、3ブラウザ設定、capture画像名を確認しました。

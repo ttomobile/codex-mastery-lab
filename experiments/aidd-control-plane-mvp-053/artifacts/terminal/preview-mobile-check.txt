@@ -1,0 +1,8 @@
+COMMAND:
+python3 playwright mobile preview check
+
+RESULT:
+failed because Python module 'playwright' was not installed in the active Python environment.
+
+FOLLOW-UP:
+The same preview check was rerun with the Node Playwright package already available in the repo. See preview-mobile-check-rerun.txt.

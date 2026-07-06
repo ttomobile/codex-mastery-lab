@@ -53,6 +53,18 @@ api_failure_state_contract:
 quality_gates:
   required_commands: []
   required_artifacts: []
+execution_budget:
+  usage_band_policy: "go / brake / stop"
+  max_runtime_minutes: null
+  stop_conditions: []
+  fallback_action: ""
+  shrink_when_brake_or_stop:
+    keep_now: []
+    defer_next_increment: []
+    minimum_verification: []
+    resume_condition: ""
+    evidence_paths: []
+    prompt_preview_policy: "sanitize local paths and private hosts before publishing"
 playwright_e2e_contract:
   target_browsers: []
   launch_url: ""
@@ -82,3 +94,5 @@ learning_log:
 - 「確認する」ではなく、実行コマンドと期待結果を書く。
 - 出力ファイル名を指定する。
 - 完了時に残す証跡を指定する。
+- 実行前にgo / brake / stopを判断し、brake/stop時は縮小後AI Task Packetを提示する。
+- 縮小提案には、今やること、次回へ送ること、最低限の検証、再開条件、公開用にサニタイズした証跡pathを含める。

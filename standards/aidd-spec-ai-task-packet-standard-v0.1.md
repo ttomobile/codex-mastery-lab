@@ -81,6 +81,18 @@ asset_policy:
 quality_gate:
   required_commands: []
   expected_results: []
+execution_budget:
+  usage_band_policy: string
+  max_runtime_minutes: number
+  stop_conditions: []
+  fallback_action: string
+  shrink_when_brake_or_stop:
+    keep_now: []
+    defer_next_increment: []
+    minimum_verification: []
+    resume_condition: string
+    evidence_paths: []
+    prompt_preview_policy: string
 playwright_e2e_contract:
   target_browsers: []
   launch_url: string
@@ -95,6 +107,40 @@ verification_evidence:
 prompt_delta_log:
   previous_failure: string
   added_instruction: string
+```
+
+### 2.1 `execution_budget.shrink_when_brake_or_stop`
+
+Codexへ渡す直前に利用枠・停止条件・fallback actionを確認しても、`brake` または `stop` になった時の次の一手が未定義だと、人間はまた大きすぎる依頼文を手で直すことになる。後工程のVerification EvidenceとLearning Logが必要とするのは、「実行しない」という判断だけではなく、どこまでを今回残し、どこからを次回へ送るかの明細である。
+
+例:
+
+```yaml
+execution_budget:
+  usage_band_policy: "go if primary<90 and secondary<92; brake if primary>=90 or secondary>=92; stop if primary>=96 or secondary>=96"
+  max_runtime_minutes: 35
+  stop_conditions:
+    - "同じ品質gateが2回連続で同じ原因に失敗したら停止する"
+    - "local path / private host / private network URLが公開用artifactへ出たら停止する"
+  fallback_action: "Codexを開始せず、AI Task Packetを縮小して次回cronへ送る"
+  shrink_when_brake_or_stop:
+    keep_now:
+      - "純粋関数とunit testを固定する"
+      - "doctor:aiddで標準tokenを確認する"
+    defer_next_increment:
+      - "CI接続"
+      - "追加のビジュアル調整"
+    minimum_verification:
+      - "pnpm run lint"
+      - "pnpm run typecheck"
+      - "pnpm run test"
+      - "pnpm run build"
+      - "pnpm run doctor:aidd"
+    resume_condition: "利用枠がgo帯に戻り、3ブラウザE2Eを実行できる時"
+    evidence_paths:
+      - "WORKSPACE/experiments/.../artifacts/terminal/*.txt"
+      - "assets/aidd-control-plane-mvp053-*.png"
+    prompt_preview_policy: "公開前にHOME/WORKSPACEへサニタイズした文面だけを表示する"
 ```
 
 ## 3. 今日の実験から追加した項目

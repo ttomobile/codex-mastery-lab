@@ -115,6 +115,7 @@ AIに「いい感じに作って」と頼む時代は終わる。これから必
 - 2026-07-03: 「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する — 第9章 AI Task Packet、第10章 Verification Evidence、第11章 Learning Log、第12章 雑プロンプト vs AI Task Packet に接続。
 - 2026-07-04: 「Codexに実行してよいと言った後を迷子にしない：Run QueueをVerification Evidenceへつなぐ」 — 第9章 AI Task Packet、第10章 Verification Evidence、第11章 Learning Log、第18章 AIDD Control PlaneのMVP に接続。
 - 2026-07-05: 「Review Findingを次の1手に変える：Action Queueでexecute_nowだけをCodexへ渡す」 — 第9章 AI Task Packet、第10章 Verification Evidence、第11章 Learning Log、第12章 雑プロンプト vs AI Task Packet、第18章 AIDD Control PlaneのMVP に接続。
+- 2026-07-06: 「Codexを止めるだけでは足りない：STOP/BRAKE時にAI Task Packetを小さく畳む仕組み」 — 第9章 AI Task Packet、第10章 Verification Evidence、第11章 Learning Log、第12章 雑プロンプト vs AI Task Packet、第18章 AIDD Control PlaneのMVP に接続。
 
 各記事は以下のどれかに分類する。
 

@@ -1,0 +1,20 @@
+COMMAND:
+npx -y @openai/codex exec --sandbox danger-full-access '<Japanese MVP053 prompt>'
+
+RESULT:
+Codex CLI started successfully via npx (codex-cli 0.142.5) and generated experiments/aidd-control-plane-mvp-053/generated-repo from the MVP052 reference.
+
+IMPORTANT EVENTS:
+- Codex copied the MVP052 structure and created src/lib/packet-reduction.ts, app/page.tsx, unit tests, Playwright E2E, doctor:aidd, capture script, and docs.
+- The Codex process exceeded the 600s terminal timeout while investigating an E2E failure in the brake case.
+- Follow-up manual verification found the E2E expected WORKSPACE/private-url for a private .local host. The implementation sanitized private hosts to WORKSPACE.local, so the E2E expectation was corrected.
+
+FINAL FOLLOW-UP VERIFICATION:
+- pnpm run lint: pass
+- pnpm run typecheck: pass
+- pnpm run test: pass, 4 tests
+- pnpm run test:coverage: pass, 100%
+- pnpm run build: pass with existing Next.js ESLint plugin warning
+- pnpm run doctor:aidd: pass
+- pnpm run test:e2e: pass, 9 passed across Chromium / Firefox / WebKit
+- pnpm run capture:mvp053: pass

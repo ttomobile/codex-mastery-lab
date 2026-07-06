@@ -1,0 +1,198 @@
+$ playwright test
+
+Running 9 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/packet-reduction.spec.ts:3:1 › readyケースでは縮小提案を生成しない (537ms)
+  ✘  2 [chromium] › e2e/packet-reduction.spec.ts:13:1 › brakeケースでは縮小後AI Task Packet提案とサニタイズ表示を出す (1.5m)
+  ✘  3 [chromium] › e2e/packet-reduction.spec.ts:13:1 › brakeケースでは縮小後AI Task Packet提案とサニタイズ表示を出す (retry #1) (1.5m)
+  ✓  4 [chromium] › e2e/packet-reduction.spec.ts:34:1 › stopケースでは停止fallbackとresume_conditionを表示する (347ms)
+  ✓  5 [firefox] › e2e/packet-reduction.spec.ts:3:1 › readyケースでは縮小提案を生成しない (805ms)
+  ✘  6 [firefox] › e2e/packet-reduction.spec.ts:13:1 › brakeケースでは縮小後AI Task Packet提案とサニタイズ表示を出す (1.5m)
+  ✘  7 [firefox] › e2e/packet-reduction.spec.ts:13:1 › brakeケースでは縮小後AI Task Packet提案とサニタイズ表示を出す (retry #1) (1.5m)
+  ✓  8 [firefox] › e2e/packet-reduction.spec.ts:34:1 › stopケースでは停止fallbackとresume_conditionを表示する (850ms)
+  ✓  9 [webkit] › e2e/packet-reduction.spec.ts:3:1 › readyケースでは縮小提案を生成しない (2.0s)
+  ✘  10 [webkit] › e2e/packet-reduction.spec.ts:13:1 › brakeケースでは縮小後AI Task Packet提案とサニタイズ表示を出す (1.5m)
+  ✘  11 [webkit] › e2e/packet-reduction.spec.ts:13:1 › brakeケースでは縮小後AI Task Packet提案とサニタイズ表示を出す (retry #1) (1.5m)
+  ✓  12 [webkit] › e2e/packet-reduction.spec.ts:34:1 › stopケースでは停止fallbackとresume_conditionを表示する (524ms)
+
+
+  1) [chromium] › e2e/packet-reduction.spec.ts:13:1 › brakeケースでは縮小後AI Task Packet提案とサニタイズ表示を出す ─────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByLabel('sanitized evidence paths').getByText('WORKSPACE/private-url')
+    Expected: visible
+    Timeout: 90000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 90000ms
+      - waiting for getByLabel('sanitized evidence paths').getByText('WORKSPACE/private-url')
+
+
+      26 |   await expect(page.getByText("公開前ブロック: local path / private host / private URL")).toBeVisible();
+      27 |   await expect(page.getByLabel("sanitized evidence paths").getByText("HOME/codex-mastery-lab")).toBeVisible();
+    > 28 |   await expect(page.getByLabel("sanitized evidence paths").getByText("WORKSPACE/private-url")).toBeVisible();
+         |                                                                                                ^
+      29 |   await expect(page.locator("pre")).toContainText("decision=brake");
+      30 |   await expect(page.locator("pre")).not.toContainText("/Users/");
+      31 |   await expect(page.locator("pre")).not.toContainText("tto-mac.local");
+        at /Users/tto/codex-mastery-lab/experiments/aidd-control-plane-mvp-053/generated-repo/e2e/packet-reduction.spec.ts:28:96
+
+    Error Context: test-results/packet-reduction-brakeケースでは縮小後AI-Task-Packet提案とサニタイズ表示を出す-chromium/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByLabel('sanitized evidence paths').getByText('WORKSPACE/private-url')
+    Expected: visible
+    Timeout: 90000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 90000ms
+      - waiting for getByLabel('sanitized evidence paths').getByText('WORKSPACE/private-url')
+
+
+      26 |   await expect(page.getByText("公開前ブロック: local path / private host / private URL")).toBeVisible();
+      27 |   await expect(page.getByLabel("sanitized evidence paths").getByText("HOME/codex-mastery-lab")).toBeVisible();
+    > 28 |   await expect(page.getByLabel("sanitized evidence paths").getByText("WORKSPACE/private-url")).toBeVisible();
+         |                                                                                                ^
+      29 |   await expect(page.locator("pre")).toContainText("decision=brake");
+      30 |   await expect(page.locator("pre")).not.toContainText("/Users/");
+      31 |   await expect(page.locator("pre")).not.toContainText("tto-mac.local");
+        at /Users/tto/codex-mastery-lab/experiments/aidd-control-plane-mvp-053/generated-repo/e2e/packet-reduction.spec.ts:28:96
+
+    Error Context: test-results/packet-reduction-brakeケースでは縮小後AI-Task-Packet提案とサニタイズ表示を出す-chromium-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/packet-reduction-brakeケースでは縮小後AI-Task-Packet提案とサニタイズ表示を出す-chromium-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/packet-reduction-brakeケースでは縮小後AI-Task-Packet提案とサニタイズ表示を出す-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [firefox] › e2e/packet-reduction.spec.ts:13:1 › brakeケースでは縮小後AI Task Packet提案とサニタイズ表示を出す ──────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByLabel('sanitized evidence paths').getByText('WORKSPACE/private-url')
+    Expected: visible
+    Timeout: 90000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 90000ms
+      - waiting for getByLabel('sanitized evidence paths').getByText('WORKSPACE/private-url')
+
+
+      26 |   await expect(page.getByText("公開前ブロック: local path / private host / private URL")).toBeVisible();
+      27 |   await expect(page.getByLabel("sanitized evidence paths").getByText("HOME/codex-mastery-lab")).toBeVisible();
+    > 28 |   await expect(page.getByLabel("sanitized evidence paths").getByText("WORKSPACE/private-url")).toBeVisible();
+         |                                                                                                ^
+      29 |   await expect(page.locator("pre")).toContainText("decision=brake");
+      30 |   await expect(page.locator("pre")).not.toContainText("/Users/");
+      31 |   await expect(page.locator("pre")).not.toContainText("tto-mac.local");
+        at /Users/tto/codex-mastery-lab/experiments/aidd-control-plane-mvp-053/generated-repo/e2e/packet-reduction.spec.ts:28:96
+
+    Error Context: test-results/packet-reduction-brakeケースでは縮小後AI-Task-Packet提案とサニタイズ表示を出す-firefox/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByLabel('sanitized evidence paths').getByText('WORKSPACE/private-url')
+    Expected: visible
+    Timeout: 90000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 90000ms
+      - waiting for getByLabel('sanitized evidence paths').getByText('WORKSPACE/private-url')
+
+
+      26 |   await expect(page.getByText("公開前ブロック: local path / private host / private URL")).toBeVisible();
+      27 |   await expect(page.getByLabel("sanitized evidence paths").getByText("HOME/codex-mastery-lab")).toBeVisible();
+    > 28 |   await expect(page.getByLabel("sanitized evidence paths").getByText("WORKSPACE/private-url")).toBeVisible();
+         |                                                                                                ^
+      29 |   await expect(page.locator("pre")).toContainText("decision=brake");
+      30 |   await expect(page.locator("pre")).not.toContainText("/Users/");
+      31 |   await expect(page.locator("pre")).not.toContainText("tto-mac.local");
+        at /Users/tto/codex-mastery-lab/experiments/aidd-control-plane-mvp-053/generated-repo/e2e/packet-reduction.spec.ts:28:96
+
+    Error Context: test-results/packet-reduction-brakeケースでは縮小後AI-Task-Packet提案とサニタイズ表示を出す-firefox-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/packet-reduction-brakeケースでは縮小後AI-Task-Packet提案とサニタイズ表示を出す-firefox-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/packet-reduction-brakeケースでは縮小後AI-Task-Packet提案とサニタイズ表示を出す-firefox-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [webkit] › e2e/packet-reduction.spec.ts:13:1 › brakeケースでは縮小後AI Task Packet提案とサニタイズ表示を出す ───────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByLabel('sanitized evidence paths').getByText('WORKSPACE/private-url')
+    Expected: visible
+    Timeout: 90000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 90000ms
+      - waiting for getByLabel('sanitized evidence paths').getByText('WORKSPACE/private-url')
+
+
+      26 |   await expect(page.getByText("公開前ブロック: local path / private host / private URL")).toBeVisible();
+      27 |   await expect(page.getByLabel("sanitized evidence paths").getByText("HOME/codex-mastery-lab")).toBeVisible();
+    > 28 |   await expect(page.getByLabel("sanitized evidence paths").getByText("WORKSPACE/private-url")).toBeVisible();
+         |                                                                                                ^
+      29 |   await expect(page.locator("pre")).toContainText("decision=brake");
+      30 |   await expect(page.locator("pre")).not.toContainText("/Users/");
+      31 |   await expect(page.locator("pre")).not.toContainText("tto-mac.local");
+        at /Users/tto/codex-mastery-lab/experiments/aidd-control-plane-mvp-053/generated-repo/e2e/packet-reduction.spec.ts:28:96
+
+    Error Context: test-results/packet-reduction-brakeケースでは縮小後AI-Task-Packet提案とサニタイズ表示を出す-webkit/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByLabel('sanitized evidence paths').getByText('WORKSPACE/private-url')
+    Expected: visible
+    Timeout: 90000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 90000ms
+      - waiting for getByLabel('sanitized evidence paths').getByText('WORKSPACE/private-url')
+
+
+      26 |   await expect(page.getByText("公開前ブロック: local path / private host / private URL")).toBeVisible();
+      27 |   await expect(page.getByLabel("sanitized evidence paths").getByText("HOME/codex-mastery-lab")).toBeVisible();
+    > 28 |   await expect(page.getByLabel("sanitized evidence paths").getByText("WORKSPACE/private-url")).toBeVisible();
+         |                                                                                                ^
+      29 |   await expect(page.locator("pre")).toContainText("decision=brake");
+      30 |   await expect(page.locator("pre")).not.toContainText("/Users/");
+      31 |   await expect(page.locator("pre")).not.toContainText("tto-mac.local");
+        at /Users/tto/codex-mastery-lab/experiments/aidd-control-plane-mvp-053/generated-repo/e2e/packet-reduction.spec.ts:28:96
+
+    Error Context: test-results/packet-reduction-brakeケースでは縮小後AI-Task-Packet提案とサニタイズ表示を出す-webkit-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/packet-reduction-brakeケースでは縮小後AI-Task-Packet提案とサニタイズ表示を出す-webkit-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/packet-reduction-brakeケースでは縮小後AI-Task-Packet提案とサニタイズ表示を出す-webkit-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [chromium] › e2e/packet-reduction.spec.ts:13:1 › brakeケースでは縮小後AI Task Packet提案とサニタイズ表示を出す ──────
+    [firefox] › e2e/packet-reduction.spec.ts:13:1 › brakeケースでは縮小後AI Task Packet提案とサニタイズ表示を出す ───────
+    [webkit] › e2e/packet-reduction.spec.ts:13:1 › brakeケースでは縮小後AI Task Packet提案とサニタイズ表示を出す ────────
+  6 passed (9.3m)
+[ELIFECYCLE] Command failed with exit code 1.

@@ -1,0 +1,1 @@
+{"status":"complete","title":"AIDD Control Plane MVP 053：STOP/BRAKE時にAI Task Packetを小さく畳む","mobile_nav":"目次を開く","images":4,"prev_next_links":2}
