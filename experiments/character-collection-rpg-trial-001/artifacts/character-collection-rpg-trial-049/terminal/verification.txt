@@ -1,0 +1,12 @@
+$ python3 scripts/build_preview.py
+Wrote 126 articles to WORKSPACE/preview
+$ python3 html sanity
+playables/sagaforge-app/index.html 108411 ok True
+preview/sagaforge-app/index.html 108411 ok True
+preview/2026-07-08-character-collection-rpg-trial-049.html 46811 ok True
+$ public-url-http-check
+200 130162 PUBLIC_PREVIEW_HOST/sagaforge-app/index.html
+200 2868814 PUBLIC_PREVIEW_HOST/sagaforge-app/assets/party-key-art.png
+200 2481271 PUBLIC_PREVIEW_HOST/sagaforge-app/assets/battle-ruins.png
+200 2677355 PUBLIC_PREVIEW_HOST/sagaforge-app/assets/crystal-guardian.png
+200 2918540 PUBLIC_PREVIEW_HOST/sagaforge-app/assets/summon-altar.png
