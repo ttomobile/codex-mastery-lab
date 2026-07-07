@@ -1,0 +1,18 @@
+$ playwright test
+
+Running 12 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/handoff-decision-ledger.spec.ts:3:1 › emptyケースではDecision Ledgerを生成しない (861ms)
+  ✓   2 [chromium] › e2e/handoff-decision-ledger.spec.ts:13:1 › approvedケースではHandoff Decision Ledgerを表示する (700ms)
+  ✓   3 [chromium] › e2e/handoff-decision-ledger.spec.ts:43:1 › heldケースでは保留内容を表示する (835ms)
+  ✓   4 [chromium] › e2e/handoff-decision-ledger.spec.ts:60:1 › blockedケースでは公開前ブロック6種類と修正指示を表示する (801ms)
+  ✓   5 [firefox] › e2e/handoff-decision-ledger.spec.ts:3:1 › emptyケースではDecision Ledgerを生成しない (1.8s)
+  ✓   6 [firefox] › e2e/handoff-decision-ledger.spec.ts:13:1 › approvedケースではHandoff Decision Ledgerを表示する (1.4s)
+  ✓   7 [firefox] › e2e/handoff-decision-ledger.spec.ts:43:1 › heldケースでは保留内容を表示する (1.1s)
+  ✓   8 [firefox] › e2e/handoff-decision-ledger.spec.ts:60:1 › blockedケースでは公開前ブロック6種類と修正指示を表示する (1.0s)
+  ✓   9 [webkit] › e2e/handoff-decision-ledger.spec.ts:3:1 › emptyケースではDecision Ledgerを生成しない (1.9s)
+  ✓  10 [webkit] › e2e/handoff-decision-ledger.spec.ts:13:1 › approvedケースではHandoff Decision Ledgerを表示する (902ms)
+  ✓  11 [webkit] › e2e/handoff-decision-ledger.spec.ts:43:1 › heldケースでは保留内容を表示する (883ms)
+  ✓  12 [webkit] › e2e/handoff-decision-ledger.spec.ts:60:1 › blockedケースでは公開前ブロック6種類と修正指示を表示する (957ms)
+
+  12 passed (23.4s)

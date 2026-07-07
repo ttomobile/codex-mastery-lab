@@ -1,0 +1,3 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+MVP055固有token、Handoff Decision Ledger、AIDD-Spec接続、3ブラウザ設定、画像名、local path検出を確認しました。

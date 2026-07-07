@@ -1,0 +1,19 @@
+$ vitest run --coverage
+
+ RUN  v3.2.6 WORKSPACE/experiments/aidd-control-plane-mvp-055/generated-repo
+      Coverage enabled with v8
+
+ ✓ tests/handoff-decision-ledger.test.ts (5 tests) 9ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  14:08:27
+   Duration  450ms (transform 49ms, setup 0ms, collect 50ms, tests 9ms, environment 0ms, prepare 90ms)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |     100 |      100 |     100 |     100 |                   
+ ...sion-ledger.ts |     100 |      100 |     100 |     100 |                   
+-------------------|---------|----------|---------|---------|-------------------
