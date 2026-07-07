@@ -1,0 +1,22 @@
+Trial 044 playable verification
+{
+  "title": "星紋遠征隊 SagaForge Trial 044",
+  "trial": "非侵害スマホRPG体験パターン / Trial 044",
+  "candidateCards": 6,
+  "candidateHasScore": true,
+  "candidateHasWeakness": true,
+  "beforePower": "40,180",
+  "afterPower": "39,860",
+  "powerChanged": true,
+  "questFitCards": 5,
+  "console": []
+}
+
+Public URL verification
+{
+  "url": "https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html",
+  "http": 200,
+  "title": "星紋遠征隊 SagaForge Trial 044",
+  "navVisible": 12,
+  "candidateVisible": 6
+}
