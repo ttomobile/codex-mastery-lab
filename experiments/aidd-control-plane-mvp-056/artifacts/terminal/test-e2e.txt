@@ -1,0 +1,18 @@
+$ playwright test
+
+Running 12 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/run-queue-intake.spec.ts:3:1 › emptyケースではRun Queue Intakeを生成しない (744ms)
+  ✓   2 [chromium] › e2e/run-queue-intake.spec.ts:13:1 › queuedケースではRun Queue Intakeを表示する (563ms)
+  ✓   3 [chromium] › e2e/run-queue-intake.spec.ts:45:1 › rejectedケースでは拒否理由と修正指示を表示する (531ms)
+  ✓   4 [chromium] › e2e/run-queue-intake.spec.ts:74:1 › evidence_missingケースでは不足証跡と戻し先を表示する (521ms)
+  ✓   5 [firefox] › e2e/run-queue-intake.spec.ts:3:1 › emptyケースではRun Queue Intakeを生成しない (1.7s)
+  ✓   6 [firefox] › e2e/run-queue-intake.spec.ts:13:1 › queuedケースではRun Queue Intakeを表示する (956ms)
+  ✓   7 [firefox] › e2e/run-queue-intake.spec.ts:45:1 › rejectedケースでは拒否理由と修正指示を表示する (803ms)
+  ✓   8 [firefox] › e2e/run-queue-intake.spec.ts:74:1 › evidence_missingケースでは不足証跡と戻し先を表示する (753ms)
+  ✓   9 [webkit] › e2e/run-queue-intake.spec.ts:3:1 › emptyケースではRun Queue Intakeを生成しない (1.1s)
+  ✓  10 [webkit] › e2e/run-queue-intake.spec.ts:13:1 › queuedケースではRun Queue Intakeを表示する (787ms)
+  ✓  11 [webkit] › e2e/run-queue-intake.spec.ts:45:1 › rejectedケースでは拒否理由と修正指示を表示する (757ms)
+  ✓  12 [webkit] › e2e/run-queue-intake.spec.ts:74:1 › evidence_missingケースでは不足証跡と戻し先を表示する (706ms)
+
+  12 passed (18.9s)

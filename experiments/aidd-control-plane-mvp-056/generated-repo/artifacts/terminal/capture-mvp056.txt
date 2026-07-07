@@ -1,0 +1,12 @@
+   ▲ Next.js 15.5.20
+   - Local:        http://WORKSPACE/private-url
+   - Network:      http://WORKSPACE/private-url
+
+ ✓ Starting...
+ ✓ Ready in 1392ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 763ms (524 modules)
+ GET / 404 in 1195ms
+ ✓ Compiled / in 448ms (537 modules)
+ GET / 200 in 789ms
+ GET / 200 in 46ms

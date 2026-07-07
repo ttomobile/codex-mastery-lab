@@ -1,0 +1,3 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+MVP056固有token、Run Queue Intake、Codex Run Queue、AIDD-Spec接続、3ブラウザ設定、画像名、local path検出を確認しました。
