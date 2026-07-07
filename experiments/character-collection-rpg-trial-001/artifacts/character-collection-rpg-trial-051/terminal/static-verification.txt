@@ -1,0 +1,9 @@
+## node --check extracted script
+script_lines 242
+
+## local playable/assets http
+LOCAL_PREVIEW/playables/sagaforge-app/index.html http=200
+LOCAL_PREVIEW/playables/sagaforge-app/assets/party-key-art.png http=200
+LOCAL_PREVIEW/playables/sagaforge-app/assets/battle-ruins.png http=200
+LOCAL_PREVIEW/playables/sagaforge-app/assets/crystal-guardian.png http=200
+LOCAL_PREVIEW/playables/sagaforge-app/assets/summon-altar.png http=200
