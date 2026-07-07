@@ -1,0 +1,6 @@
+# public URL check after final preview rebuild
+PUBLIC_PLAYABLE_HOST/sagaforge-app/index.html http=200 bytes=128082
+PUBLIC_PLAYABLE_HOST/sagaforge-app/assets/party-key-art.png http=200 bytes=2868814
+PUBLIC_PLAYABLE_HOST/sagaforge-app/assets/battle-ruins.png http=200 bytes=2481271
+PUBLIC_PLAYABLE_HOST/sagaforge-app/assets/crystal-guardian.png http=200 bytes=2677355
+PUBLIC_PLAYABLE_HOST/sagaforge-app/assets/summon-altar.png http=200 bytes=2918540

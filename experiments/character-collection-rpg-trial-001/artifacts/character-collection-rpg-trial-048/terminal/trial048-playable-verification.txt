@@ -1,0 +1,7 @@
+home preset contains OD: true
+preset summary: 現在の戦術: OD連携狙い。補助と高OD技を先に置き、5人予約の連携率を一気に上げる / OD100%に近づいたらOD五連カットインを押す
+turn plan has 星紋号令: true
+turn plan has 継承技: true
+tempo reel generated: true
+battle log mentions preset or reservation: true
+console messages: none
