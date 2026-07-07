@@ -1,0 +1,14 @@
+Trial 043 playable verification
+{
+  "title": "星紋遠征隊 SagaForge Trial 043",
+  "trial": "非侵害スマホRPG体験パターン / Trial 043",
+  "partyButtons": 5,
+  "beforePower": "40,180",
+  "styleCards": 10,
+  "questCompare": 4,
+  "loadoutRows": 5,
+  "status": "稼働中",
+  "afterPower": "40,420",
+  "powerChanged": true,
+  "console": []
+}
