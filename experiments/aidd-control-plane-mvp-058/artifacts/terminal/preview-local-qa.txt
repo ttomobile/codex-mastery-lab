@@ -1,0 +1,10 @@
+html exists: True 64899
+AIDD Control Plane MVP 058 OK
+aidd-control-plane-mvp058-empty.png OK
+Run Result Review Synthesizer OK
+MVP 58 OK
+aidd-control-plane-mvp058-empty.png True 214583
+aidd-control-plane-mvp058-valid.png True 475575
+aidd-control-plane-mvp058-failure.png True 909767
+aidd-control-plane-mvp058-evidence-missing.png True 329872
+aidd-control-plane-mvp058-terminal-evidence.png True 81969

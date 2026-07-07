@@ -1,0 +1,18 @@
+$ playwright test
+
+Running 12 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/run-result-review-synthesizer.spec.ts:3:1 › emptyケースではRun Result Review Recordを生成しない (1.1s)
+  ✓   2 [chromium] › e2e/run-result-review-synthesizer.spec.ts:13:1 › validケースではRun Result Review Recordの全フィールドを表示する (405ms)
+  ✓   3 [chromium] › e2e/run-result-review-synthesizer.spec.ts:55:1 › failureケースではReview Finding形式で失敗を表示する (461ms)
+  ✓   4 [chromium] › e2e/run-result-review-synthesizer.spec.ts:93:1 › evidence_missingケースでは不足証跡をRepair DeltaとLearning Logへ戻す (574ms)
+  ✓   5 [firefox] › e2e/run-result-review-synthesizer.spec.ts:3:1 › emptyケースではRun Result Review Recordを生成しない (914ms)
+  ✓   6 [firefox] › e2e/run-result-review-synthesizer.spec.ts:13:1 › validケースではRun Result Review Recordの全フィールドを表示する (595ms)
+  ✓   7 [firefox] › e2e/run-result-review-synthesizer.spec.ts:55:1 › failureケースではReview Finding形式で失敗を表示する (577ms)
+  ✓   8 [firefox] › e2e/run-result-review-synthesizer.spec.ts:93:1 › evidence_missingケースでは不足証跡をRepair DeltaとLearning Logへ戻す (475ms)
+  ✓   9 [webkit] › e2e/run-result-review-synthesizer.spec.ts:3:1 › emptyケースではRun Result Review Recordを生成しない (703ms)
+  ✓  10 [webkit] › e2e/run-result-review-synthesizer.spec.ts:13:1 › validケースではRun Result Review Recordの全フィールドを表示する (448ms)
+  ✓  11 [webkit] › e2e/run-result-review-synthesizer.spec.ts:55:1 › failureケースではReview Finding形式で失敗を表示する (406ms)
+  ✓  12 [webkit] › e2e/run-result-review-synthesizer.spec.ts:93:1 › evidence_missingケースでは不足証跡をRepair DeltaとLearning Logへ戻す (385ms)
+
+  12 passed (13.2s)

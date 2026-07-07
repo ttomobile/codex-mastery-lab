@@ -1,0 +1,14 @@
+## curl/grep preview QA
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDD Control Plane MVP 058：Codex実行結果を「次の指示」に変換する</title><style>
+<a href="2026-07-07-aidd-control-plane-mvp-058.html">MVP58｜AIDD Control Plane MVP 058：Codex実行結果を「次の指示」に変換する</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link current" href="2026-07-07-aidd-control-plane-mvp-058.html"><span class="chapter-num">MVP 58</span>AIDD Control Plane MVP 058：Codex実行結果を「次の指示」に変換する</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-07-aidd-control-plane-mvp-057.html"><span>前の記事</span>AIDD Control Plane MVP 057：Codex実行の「成功したつもり」を状態で止める</a><span></span></nav><article><h1>AIDD Control Plane MVP 058：Codex実行結果を「次の指示」に変換する</h1>
+<p>今回の実装テーマは <strong>Run Result Review Synthesizer</strong> です。</p>
+<p><img src="assets/aidd-control-plane-mvp058-empty.png" alt="MVP058 empty" loading="lazy"></p>
+standard_update: Run Result Review SynthesizerはFirefox未実行を標準Review Findingとして返す。
+<li><code>doctor:aidd</code> はMVP058固有token、Run Result Review Synthesizer、Review Finding、Evidence Repair Delta、Learning Log、3ブラウザ設定、画像名を検査した。</li>
+preview/assets/aidd-control-plane-mvp058-empty.png bytes=  214583
+preview/assets/aidd-control-plane-mvp058-valid.png bytes=  475575
+preview/assets/aidd-control-plane-mvp058-failure.png bytes=  909767
+preview/assets/aidd-control-plane-mvp058-evidence-missing.png bytes=  329872
+preview/assets/aidd-control-plane-mvp058-terminal-evidence.png bytes=   81969
