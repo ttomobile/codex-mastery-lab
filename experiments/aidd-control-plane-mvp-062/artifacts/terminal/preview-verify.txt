@@ -1,0 +1,7 @@
+article title ok True
+series index ok True
+empty 197886
+valid 377916
+failure 1184489
+decision-needed 395837
+terminal-evidence 377916

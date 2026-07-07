@@ -1,0 +1,18 @@
+$ playwright test
+
+Running 12 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/verification-run-detail.spec.ts:3:1 › 未選択ケースでは修理deltaなしを表示する (773ms)
+  ✓   2 [chromium] › e2e/verification-run-detail.spec.ts:11:1 › 採用判断済みケースでは採用済みdeltaだけを次回promptへ入れる (550ms)
+  ✓   3 [chromium] › e2e/verification-run-detail.spec.ts:21:1 › 差し戻しケースではReview Finding形式で不足とローカル情報混入をブロックする (523ms)
+  ✓   4 [chromium] › e2e/verification-run-detail.spec.ts:34:1 › 判断待ちケースではadopt_nowだけを次の1回に入れる (483ms)
+  ✓   5 [firefox] › e2e/verification-run-detail.spec.ts:3:1 › 未選択ケースでは修理deltaなしを表示する (1.8s)
+  ✓   6 [firefox] › e2e/verification-run-detail.spec.ts:11:1 › 採用判断済みケースでは採用済みdeltaだけを次回promptへ入れる (902ms)
+  ✓   7 [firefox] › e2e/verification-run-detail.spec.ts:21:1 › 差し戻しケースではReview Finding形式で不足とローカル情報混入をブロックする (874ms)
+  ✓   8 [firefox] › e2e/verification-run-detail.spec.ts:34:1 › 判断待ちケースではadopt_nowだけを次の1回に入れる (733ms)
+  ✓   9 [webkit] › e2e/verification-run-detail.spec.ts:3:1 › 未選択ケースでは修理deltaなしを表示する (2.5s)
+  ✓  10 [webkit] › e2e/verification-run-detail.spec.ts:11:1 › 採用判断済みケースでは採用済みdeltaだけを次回promptへ入れる (795ms)
+  ✓  11 [webkit] › e2e/verification-run-detail.spec.ts:21:1 › 差し戻しケースではReview Finding形式で不足とローカル情報混入をブロックする (819ms)
+  ✓  12 [webkit] › e2e/verification-run-detail.spec.ts:34:1 › 判断待ちケースではadopt_nowだけを次の1回に入れる (740ms)
+
+  12 passed (20.5s)

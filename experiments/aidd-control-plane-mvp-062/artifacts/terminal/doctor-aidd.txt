@@ -1,0 +1,3 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+MVP062、Repair Delta Priority Decision Workspace、採用/保留/却下、AIDD-Spec接続、3ブラウザ、Review Finding、証跡名、local path / host / private network URL検出を確認しました。

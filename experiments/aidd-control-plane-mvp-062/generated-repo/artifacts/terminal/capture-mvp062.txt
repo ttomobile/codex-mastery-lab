@@ -1,0 +1,22 @@
+capture:mvp062 completed
+health check retry: fetch failed
+   ▲ Next.js 15.5.20
+
+   - Local:        http://127.0.0.1:3062
+   - Network:      http://127.0.0.1:3062
+
+ ✓ Starting...
+
+ ✓ Ready in 1598ms
+
+ ○ Compiling /_not-found ...
+
+ ✓ Compiled /_not-found in 869ms (524 modules)
+
+ GET / 404 in 1356ms
+
+ ✓ Compiled / in 338ms (537 modules)
+
+ GET / 200 in 692ms
+
+ GET / 200 in 57ms

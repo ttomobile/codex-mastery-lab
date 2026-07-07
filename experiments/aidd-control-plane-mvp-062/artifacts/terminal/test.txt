@@ -1,0 +1,11 @@
+$ vitest run
+
+ RUN  v3.2.6 WORKSPACE/experiments/aidd-control-plane-mvp-062/generated-repo
+
+ ✓ tests/verification-run-detail.test.ts (5 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  07:03:19
+   Duration  421ms (transform 59ms, setup 0ms, collect 49ms, tests 7ms, environment 0ms, prepare 86ms)
+
