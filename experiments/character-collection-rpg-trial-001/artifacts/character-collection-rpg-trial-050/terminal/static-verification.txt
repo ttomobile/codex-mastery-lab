@@ -1,0 +1,4 @@
+html_parse=ok
+home_png=ok
+quest_png=ok
+battle_png=ok

@@ -1,0 +1,17 @@
+> sagaforge-trial-001@0.1.0 lint <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> eslint .
+
+> sagaforge-trial-001@0.1.0 typecheck <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> tsc --noEmit
+
+> sagaforge-trial-001@0.1.0 test <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> vitest run
+
+RUN v4.1.9 <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+
+✓ src/domain/rpg.test.ts (12 tests) 4ms
+
+Test Files  1 passed (1)
+Tests       12 passed (12)
+Start at    04:23:51
+Duration    517ms (transform 22ms, setup 36ms, import 16ms, tests 4ms, environment 390ms)
