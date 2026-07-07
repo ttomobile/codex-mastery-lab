@@ -372,6 +372,7 @@ verification_command: pnpm run lint &amp;&amp; pnpm run typecheck &amp;&amp; pnp
 <li><code>reject_to_learning_log</code>: promptへ入れずLearning Logへ戻す</li>
 </ul>
 <p>この状態では、Codex prompt previewに <code>adopt_now</code> だけが入ることをUIとテストで確認しました。</p>
+<h2>検証ログ</h2>
 <h3>terminal evidence: 実際に検証したログ</h3>
 <p><img src="assets/aidd-control-plane-mvp062-terminal-evidence.png" alt="MVP062 terminal evidence" loading="lazy"></p>
 <p>独立検証では、Codexの自己申告ではなく次を個別に実行しました。</p>
@@ -389,10 +390,10 @@ chromium: 4 passed
 firefox: 4 passed
 webkit: 4 passed
 12 passed (20.5s)</code></pre>
-<h2>失敗と修正</h2>
+<h2>失敗 / 修正</h2>
 <p>最初のE2E実行はtimeoutしました。原因は、前回のPlaywright実行で残ったNext.js dev serverがローカルpreview用ポートを使い続けていたことです。プロセスを確認して終了し、再実行したところ3ブラウザE2Eが通りました。</p>
 <p>また、E2E内で親要素を探すlocatorが長時間待機していたため、検証対象を「画面に表示された日本語テキスト」へ寄せて安定化しました。これはAIDD-Spec的には、UIの内部構造ではなくユーザーに見える契約を確認するテストへ近づける修正です。</p>
-<h2>AIDD-Specへの接続</h2>
+<h2>AIDD-Spec / AIDD Control Plane SaaSへの接続</h2>
 <p>MVP062で増えた標準化ポイントは次です。</p>
 <pre><code>standard_update:
   document: standards/aidd-control-plane-mvp-v0.1.md

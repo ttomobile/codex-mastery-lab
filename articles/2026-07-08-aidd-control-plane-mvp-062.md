@@ -86,6 +86,8 @@ local path / host / private network URLも検出し、公開前には `WORKSPACE
 
 この状態では、Codex prompt previewに `adopt_now` だけが入ることをUIとテストで確認しました。
 
+## 検証ログ
+
 ### terminal evidence: 実際に検証したログ
 
 ![MVP062 terminal evidence](../assets/aidd-control-plane-mvp062-terminal-evidence.png)
@@ -113,13 +115,13 @@ webkit: 4 passed
 12 passed (20.5s)
 ```
 
-## 失敗と修正
+## 失敗 / 修正
 
 最初のE2E実行はtimeoutしました。原因は、前回のPlaywright実行で残ったNext.js dev serverがローカルpreview用ポートを使い続けていたことです。プロセスを確認して終了し、再実行したところ3ブラウザE2Eが通りました。
 
 また、E2E内で親要素を探すlocatorが長時間待機していたため、検証対象を「画面に表示された日本語テキスト」へ寄せて安定化しました。これはAIDD-Spec的には、UIの内部構造ではなくユーザーに見える契約を確認するテストへ近づける修正です。
 
-## AIDD-Specへの接続
+## AIDD-Spec / AIDD Control Plane SaaSへの接続
 
 MVP062で増えた標準化ポイントは次です。
 
