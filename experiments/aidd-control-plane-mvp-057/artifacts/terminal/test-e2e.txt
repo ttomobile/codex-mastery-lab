@@ -1,0 +1,18 @@
+$ playwright test
+
+Running 12 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/run-queue-status-tracker.spec.ts:3:1 › emptyケースではStatus Trackerを生成しない (939ms)
+  ✓   2 [chromium] › e2e/run-queue-status-tracker.spec.ts:13:1 › succeededケースではCodex Run Queue Status Trackerを表示する (704ms)
+  ✓   3 [chromium] › e2e/run-queue-status-tracker.spec.ts:49:1 › failedケースでは失敗理由と修正指示を表示する (758ms)
+  ✓   4 [chromium] › e2e/run-queue-status-tracker.spec.ts:77:1 › evidence_missingケースでは不足証跡と戻し先を表示する (687ms)
+  ✓   5 [firefox] › e2e/run-queue-status-tracker.spec.ts:3:1 › emptyケースではStatus Trackerを生成しない (1.8s)
+  ✓   6 [firefox] › e2e/run-queue-status-tracker.spec.ts:13:1 › succeededケースではCodex Run Queue Status Trackerを表示する (1.2s)
+  ✓   7 [firefox] › e2e/run-queue-status-tracker.spec.ts:49:1 › failedケースでは失敗理由と修正指示を表示する (1.0s)
+  ✓   8 [firefox] › e2e/run-queue-status-tracker.spec.ts:77:1 › evidence_missingケースでは不足証跡と戻し先を表示する (441ms)
+  ✓   9 [webkit] › e2e/run-queue-status-tracker.spec.ts:3:1 › emptyケースではStatus Trackerを生成しない (723ms)
+  ✓  10 [webkit] › e2e/run-queue-status-tracker.spec.ts:13:1 › succeededケースではCodex Run Queue Status Trackerを表示する (465ms)
+  ✓  11 [webkit] › e2e/run-queue-status-tracker.spec.ts:49:1 › failedケースでは失敗理由と修正指示を表示する (482ms)
+  ✓  12 [webkit] › e2e/run-queue-status-tracker.spec.ts:77:1 › evidence_missingケースでは不足証跡と戻し先を表示する (557ms)
+
+  12 passed (18.7s)

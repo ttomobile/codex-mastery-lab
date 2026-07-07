@@ -1,0 +1,11 @@
+$ vitest run
+
+ RUN  v3.2.6 WORKSPACE/experiments/aidd-control-plane-mvp-057/generated-repo
+
+ ✓ tests/run-queue-status-tracker.test.ts (7 tests) 10ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  18:58:28
+   Duration  376ms (transform 65ms, setup 0ms, collect 59ms, tests 10ms, environment 0ms, prepare 81ms)
+

@@ -1,0 +1,1 @@
+preview qa passed: article and 5 images are present

@@ -1,0 +1,1 @@
+public preview qa passed: article and image URLs returned nonzero bytes
