@@ -1,0 +1,17 @@
+## git status before verification
+?? experiments/character-collection-rpg-trial-001/artifacts/character-collection-rpg-trial-052/terminal/fresh-npm-test-after-second-system-note.txt
+## npm run test
+
+> sagaforge-trial-001@0.1.0 test
+> vitest run
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.9 [39m[90m/Users/tto/codex-mastery-lab/experiments/character-collection-rpg-trial-001/generated-repo[39m
+
+ [32m✓[39m src/domain/rpg.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m12 passed[39m[22m[90m (12)[39m
+[2m   Start at [22m 08:25:49
+[2m   Duration [22m 1.05s[2m (transform 83ms, setup 111ms, import 72ms, tests 8ms, environment 721ms)[22m
+
