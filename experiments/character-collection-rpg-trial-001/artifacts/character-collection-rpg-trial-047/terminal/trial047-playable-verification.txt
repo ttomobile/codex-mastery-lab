@@ -1,0 +1,14 @@
+Trial 047 playable verification
+{
+  "title": "星紋遠征隊 SagaForge Trial 047",
+  "trial": "非侵害スマホRPG体験パターン / TRIAL 047",
+  "odSummary": "OD演出: 紅槍リオ → 翠策ミナ → 銀術セナ → 盾士ガル → 弓姫ノア。最後に星雨で追撃し、勝利後ループへ接続。",
+  "odCards": 5,
+  "loopIncludes": {
+    "replay": true,
+    "training": true,
+    "exchange": true,
+    "inheritance": true
+  },
+  "consoleErrors": []
+}

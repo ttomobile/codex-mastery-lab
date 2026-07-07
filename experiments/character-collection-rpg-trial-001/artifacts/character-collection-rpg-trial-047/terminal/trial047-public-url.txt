@@ -1,0 +1,5 @@
+Trial 047 public playable URL verification
+playable index http=200 bytes=125065
+party asset http=200 bytes=2868814
+battle asset http=200 bytes=2481271
+Note: public hostname is intentionally omitted from committed artifact; delivery report contains the URL.
