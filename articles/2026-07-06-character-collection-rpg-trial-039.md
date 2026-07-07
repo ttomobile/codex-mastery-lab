@@ -68,5 +68,5 @@ public assets: party-key-art.png, battle-ruins.png, crystal-guardian.png, summon
 
 ## 公開URL
 
-- プレイアブル: https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html
-- プレビュー記事: https://ttomac-mini.tail352b67.ts.net/2026-07-06-character-collection-rpg-trial-039.html
+- プレイアブル: PUBLIC_PLAYABLE_URL/sagaforge-app/index.html
+- プレビュー記事: PUBLIC_PREVIEW_URL/2026-07-06-character-collection-rpg-trial-039.html

@@ -6,7 +6,7 @@
 
 公開プレイアブル導線:
 
-- `https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html`
+- `PUBLIC_PLAYABLE_URL/sagaforge-app/index.html`
 
 ## 前回の何がロマサガRS的な期待から遠かったか
 

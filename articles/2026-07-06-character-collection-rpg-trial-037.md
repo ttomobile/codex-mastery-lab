@@ -77,4 +77,4 @@ AI Task Packetに入れるべき項目は次。
 
 ## 公開URL
 
-- プレイアブル: https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html
+- プレイアブル: PUBLIC_PLAYABLE_URL/sagaforge-app/index.html

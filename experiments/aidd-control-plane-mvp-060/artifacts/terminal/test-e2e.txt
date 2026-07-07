@@ -1,0 +1,18 @@
+$ playwright test
+
+Running 12 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/verification-run-detail.spec.ts:3:1 › キューなしケースではsource queue itemなしを表示する (765ms)
+  ✓   2 [chromium] › e2e/verification-run-detail.spec.ts:13:1 › 検証readyケースではcommand別Verification Run Detailを表示する (610ms)
+  ✓   3 [chromium] › e2e/verification-run-detail.spec.ts:60:1 › 差し戻しケースでは標準Review Finding形式で戻し先を表示する (585ms)
+  ✓   4 [chromium] › e2e/verification-run-detail.spec.ts:96:1 › 修復候補ケースではfailedとtimeoutとevidence_missingをdeltaへ戻す (561ms)
+  ✓   5 [firefox] › e2e/verification-run-detail.spec.ts:3:1 › キューなしケースではsource queue itemなしを表示する (1.9s)
+  ✓   6 [firefox] › e2e/verification-run-detail.spec.ts:13:1 › 検証readyケースではcommand別Verification Run Detailを表示する (1.0s)
+  ✓   7 [firefox] › e2e/verification-run-detail.spec.ts:60:1 › 差し戻しケースでは標準Review Finding形式で戻し先を表示する (922ms)
+  ✓   8 [firefox] › e2e/verification-run-detail.spec.ts:96:1 › 修復候補ケースではfailedとtimeoutとevidence_missingをdeltaへ戻す (824ms)
+  ✓   9 [webkit] › e2e/verification-run-detail.spec.ts:3:1 › キューなしケースではsource queue itemなしを表示する (1.1s)
+  ✓  10 [webkit] › e2e/verification-run-detail.spec.ts:13:1 › 検証readyケースではcommand別Verification Run Detailを表示する (773ms)
+  ✓  11 [webkit] › e2e/verification-run-detail.spec.ts:60:1 › 差し戻しケースでは標準Review Finding形式で戻し先を表示する (802ms)
+  ✓  12 [webkit] › e2e/verification-run-detail.spec.ts:96:1 › 修復候補ケースではfailedとtimeoutとevidence_missingをdeltaへ戻す (737ms)
+
+  12 passed (20.6s)

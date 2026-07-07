@@ -1,0 +1,3 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+MVP060固有語、3ブラウザ、command別detail、artifact path、failure category、repair instruction、terminal evidence、screenshot evidence、AIDD-Spec接続、local path/private host/private network URL検出を確認しました。
