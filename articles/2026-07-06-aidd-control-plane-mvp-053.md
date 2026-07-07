@@ -124,7 +124,7 @@ Expected: visible
 Timeout: 90000ms
 ```
 
-原因は、テスト側が `WORKSPACE/private-url` を期待していたのに、brakeケースの危険値は `tto-mac.local` というprivate hostでした。実装の `sanitizeForPublic()` はprivate hostを `WORKSPACE.local` に変換します。つまり、実装が間違っていたというより、テストの期待値がケース設計と合っていませんでした。
+原因は、テスト側が `WORKSPACE/private-url` を期待していたのに、brakeケースの危険値は未サニタイズのprivate hostでした。実装の `sanitizeForPublic()` はprivate hostを `WORKSPACE.local` に変換します。つまり、実装が間違っていたというより、テストの期待値がケース設計と合っていませんでした。
 
 修正は小さく、brakeケースのE2E期待値を `WORKSPACE.local` に変えました。
 

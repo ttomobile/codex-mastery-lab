@@ -1,0 +1,33 @@
+OpenAI Codex CLI 実行ログ（サニタイズ済み要約）
+
+command:
+npx -y @openai/codex exec --sandbox danger-full-access "$(cat experiments/aidd-control-plane-mvp-054/CODEX_PROMPT.md)"
+
+status:
+exit_code=0
+
+Codex summary:
+- experiments/aidd-control-plane-mvp-054/generated-repo を作成。
+- MVP053を参照し、MVP054「縮小版AI Task Packetを次回実行へ渡す前のハンドオフレシート」を実装。
+- Next.js + TypeScript + pnpm構成。
+- src/lib/handoff-receipt.ts に empty / valid / blocked 判定、sanitize、公開前ブロック判定を実装。
+- app/page.tsx に日本語UIを実装。
+- tests/handoff-receipt.test.ts にunit testを追加。
+- e2e/handoff-receipt.spec.ts に Chromium / Firefox / WebKit 対象の3ケースE2Eを追加。
+- scripts/capture-mvp054.mjs に empty / valid / blocked / terminal evidence の画像生成を追加。
+- scripts/doctor-aidd.mjs にMVP054固有token、AIDD-Spec接続、3ブラウザ設定、画像名、local path検出の確認を追加。
+
+Codexが提示した検証コマンド:
+cd experiments/aidd-control-plane-mvp-054/generated-repo
+pnpm install --frozen-lockfile
+pnpm run lint
+pnpm run typecheck
+pnpm run test
+pnpm run test:coverage
+pnpm run build
+pnpm run test:e2e
+pnpm run doctor:aidd
+pnpm run capture:mvp054
+
+独立検証:
+Codexの自己申告は信用せず、上記コマンドを個別に実行し、同じartifacts/terminal配下に保存した。

@@ -1,0 +1,19 @@
+$ vitest run --coverage
+
+ RUN  v3.2.6 WORKSPACE/experiments/aidd-control-plane-mvp-054/generated-repo
+      Coverage enabled with v8
+
+ ✓ tests/handoff-receipt.test.ts (4 tests) 3ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  11:44:55
+   Duration  236ms (transform 19ms, setup 0ms, collect 25ms, tests 3ms, environment 0ms, prepare 40ms)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-------------------|---------|----------|---------|---------|-------------------
+All files          |     100 |      100 |     100 |     100 |
+ ...off-receipt.ts |     100 |      100 |     100 |     100 |
+-------------------|---------|----------|---------|---------|-------------------

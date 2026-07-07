@@ -1,0 +1,15 @@
+$ playwright test
+
+Running 9 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/handoff-receipt.spec.ts:3:1 › emptyケースではレシートを生成しない (556ms)
+  ✓  2 [chromium] › e2e/handoff-receipt.spec.ts:13:1 › validケースでは縮小版ハンドオフレシートを表示する (332ms)
+  ✓  3 [chromium] › e2e/handoff-receipt.spec.ts:41:1 › blockedケースでは公開前ブロック5種類と修正指示を表示する (319ms)
+  ✓  4 [firefox] › e2e/handoff-receipt.spec.ts:3:1 › emptyケースではレシートを生成しない (897ms)
+  ✓  5 [firefox] › e2e/handoff-receipt.spec.ts:13:1 › validケースでは縮小版ハンドオフレシートを表示する (535ms)
+  ✓  6 [firefox] › e2e/handoff-receipt.spec.ts:41:1 › blockedケースでは公開前ブロック5種類と修正指示を表示する (431ms)
+  ✓  7 [webkit] › e2e/handoff-receipt.spec.ts:3:1 › emptyケースではレシートを生成しない (808ms)
+  ✓  8 [webkit] › e2e/handoff-receipt.spec.ts:13:1 › validケースでは縮小版ハンドオフレシートを表示する (425ms)
+  ✓  9 [webkit] › e2e/handoff-receipt.spec.ts:41:1 › blockedケースでは公開前ブロック5種類と修正指示を表示する (400ms)
+
+  9 passed (8.6s)
