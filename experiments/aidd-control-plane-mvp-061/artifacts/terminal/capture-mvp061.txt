@@ -1,0 +1,11 @@
+   ▲ Next.js 15.5.20
+   - Local:capture:mvp061 completed
+private-url
+   - Network:      http://WORKSPACE/private-url
+
+ ✓ Starting...
+ ✓ Ready in 3.2s
+ ○ Compiling / ...
+ ✓ Compiled / in 1957ms (532 modules)
+ GET / 200 in 3243ms
+ GET / 200 in 101ms

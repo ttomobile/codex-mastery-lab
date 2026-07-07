@@ -1,0 +1,3 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+MVP061、Evidence Repair Delta Generator、AIDD-Spec接続、3ブラウザ、Review Finding、修理delta、絞り込み、証跡名、local path / host / private network URL検出を確認しました。
