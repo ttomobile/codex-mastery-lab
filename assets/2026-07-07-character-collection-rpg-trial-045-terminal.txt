@@ -1,0 +1,13 @@
+Trial 045 playable verification
+{
+  "title": "星紋遠征隊 SagaForge Trial 045",
+  "trial": "非侵害スマホRPG体験パターン / Trial 045",
+  "candidateCards": 3,
+  "recommended": 1,
+  "questRecommended": 1,
+  "inheritance": 5,
+  "sortButton": "戦力順",
+  "inheritCommand": "BP2 / 逆風斬り",
+  "log": "紅槍リオの継承技を逆風斬りへ変更。BP4 / 斬を予約行動候補へ反映しました。",
+  "consoleErrors": []
+}
