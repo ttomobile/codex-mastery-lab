@@ -1,0 +1,7 @@
+{
+  "url": "http://127.0.0.1:4176/playables/sagaforge-app/index.html",
+  "home_has_round": true,
+  "battle_has_final": true,
+  "turn_resolved": true,
+  "title": "星紋遠征隊 SagaForge Trial 052"
+}

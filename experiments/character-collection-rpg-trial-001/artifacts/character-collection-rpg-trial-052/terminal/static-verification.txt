@@ -1,0 +1,13 @@
+## node syntax check
+## required strings
+SagaForge Trial 052 True
+questIntentHome True
+questIntentQuest True
+questIntentBattle True
+prepareQuestIntent True
+Round別クエスト目的チケット True
+## image assets
+assets/2026-07-08-character-collection-rpg-trial-052-battle-intent.png 1607848
+assets/2026-07-08-character-collection-rpg-trial-052-home-intent.png 2421959
+assets/2026-07-08-character-collection-rpg-trial-052-quest-intent.png 1277386
+assets/2026-07-08-character-collection-rpg-trial-052-turn-resolve.png 1602732

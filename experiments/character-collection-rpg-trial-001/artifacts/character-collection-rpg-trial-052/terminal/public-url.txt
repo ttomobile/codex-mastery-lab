@@ -1,0 +1,8 @@
+## public playable
+playable http=200 bytes=144686
+2026-07-08-character-collection-rpg-trial-052-home-intent.png http=200 bytes=2421959
+2026-07-08-character-collection-rpg-trial-052-quest-intent.png http=200 bytes=1277386
+2026-07-08-character-collection-rpg-trial-052-battle-intent.png http=200 bytes=1607848
+2026-07-08-character-collection-rpg-trial-052-turn-resolve.png http=200 bytes=1602732
+## article
+article http=200 bytes=66160
