@@ -1,0 +1,19 @@
+Trial 046 playable verification
+{
+  "title": "星紋遠征隊 SagaForge Trial 046",
+  "trial": "非侵害スマホRPG体験パターン / Trial 046",
+  "tempoSummary": "STEP 4/6: 盾士ガルの瞬閃。Weak! 連携段階上昇。 Hit 46 / 次は弓姫ノア。",
+  "tempoCards": [
+    "1.紅槍リオ通常攻撃済 / WeakHit 30 / BP0 / OD+15BP回復",
+    "2.翠策ミナ星紋号令済 / 通常Hit 0 / BP2 / OD+22全体補助: 腕力/知力/守備を付与",
+    "3.銀術セナ通常攻撃済 / WeakHit 36 / BP0 / OD+15BP回復",
+    "4.盾士ガル瞬閃▶ 現在解決中 / WeakHit 46 / BP3 / OD+23単体",
+    "5.弓姫ノア通常攻撃待機 / 通常Hit 18 / BP0 / OD+7BP回復",
+    "6.連携追撃星紋連携待機 / WeakHit 57 / BP0 / OD+達成連携率が閾値を超え、追加追撃が発生"
+  ],
+  "resolveSummary": "予約ターン解決: 合計187 / 回復0 / 弱点3件 / 連携率95% / 残BP11/13 / OD100%",
+  "liveCards": 1,
+  "meter": "67%",
+  "logHead": "Round 2/3へ移行。敵が再配置、BP+4。弱点表示を見て狙います。",
+  "consoleErrors": []
+}

@@ -1,0 +1,5 @@
+https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html http=200
+https://ttomac-mini.tail352b67.ts.net/sagaforge-app/assets/party-key-art.png http=200
+https://ttomac-mini.tail352b67.ts.net/sagaforge-app/assets/battle-ruins.png http=200
+https://ttomac-mini.tail352b67.ts.net/assets/2026-07-07-character-collection-rpg-trial-046-tempo-reel.png http=200
+https://ttomac-mini.tail352b67.ts.net/2026-07-07-character-collection-rpg-trial-046.html http=200

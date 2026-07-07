@@ -308,6 +308,13 @@ function BattleScreen({
   const resolved = state.scenario === "battle_win" || state.scenario === "battle_lose";
   const visibleBattle = commandPreview ?? nextBattle;
   const mediaFailed = state.services.media === "render_failed";
+  const tempoSteps = partyMembersLabel(state).map((label, index) => ({
+    label,
+    action: index === 1 ? "星紋号令" : index === 2 ? command : index === 4 ? "連携追撃" : "通常攻撃",
+    note: index === 1 ? "補助" : index === 2 ? "選択技" : index === 4 ? "OD候補" : "BP回収",
+    weak: index === 2 || command === "星紋技",
+    active: index === 2
+  }));
   return (
     <section className="screen" data-testid="battle-screen">
       {!canBattle ? <FailurePanel scenario="party_invalid" message="前衛と支援の組み合わせが不足しています。" /> : null}
@@ -339,6 +346,19 @@ function BattleScreen({
           <div className="battle-meter">
             <span><b>隊列HP</b><i style={{ width: `${visibleBattle?.heroHp ?? state.battle.heroHp}%` }} />{visibleBattle?.heroHp ?? state.battle.heroHp}</span>
             <span><b>{state.battle.enemyName}</b><i className="enemy" style={{ width: `${visibleBattle?.enemyHp ?? state.battle.enemyHp}%` }} />{visibleBattle?.enemyHp ?? state.battle.enemyHp}</span>
+          </div>
+          <div className="tempo-panel" data-testid="battle-tempo-reel">
+            <p className="eyebrow">連携テンポリール / Trial 046</p>
+            <p>予約ターンを、5人の行動、Weak、補助、連携追撃候補の順で確認する簡易リールです。</p>
+            <div className="tempo-grid">
+              {tempoSteps.map((step, index) => (
+                <article className={`tempo-card ${step.active ? "live" : ""} ${step.weak ? "weak" : ""}`} key={`${step.label}-${index}`}>
+                  <strong>{index + 1}. {step.label}</strong>
+                  <span>{step.action}</span>
+                  <small>{step.weak ? "Weak候補" : "通常"} / {step.note}</small>
+                </article>
+              ))}
+            </div>
           </div>
           <ul className="log-list battle-log">
             {(visibleBattle?.logs ?? state.battle.logs).map((log) => (

@@ -442,6 +442,54 @@ button {
   background: linear-gradient(90deg, #ff6b6b, #ffd0d0);
 }
 
+.tempo-panel {
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(242,193,79,.28);
+  border-radius: 16px;
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(242,193,79,.12), rgba(67,224,192,.08));
+}
+
+.tempo-panel p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.tempo-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.tempo-card {
+  display: grid;
+  gap: 5px;
+  min-height: 96px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 9px;
+  background: rgba(255,255,255,.05);
+}
+
+.tempo-card.live {
+  border-color: rgba(242,193,79,.8);
+  box-shadow: 0 0 22px rgba(242,193,79,.18);
+}
+
+.tempo-card.weak {
+  background: linear-gradient(180deg, rgba(242,193,79,.16), rgba(67,224,192,.08));
+}
+
+.tempo-card strong,
+.tempo-card span {
+  font-size: 12px;
+}
+
+.tempo-card small {
+  color: var(--muted);
+}
+
 .log-list {
   list-style: none;
   display: grid;
