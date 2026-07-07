@@ -1,2 +1,2 @@
-public sanitize check: articles/preview/artifacts have no /Users/tto, tto-mac, tailnet tokens
+public sanitize check: articles/preview/artifacts have no HOME, private host, or private network tokens
 preview files verified: article html and four mvp054 assets exist with nonzero bytes
