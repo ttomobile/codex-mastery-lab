@@ -1,0 +1,29 @@
+$ playwright test
+
+Running 18 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/ledger.spec.ts:4:3 › Codex Run Queue Status Tracker画面 › emptyでは追跡中のCodex実行がないことを表示する (1.0s)
+  ✓  2 [chromium] › e2e/ledger.spec.ts:14:3 › Codex Run Queue Status Tracker画面 › waitingでは実行待ちに必要な項目を表示する (456ms)
+  ✓  3 [chromium] › e2e/ledger.spec.ts:30:3 › Codex Run Queue Status Tracker画面 › runningでは実行中の進捗と証跡保存先を表示する (428ms)
+  ✓  4 [chromium] › e2e/ledger.spec.ts:44:3 › Codex Run Queue Status Tracker画面 › succeededでは成功結果と証跡出力を表示する (466ms)
+  ✓  5 [chromium] › e2e/ledger.spec.ts:60:3 › Codex Run Queue Status Tracker画面 › failedではReview Findingとして失敗分類を表示する (424ms)
+  ✓  6 [chromium] › e2e/ledger.spec.ts:75:3 › Codex Run Queue Status Tracker画面 › evidence_missingでは不足証跡を表示する (426ms)
+  ✓  7 [firefox] › e2e/ledger.spec.ts:4:3 › Codex Run Queue Status Tracker画面 › emptyでは追跡中のCodex実行がないことを表示する (1.0s)
+  ✓  8 [firefox] › e2e/ledger.spec.ts:14:3 › Codex Run Queue Status Tracker画面 › waitingでは実行待ちに必要な項目を表示する (317ms)
+  ✓  9 [firefox] › e2e/ledger.spec.ts:30:3 › Codex Run Queue Status Tracker画面 › runningでは実行中の進捗と証跡保存先を表示する (275ms)
+  ✓  10 [firefox] › e2e/ledger.spec.ts:44:3 › Codex Run Queue Status Tracker画面 › succeededでは成功結果と証跡出力を表示する (317ms)
+  ✓  11 [firefox] › e2e/ledger.spec.ts:60:3 › Codex Run Queue Status Tracker画面 › failedではReview Findingとして失敗分類を表示する (252ms)
+  ✓  12 [firefox] › e2e/ledger.spec.ts:75:3 › Codex Run Queue Status Tracker画面 › evidence_missingでは不足証跡を表示する (239ms)
+  ✓  13 [webkit] › e2e/ledger.spec.ts:4:3 › Codex Run Queue Status Tracker画面 › emptyでは追跡中のCodex実行がないことを表示する (575ms)
+  ✓  14 [webkit] › e2e/ledger.spec.ts:14:3 › Codex Run Queue Status Tracker画面 › waitingでは実行待ちに必要な項目を表示する (353ms)
+  ✓  15 [webkit] › e2e/ledger.spec.ts:30:3 › Codex Run Queue Status Tracker画面 › runningでは実行中の進捗と証跡保存先を表示する (364ms)
+  ✓  16 [webkit] › e2e/ledger.spec.ts:44:3 › Codex Run Queue Status Tracker画面 › succeededでは成功結果と証跡出力を表示する (452ms)
+  ✓  17 [webkit] › e2e/ledger.spec.ts:60:3 › Codex Run Queue Status Tracker画面 › failedではReview Findingとして失敗分類を表示する (525ms)
+  ✓  18 [webkit] › e2e/ledger.spec.ts:75:3 › Codex Run Queue Status Tracker画面 › evidence_missingでは不足証跡を表示する (547ms)
+
+  18 passed (13.8s)
+
+To open last HTML report run:
+
+  pnpm exec playwright show-report
+

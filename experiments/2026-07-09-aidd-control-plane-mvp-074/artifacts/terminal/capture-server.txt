@@ -1,0 +1,24 @@
+▲ Next.js 16.2.10 (Turbopack)
+- Local:         http://localhost:<port>
+- Network:       http://localhost:<port>
+✓ Ready in 311ms
+
+ GET /?state=empty 200 in 302ms (next.js: 128ms, application-code: 174ms)
+ GET /?state=empty 200 in 34ms (next.js: 3ms, application-code: 31ms)
+ GET /?state=waiting 200 in 83ms (next.js: 2ms, application-code: 81ms)
+ GET /?state=running 200 in 49ms (next.js: 1744µs, application-code: 47ms)
+ GET /?state=succeeded 200 in 60ms (next.js: 2ms, application-code: 58ms)
+ GET /?state=failed 200 in 46ms (next.js: 1782µs, application-code: 45ms)
+ GET /?state=evidence_missing 200 in 43ms (next.js: 1770µs, application-code: 41ms)
+▲ Next.js 16.2.10 (Turbopack)
+- Local:         http://localhost:<port>
+- Network:       http://localhost:<port>
+✓ Ready in 375ms
+
+ GET /?state=empty 200 in 316ms (next.js: 141ms, application-code: 175ms)
+ GET /?state=empty 200 in 32ms (next.js: 3ms, application-code: 30ms)
+ GET /?state=waiting 200 in 97ms (next.js: 2ms, application-code: 95ms)
+ GET /?state=running 200 in 60ms (next.js: 2ms, application-code: 57ms)
+ GET /?state=succeeded 200 in 65ms (next.js: 2ms, application-code: 63ms)
+ GET /?state=failed 200 in 44ms (next.js: 1779µs, application-code: 42ms)
+ GET /?state=evidence_missing 200 in 42ms (next.js: 1580µs, application-code: 40ms)

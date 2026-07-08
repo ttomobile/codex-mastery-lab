@@ -1,0 +1,9 @@
+capture:mvp074 completed
+screenshots:
+aidd-control-plane-mvp074-empty.png
+aidd-control-plane-mvp074-waiting.png
+aidd-control-plane-mvp074-running.png
+aidd-control-plane-mvp074-succeeded.png
+aidd-control-plane-mvp074-failed.png
+aidd-control-plane-mvp074-evidence-missing.png
+aidd-control-plane-mvp074-terminal-evidence.png

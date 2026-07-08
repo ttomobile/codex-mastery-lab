@@ -1,0 +1,1 @@
+$ tsx scripts/capture-mvp074.ts

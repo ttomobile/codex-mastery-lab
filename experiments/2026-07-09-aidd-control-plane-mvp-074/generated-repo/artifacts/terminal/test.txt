@@ -1,0 +1,16 @@
+$ vitest run --reporter=verbose
+
+ RUN  v3.2.4 <repo>/experiments/2026-07-09-aidd-control-plane-mvp-074/generated-repo
+
+ ✓ tests/ledger.test.ts > Codex Run Queue Status Trackerの判定 > waitingでは投入元、command、sandbox、検証command、3ブラウザ、rollback、AIDD-Spec接続を保持する 2ms
+ ✓ tests/ledger.test.ts > Codex Run Queue Status Trackerの判定 > runningでは開始時刻、operator、現在step、duration、evidence root、console収集状態を保持する 0ms
+ ✓ tests/ledger.test.ts > Codex Run Queue Status Trackerの判定 > succeededでは結果、exit code、3ブラウザcoverage、証跡、Review Record、Learning Logを保持する 0ms
+ ✓ tests/ledger.test.ts > Codex Run Queue Status Trackerの判定 > failedではReview Findingとして7種類の失敗を検出する 1ms
+ ✓ tests/ledger.test.ts > Codex Run Queue Status Trackerの判定 > evidence_missingでは5種類の証跡不足を検出する 0ms
+ ✓ tests/ledger.test.ts > Codex Run Queue Status Trackerの判定 > query paramの未知状態はemptyへ正規化する 0ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  08:46:56
+   Duration  748ms (transform 50ms, setup 0ms, collect 46ms, tests 6ms, environment 416ms, prepare 81ms)
+

@@ -1,0 +1,15 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Run Queueの「今どこ？」を1画面で追う：Codex Run Queue Status Trackerを作った</title><style>
+<a href="2026-07-09-aidd-control-plane-mvp-074.html">MVP74｜Run Queueの「今どこ？」を1画面で追う：Codex Run Queue Status Trackerを作った</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link current" href="2026-07-09-aidd-control-plane-mvp-074.html"><span class="chapter-num">MVP 74</span>Run Queueの「今どこ？」を1画面で追う：Codex Run Queue Status Trackerを作った</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link past " href="2026-07-03-verification-evidence-lite.html"><span class="chapter-num">過去記事 11</span>「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></aside><main><nav class="chapter-nav" aria-label="前後の記事"><a class="prev" href="2026-07-09-aidd-control-plane-mvp-073.html"><span>前の記事</span>「実行していい修正」だけをRun Queueへ入れる：Smoke Action Run Queue Intakeを作った</a><span></span></nav><article><h1>Run Queueの「今どこ？」を1画面で追う：Codex Run Queue Status Trackerを作った</h1>
+<p>今回のMVP074では、Run Queueへ入ったCodex実行を追跡する <strong>Codex Run Queue Status Tracker</strong> を作りました。</p>
+<p>今回の実装対象は、<code>standards/aidd-control-plane-mvp-v0.1.md</code> の <strong>Codex Run Queue Status Tracker</strong> です。AIDD-Spec v0.1の流れでは、AI Task PacketからAgent Runへ進み、Verification Evidence、Review Record、Learning Logへ戻ります。MVP074は、そのAgent Run部分を状態として見えるようにする小さなSaaS部品です。</p>
+<p><img src="assets/aidd-control-plane-mvp074-terminal-evidence.png" alt="MVP074 terminal evidence" loading="lazy"></p>
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Content-type: image/png
+Content-Length: 60637
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Content-type: image/png
+Content-Length: 44908

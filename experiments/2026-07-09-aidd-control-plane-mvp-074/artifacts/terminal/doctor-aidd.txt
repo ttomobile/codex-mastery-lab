@@ -1,0 +1,16 @@
+AIDD Control Plane MVP074 doctor
+root: generated-repo
+
+OK 必須pnpm script: lint, typecheck, test, build, test:e2e, doctor:aidd, capture:mvp074
+OK query param state切り替え: empty / waiting / running / succeeded / failed / evidence_missing をURLで切り替える
+OK waiting表示項目: Run Queue実行待ちの必須項目を確認
+OK running表示項目: 実行中の進捗と証跡保存先を確認
+OK succeeded表示項目: 成功時の結果と出力先を確認
+OK failed Review Finding: 失敗分類7種を確認
+OK evidence_missing検出: 証跡不足5種を確認
+OK AIDD-Spec接続: 標準語彙との接続を確認
+OK unit test日本語: 状態別の日本語テスト名を確認
+OK E2E日本語: 画面状態を日本語テスト名で確認
+OK Playwright 3ブラウザ: Chromium / Firefox / WebKit projectを確認
+OK capture画像: artifacts/screenshots/aidd-control-plane-mvp074-empty.png, assets/aidd-control-plane-mvp074-empty.png, artifacts/screenshots/aidd-control-plane-mvp074-waiting.png, assets/aidd-control-plane-mvp074-waiting.png, artifacts/screenshots/aidd-control-plane-mvp074-running.png, assets/aidd-control-plane-mvp074-running.png, artifacts/screenshots/aidd-control-plane-mvp074-succeeded.png, assets/aidd-control-plane-mvp074-succeeded.png, artifacts/screenshots/aidd-control-plane-mvp074-failed.png, assets/aidd-control-plane-mvp074-failed.png, artifacts/screenshots/aidd-control-plane-mvp074-evidence-missing.png, assets/aidd-control-plane-mvp074-evidence-missing.png, artifacts/screenshots/aidd-control-plane-mvp074-terminal-evidence.png, assets/aidd-control-plane-mvp074-terminal-evidence.png
+OK terminal evidence: doctor:aiddの実行ログを保存
