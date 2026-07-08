@@ -1,0 +1,2 @@
+$ codex exec --sandbox danger-full-access "Implement AIDD Control Plane MVP 068 One-Run Execution Readiness Gate"
+/bin/bash: line 10: codex: command not found

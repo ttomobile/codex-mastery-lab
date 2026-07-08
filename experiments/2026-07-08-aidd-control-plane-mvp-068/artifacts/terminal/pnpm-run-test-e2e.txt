@@ -1,0 +1,20 @@
+$ pnpm run test:e2e
+$ playwright test
+
+Running 12 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/readiness-gate.spec.ts:4:3 › One-Run Execution Readiness Gate › empty状態では古いAction Queueを使わない (918ms)
+  ✓   2 [chromium] › e2e/readiness-gate.spec.ts:11:3 › One-Run Execution Readiness Gate › ready状態でexecute_nowだけをRun Queue直前で許可する (731ms)
+  ✓   3 [chromium] › e2e/readiness-gate.spec.ts:20:3 › One-Run Execution Readiness Gate › blocked状態で危険commandとFirefox除外を止める (856ms)
+  ✓   4 [chromium] › e2e/readiness-gate.spec.ts:29:3 › One-Run Execution Readiness Gate › sanitized状態で公開用promptにexecute_nowだけを残す (809ms)
+  ✓   5 [firefox] › e2e/readiness-gate.spec.ts:4:3 › One-Run Execution Readiness Gate › empty状態では古いAction Queueを使わない (2.0s)
+  ✓   6 [firefox] › e2e/readiness-gate.spec.ts:11:3 › One-Run Execution Readiness Gate › ready状態でexecute_nowだけをRun Queue直前で許可する (1.1s)
+  ✓   7 [firefox] › e2e/readiness-gate.spec.ts:20:3 › One-Run Execution Readiness Gate › blocked状態で危険commandとFirefox除外を止める (896ms)
+  ✓   8 [firefox] › e2e/readiness-gate.spec.ts:29:3 › One-Run Execution Readiness Gate › sanitized状態で公開用promptにexecute_nowだけを残す (426ms)
+  ✓   9 [webkit] › e2e/readiness-gate.spec.ts:4:3 › One-Run Execution Readiness Gate › empty状態では古いAction Queueを使わない (690ms)
+  ✓  10 [webkit] › e2e/readiness-gate.spec.ts:11:3 › One-Run Execution Readiness Gate › ready状態でexecute_nowだけをRun Queue直前で許可する (403ms)
+  ✓  11 [webkit] › e2e/readiness-gate.spec.ts:20:3 › One-Run Execution Readiness Gate › blocked状態で危険commandとFirefox除外を止める (412ms)
+  ✓  12 [webkit] › e2e/readiness-gate.spec.ts:29:3 › One-Run Execution Readiness Gate › sanitized状態で公開用promptにexecute_nowだけを残す (493ms)
+
+  12 passed (17.4s)
+exit_code=0

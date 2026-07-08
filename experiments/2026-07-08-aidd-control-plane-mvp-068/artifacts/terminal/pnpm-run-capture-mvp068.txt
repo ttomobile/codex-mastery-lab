@@ -1,0 +1,4 @@
+$ pnpm run capture:mvp068
+$ node scripts/capture-mvp068.mjs
+capture:mvp068 completed
+exit_code=0

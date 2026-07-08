@@ -1,0 +1,5 @@
+$ pnpm run doctor:aidd
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+MVP068、4状態、execute_now限定readiness、3ブラウザE2E、capture:mvp068、AIDD-Spec接続、公開危険文字列検査を確認しました。
+exit_code=0

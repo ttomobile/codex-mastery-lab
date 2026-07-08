@@ -1,0 +1,8 @@
+$ curl preview article and assets
+aidd-control-plane-mvp068-empty.png 204755 bytes
+aidd-control-plane-mvp068-ready.png 384333 bytes
+aidd-control-plane-mvp068-blocked.png 320971 bytes
+aidd-control-plane-mvp068-sanitized.png 387948 bytes
+aidd-control-plane-mvp068-terminal-evidence.png 47054 bytes
+preview smoke passed
+exit_code=0

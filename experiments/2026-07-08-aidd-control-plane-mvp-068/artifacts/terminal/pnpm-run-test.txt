@@ -1,0 +1,13 @@
+$ pnpm run test
+$ vitest run
+
+ RUN  v3.2.7 <repo>/experiments/2026-07-08-aidd-control-plane-mvp-068/generated-repo
+
+ ✓ tests/readiness-gate.test.ts (5 tests) 5ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  18:46:48
+   Duration  321ms (transform 43ms, setup 0ms, collect 37ms, tests 5ms, environment 1ms, prepare 71ms)
+
+exit_code=0
