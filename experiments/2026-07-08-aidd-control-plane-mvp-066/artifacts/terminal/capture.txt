@@ -1,0 +1,2 @@
+$ node scripts/capture-mvp066.mjs
+capture:mvp066 completed

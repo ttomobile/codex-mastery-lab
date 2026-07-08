@@ -1,0 +1,21 @@
+$ playwright test
+
+Running 15 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/digest-publisher.spec.ts:4:3 › Public Preview Smoke Verifier › empty / valid / failure / blockedの4状態を切り替えられる (1.4s)
+  ✓   2 [chromium] › e2e/digest-publisher.spec.ts:14:3 › Public Preview Smoke Verifier › 公開preview HTMLとassetsのHTTP証跡を表示する (555ms)
+  ✓   3 [chromium] › e2e/digest-publisher.spec.ts:29:3 › Public Preview Smoke Verifier › 失敗assetをfailureとして確認できる (485ms)
+  ✓   4 [chromium] › e2e/digest-publisher.spec.ts:39:3 › Public Preview Smoke Verifier › 再実行コマンドを表示する (494ms)
+  ✓   5 [chromium] › e2e/digest-publisher.spec.ts:48:3 › Public Preview Smoke Verifier › 3ブラウザ表示とAIDD接続文言を確認できる (483ms)
+  ✓   6 [firefox] › e2e/digest-publisher.spec.ts:4:3 › Public Preview Smoke Verifier › empty / valid / failure / blockedの4状態を切り替えられる (1.5s)
+  ✓   7 [firefox] › e2e/digest-publisher.spec.ts:14:3 › Public Preview Smoke Verifier › 公開preview HTMLとassetsのHTTP証跡を表示する (758ms)
+  ✓   8 [firefox] › e2e/digest-publisher.spec.ts:29:3 › Public Preview Smoke Verifier › 失敗assetをfailureとして確認できる (695ms)
+  ✓   9 [firefox] › e2e/digest-publisher.spec.ts:39:3 › Public Preview Smoke Verifier › 再実行コマンドを表示する (675ms)
+  ✓  10 [firefox] › e2e/digest-publisher.spec.ts:48:3 › Public Preview Smoke Verifier › 3ブラウザ表示とAIDD接続文言を確認できる (638ms)
+  ✓  11 [webkit] › e2e/digest-publisher.spec.ts:4:3 › Public Preview Smoke Verifier › empty / valid / failure / blockedの4状態を切り替えられる (1.2s)
+  ✓  12 [webkit] › e2e/digest-publisher.spec.ts:14:3 › Public Preview Smoke Verifier › 公開preview HTMLとassetsのHTTP証跡を表示する (566ms)
+  ✓  13 [webkit] › e2e/digest-publisher.spec.ts:29:3 › Public Preview Smoke Verifier › 失敗assetをfailureとして確認できる (677ms)
+  ✓  14 [webkit] › e2e/digest-publisher.spec.ts:39:3 › Public Preview Smoke Verifier › 再実行コマンドを表示する (600ms)
+  ✓  15 [webkit] › e2e/digest-publisher.spec.ts:48:3 › Public Preview Smoke Verifier › 3ブラウザ表示とAIDD接続文言を確認できる (587ms)
+
+  15 passed (17.5s)

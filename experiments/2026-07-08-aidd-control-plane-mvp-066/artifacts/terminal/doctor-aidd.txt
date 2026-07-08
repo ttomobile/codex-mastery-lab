@@ -1,0 +1,3 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+MVP066、必要script、4状態fixture、E2E、capture:mvp066、AIDD-Spec接続文言、公開危険文字列のfixture混入検査を確認しました。

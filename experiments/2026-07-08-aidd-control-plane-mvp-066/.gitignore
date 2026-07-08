@@ -1,0 +1,3 @@
+# Generated duplicate capture output lives in experiment artifacts/ and root assets/ instead.
+assets/
+generated-repo/artifacts/
