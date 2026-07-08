@@ -1,0 +1,24 @@
+$ playwright test
+
+Running 18 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/run-queue-status.spec.ts:3:1 › empty状態ではRun Queueが空であることを表示する (701ms)
+  ✓   2 [chromium] › e2e/run-queue-status.spec.ts:12:1 › waiting状態では実行待ちのコマンドと3ブラウザ範囲を表示する (491ms)
+  ✓   3 [chromium] › e2e/run-queue-status.spec.ts:22:1 › running状態では完了扱いにせずLearning Logへ待機条件を出す (515ms)
+  ✓   4 [chromium] › e2e/run-queue-status.spec.ts:30:1 › succeeded状態では成功証跡とReview Record出力を表示する (463ms)
+  ✓   5 [chromium] › e2e/run-queue-status.spec.ts:38:1 › failed状態では足りないものをReview Findingとして表示する (616ms)
+  ✓   6 [chromium] › e2e/run-queue-status.spec.ts:49:1 › evidence_missing状態ではterminalとscreenshotの不足をReview Findingとして表示する (497ms)
+  ✓   7 [firefox] › e2e/run-queue-status.spec.ts:3:1 › empty状態ではRun Queueが空であることを表示する (1.3s)
+  ✓   8 [firefox] › e2e/run-queue-status.spec.ts:12:1 › waiting状態では実行待ちのコマンドと3ブラウザ範囲を表示する (857ms)
+  ✓   9 [firefox] › e2e/run-queue-status.spec.ts:22:1 › running状態では完了扱いにせずLearning Logへ待機条件を出す (734ms)
+  ✓  10 [firefox] › e2e/run-queue-status.spec.ts:30:1 › succeeded状態では成功証跡とReview Record出力を表示する (708ms)
+  ✓  11 [firefox] › e2e/run-queue-status.spec.ts:38:1 › failed状態では足りないものをReview Findingとして表示する (666ms)
+  ✓  12 [firefox] › e2e/run-queue-status.spec.ts:49:1 › evidence_missing状態ではterminalとscreenshotの不足をReview Findingとして表示する (664ms)
+  ✓  13 [webkit] › e2e/run-queue-status.spec.ts:3:1 › empty状態ではRun Queueが空であることを表示する (969ms)
+  ✓  14 [webkit] › e2e/run-queue-status.spec.ts:12:1 › waiting状態では実行待ちのコマンドと3ブラウザ範囲を表示する (603ms)
+  ✓  15 [webkit] › e2e/run-queue-status.spec.ts:22:1 › running状態では完了扱いにせずLearning Logへ待機条件を出す (626ms)
+  ✓  16 [webkit] › e2e/run-queue-status.spec.ts:30:1 › succeeded状態では成功証跡とReview Record出力を表示する (611ms)
+  ✓  17 [webkit] › e2e/run-queue-status.spec.ts:38:1 › failed状態では足りないものをReview Findingとして表示する (646ms)
+  ✓  18 [webkit] › e2e/run-queue-status.spec.ts:49:1 › evidence_missing状態ではterminalとscreenshotの不足をReview Findingとして表示する (626ms)
+
+  18 passed (18.9s)

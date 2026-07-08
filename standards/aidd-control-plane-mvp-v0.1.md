@@ -81,7 +81,57 @@ MVPではこの流れをフォームとチェックリストで標準化する�
 | Shrunk Packet Handoff Receipt | Codex Run Budget Shrink Plannerで小さく畳んだAI Task Packetを、次回Codex実行へ渡す直前にハンドオフレシートとして確認する | empty / valid / blocked、source shrink plan、execute_now、defer_next_increment、minimum_verification、Codex prompt preview、required evidence、rollback condition、AIDD-Spec接続、local path / private host / private network URL・3ブラウザ不足・evidence不足の公開前ブロック |
 | Handoff Decision Ledger | 縮小版ハンドオフレシートを見た後、次回Codex実行へ進めるか・保留するか・止めるかをReview Recordとして判断する | empty / approved / held / blocked、source handoff receipt、decision owner、decision reason、approved execute_now、Codex command draft、verification commands、required evidence、rollback condition、hold reason、Learning Log返却、未承認・理由不足・3ブラウザ不足・evidence不足・local path/private host/private network URL混入検出 |
 | Run Queue Intake | Handoff Decision Ledgerでapprovedになった実行候補だけをCodex Run Queueへ入れる直前に検査する | empty / queued / rejected / evidence_missing、source decision id、queue item id、run status、Codex command、sandbox mode、required verification commands、browser projects、required evidence、rollback plan、AIDD-Spec接続、held/blocked/unapproved decision・危険command・sandbox不足・Firefox除外・浅い検証・rollback不足・証跡不足・local path/private host/private network URL混入検出 |
-| Codex Run Queue Status Tracker | Run Queue Intakeでqueuedになった実行を待ち・実行中・成功・失敗・証跡不足として追跡し、実行結果をVerification Evidence / Review Record / Learning Logへ戻す | empty / waiting / running / succeeded / failed / evidence_missing、source intake id、queue item id、run status、actual results、verification summary、browser projects、terminal evidence、screenshot evidence、Playwright report、rollback plan、review record output、learning log output、AIDD-Spec接続、command失敗・Firefox未実行・doctor:aidd失敗・危険command・rollback不足・証跡不足・local path/private host/private network URL混入検出 |
+| Codex Run Queue Status Tracker | Run Queue Intakeでqueuedになった実行を待ち・実行中・成功・失敗・証跡不足として追跡し、実行結果をVerification Evidence / Review Record / Learning Logへ戻す | empty / waiting / running / succeeded / failed / evidence_missing、source intake id、queue item id、run status、actual results、verification summary、browser projects、terminal evidence、screenshot evidence、browser console log、掲載用GIF、Playwright report、rollback plan、review record output、learning log output、AIDD-Spec接続、command失敗・Firefox未実行・doctor:aidd失敗・危険command・rollback不足・証跡不足・console error/warn・local path/private host/private network URL混入検出 |
+
+### 3.1 Codex Run Queue Status Tracker evidence rule（MVP063反映）
+
+Run Queueの状態追跡は、UI上のステータス表示だけでは完了扱いにしない。後工程のレビューと記事化が必要とするため、次を同じ実験単位で保存する。
+
+```yaml
+codex_run_queue_status_tracker:
+  required_states:
+    - empty
+    - waiting
+    - running
+    - succeeded
+    - failed
+    - evidence_missing
+  required_evidence:
+    terminal:
+      - lint
+      - typecheck
+      - test
+      - coverage
+      - build
+      - doctor:aidd
+      - e2e_chromium_firefox_webkit
+      - capture
+      - browser_console
+    screenshots:
+      - empty
+      - waiting
+      - running
+      - succeeded
+      - failed
+      - evidence_missing
+    publish_assets:
+      - human_speed_gif
+  review_findings:
+    failed:
+      category: 実行失敗
+      required_fields:
+        - missing
+        - fix_instruction
+        - verification_command
+    evidence_missing:
+      category: 証跡不足
+      required_fields:
+        - missing
+        - fix_instruction
+        - verification_command
+  prompt_delta: |
+    Run Queue状態UIを作る場合は、6状態の表示だけでなく、terminal evidence、screenshot evidence、browser console log、掲載用GIFを保存し、failed / evidence_missingをReview FindingとしてLearning Logへ戻してください。検証補助scriptもlint対象です。
+```
 
 ## 4. 初期データモデル
 

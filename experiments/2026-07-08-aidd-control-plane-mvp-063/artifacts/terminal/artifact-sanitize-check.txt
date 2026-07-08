@@ -1,0 +1,1 @@
+OK: no /Users/tto style local paths in committed MVP063 text artifacts

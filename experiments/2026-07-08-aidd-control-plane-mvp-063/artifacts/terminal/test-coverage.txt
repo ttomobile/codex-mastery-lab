@@ -1,0 +1,19 @@
+$ vitest run --coverage
+
+ RUN  v3.2.6 WORKSPACE/experiments/2026-07-08-aidd-control-plane-mvp-063/generated-repo
+      Coverage enabled with v8
+
+ ✓ tests/run-queue-status.test.ts (7 tests) 6ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  09:12:19
+   Duration  496ms (transform 44ms, setup 0ms, collect 45ms, tests 6ms, environment 0ms, prepare 96ms)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   98.58 |    88.57 |     100 |   98.58 |                   
+ ...ueue-status.ts |   98.58 |    88.57 |     100 |   98.58 | 154-155           
+-------------------|---------|----------|---------|---------|-------------------

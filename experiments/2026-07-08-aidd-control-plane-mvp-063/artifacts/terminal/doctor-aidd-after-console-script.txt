@@ -1,0 +1,3 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+MVP063、Codex Run Queue Status Tracker、6状態、3ブラウザ、証跡、rollback、Review Record、Learning Log、Review Finding、必要コマンドを確認しました。

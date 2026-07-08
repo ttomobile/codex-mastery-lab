@@ -1,0 +1,2 @@
+ffmpeg 8.1.2 failed to combine variable-height full-page screenshots into a GIF with an internal filter error after the first frame. The final GIF was generated with Python Pillow by resizing each screenshot to width 960 and padding to 960x1600 at 1400ms per frame.
+Output: assets/aidd-control-plane-mvp063-status-flow.gif

@@ -1,0 +1,2 @@
+Full-repo sanitize check found pre-existing 127.0.0.1 examples in older articles, so MVP063 used targeted sanitize check instead.
+See public-sanitize-check-mvp063.txt: OK.

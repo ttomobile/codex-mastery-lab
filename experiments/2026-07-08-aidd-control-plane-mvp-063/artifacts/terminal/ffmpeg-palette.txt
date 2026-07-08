@@ -1,0 +1,1 @@
+ffmpeg palette generation was attempted first, but full-page screenshots had different heights and ffmpeg 8.1.2 later failed during GIF assembly. Final GIF generation used Python Pillow instead; see ffmpeg-gif.txt.

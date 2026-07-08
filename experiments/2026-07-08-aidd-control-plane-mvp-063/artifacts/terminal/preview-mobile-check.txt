@@ -1,0 +1,1 @@
+OK: preview contains mobile viewport, mobile index, prev link, title, GIF

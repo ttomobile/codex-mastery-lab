@@ -1,0 +1,13 @@
+AIDD Control Plane MVP 063として、experiments/2026-07-08-aidd-control-plane-mvp-063/generated-repo に小さなNext.js/TypeScriptアプリを作ってください。
+
+題材は「Codex Run Queue Status Tracker」です。UIは日本語で、Run Queueに入ったCodex実行を waiting / running / succeeded / failed / evidence_missing / empty の状態で表示できるようにしてください。
+
+要件はざっくりです。
+- 既存の experiments/aidd-control-plane-mvp-062/generated-repo があれば参考にしてよいが、今回のテーマに合わせる。
+- empty / waiting / running / succeeded / failed / evidence_missing を切り替えられるUIを作る。
+- 各状態に、実行コマンド、検証コマンド、ブラウザ範囲、terminal evidence、screenshot evidence、rollback plan、Review Record出力、Learning Log出力を表示する。
+- failed / evidence_missing では何が足りないかReview Findingとして出す。
+- pnpm run lint / typecheck / test / build / test:e2e / doctor:aidd / capture:mvp063 が動くようにする。
+- PlaywrightはChromium / Firefox / WebKitの3ブラウザ設定にする。
+- テスト名と画面文言は日本語にする。
+- 重い依存追加は避ける。

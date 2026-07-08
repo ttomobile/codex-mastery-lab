@@ -1,0 +1,38 @@
+Codex execution log was too large for commit because Codex printed a long repository file inventory and diff. The full raw terminal output is intentionally summarized here to keep artifacts lightweight.
+
+Command:
+codex exec --sandbox danger-full-access <logs/01-vibe-prompt.txt>
+
+Observed summary:
+- Codex CLI: 0.142.3
+- Workdir: WORKSPACE
+- Target: experiments/2026-07-08-aidd-control-plane-mvp-063/generated-repo
+- Implemented AIDD Control Plane MVP063: Codex Run Queue Status Tracker
+- Created Next.js + TypeScript app
+- Added states: empty / waiting / running / succeeded / failed / evidence_missing
+- Added Japanese UI, Vitest tests, Playwright 3-browser E2E, doctor:aidd, capture:mvp063
+- Codex reported verification success:
+  - pnpm install --frozen-lockfile
+  - pnpm run lint
+  - pnpm run typecheck
+  - pnpm run test
+  - pnpm run test:coverage
+  - pnpm run build
+  - pnpm run doctor:aidd
+  - pnpm run test:e2e: 18 passed, Chromium / Firefox / WebKit
+  - pnpm run capture:mvp063
+
+Post-Codex human/agent audit found:
+- GIF evidence was not part of the original evidence set.
+- browser console check was not part of the original evidence set.
+- Adding console-check script initially caused eslint no-empty on an empty catch.
+
+Follow-up changes:
+- Added scripts/console-check-mvp063.mjs.
+- Fixed empty catch by logging retry reason.
+- Generated assets/aidd-control-plane-mvp063-status-flow.gif with Python Pillow after ffmpeg failed on variable-height screenshots.
+- Re-ran lint and doctor:aidd successfully.
+
+Raw log omitted reason:
+- The raw log exceeded 40k lines due to repository inventory and diff output.
+- It included local paths, which were sanitized before committing.
