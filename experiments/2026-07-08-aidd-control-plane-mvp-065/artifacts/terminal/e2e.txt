@@ -1,0 +1,25 @@
+$ playwright test
+[WebServer]  ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+[WebServer]  We detected multiple lockfiles and selected the directory of <repo>/package-lock.json as the root directory.
+[WebServer]  To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+[WebServer]    See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+[WebServer]  Detected additional lockfiles: 
+[WebServer]    * <repo>/experiments/2026-07-08-aidd-control-plane-mvp-065/generated-repo/pnpm-lock.yaml
+[WebServer] 
+
+Running 12 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/digest-publisher.spec.ts:4:3 › Publication Evidence QA Gate › empty / valid / failure / blockedを切り替えられる (1.4s)
+  ✓   2 [chromium] › e2e/digest-publisher.spec.ts:18:3 › Publication Evidence QA Gate › 公開QAに必要な項目を画面で確認できる (425ms)
+  ✓   3 [chromium] › e2e/digest-publisher.spec.ts:35:3 › Publication Evidence QA Gate › blockedでは5件のReview Findingを表示する (464ms)
+  ✓   4 [chromium] › e2e/digest-publisher.spec.ts:47:3 › Publication Evidence QA Gate › 3ブラウザcoverageを画面で確認できる (562ms)
+  ✓   5 [firefox] › e2e/digest-publisher.spec.ts:4:3 › Publication Evidence QA Gate › empty / valid / failure / blockedを切り替えられる (1.2s)
+  ✓   6 [firefox] › e2e/digest-publisher.spec.ts:18:3 › Publication Evidence QA Gate › 公開QAに必要な項目を画面で確認できる (481ms)
+  ✓   7 [firefox] › e2e/digest-publisher.spec.ts:35:3 › Publication Evidence QA Gate › blockedでは5件のReview Findingを表示する (494ms)
+  ✓   8 [firefox] › e2e/digest-publisher.spec.ts:47:3 › Publication Evidence QA Gate › 3ブラウザcoverageを画面で確認できる (483ms)
+  ✓   9 [webkit] › e2e/digest-publisher.spec.ts:4:3 › Publication Evidence QA Gate › empty / valid / failure / blockedを切り替えられる (934ms)
+  ✓  10 [webkit] › e2e/digest-publisher.spec.ts:18:3 › Publication Evidence QA Gate › 公開QAに必要な項目を画面で確認できる (420ms)
+  ✓  11 [webkit] › e2e/digest-publisher.spec.ts:35:3 › Publication Evidence QA Gate › blockedでは5件のReview Findingを表示する (380ms)
+  ✓  12 [webkit] › e2e/digest-publisher.spec.ts:47:3 › Publication Evidence QA Gate › 3ブラウザcoverageを画面で確認できる (438ms)
+
+  12 passed (11.8s)

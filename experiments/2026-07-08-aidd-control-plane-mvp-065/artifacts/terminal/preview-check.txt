@@ -1,0 +1,9 @@
+preview check: article contains Publication Evidence QA Gate
+article grep OK
+preview check: index contains AIDD Control Plane SaaS化
+index grep OK
+aidd-control-plane-mvp065-empty.png 221522 bytes
+aidd-control-plane-mvp065-valid.png 548827 bytes
+aidd-control-plane-mvp065-failure.png 446359 bytes
+aidd-control-plane-mvp065-blocked.png 423794 bytes
+aidd-control-plane-mvp065-terminal-evidence.png 548827 bytes

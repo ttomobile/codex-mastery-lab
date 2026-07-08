@@ -1,0 +1,37 @@
+$ playwright test
+[WebServer] (node:31128) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:31129) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer]  ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+[WebServer]  We detected multiple lockfiles and selected the directory of <repo>/package-lock.json as the root directory.
+[WebServer]  To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+[WebServer]    See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+[WebServer]  Detected additional lockfiles: 
+[WebServer]    * <repo>/experiments/2026-07-08-aidd-control-plane-mvp-065/generated-repo/pnpm-lock.yaml
+[WebServer] 
+[WebServer] (node:31135) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:31137) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › e2e/digest-publisher.spec.ts:4:3 › Publication Evidence QA Gate › empty / valid / failure / blockedを切り替えられる (1.7s)
+  ✓   2 [chromium] › e2e/digest-publisher.spec.ts:18:3 › Publication Evidence QA Gate › 公開QAに必要な項目を画面で確認できる (443ms)
+  ✓   3 [chromium] › e2e/digest-publisher.spec.ts:35:3 › Publication Evidence QA Gate › blockedでは5件のReview Findingを表示する (551ms)
+  ✓   4 [chromium] › e2e/digest-publisher.spec.ts:47:3 › Publication Evidence QA Gate › 3ブラウザcoverageを画面で確認できる (529ms)
+(node:31145) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   5 [firefox] › e2e/digest-publisher.spec.ts:4:3 › Publication Evidence QA Gate › empty / valid / failure / blockedを切り替えられる (1.1s)
+  ✓   6 [firefox] › e2e/digest-publisher.spec.ts:18:3 › Publication Evidence QA Gate › 公開QAに必要な項目を画面で確認できる (508ms)
+  ✓   7 [firefox] › e2e/digest-publisher.spec.ts:35:3 › Publication Evidence QA Gate › blockedでは5件のReview Findingを表示する (520ms)
+  ✓   8 [firefox] › e2e/digest-publisher.spec.ts:47:3 › Publication Evidence QA Gate › 3ブラウザcoverageを画面で確認できる (449ms)
+(node:31159) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   9 [webkit] › e2e/digest-publisher.spec.ts:4:3 › Publication Evidence QA Gate › empty / valid / failure / blockedを切り替えられる (955ms)
+  ✓  10 [webkit] › e2e/digest-publisher.spec.ts:18:3 › Publication Evidence QA Gate › 公開QAに必要な項目を画面で確認できる (398ms)
+  ✓  11 [webkit] › e2e/digest-publisher.spec.ts:35:3 › Publication Evidence QA Gate › blockedでは5件のReview Findingを表示する (414ms)
+  ✓  12 [webkit] › e2e/digest-publisher.spec.ts:47:3 › Publication Evidence QA Gate › 3ブラウザcoverageを画面で確認できる (374ms)
+
+  12 passed (12.3s)
