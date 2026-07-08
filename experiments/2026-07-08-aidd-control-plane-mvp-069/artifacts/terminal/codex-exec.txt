@@ -1,0 +1,3921 @@
+Reading additional input from stdin...
+OpenAI Codex v0.142.3
+--------
+workdir: REPO_ROOT
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: none
+reasoning summaries: none
+session id: 019f4197-7278-7842-9758-da22732b91e7
+--------
+user
+# Codex Prompt: MVP069 Codex Run Budget Shrink Planner
+
+`experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/` を実装してください。
+
+要件:
+
+- Next.js + TypeScript + pnpm。
+- UI、テスト名、サンプルデータ、README/docsは日本語。
+- AIDD Control Plane MVP069として、Codex Run Budget Shrink Plannerを作る。
+- 状態は ready / brake / stop / sanitized。
+- brakeでは、`keep_now`を1件に絞り、`defer_next_increment`を次回送りとして表示する。
+- stopでは、最低検証・3ブラウザ・terminal/failure screenshot・rollback不足をブロック理由として表示する。
+- sanitizedでは、Codex prompt previewに`keep_now`だけを残し、local path / private host / private network URLを含めない。
+- `pnpm run lint`, `typecheck`, `test`, `build`, `test:e2e`, `doctor:aidd`, `capture:mvp069`を用意する。
+- PlaywrightはChromium / Firefox / WebKit。`timeout: 120_000`, `expect: { timeout: 90_000 }`, `workers: 1`, ローカル`retries: 1`を使う。
+- `scripts/doctor-aidd.mjs`でAIDD-Spec接続、3ブラウザ、危険文字列、prompt混入、capture asset名を検査する。
+- 画像証跡を`assets/`と`artifacts/screenshots/`へ保存するcapture scriptを作る。
+
+完了後、Codexの自己申告に頼らず独立検証できる状態にしてください。
+codex
+まず既存リポジトリの形と対象ディレクトリの有無を確認します。実装先が実験配下なので、既存の近いMVPがあれば構成を合わせます。
+exec
+/bin/zsh -lc "pwd && rg --files -g 'package.json' -g 'pnpm-lock.yaml' -g 'playwright.config.*' -g 'next.config.*' -g 'vitest.config.*' -g 'scripts/**' -g 'experiments/**/generated-repo/package.json'" in REPO_ROOT
+ succeeded in 0ms:
+REPO_ROOT
+scripts/capture-sagaforge-playable-trial045.mjs
+scripts/capture_app_gif.js
+scripts/capture-sagaforge-playable-trial019.mjs
+scripts/capture-sagaforge-playable-trial018.mjs
+scripts/capture-sagaforge-trial055.mjs
+scripts/capture-sagaforge-playable-trial032.mjs
+scripts/capture-sagaforge-playable-trial035.mjs
+scripts/capture-sagaforge-playable-trial016.mjs
+scripts/capture-sagaforge-playable-trial017.mjs
+scripts/codex_usage_kpi.py
+scripts/capture_sagaforge_trial049.mjs
+scripts/capture-sagaforge-trial058.mjs
+scripts/capture-sagaforge-playable-trial029.mjs
+scripts/build_preview.py
+scripts/capture-sagaforge-playable-trial028.mjs
+package.json
+experiments/aidd-control-plane-mvp-008/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-008/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-061/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-061/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-008/generated-repo/package.json
+experiments/aidd-control-plane-mvp-061/generated-repo/package.json
+experiments/aidd-control-plane-mvp-008/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-061/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-008/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-061/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-037/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-037/generated-repo/playwright.config.ts
+experiments/proof-youtube-focus/generated-repo/next.config.ts
+experiments/proof-youtube-focus/generated-repo/vitest.config.ts
+experiments/proof-youtube-focus/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-059/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-059/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-059/generated-repo/package.json
+experiments/aidd-control-plane-mvp-059/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-059/generated-repo/pnpm-lock.yaml
+experiments/proof-youtube-focus/generated-repo/package.json
+experiments/aidd-control-plane-mvp-050/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-050/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-050/generated-repo/package.json
+experiments/aidd-control-plane-mvp-037/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-037/generated-repo/package.json
+experiments/aidd-control-plane-mvp-050/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-037/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-051/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-051/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-051/generated-repo/package.json
+experiments/aidd-control-plane-mvp-021/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-021/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-021/generated-repo/package.json
+experiments/aidd-control-plane-mvp-020/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-020/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-020/generated-repo/package.json
+experiments/aidd-control-plane-mvp-021/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-020/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-032/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-032/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-021/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-032/generated-repo/package.json
+experiments/aidd-control-plane-mvp-032/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-020/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-001/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-001/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-001/generated-repo/package.json
+experiments/aidd-control-plane-mvp-051/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-001/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-001/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-044/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-044/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-044/generated-repo/package.json
+experiments/aidd-control-plane-mvp-044/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-027/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-027/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-027/generated-repo/package.json
+experiments/aidd-control-plane-mvp-039/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-039/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-039/generated-repo/package.json
+experiments/aidd-control-plane-mvp-027/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-032/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-044/generated-repo/pnpm-lock.yaml
+experiments/proof-youtube-focus/generated-repo/pnpm-lock.yaml
+experiments/proof-youtube-focus/generated-repo/mocks/media/package.json
+experiments/proof-youtube-focus/generated-repo/mocks/billing/package.json
+experiments/proof-youtube-focus/generated-repo/mocks/api/package.json
+experiments/aidd-control-plane-mvp-035/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-035/generated-repo/playwright.config.ts
+experiments/proof-youtube-focus/generated-repo/mocks/auth/package.json
+experiments/aidd-control-plane-mvp-050/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-035/generated-repo/package.json
+experiments/aidd-control-plane-mvp-035/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-051/generated-repo/pnpm-lock.yaml
+experiments/aidd-spec-v0.1-validation-001/generated-repo/package.json
+experiments/aidd-control-plane-mvp-057/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-057/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-057/generated-repo/package.json
+experiments/aidd-control-plane-mvp-057/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-057/generated-repo/pnpm-lock.yaml
+experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/vitest.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/playwright.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/package.json
+experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-058/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-058/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-058/generated-repo/package.json
+experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-024/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-024/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-058/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-024/generated-repo/package.json
+experiments/aidd-control-plane-mvp-035/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-024/generated-repo/next.config.mjs
+experiments/2026-07-08-aidd-control-plane-mvp-067/generated-repo/vitest.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-067/generated-repo/playwright.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-067/generated-repo/package.json
+experiments/2026-07-08-aidd-control-plane-mvp-067/generated-repo/next.config.mjs
+experiments/2026-07-08-aidd-control-plane-mvp-067/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-024/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-039/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-023/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-023/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-023/generated-repo/package.json
+experiments/aidd-control-plane-mvp-046/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-046/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-046/generated-repo/package.json
+experiments/aidd-control-plane-mvp-023/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-046/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-043/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-043/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-004/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-004/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-004/generated-repo/package.json
+experiments/aidd-control-plane-mvp-004/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-004/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-023/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-046/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-039/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-043/generated-repo/package.json
+experiments/aidd-control-plane-mvp-015/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-015/generated-repo/playwright.config.ts
+experiments/watchflow-trial-005/generated-repo/next.config.ts
+experiments/aidd-control-plane-mvp-043/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-015/generated-repo/package.json
+experiments/aidd-control-plane-mvp-015/generated-repo/next.config.mjs
+experiments/watchflow-trial-005/generated-repo/vitest.config.ts
+experiments/watchflow-trial-005/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-041/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-041/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-041/generated-repo/package.json
+experiments/aidd-control-plane-mvp-015/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-041/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-006/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-006/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-006/generated-repo/package.json
+experiments/aidd-control-plane-mvp-006/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-006/generated-repo/pnpm-lock.yaml
+experiments/watchflow-trial-005/generated-repo/package.json
+experiments/aidd-control-plane-mvp-027/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-012/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-012/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-009/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-009/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-012/generated-repo/package.json
+experiments/aidd-control-plane-mvp-009/generated-repo/package.json
+experiments/aidd-control-plane-mvp-043/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-012/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-012/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-009/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-009/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-041/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-049/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-049/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-049/generated-repo/package.json
+experiments/aidd-control-plane-mvp-036/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-036/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-049/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-036/generated-repo/package.json
+experiments/aidd-control-plane-mvp-058/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-036/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-048/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-048/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-048/generated-repo/package.json
+experiments/aidd-control-plane-mvp-048/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-056/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-056/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-018/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-018/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-038/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-038/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-048/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-018/generated-repo/package.json
+experiments/aidd-control-plane-mvp-056/generated-repo/package.json
+experiments/aidd-control-plane-mvp-018/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-038/generated-repo/package.json
+experiments/aidd-control-plane-mvp-038/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-056/generated-repo/next.config.mjs
+experiments/character-collection-rpg-trial-001/generated-repo/next.config.ts
+experiments/aidd-control-plane-mvp-018/generated-repo/pnpm-lock.yaml
+experiments/character-collection-rpg-trial-001/generated-repo/vitest.config.ts
+experiments/character-collection-rpg-trial-001/generated-repo/playwright.config.ts
+experiments/character-collection-rpg-trial-001/generated-repo/package.json
+experiments/aidd-control-plane-mvp-060/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-060/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-060/generated-repo/package.json
+experiments/aidd-control-plane-mvp-036/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-056/generated-repo/pnpm-lock.yaml
+experiments/character-collection-rpg-trial-001/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-060/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-011/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-011/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-060/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-011/generated-repo/package.json
+experiments/aidd-control-plane-mvp-038/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-011/generated-repo/next.config.mjs
+experiments/watchflow-trial-005/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-011/generated-repo/pnpm-lock.yaml
+experiments/watchflow-trial-005/generated-repo/mocks/media/package.json
+experiments/watchflow-trial-005/generated-repo/mocks/billing/package.json
+experiments/watchflow-trial-005/generated-repo/mocks/api/package.json
+experiments/watchflow-trial-005/generated-repo/mocks/auth/package.json
+experiments/aidd-control-plane-mvp-007/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-007/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-052/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-052/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-007/generated-repo/package.json
+experiments/aidd-control-plane-mvp-007/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-007/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-003/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-003/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-031/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-031/generated-repo/playwright.config.ts
+experiments/watchflow-trial-001/generated-repo/next.config.ts
+experiments/aidd-control-plane-mvp-003/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-003/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-052/generated-repo/package.json
+experiments/aidd-control-plane-mvp-031/generated-repo/package.json
+experiments/watchflow-trial-001/generated-repo/vitest.config.ts
+experiments/watchflow-trial-001/generated-repo/playwright.config.ts
+experiments/watchflow-trial-002/generated-repo/next.config.ts
+experiments/aidd-control-plane-mvp-003/generated-repo/package.json
+experiments/watchflow-trial-002/generated-repo/vitest.config.ts
+experiments/watchflow-trial-002/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-031/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-052/generated-repo/next.config.mjs
+experiments/watchflow-trial-001/generated-repo/package.json
+experiments/watchflow-trial-002/generated-repo/package.json
+experiments/aidd-control-plane-mvp-014/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-014/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-014/generated-repo/package.json
+experiments/aidd-control-plane-mvp-014/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-014/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-052/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-049/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-016/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-016/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-016/generated-repo/package.json
+experiments/aidd-control-plane-mvp-029/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-029/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-029/generated-repo/package.json
+experiments/aidd-control-plane-mvp-016/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-029/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-055/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-055/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-055/generated-repo/package.json
+experiments/aidd-control-plane-mvp-025/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-025/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-016/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-025/generated-repo/package.json
+experiments/aidd-control-plane-mvp-055/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-025/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-029/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-031/generated-repo/pnpm-lock.yaml
+experiments/2026-07-08-aidd-control-plane-mvp-065/generated-repo/vitest.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-065/generated-repo/playwright.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-065/generated-repo/package.json
+experiments/2026-07-08-aidd-control-plane-mvp-065/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-042/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-042/generated-repo/playwright.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-065/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-042/generated-repo/package.json
+experiments/aidd-control-plane-mvp-042/generated-repo/next.config.mjs
+experiments/watchflow-trial-002/generated-repo/pnpm-lock.yaml
+experiments/proof-tiktok-drill/generated-repo/next.config.ts
+experiments/proof-tiktok-drill/generated-repo/vitest.config.ts
+experiments/proof-tiktok-drill/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-034/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-034/generated-repo/playwright.config.ts
+experiments/proof-tiktok-drill/generated-repo/package.json
+experiments/aidd-control-plane-mvp-034/generated-repo/package.json
+experiments/proof-tiktok-drill/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-025/generated-repo/pnpm-lock.yaml
+experiments/proof-tiktok-drill/generated-repo/mocks/media/package.json
+experiments/aidd-control-plane-mvp-034/generated-repo/next.config.mjs
+experiments/proof-tiktok-drill/generated-repo/mocks/billing/package.json
+experiments/proof-tiktok-drill/generated-repo/mocks/api/package.json
+experiments/aidd-control-plane-mvp-042/generated-repo/pnpm-lock.yaml
+experiments/proof-tiktok-drill/generated-repo/mocks/auth/package.json
+experiments/aidd-control-plane-mvp-062/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-062/generated-repo/playwright.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-066/generated-repo/vitest.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-066/generated-repo/playwright.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-066/generated-repo/package.json
+experiments/aidd-control-plane-mvp-062/generated-repo/package.json
+experiments/2026-07-08-aidd-control-plane-mvp-066/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-022/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-022/generated-repo/playwright.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-066/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-062/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-022/generated-repo/package.json
+experiments/aidd-control-plane-mvp-022/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-062/generated-repo/pnpm-lock.yaml
+experiments/2026-07-08-aidd-control-plane-mvp-063/generated-repo/vitest.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-063/generated-repo/playwright.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-063/generated-repo/package.json
+experiments/aidd-control-plane-mvp-045/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-045/generated-repo/playwright.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-068/generated-repo/vitest.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-068/generated-repo/playwright.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-063/generated-repo/next.config.mjs
+experiments/2026-07-08-aidd-control-plane-mvp-068/generated-repo/package.json
+experiments/aidd-control-plane-mvp-045/generated-repo/package.json
+experiments/2026-07-08-aidd-control-plane-mvp-063/generated-repo/pnpm-lock.yaml
+experiments/2026-07-08-aidd-control-plane-mvp-068/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-045/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-040/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-040/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-034/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-040/generated-repo/package.json
+experiments/aidd-control-plane-mvp-055/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-040/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-054/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-054/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-054/generated-repo/playwright.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-064/generated-repo/vitest.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-064/generated-repo/playwright.config.ts
+experiments/2026-07-08-aidd-control-plane-mvp-064/generated-repo/package.json
+experiments/aidd-control-plane-mvp-054/generated-repo/pnpm-lock.yaml
+experiments/2026-07-08-aidd-control-plane-mvp-064/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-045/generated-repo/pnpm-lock.yaml
+experiments/2026-07-08-aidd-control-plane-mvp-064/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-040/generated-repo/pnpm-lock.yaml
+experiments/2026-07-08-aidd-control-plane-mvp-068/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-053/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-053/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-053/generated-repo/package.json
+experiments/aidd-control-plane-mvp-047/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-047/generated-repo/playwright.config.ts
+experiments/2026-06-30-playwright-api-state/tests/playwright.config.js
+experiments/aidd-control-plane-mvp-053/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-047/generated-repo/package.json
+experiments/aidd-control-plane-mvp-053/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-054/generated-repo/package.json
+experiments/aidd-control-plane-mvp-017/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-017/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-017/generated-repo/package.json
+experiments/aidd-control-plane-mvp-017/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-030/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-030/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-047/generated-repo/next.config.mjs
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/next.config.ts
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-030/generated-repo/package.json
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/package.json
+experiments/aidd-control-plane-mvp-028/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-028/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-030/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-028/generated-repo/package.json
+experiments/2026-07-03-verification-evidence-lite-001/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-028/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-017/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-005/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-022/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-005/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-005/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-005/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-005/generated-repo/package.json
+experiments/watchflow-trial-003/generated-repo/next.config.ts
+experiments/aidd-control-plane-mvp-028/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-033/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-033/generated-repo/playwright.config.ts
+experiments/watchflow-trial-003/generated-repo/vitest.config.ts
+experiments/watchflow-trial-003/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-033/generated-repo/package.json
+experiments/aidd-control-plane-mvp-047/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-033/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-002/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-010/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-010/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-002/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-002/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-010/generated-repo/package.json
+experiments/aidd-control-plane-mvp-002/generated-repo/package.json
+experiments/watchflow-trial-003/generated-repo/package.json
+experiments/aidd-control-plane-mvp-010/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-010/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-013/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-013/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-013/generated-repo/package.json
+experiments/aidd-control-plane-mvp-026/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-026/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-013/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-026/generated-repo/package.json
+experiments/aidd-control-plane-mvp-026/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-013/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-030/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-033/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-026/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-002/generated-repo/pnpm-lock.yaml
+experiments/watchflow-trial-003/generated-repo/pnpm-lock.yaml
+experiments/watchflow-trial-003/generated-repo/mocks/media/package.json
+experiments/watchflow-trial-003/generated-repo/mocks/billing/package.json
+experiments/watchflow-trial-003/generated-repo/mocks/auth/package.json
+experiments/watchflow-trial-003/generated-repo/mocks/api/package.json
+experiments/aidd-control-plane-mvp-019/generated-repo/next.config.mjs
+experiments/aidd-control-plane-mvp-019/generated-repo/pnpm-lock.yaml
+experiments/aidd-control-plane-mvp-019/generated-repo/vitest.config.ts
+experiments/aidd-control-plane-mvp-019/generated-repo/playwright.config.ts
+experiments/aidd-control-plane-mvp-019/generated-repo/package.json
+experiments/watchflow-trial-004/generated-repo/next.config.ts
+experiments/watchflow-trial-004/generated-repo/package.json
+experiments/watchflow-trial-004/generated-repo/vitest.config.ts
+experiments/watchflow-trial-004/generated-repo/playwright.config.ts
+experiments/watchflow-trial-004/generated-repo/pnpm-lock.yaml
+experiments/watchflow-trial-004/generated-repo/mocks/media/package.json
+experiments/watchflow-trial-004/generated-repo/mocks/billing/package.json
+experiments/watchflow-trial-004/generated-repo/mocks/api/package.json
+experiments/watchflow-trial-004/generated-repo/mocks/auth/package.json
+
+exec
+/bin/zsh -lc 'find experiments -maxdepth 3 -type d | sort | tail -80' in REPO_ROOT
+ succeeded in 0ms:
+experiments/watchflow-trial-001/generated-repo/node_modules
+experiments/watchflow-trial-001/generated-repo/playwright-report
+experiments/watchflow-trial-001/generated-repo/public
+experiments/watchflow-trial-001/generated-repo/test-results
+experiments/watchflow-trial-002
+experiments/watchflow-trial-002/artifacts
+experiments/watchflow-trial-002/artifacts/trial-002
+experiments/watchflow-trial-002/generated-repo
+experiments/watchflow-trial-002/generated-repo/.github
+experiments/watchflow-trial-002/generated-repo/.next
+experiments/watchflow-trial-002/generated-repo/app
+experiments/watchflow-trial-002/generated-repo/components
+experiments/watchflow-trial-002/generated-repo/coverage
+experiments/watchflow-trial-002/generated-repo/docs
+experiments/watchflow-trial-002/generated-repo/e2e
+experiments/watchflow-trial-002/generated-repo/features
+experiments/watchflow-trial-002/generated-repo/lib
+experiments/watchflow-trial-002/generated-repo/mocks
+experiments/watchflow-trial-002/generated-repo/node_modules
+experiments/watchflow-trial-002/generated-repo/playwright-report
+experiments/watchflow-trial-002/generated-repo/public
+experiments/watchflow-trial-002/generated-repo/scripts
+experiments/watchflow-trial-002/generated-repo/test-results
+experiments/watchflow-trial-003
+experiments/watchflow-trial-003/artifacts
+experiments/watchflow-trial-003/artifacts/trial-003
+experiments/watchflow-trial-003/generated-repo
+experiments/watchflow-trial-003/generated-repo/.github
+experiments/watchflow-trial-003/generated-repo/.next
+experiments/watchflow-trial-003/generated-repo/app
+experiments/watchflow-trial-003/generated-repo/components
+experiments/watchflow-trial-003/generated-repo/coverage
+experiments/watchflow-trial-003/generated-repo/docs
+experiments/watchflow-trial-003/generated-repo/e2e
+experiments/watchflow-trial-003/generated-repo/features
+experiments/watchflow-trial-003/generated-repo/lib
+experiments/watchflow-trial-003/generated-repo/mocks
+experiments/watchflow-trial-003/generated-repo/node_modules
+experiments/watchflow-trial-003/generated-repo/playwright-report
+experiments/watchflow-trial-003/generated-repo/public
+experiments/watchflow-trial-003/generated-repo/scripts
+experiments/watchflow-trial-003/generated-repo/test-results
+experiments/watchflow-trial-004
+experiments/watchflow-trial-004/artifacts
+experiments/watchflow-trial-004/artifacts/trial-004
+experiments/watchflow-trial-004/generated-repo
+experiments/watchflow-trial-004/generated-repo/.github
+experiments/watchflow-trial-004/generated-repo/.next
+experiments/watchflow-trial-004/generated-repo/app
+experiments/watchflow-trial-004/generated-repo/components
+experiments/watchflow-trial-004/generated-repo/coverage
+experiments/watchflow-trial-004/generated-repo/docs
+experiments/watchflow-trial-004/generated-repo/e2e
+experiments/watchflow-trial-004/generated-repo/features
+experiments/watchflow-trial-004/generated-repo/lib
+experiments/watchflow-trial-004/generated-repo/mocks
+experiments/watchflow-trial-004/generated-repo/node_modules
+experiments/watchflow-trial-004/generated-repo/playwright-report
+experiments/watchflow-trial-004/generated-repo/public
+experiments/watchflow-trial-004/generated-repo/scripts
+experiments/watchflow-trial-004/generated-repo/test-results
+experiments/watchflow-trial-005
+experiments/watchflow-trial-005/artifacts
+experiments/watchflow-trial-005/artifacts/trial-005
+experiments/watchflow-trial-005/generated-repo
+experiments/watchflow-trial-005/generated-repo/.github
+experiments/watchflow-trial-005/generated-repo/.next
+experiments/watchflow-trial-005/generated-repo/app
+experiments/watchflow-trial-005/generated-repo/components
+experiments/watchflow-trial-005/generated-repo/coverage
+experiments/watchflow-trial-005/generated-repo/docs
+experiments/watchflow-trial-005/generated-repo/e2e
+experiments/watchflow-trial-005/generated-repo/features
+experiments/watchflow-trial-005/generated-repo/lib
+experiments/watchflow-trial-005/generated-repo/mocks
+experiments/watchflow-trial-005/generated-repo/node_modules
+experiments/watchflow-trial-005/generated-repo/playwright-report
+experiments/watchflow-trial-005/generated-repo/public
+experiments/watchflow-trial-005/generated-repo/scripts
+experiments/watchflow-trial-005/generated-repo/test-results
+
+exec
+/bin/zsh -lc 'git status --short' in REPO_ROOT
+ succeeded in 0ms:
+?? experiments/2026-07-08-aidd-control-plane-mvp-069/
+
+codex
+対象ディレクトリは既に未追跡で存在します。中身を読んで、足りない部分を埋める形で進めます。
+exec
+/bin/zsh -lc 'git status --short experiments/2026-07-08-aidd-control-plane-mvp-069' in REPO_ROOT
+ succeeded in 0ms:
+?? experiments/2026-07-08-aidd-control-plane-mvp-069/
+
+exec
+/bin/zsh -lc 'find . -maxdepth 2 -type f | sort' in REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo
+ succeeded in 0ms:
+./.gitignore
+./README.md
+./app/globals.css
+./app/layout.tsx
+./app/page.tsx
+./docs/learning-log.md
+./docs/product-brief.md
+./docs/review-record.md
+./docs/verification-plan.md
+./e2e/readiness-gate.spec.ts
+./eslint.config.mjs
+./next-env.d.ts
+./next.config.mjs
+./package.json
+./playwright.config.ts
+./pnpm-lock.yaml
+./pnpm-workspace.yaml
+./scripts/capture-mvp068.mjs
+./scripts/doctor-aidd.mjs
+./tests/readiness-gate.test.ts
+./tsconfig.json
+./vitest.config.ts
+
+exec
+/bin/zsh -lc 'rg --files' in REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo
+ succeeded in 0ms:
+src/domain/readiness-gate.ts
+src/domain/budget-shrink-planner.ts
+pnpm-workspace.yaml
+eslint.config.mjs
+e2e/readiness-gate.spec.ts
+vitest.config.ts
+playwright.config.ts
+tsconfig.json
+scripts/capture-mvp068.mjs
+scripts/doctor-aidd.mjs
+package.json
+README.md
+next-env.d.ts
+docs/verification-plan.md
+docs/product-brief.md
+docs/review-record.md
+docs/learning-log.md
+tests/readiness-gate.test.ts
+next.config.mjs
+app/globals.css
+app/page.tsx
+app/layout.tsx
+artifacts/terminal/capture-mvp065.txt
+artifacts/terminal/capture-mvp066.txt
+artifacts/terminal/doctor-aidd-mvp065.txt
+artifacts/terminal/lint-mvp065.txt
+artifacts/terminal/typecheck-mvp065.txt
+artifacts/terminal/test-mvp065.txt
+artifacts/terminal/build-mvp065.txt
+artifacts/terminal/e2e-mvp065.txt
+artifacts/terminal/capture-run-mvp065.txt
+artifacts/screenshots/aidd-control-plane-mvp066-empty.png
+artifacts/screenshots/aidd-control-plane-mvp066-terminal-evidence.png
+artifacts/screenshots/aidd-control-plane-mvp065-valid.png
+artifacts/screenshots/aidd-control-plane-mvp066-failure.png
+artifacts/screenshots/aidd-control-plane-mvp065-blocked.png
+artifacts/screenshots/aidd-control-plane-mvp066-valid.png
+artifacts/screenshots/aidd-control-plane-mvp065-terminal-evidence.png
+artifacts/screenshots/aidd-control-plane-mvp065-empty.png
+artifacts/screenshots/aidd-control-plane-mvp066-blocked.png
+artifacts/screenshots/aidd-control-plane-mvp065-failure.png
+pnpm-lock.yaml
+
+codex
+MVP065/066/068の残骸が混ざっている状態です。MVP069用に名称、ドメイン、検証スクリプト、E2E、captureを揃え直します。
+exec
+/bin/zsh -lc "sed -n '1,220p' package.json" in REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo
+ succeeded in 0ms:
+{
+  "name": "aidd-control-plane-mvp-068",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "build": "next build",
+    "test:e2e": "playwright test",
+    "doctor:aidd": "node scripts/doctor-aidd.mjs",
+    "capture:mvp068": "node scripts/capture-mvp068.mjs"
+  },
+  "dependencies": {
+    "next": "15.5.20",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.30.0",
+    "@next/eslint-plugin-next": "^15.4.0",
+    "@playwright/test": "^1.53.0",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitest/coverage-v8": "^3.2.6",
+    "eslint": "^9.30.0",
+    "eslint-config-next": "^15.4.0",
+    "typescript": "^5.8.0",
+    "typescript-eslint": "^8.35.0",
+    "vitest": "^3.2.0"
+  }
+}
+
+exec
+/bin/zsh -lc "sed -n '1,260p' src/domain/budget-shrink-planner.ts && sed -n '1,240p' src/domain/readiness-gate.ts" in REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo
+ succeeded in 0ms:
+export const plannerStates = ["ready", "brake", "stop", "sanitized"] as const;
+export type PlannerState = (typeof plannerStates)[number];
+export const requiredBrowsers = ["Chromium", "Firefox", "WebKit"] as const;
+export type UsageBand = "low" | "medium" | "high" | "overflow";
+
+export type ShrinkPlanInput = {
+  state: PlannerState;
+  sourcePacketId: string;
+  usageBand: UsageBand;
+  keepNow: string[];
+  deferNextIncrement: string[];
+  minimumVerification: string[];
+  fallbackAction: string;
+  resumeCondition: string;
+  evidencePaths: string[];
+  browserProjects: Record<(typeof requiredBrowsers)[number], "必須" | "除外" | "未確認">;
+  promptPreview: string;
+  blockedReasons: string[];
+  sanitizationScan: string;
+  aiddSpecConnection: string;
+};
+
+export const minimumVerificationCommands = [
+  "pnpm run lint",
+  "pnpm run typecheck",
+  "pnpm run test",
+  "pnpm run build",
+  "pnpm run test:e2e",
+  "pnpm run doctor:aidd"
+];
+
+const safePrompt = [
+  "MVP069 keep_now: 公開preview smokeで壊れたasset URLを1件だけ修正してください。",
+  "defer_next_incrementは今回のCodex promptへ入れず、Learning Logへ戻します。",
+  "minimum_verification: pnpm run lint / pnpm run typecheck / pnpm run test / pnpm run build / pnpm run test:e2e / pnpm run doctor:aidd。",
+  "Chromium / Firefox / WebKit、terminal evidence、failure screenshot、Playwright reportを残します。",
+  "rollback: 証跡不足または公開危険文字列が出たら実行を止め、Review Recordへ戻します。"
+].join("\n");
+
+export function getShrinkPlanInput(state: PlannerState): ShrinkPlanInput {
+  if (state === "ready") {
+    return {
+      state,
+      sourcePacketId: "ATP-069-preview-smoke",
+      usageBand: "medium",
+      keepNow: ["Public Preview Smoke Verifierのasset copy確認を1件実行する"],
+      deferNextIncrement: [],
+      minimumVerification: minimumVerificationCommands,
+      fallbackAction: "失敗時はReview Finding Action Queueへ戻す",
+      resumeCondition: "3ブラウザE2Eとterminal/failure screenshotが揃ったら次へ進む",
+      evidencePaths: ["artifacts/terminal", "artifacts/screenshots", "playwright-report"],
+      browserProjects: { Chromium: "必須", Firefox: "必須", WebKit: "必須" },
+      promptPreview: safePrompt,
+      blockedReasons: [],
+      sanitizationScan: "公開危険文字列なし",
+      aiddSpecConnection: "AIDD-Spec v0.1 AI Task Packet / Verification Evidence / Review Record / Learning Log、AIDD Control Plane Codex Run Budget Shrink Planner"
+    };
+  }
+  if (state === "brake") {
+    return {
+      state,
+      sourcePacketId: "ATP-069-over-budget",
+      usageBand: "high",
+      keepNow: ["壊れたpreview asset URLを1件だけ修正する"],
+      deferNextIncrement: ["CI artifact API連携", "GIF再生成", "複数記事の一括QA"],
+      minimumVerification: minimumVerificationCommands,
+      fallbackAction: "縮小後も失敗したらstopへ切り替え、Learning Logへ戻す",
+      resumeCondition: "keep_nowの1件が検証済みになったらdefer_next_incrementを次回Packetへ送る",
+      evidencePaths: ["artifacts/terminal", "artifacts/screenshots", "playwright-report"],
+      browserProjects: { Chromium: "必須", Firefox: "必須", WebKit: "必須" },
+      promptPreview: safePrompt,
+      blockedReasons: ["実行予算超過のためkeep_nowへ縮小"],
+      sanitizationScan: "local path / private host / private network URLなし",
+      aiddSpecConnection: "AIDD-Spec v0.1 AI Task Packet / Verification Evidence / Review Record / Learning Log、AIDD Control Plane Codex Run Budget Shrink Planner"
+    };
+  }
+  if (state === "stop") {
+    return {
+      state,
+      sourcePacketId: "ATP-069-stop",
+      usageBand: "overflow",
+      keepNow: [],
+      deferNextIncrement: ["検証設計を先に補う", "証跡保存先を決める", "rollback条件を定義する"],
+      minimumVerification: ["pnpm run test"],
+      fallbackAction: "実行せずReview Recordへ戻す",
+      resumeCondition: "最低検証、3ブラウザ、terminal/failure screenshot、rollbackが揃ったら再開",
+      evidencePaths: ["未設定"],
+      browserProjects: { Chromium: "必須", Firefox: "除外", WebKit: "未確認" },
+      promptPreview: "defer_next_incrementもまとめて実行する。private-preview.example.invalid を参照する。",
+      blockedReasons: ["minimum_verification不足", "Firefox除外", "terminal/failure screenshot不足", "rollback不足", "公開危険文字列混入"],
+      sanitizationScan: "private host混入を検出",
+      aiddSpecConnection: "不足"
+    };
+  }
+  return {
+    state,
+    sourcePacketId: "ATP-069-sanitized",
+    usageBand: "high",
+    keepNow: ["公開preview smokeで壊れたasset URLを1件だけ修正する"],
+    deferNextIncrement: ["CI artifact API連携", "複数記事の一括QA"],
+    minimumVerification: minimumVerificationCommands,
+    fallbackAction: "失敗時はReview Finding Action Queueへ戻す",
+    resumeCondition: "公開previewと画像URLがHTTP経路で確認できたら次へ進む",
+    evidencePaths: ["artifacts/terminal", "artifacts/screenshots", "playwright-report"],
+    browserProjects: { Chromium: "必須", Firefox: "必須", WebKit: "必須" },
+    promptPreview: safePrompt,
+    blockedReasons: [],
+    sanitizationScan: "local path / private host / private network URLなし",
+    aiddSpecConnection: "AIDD-Spec v0.1 AI Task Packet / Verification Evidence / Review Record / Learning Log、AIDD Control Plane Codex Run Budget Shrink Planner"
+  };
+}
+
+export function hasPromptLeakage(prompt: string): boolean {
+  return /defer_next_incrementもまとめて|private-preview|\/Users\/|\/home\/|127\.0\.0\.1|192\.168\.|10\.|172\.(1[6-9]|2\d|3[01])\./i.test(prompt);
+}
+
+export function createShrinkPlanViewModel(state: PlannerState) {
+  const input = getShrinkPlanInput(state);
+  const promptLeakage = hasPromptLeakage(input.promptPreview);
+  const missingMinimumVerification = minimumVerificationCommands.filter((command) => !input.minimumVerification.includes(command));
+  const missingEvidence = ["artifacts/terminal", "artifacts/screenshots", "playwright-report"].filter((item) => !input.evidencePaths.includes(item));
+  const missingBrowser = requiredBrowsers.filter((browser) => input.browserProjects[browser] !== "必須");
+  const hardBlockers = [...input.blockedReasons, ...missingMinimumVerification.map((command) => `${command}不足`), ...missingEvidence.map((item) => `${item}不足`), ...missingBrowser.map((browser) => `${browser}不足`)];
+  const runState = hardBlockers.length === 0 && !promptLeakage ? (state === "brake" ? "brake" : "ready") : "stop";
+  return { input, promptLeakage, missingMinimumVerification, missingEvidence, missingBrowser, hardBlockers, runState, canRunShrunkPacket: runState === "ready" || runState === "brake" };
+}
+export const gateStates = ["empty", "ready", "blocked", "sanitized"] as const;
+export type GateState = (typeof gateStates)[number];
+export const requiredBrowsers = ["Chromium", "Firefox", "WebKit"] as const;
+export type Lane = "execute_now" | "next_increment" | "learning_log";
+export type SandboxMode = "danger-full-access" | "workspace-write" | "未指定";
+
+export type ReadinessInput = {
+  state: GateState;
+  sourceQueueId: string;
+  executeNowActionId: string;
+  lane: Lane | "未選択";
+  codexCommand: string;
+  sandboxMode: SandboxMode;
+  requiredVerificationCommands: string[];
+  browserProjects: Record<(typeof requiredBrowsers)[number], "必須" | "除外" | "未確認">;
+  requiredEvidence: string[];
+  rollbackStopCondition: string;
+  readyReason: string;
+  aiddSpecConnection: string;
+  sanitizationScan: string;
+  blockedReasons: string[];
+  codexPromptPreview: string;
+};
+
+export const verificationCommands = [
+  "pnpm run lint",
+  "pnpm run typecheck",
+  "pnpm run test",
+  "pnpm run build",
+  "pnpm run test:e2e",
+  "pnpm run doctor:aidd"
+];
+
+const safePrompt = [
+  "MVP068 execute_now action RFQ-067-001だけを実行してください。",
+  "Codex commandは codex exec --sandbox danger-full-access で、対象はgenerated-repo内に限定します。",
+  "検証は pnpm run lint / pnpm run typecheck / pnpm run test / pnpm run build / pnpm run test:e2e / pnpm run doctor:aidd を個別ログに保存します。",
+  "Chromium / Firefox / WebKitをすべて実行し、terminal / empty / ready / blocked / sanitized screenshot / Playwright reportを残します。",
+  "rollback stop condition: 検証失敗、公開危険文字列、証跡不足が出たらRun Queueへ進めずReview Recordへ戻します。"
+].join("\n");
+
+export function getReadinessInput(state: GateState): ReadinessInput {
+  if (state === "empty") {
+    return {
+      state,
+      sourceQueueId: "",
+      executeNowActionId: "",
+      lane: "未選択",
+      codexCommand: "未生成",
+      sandboxMode: "未指定",
+      requiredVerificationCommands: [],
+      browserProjects: { Chromium: "未確認", Firefox: "未確認", WebKit: "未確認" },
+      requiredEvidence: [],
+      rollbackStopCondition: "未設定",
+      readyReason: "実行候補が未選択です。古いAction Queueを使い回しません。",
+      aiddSpecConnection: "未接続",
+      sanitizationScan: "未実行",
+      blockedReasons: ["source queue id不足", "execute_now action不足"],
+      codexPromptPreview: "未生成"
+    };
+  }
+  if (state === "blocked") {
+    return {
+      state,
+      sourceQueueId: "RFQ-067-public-preview",
+      executeNowActionId: "RFQ-067-003",
+      lane: "next_increment",
+      codexCommand: "codex exec --yolo '次回incrementもまとめて直す'",
+      sandboxMode: "未指定",
+      requiredVerificationCommands: ["pnpm run test"],
+      browserProjects: { Chromium: "必須", Firefox: "除外", WebKit: "必須" },
+      requiredEvidence: ["terminal screenshot"],
+      rollbackStopCondition: "未設定",
+      readyReason: "blocked理由があるためCodex Run Queueへ進めません。",
+      aiddSpecConnection: "不足",
+      sanitizationScan: "private URL混入を検出",
+      blockedReasons: [
+        "execute_now以外のaction混入",
+        "危険command",
+        "sandbox mode不足",
+        "Firefox除外",
+        "terminal/failure screenshot不足",
+        "rollback不足",
+        "private URL混入",
+        "AIDD-Spec接続不足"
+      ],
+      codexPromptPreview: "RFQ-067-003 次回incrementもまとめて実行する。private-preview.example.invalid を参照する。"
+    };
+  }
+  return {
+    state,
+    sourceQueueId: "RFQ-067-public-preview",
+    executeNowActionId: "RFQ-067-001",
+    lane: "execute_now",
+    codexCommand: "codex exec --sandbox danger-full-access 'Run one execute_now repair delta from Smoke Finding Action Queue'",
+    sandboxMode: "danger-full-access",
+    requiredVerificationCommands: verificationCommands,
+    browserProjects: { Chromium: "必須", Firefox: "必須", WebKit: "必須" },
+    requiredEvidence: ["terminal evidence", "empty screenshot", "ready screenshot", "blocked screenshot", "failure screenshot", "Playwright report"],
+    rollbackStopCondition: "検証失敗、公開危険文字列、証跡不足が出たらRun Queueへ進めずReview Recordへ戻す。",
+    readyReason: state === "ready" ? "execute_nowだけが選ばれ、検証・証跡・rollback・AIDD-Spec接続が揃っています。" : "公開用サニタイズ後もexecute_nowだけがCodex prompt previewに残っています。",
+    aiddSpecConnection: "AIDD-Spec v0.1 AI Task Packet / Verification Evidence / Review Record / Learning Log、AIDD Control Plane One-Run Execution Readiness Gate",
+    sanitizationScan: state === "sanitized" ? "local path / host名 / private network URLなし" : "公開危険文字列なし",
+    blockedReasons: [],
+    codexPromptPreview: safePrompt
+  };
+}
+
+export function hasExecutionBlockers(input: ReadinessInput): boolean {
+  return input.blockedReasons.length > 0 || input.lane !== "execute_now" || input.sandboxMode === "未指定" || input.browserProjects.Firefox !== "必須" || input.aiddSpecConnection === "不足";
+}
+
+export function hasPromptLeakage(prompt: string): boolean {
+  return /RFQ-067-003|next_increment|learning_log|次回increment|private-preview|\/Users\/|\/home\/|127\.0\.0\.1|192\.168\.|10\./i.test(prompt);
+}
+
+export function createReadinessViewModel(state: GateState) {
+  const input = getReadinessInput(state);
+  const promptLeakage = hasPromptLeakage(input.codexPromptPreview);
+  const readiness = state === "empty" ? "empty" : hasExecutionBlockers(input) || promptLeakage ? "blocked" : "ready";
+  const missingEvidence = ["terminal evidence", "failure screenshot", "Playwright report"].filter((evidence) => !input.requiredEvidence.includes(evidence));
+  return { input, readiness, promptLeakage, missingEvidence, canQueue: readiness === "ready" && missingEvidence.length === 0 };
+}
+
+exec
+/bin/zsh -lc "sed -n '1,260p' app/page.tsx" in REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo
+ succeeded in 0ms:
+"use client";
+
+import { useMemo, useState } from "react";
+import { createReadinessViewModel, gateStates, requiredBrowsers, type GateState } from "../src/domain/readiness-gate";
+
+const stateLabels: Record<GateState, string> = {
+  empty: "入力待ち",
+  ready: "実行準備OK",
+  blocked: "実行前ブロック",
+  sanitized: "公開用サニタイズ済み"
+};
+
+export default function Home() {
+  const [state, setState] = useState<GateState>("empty");
+  const view = useMemo(() => createReadinessViewModel(state), [state]);
+  return (
+    <main className="shell">
+      <section className="hero" aria-label="AIDD Control Plane MVP068">
+        <div>
+          <p className="eyebrow">AIDD Control Plane MVP068</p>
+          <h1>One-Run Execution Readiness Gate</h1>
+          <p className="lead">Smoke Finding Action Queueのexecute_now itemを、Codex Run Queueへ入れる直前に検査します。Codex command、sandbox mode、3ブラウザ、必要証跡、rollback stop condition、AIDD-Spec接続を確認し、危険な実行候補を止めます。</p>
+        </div>
+        <div className={`readiness ${view.readiness}`}>
+          <span>run queue readiness</span>
+          <strong>{view.readiness}</strong>
+          <small>{stateLabels[state]}</small>
+        </div>
+      </section>
+
+      <section className="toolbar" aria-label="Readiness Gate状態切替">
+        {gateStates.map((item) => <button key={item} className={state === item ? "active" : ""} onClick={() => setState(item)} type="button">{item}</button>)}
+      </section>
+
+      <section className="grid">
+        <SummaryPanel state={state} view={view} />
+        <CommandPanel view={view} />
+        <BrowserPanel coverage={view.input.browserProjects} />
+        <EvidencePanel evidence={view.input.requiredEvidence} missing={view.missingEvidence} />
+        <BlockPanel reasons={view.input.blockedReasons} promptLeakage={view.promptLeakage} />
+        <OutputPanel title="Codex prompt preview（execute_nowのみ）" body={view.input.codexPromptPreview} />
+      </section>
+    </main>
+  );
+}
+
+function SummaryPanel({ state, view }: { state: GateState; view: ReturnType<typeof createReadinessViewModel> }) {
+  return <article className="panel primary" aria-label="One-Run Execution Readiness Gate概要">
+    <div className="panelHeader"><p className="eyebrow">Source Action Queue</p><h2>{stateLabels[state]}</h2></div>
+    <dl className="detailList">
+      <div><dt>source queue id</dt><dd>{view.input.sourceQueueId || "未選択"}</dd></div>
+      <div><dt>execute_now action id</dt><dd>{view.input.executeNowActionId || "未選択"}</dd></div>
+      <div><dt>lane</dt><dd>{view.input.lane}</dd></div>
+      <div><dt>ready reason</dt><dd>{view.input.readyReason}</dd></div>
+      <div><dt>AIDD-Spec接続</dt><dd>{view.input.aiddSpecConnection}</dd></div>
+      <div><dt>sanitization scan</dt><dd>{view.input.sanitizationScan}</dd></div>
+    </dl>
+    {state === "empty" ? <p className="note">emptyでは実行候補を選ばず、古いAction QueueをRun Queueへ流しません。</p> : null}
+    {view.canQueue ? <p className="note">readyです。Codex Run Queueへ入れる直前の条件が揃っています。</p> : null}
+  </article>;
+}
+
+function CommandPanel({ view }: { view: ReturnType<typeof createReadinessViewModel> }) {
+  return <article className="panel" aria-label="Codex実行条件">
+    <div className="panelHeader"><p className="eyebrow">Run Condition</p><h2>Codex command / sandbox</h2></div>
+    <dl className="detailList">
+      <div><dt>codex command</dt><dd>{view.input.codexCommand}</dd></div>
+      <div><dt>sandbox mode</dt><dd>{view.input.sandboxMode}</dd></div>
+      <div><dt>rollback stop condition</dt><dd>{view.input.rollbackStopCondition}</dd></div>
+    </dl>
+    <h3>required verification commands</h3>
+    {view.input.requiredVerificationCommands.length === 0 ? <p className="muted">未設定</p> : <ul className="checkList">{view.input.requiredVerificationCommands.map((command) => <li key={command}><strong>{command}</strong><span>個別terminal logへ保存</span></li>)}</ul>}
+  </article>;
+}
+
+function BrowserPanel({ coverage }: { coverage: Record<(typeof requiredBrowsers)[number], string> }) {
+  return <article className="panel" aria-label="Chromium Firefox WebKit">
+    <div className="panelHeader"><p className="eyebrow">Coverage</p><h2>Chromium / Firefox / WebKit</h2></div>
+    <ul className="browserList">{requiredBrowsers.map((browser) => <li key={browser} className={coverage[browser] === "必須" ? "pass" : "skip"}><span>{browser}</span><strong>{coverage[browser]}</strong></li>)}</ul>
+  </article>;
+}
+
+function EvidencePanel({ evidence, missing }: { evidence: string[]; missing: string[] }) {
+  return <article className="panel" aria-label="必要証跡">
+    <div className="panelHeader"><p className="eyebrow">Evidence</p><h2>terminal / screenshots / report</h2></div>
+    {evidence.length === 0 ? <p className="muted">必要証跡は未設定です。</p> : <ul className="checkList">{evidence.map((item) => <li key={item}><strong>{item}</strong><span>Verification Evidenceへ保存</span></li>)}</ul>}
+    {missing.length ? <p className="note danger">不足: {missing.join("、")}</p> : <p className="note">terminal evidence、failure screenshot、Playwright reportが揃っています。</p>}
+  </article>;
+}
+
+function BlockPanel({ reasons, promptLeakage }: { reasons: string[]; promptLeakage: boolean }) {
+  return <article className="panel" aria-label="blocked reasons">
+    <div className="panelHeader"><p className="eyebrow">Gate</p><h2>実行前ブロック</h2></div>
+    {reasons.length === 0 && !promptLeakage ? <p className="note">next_increment混入、危険command、sandbox不足、Firefox除外、terminal/failure screenshot不足、rollback不足、local path/private URL、AIDD-Spec接続不足は検出されていません。</p> : <ul className="findingList">{reasons.map((reason) => <li key={reason}><div><h3>{reason}</h3><span>blocked</span></div><p>解消するまでCodex Run Queueへ渡しません。</p></li>)}{promptLeakage ? <li><div><h3>execute_now以外または公開危険文字列のprompt混入</h3><span>blocked</span></div><p>Codex prompt previewはexecute_nowだけ、公開可能な文字列だけにしてください。</p></li> : null}</ul>}
+  </article>;
+}
+
+function OutputPanel({ title, body }: { title: string; body: string }) {
+  return <article className="panel output primary" aria-label={title}><div className="panelHeader"><p className="eyebrow">Export</p><h2>{title}</h2></div><pre>{body}</pre></article>;
+}
+
+exec
+/bin/zsh -lc "sed -n '1,220p' playwright.config.ts && sed -n '1,220p' e2e/readiness-gate.spec.ts" in REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo
+ succeeded in 0ms:
+import { defineConfig, devices } from "@playwright/test";
+
+export default defineConfig({
+  testDir: "./e2e",
+  timeout: 120_000,
+  expect: { timeout: 90_000 },
+  fullyParallel: false,
+  retries: 1,
+  workers: 1,
+  reporter: [["list"], ["html", { open: "never" }]],
+  use: {
+    baseURL: "http://127.0.0.1:3064",
+    trace: "on-first-retry"
+  },
+  webServer: {
+    command: "pnpm exec next dev --hostname 127.0.0.1 --port 3064",
+    url: "http://127.0.0.1:3064",
+    reuseExistingServer: !process.env.CI,
+    timeout: 120_000
+  },
+  projects: [
+    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    { name: "firefox", use: { ...devices["Desktop Firefox"] } },
+    { name: "webkit", use: { ...devices["Desktop Safari"] } }
+  ]
+});
+import { expect, test } from "@playwright/test";
+
+test.describe("One-Run Execution Readiness Gate", () => {
+  test("empty状態では古いAction Queueを使わない", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByRole("heading", { name: "One-Run Execution Readiness Gate" })).toBeVisible();
+    await expect(page.getByText("実行候補が未選択です")).toBeVisible();
+    await expect(page.getByText("未選択").first()).toBeVisible();
+  });
+
+  test("ready状態でexecute_nowだけをRun Queue直前で許可する", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: "ready" }).click();
+    await expect(page.getByText("execute_nowだけが選ばれ")).toBeVisible();
+    await expect(page.getByText("RFQ-067-001").first()).toBeVisible();
+    await expect(page.getByLabel("Codex実行条件").getByText("codex exec --sandbox danger-full-access")).toBeVisible();
+    await expect(page.getByText("Firefox").first()).toBeVisible();
+  });
+
+  test("blocked状態で危険commandとFirefox除外を止める", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: "blocked" }).click();
+    const blockedReasons = page.getByLabel("blocked reasons");
+    await expect(blockedReasons.getByRole("heading", { name: "危険command" })).toBeVisible();
+    await expect(blockedReasons.getByRole("heading", { name: "Firefox除外" })).toBeVisible();
+    await expect(blockedReasons.getByRole("heading", { name: "terminal/failure screenshot不足" })).toBeVisible();
+  });
+
+  test("sanitized状態で公開用promptにexecute_nowだけを残す", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: "sanitized" }).click();
+    const prompt = page.getByLabel("Codex prompt preview（execute_nowのみ）");
+    await expect(prompt).toContainText("RFQ-067-001");
+    await expect(prompt).not.toContainText("RFQ-067-003");
+    await expect(prompt).not.toContainText("next_increment");
+    await expect(page.getByText("local path / host名 / private network URLなし")).toBeVisible();
+  });
+});
+
+codex
+ドメインモデルはMVP069の草案があり、UIだけがMVP068のままです。ここからMVP069の状態 ready/brake/stop/sanitized を画面・単体テスト・E2E・doctor・captureへ通します。
+exec
+/bin/zsh -lc "sed -n '1,260p' tests/readiness-gate.test.ts" in REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo
+ succeeded in 0ms:
+import { describe, expect, it } from "vitest";
+import { createReadinessViewModel, gateStates, hasPromptLeakage, verificationCommands } from "../src/domain/readiness-gate";
+
+describe("One-Run Execution Readiness Gate", () => {
+  it("4つの日本語UI状態を持つ", () => {
+    expect(gateStates).toEqual(["empty", "ready", "blocked", "sanitized"]);
+  });
+
+  it("readyではexecute_nowだけをRun Queue直前で許可する", () => {
+    const view = createReadinessViewModel("ready");
+    expect(view.readiness).toBe("ready");
+    expect(view.canQueue).toBe(true);
+    expect(view.input.lane).toBe("execute_now");
+    expect(view.input.browserProjects.Firefox).toBe("必須");
+    expect(view.input.requiredVerificationCommands).toEqual(verificationCommands);
+  });
+
+  it("blockedはnext_increment混入とFirefox除外を止める", () => {
+    const view = createReadinessViewModel("blocked");
+    expect(view.readiness).toBe("blocked");
+    expect(view.input.blockedReasons).toContain("execute_now以外のaction混入");
+    expect(view.input.blockedReasons).toContain("Firefox除外");
+    expect(view.input.blockedReasons).toContain("terminal/failure screenshot不足");
+  });
+
+  it("sanitizedでは公開危険文字列なしでexecute_nowだけをpromptに残す", () => {
+    const view = createReadinessViewModel("sanitized");
+    expect(view.input.codexPromptPreview).toContain("execute_now action RFQ-067-001だけ");
+    expect(view.input.codexPromptPreview).not.toContain("RFQ-067-003");
+    expect(view.input.codexPromptPreview).not.toContain("next_increment");
+    expect(view.input.sanitizationScan).toContain("local path");
+    expect(view.promptLeakage).toBe(false);
+  });
+
+  it("execute_now以外やlocal pathがpromptに混ざると検出する", () => {
+    expect(hasPromptLeakage("RFQ-067-003 次回incrementを実行する")).toBe(true);
+    const localPath = "/" + "Users" + "/example/project を直す";
+    expect(hasPromptLeakage(localPath)).toBe(true);
+  });
+});
+
+exec
+/bin/zsh -lc "sed -n '1,260p' scripts/capture-mvp068.mjs" in REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo
+exec
+/bin/zsh -lc "sed -n '1,260p' scripts/doctor-aidd.mjs" in REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo
+ succeeded in 0ms:
+import { mkdir, copyFile } from "node:fs/promises";
+import path from "node:path";
+import { chromium } from "@playwright/test";
+
+const root = process.cwd();
+const experimentRoot = path.resolve(root, "..");
+const screenshotsDir = path.join(experimentRoot, "artifacts", "screenshots");
+const assetsDir = path.join(experimentRoot, "assets");
+await mkdir(screenshotsDir, { recursive: true });
+await mkdir(assetsDir, { recursive: true });
+
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1440, height: 1100 }, deviceScaleFactor: 1 });
+await page.goto("http://127.0.0.1:3064", { waitUntil: "networkidle" });
+
+async function captureState(state, filename) {
+  if (state !== "empty") await page.getByRole("button", { name: state }).click();
+  await page.screenshot({ path: path.join(screenshotsDir, filename), fullPage: true });
+  await copyFile(path.join(screenshotsDir, filename), path.join(assetsDir, filename));
+}
+
+await captureState("empty", "aidd-control-plane-mvp068-empty.png");
+await captureState("ready", "aidd-control-plane-mvp068-ready.png");
+await captureState("blocked", "aidd-control-plane-mvp068-blocked.png");
+await captureState("sanitized", "aidd-control-plane-mvp068-sanitized.png");
+
+const terminalPage = await browser.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
+await terminalPage.setContent(`<!doctype html><html lang="ja"><head><meta charset="utf-8"><style>
+body{margin:0;background:#0b1220;color:#e5eefc;font:22px ui-monospace,Menlo,monospace;padding:36px}.card{border:1px solid #334155;border-radius:24px;padding:28px;background:#111827}h1{font:700 30px system-ui;margin:0 0 20px;color:#93c5fd}.ok{color:#86efac}.warn{color:#fde68a}pre{white-space:pre-wrap;line-height:1.55}
+</style></head><body><div class="card"><h1>AIDD Control Plane MVP068 terminal evidence</h1><pre><span class="ok">pnpm install --frozen-lockfile: pass</span>
+<span class="ok">pnpm run lint: pass</span>
+<span class="ok">pnpm run typecheck: pass</span>
+<span class="ok">pnpm run test: pass</span>
+<span class="ok">pnpm run build: pass</span>
+<span class="ok">pnpm run test:e2e: Chromium / Firefox / WebKit pass</span>
+<span class="ok">pnpm run doctor:aidd: pass</span>
+<span class="warn">Codex CLI: command not found in cron environment; prompt and packet preserved.</span></pre></div></body></html>`);
+const terminalFile = "aidd-control-plane-mvp068-terminal-evidence.png";
+await terminalPage.screenshot({ path: path.join(screenshotsDir, terminalFile), fullPage: true });
+await copyFile(path.join(screenshotsDir, terminalFile), path.join(assetsDir, terminalFile));
+await browser.close();
+console.log("capture:mvp068 completed");
+
+ succeeded in 0ms:
+import { existsSync } from "node:fs";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+
+const root = process.cwd();
+const requiredFiles = [
+  "README.md",
+  "app/page.tsx",
+  "app/layout.tsx",
+  "app/globals.css",
+  "src/domain/readiness-gate.ts",
+  "tests/readiness-gate.test.ts",
+  "e2e/readiness-gate.spec.ts",
+  "scripts/doctor-aidd.mjs",
+  "scripts/capture-mvp068.mjs",
+  "playwright.config.ts",
+  "docs/product-brief.md",
+  "docs/verification-plan.md",
+  "docs/review-record.md",
+  "docs/learning-log.md"
+];
+const requiredText = [
+  "AIDD Control Plane MVP068",
+  "One-Run Execution Readiness Gate",
+  "Smoke Finding Action Queue",
+  "Codex Run Queue",
+  "empty",
+  "ready",
+  "blocked",
+  "sanitized",
+  "source queue id",
+  "execute_now action id",
+  "codex command",
+  "sandbox mode",
+  "required verification commands",
+  "rollback stop condition",
+  "Codex prompt preview",
+  "Chromium",
+  "Firefox",
+  "WebKit",
+  "危険command",
+  "Firefox除外",
+  "terminal/failure screenshot不足",
+  "AIDD-Spec v0.1",
+  "Verification Evidence",
+  "Review Record",
+  "Learning Log",
+  "pnpm run lint",
+  "pnpm run typecheck",
+  "pnpm run test",
+  "pnpm run build",
+  "pnpm run test:e2e",
+  "pnpm run doctor:aidd",
+  "pnpm run capture:mvp068"
+];
+const missingFiles = requiredFiles.filter((file) => !existsSync(path.join(root, file)));
+const existing = await Promise.all(requiredFiles.filter((file) => existsSync(path.join(root, file))).map(async (file) => [file, await readFile(path.join(root, file), "utf8")]));
+const allText = existing.map(([, text]) => text).join("\n");
+const missingText = requiredText.filter((text) => !allText.includes(text));
+const packageJson = JSON.parse(await readFile(path.join(root, "package.json"), "utf8"));
+const requiredScripts = ["lint", "typecheck", "test", "build", "test:e2e", "doctor:aidd", "capture:mvp068"];
+const missingScripts = requiredScripts.filter((script) => !packageJson.scripts?.[script]);
+const playwrightConfig = await readFile(path.join(root, "playwright.config.ts"), "utf8");
+const missingBrowserConfig = ["Desktop Chrome", "Desktop Firefox", "Desktop Safari", "timeout: 120_000", "expect: { timeout: 90_000 }", "workers: 1"].filter((text) => !playwrightConfig.includes(text));
+const testText = await readFile(path.join(root, "tests/readiness-gate.test.ts"), "utf8");
+const missingTestText = ["execute_nowだけ", "RFQ-067-003", "promptに混ざると検出"].filter((text) => !testText.includes(text));
+const captureScript = await readFile(path.join(root, "scripts/capture-mvp068.mjs"), "utf8");
+const missingCaptureText = ["aidd-control-plane-mvp068-empty.png", "aidd-control-plane-mvp068-ready.png", "aidd-control-plane-mvp068-blocked.png", "aidd-control-plane-mvp068-sanitized.png", "aidd-control-plane-mvp068-terminal-evidence.png", "capture:mvp068 completed"].filter((text) => !captureScript.includes(text));
+const scanFiles = ["README.md", "docs/product-brief.md", "docs/verification-plan.md", "docs/review-record.md", "docs/learning-log.md", "src/domain/readiness-gate.ts", "tests/readiness-gate.test.ts", "e2e/readiness-gate.spec.ts", "app/page.tsx"];
+const dangerPatterns = [
+  { label: "local home path", pattern: /\/Users\/|\/home\// },
+  { label: "private network URL", pattern: /https?:\/\/(?:127\.0\.0\.1|10\.|172\.(?:1[6-9]|2\d|3[01])\.|192\.168\.)/i },
+  { label: "placeholder host", pattern: new RegExp(["<" + "home" + ">", "<" + "host" + ">", "tail\\.\\.\\."].join("|"), "i") }
+];
+const dangerous = [];
+for (const file of scanFiles) {
+  if (!existsSync(path.join(root, file))) continue;
+  const text = await readFile(path.join(root, file), "utf8");
+  for (const danger of dangerPatterns) if (danger.pattern.test(text)) dangerous.push(`${file}: ${danger.label}`);
+}
+if (missingFiles.length || missingText.length || missingScripts.length || missingBrowserConfig.length || missingTestText.length || missingCaptureText.length || dangerous.length) {
+  console.error("doctor:aidd failed");
+  for (const item of missingFiles) console.error(`missing file: ${item}`);
+  for (const item of missingText) console.error(`missing text: ${item}`);
+  for (const item of missingScripts) console.error(`missing script: ${item}`);
+  for (const item of missingBrowserConfig) console.error(`missing Playwright config: ${item}`);
+  for (const item of missingTestText) console.error(`missing test text: ${item}`);
+  for (const item of missingCaptureText) console.error(`missing capture text: ${item}`);
+  for (const item of dangerous) console.error(`dangerous string: ${item}`);
+  process.exit(1);
+}
+console.log("doctor:aidd passed");
+console.log("MVP068、4状態、execute_now限定readiness、3ブラウザE2E、capture:mvp068、AIDD-Spec接続、公開危険文字列検査を確認しました。");
+
+exec
+/bin/zsh -lc "sed -n '1,260p' app/globals.css" in REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo
+ succeeded in 0ms:
+:root {
+  color-scheme: light;
+  --ink: #17201b;
+  --muted: #5f6f66;
+  --line: #cfd9d2;
+  --paper: #f6f7f4;
+  --panel: #ffffff;
+  --green: #2f7d5a;
+  --red: #b13f35;
+  --amber: #a66b14;
+  --blue: #386f9f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Arial, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+}
+
+button,
+pre {
+  font: inherit;
+}
+
+.shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0 48px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 20px;
+  align-items: stretch;
+  padding: 28px;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 12px;
+  font-size: 38px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+h2 {
+  margin-bottom: 0;
+  font-size: 20px;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+h3 {
+  font-size: 16px;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+.lead {
+  max-width: 780px;
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.readiness {
+  display: flex;
+  min-height: 160px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f9fbf8;
+}
+
+.readiness span,
+.readiness small {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.readiness strong {
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.readiness.valid {
+  border-color: #94c8aa;
+}
+
+.readiness.failure,
+.readiness.blocked {
+  border-color: #dfa49e;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.toolbar button {
+  min-width: 110px;
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.toolbar button.active {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #ffffff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.panel {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.panel.primary,
+.panel.output {
+  grid-column: 1 / -1;
+}
+
+.panelHeader {
+  margin-bottom: 16px;
+}
+
+.detailList {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.detailList div {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e7ece8;
+}
+
+.detailList.compact div {
+  grid-template-columns: 170px minmax(0, 1fr);
+}
+
+dt {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  line-height: 1.55;
+}
+
+.note {
+  margin: 16px 0 0;
+  padding: 12px;
+  border-left: 4px solid var(--blue);
+  background: #f2f7fb;
+  line-height: 1.6;
+}
+
+.note.danger {
+  border-left-color: var(--red);
+  background: #fff6f4;
+}
+
+.browserList,
+.findingList,
+.checkList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.browserList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.browserList li {
+  display: grid;
+  gap: 8px;
+  min-height: 88px;
+  align-content: center;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.browserList span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.browserList .pass {
+  border-color: #9dc7a9;
+}
+
+.browserList .fail {
+  border-color: #df9a93;
+}
+
+.browserList .skip {
+  border-color: #dbbd88;
+}
+
+.recordText {
+  margin-bottom: 0;
+  overflow-wrap: anywhere;
+  line-height: 1.7;
+}
+
+.muted {
+  margin-bottom: 0;
+
+exec
+/bin/zsh -lc "sed -n '261,520p' app/globals.css" in REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo
+ succeeded in 0ms:
+  color: var(--muted);
+}
+
+.urlTable {
+  display: grid;
+  gap: 8px;
+}
+
+.urlTableHead,
+.urlRow {
+  display: grid;
+  grid-template-columns: minmax(220px, 2fr) 110px 110px minmax(160px, 1fr) 100px;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.urlTableHead {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.urlRow {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.urlRow.ok {
+  border-color: #9dc7a9;
+}
+
+.urlRow.failure,
+.urlRow.blocked {
+  border-color: #df9a93;
+  background: #fff8f6;
+}
+
+.urlRow span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  line-height: 1.45;
+}
+
+.urlRow small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+.findingList {
+  display: grid;
+  gap: 10px;
+}
+
+.findingList li {
+  padding: 14px;
+  border: 1px solid #e1b1a8;
+  border-radius: 8px;
+  background: #fff8f6;
+}
+
+.findingList li > div {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.findingList h3 {
+  margin-bottom: 0;
+}
+
+.findingList span {
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.findingList p {
+  margin: 10px 0 0;
+  line-height: 1.6;
+}
+
+.findingList .fix {
+  color: #5c332b;
+  font-weight: 700;
+}
+
+pre {
+  overflow: auto;
+  max-height: 420px;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid #d9e0dc;
+  border-radius: 8px;
+  background: #111816;
+  color: #ecf5ef;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.command {
+  max-height: none;
+}
+
+.checkList {
+  display: grid;
+  gap: 8px;
+}
+
+.checkList li {
+  padding: 10px 12px;
+  border: 1px solid #d9e0dc;
+  border-radius: 8px;
+  background: #f8faf8;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 820px) {
+  .shell {
+    width: min(100% - 20px, 1180px);
+    padding-top: 18px;
+  }
+
+  .hero,
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  .detailList div,
+  .detailList.compact div,
+  .browserList,
+  .urlTableHead,
+  .urlRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+exec
+/bin/zsh -lc "sed -n '1,220p' app/layout.tsx && sed -n '1,160p' tsconfig.json && sed -n '1,160p' vitest.config.ts" in REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo
+exec
+/bin/zsh -lc "sed -n '1,220p' README.md && sed -n '1,200p' docs/product-brief.md" in REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo
+ succeeded in 0ms:
+# AIDD Control Plane MVP068
+
+One-Run Execution Readiness Gate。Smoke Finding Action Queueのexecute_now itemをCodex Run Queueへ入れる直前に検査するNext.js + TypeScriptアプリです。
+
+## Scripts
+
+- `pnpm run lint`
+- `pnpm run typecheck`
+- `pnpm run test`
+- `pnpm run build`
+- `pnpm run test:e2e`
+- `pnpm run doctor:aidd`
+- `pnpm run capture:mvp068`
+
+UIは日本語で、empty / ready / blocked / sanitized の4状態を持ちます。
+# Product Brief: One-Run Execution Readiness Gate
+
+## 体験
+Smoke Finding Action Queueで選んだexecute_now itemを、Codex Run Queueへ入れる直前に確認する。ユーザーはCodex command、sandbox mode、検証コマンド、Chromium / Firefox / WebKit、必要証跡、rollback stop condition、AIDD-Spec v0.1接続を1画面で見る。
+
+## ゴール
+- execute_nowだけを実行候補にする
+- next_increment / learning_log混入、危険command、Firefox除外、証跡不足をblockedにする
+- 公開用promptからlocal pathやprivate network URLを除く
+
+## 非ゴール
+- 実際のCodex Run Queue実行管理は次MVPに送る
+- 外部GitHub API連携は行わない
+
+ succeeded in 0ms:
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Public Preview Smoke Verifier",
+  description: "AIDD Control Plane MVP066"
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="ja">
+      <body>{children}</body>
+    </html>
+  );
+}
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [{ "name": "next" }]
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  test: {
+    environment: "node",
+    include: ["tests/**/*.test.ts"],
+    coverage: {
+      reporter: ["text", "html", "json"]
+    }
+  }
+});
+
+codex
+これからMVP069用にファイルを置き換えます。主な編集は、UIをBudget Shrink Plannerへ差し替え、doctor/capture名をmvp069へ更新し、テストをbrake/stop/sanitizedの要件に合わせることです。
+apply patch
+patch: completed
+REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
+diff --git a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
+deleted file mode 100644
+index 4f3039fa2759a7eaf4061908fec73b16aa5b3d94..0000000000000000000000000000000000000000
+--- a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
++++ /dev/null
+@@ -1,100 +0,0 @@
+-"use client";
+-
+-import { useMemo, useState } from "react";
+-import { createReadinessViewModel, gateStates, requiredBrowsers, type GateState } from "../src/domain/readiness-gate";
+-
+-const stateLabels: Record<GateState, string> = {
+-  empty: "入力待ち",
+-  ready: "実行準備OK",
+-  blocked: "実行前ブロック",
+-  sanitized: "公開用サニタイズ済み"
+-};
+-
+-export default function Home() {
+-  const [state, setState] = useState<GateState>("empty");
+-  const view = useMemo(() => createReadinessViewModel(state), [state]);
+-  return (
+-    <main className="shell">
+-      <section className="hero" aria-label="AIDD Control Plane MVP068">
+-        <div>
+-          <p className="eyebrow">AIDD Control Plane MVP068</p>
+-          <h1>One-Run Execution Readiness Gate</h1>
+-          <p className="lead">Smoke Finding Action Queueのexecute_now itemを、Codex Run Queueへ入れる直前に検査します。Codex command、sandbox mode、3ブラウザ、必要証跡、rollback stop condition、AIDD-Spec接続を確認し、危険な実行候補を止めます。</p>
+-        </div>
+-        <div className={`readiness ${view.readiness}`}>
+-          <span>run queue readiness</span>
+-          <strong>{view.readiness}</strong>
+-          <small>{stateLabels[state]}</small>
+-        </div>
+-      </section>
+-
+-      <section className="toolbar" aria-label="Readiness Gate状態切替">
+-        {gateStates.map((item) => <button key={item} className={state === item ? "active" : ""} onClick={() => setState(item)} type="button">{item}</button>)}
+-      </section>
+-
+-      <section className="grid">
+-        <SummaryPanel state={state} view={view} />
+-        <CommandPanel view={view} />
+-        <BrowserPanel coverage={view.input.browserProjects} />
+-        <EvidencePanel evidence={view.input.requiredEvidence} missing={view.missingEvidence} />
+-        <BlockPanel reasons={view.input.blockedReasons} promptLeakage={view.promptLeakage} />
+-        <OutputPanel title="Codex prompt preview（execute_nowのみ）" body={view.input.codexPromptPreview} />
+-      </section>
+-    </main>
+-  );
+-}
+-
+-function SummaryPanel({ state, view }: { state: GateState; view: ReturnType<typeof createReadinessViewModel> }) {
+-  return <article className="panel primary" aria-label="One-Run Execution Readiness Gate概要">
+-    <div className="panelHeader"><p className="eyebrow">Source Action Queue</p><h2>{stateLabels[state]}</h2></div>
+-    <dl className="detailList">
+-      <div><dt>source queue id</dt><dd>{view.input.sourceQueueId || "未選択"}</dd></div>
+-      <div><dt>execute_now action id</dt><dd>{view.input.executeNowActionId || "未選択"}</dd></div>
+-      <div><dt>lane</dt><dd>{view.input.lane}</dd></div>
+-      <div><dt>ready reason</dt><dd>{view.input.readyReason}</dd></div>
+-      <div><dt>AIDD-Spec接続</dt><dd>{view.input.aiddSpecConnection}</dd></div>
+-      <div><dt>sanitization scan</dt><dd>{view.input.sanitizationScan}</dd></div>
+-    </dl>
+-    {state === "empty" ? <p className="note">emptyでは実行候補を選ばず、古いAction QueueをRun Queueへ流しません。</p> : null}
+-    {view.canQueue ? <p className="note">readyです。Codex Run Queueへ入れる直前の条件が揃っています。</p> : null}
+-  </article>;
+-}
+-
+-function CommandPanel({ view }: { view: ReturnType<typeof createReadinessViewModel> }) {
+-  return <article className="panel" aria-label="Codex実行条件">
+-    <div className="panelHeader"><p className="eyebrow">Run Condition</p><h2>Codex command / sandbox</h2></div>
+-    <dl className="detailList">
+-      <div><dt>codex command</dt><dd>{view.input.codexCommand}</dd></div>
+-      <div><dt>sandbox mode</dt><dd>{view.input.sandboxMode}</dd></div>
+-      <div><dt>rollback stop condition</dt><dd>{view.input.rollbackStopCondition}</dd></div>
+-    </dl>
+-    <h3>required verification commands</h3>
+-    {view.input.requiredVerificationCommands.length === 0 ? <p className="muted">未設定</p> : <ul className="checkList">{view.input.requiredVerificationCommands.map((command) => <li key={command}><strong>{command}</strong><span>個別terminal logへ保存</span></li>)}</ul>}
+-  </article>;
+-}
+-
+-function BrowserPanel({ coverage }: { coverage: Record<(typeof requiredBrowsers)[number], string> }) {
+-  return <article className="panel" aria-label="Chromium Firefox WebKit">
+-    <div className="panelHeader"><p className="eyebrow">Coverage</p><h2>Chromium / Firefox / WebKit</h2></div>
+-    <ul className="browserList">{requiredBrowsers.map((browser) => <li key={browser} className={coverage[browser] === "必須" ? "pass" : "skip"}><span>{browser}</span><strong>{coverage[browser]}</strong></li>)}</ul>
+-  </article>;
+-}
+-
+-function EvidencePanel({ evidence, missing }: { evidence: string[]; missing: string[] }) {
+-  return <article className="panel" aria-label="必要証跡">
+-    <div className="panelHeader"><p className="eyebrow">Evidence</p><h2>terminal / screenshots / report</h2></div>
+-    {evidence.length === 0 ? <p className="muted">必要証跡は未設定です。</p> : <ul className="checkList">{evidence.map((item) => <li key={item}><strong>{item}</strong><span>Verification Evidenceへ保存</span></li>)}</ul>}
+-    {missing.length ? <p className="note danger">不足: {missing.join("、")}</p> : <p className="note">terminal evidence、failure screenshot、Playwright reportが揃っています。</p>}
+-  </article>;
+-}
+-
+-function BlockPanel({ reasons, promptLeakage }: { reasons: string[]; promptLeakage: boolean }) {
+-  return <article className="panel" aria-label="blocked reasons">
+-    <div className="panelHeader"><p className="eyebrow">Gate</p><h2>実行前ブロック</h2></div>
+-    {reasons.length === 0 && !promptLeakage ? <p className="note">next_increment混入、危険command、sandbox不足、Firefox除外、terminal/failure screenshot不足、rollback不足、local path/private URL、AIDD-Spec接続不足は検出されていません。</p> : <ul className="findingList">{reasons.map((reason) => <li key={reason}><div><h3>{reason}</h3><span>blocked</span></div><p>解消するまでCodex Run Queueへ渡しません。</p></li>)}{promptLeakage ? <li><div><h3>execute_now以外または公開危険文字列のprompt混入</h3><span>blocked</span></div><p>Codex prompt previewはexecute_nowだけ、公開可能な文字列だけにしてください。</p></li> : null}</ul>}
+-  </article>;
+-}
+-
+-function OutputPanel({ title, body }: { title: string; body: string }) {
+-  return <article className="panel output primary" aria-label={title}><div className="panelHeader"><p className="eyebrow">Export</p><h2>{title}</h2></div><pre>{body}</pre></article>;
+-}
+
+diff --git a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
+deleted file mode 100644
+index 4f3039fa2759a7eaf4061908fec73b16aa5b3d94..0000000000000000000000000000000000000000
+--- a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
++++ /dev/null
+@@ -1,100 +0,0 @@
+-"use client";
+-
+-import { useMemo, useState } from "react";
+-import { createReadinessViewModel, gateStates, requiredBrowsers, type GateState } from "../src/domain/readiness-gate";
+-
+-const stateLabels: Record<GateState, string> = {
+-  empty: "入力待ち",
+-  ready: "実行準備OK",
+-  blocked: "実行前ブロック",
+-  sanitized: "公開用サニタイズ済み"
+-};
+-
+-export default function Home() {
+-  const [state, setState] = useState<GateState>("empty");
+-  const view = useMemo(() => createReadinessViewModel(state), [state]);
+-  return (
+-    <main className="shell">
+-      <section className="hero" aria-label="AIDD Control Plane MVP068">
+-        <div>
+-          <p className="eyebrow">AIDD Control Plane MVP068</p>
+-          <h1>One-Run Execution Readiness Gate</h1>
+-          <p className="lead">Smoke Finding Action Queueのexecute_now itemを、Codex Run Queueへ入れる直前に検査します。Codex command、sandbox mode、3ブラウザ、必要証跡、rollback stop condition、AIDD-Spec接続を確認し、危険な実行候補を止めます。</p>
+-        </div>
+-        <div className={`readiness ${view.readiness}`}>
+-          <span>run queue readiness</span>
+-          <strong>{view.readiness}</strong>
+-          <small>{stateLabels[state]}</small>
+-        </div>
+-      </section>
+-
+-      <section className="toolbar" aria-label="Readiness Gate状態切替">
+-        {gateStates.map((item) => <button key={item} className={state === item ? "active" : ""} onClick={() => setState(item)} type="button">{item}</button>)}
+-      </section>
+-
+-      <section className="grid">
+-        <SummaryPanel state={state} view={view} />
+-        <CommandPanel view={view} />
+-        <BrowserPanel coverage={view.input.browserProjects} />
+-        <EvidencePanel evidence={view.input.requiredEvidence} missing={view.missingEvidence} />
+-        <BlockPanel reasons={view.input.blockedReasons} promptLeakage={view.promptLeakage} />
+-        <OutputPanel title="Codex prompt preview（execute_nowのみ）" body={view.input.codexPromptPreview} />
+-      </section>
+-    </main>
+-  );
+-}
+-
+-function SummaryPanel({ state, view }: { state: GateState; view: ReturnType<typeof createReadinessViewModel> }) {
+-  return <article className="panel primary" aria-label="One-Run Execution Readiness Gate概要">
+-    <div className="panelHeader"><p className="eyebrow">Source Action Queue</p><h2>{stateLabels[state]}</h2></div>
+-    <dl className="detailList">
+-      <div><dt>source queue id</dt><dd>{view.input.sourceQueueId || "未選択"}</dd></div>
+-      <div><dt>execute_now action id</dt><dd>{view.input.executeNowActionId || "未選択"}</dd></div>
+-      <div><dt>lane</dt><dd>{view.input.lane}</dd></div>
+-      <div><dt>ready reason</dt><dd>{view.input.readyReason}</dd></div>
+-      <div><dt>AIDD-Spec接続</dt><dd>{view.input.aiddSpecConnection}</dd></div>
+-      <div><dt>sanitization scan</dt><dd>{view.input.sanitizationScan}</dd></div>
+-    </dl>
+-    {state === "empty" ? <p className="note">emptyでは実行候補を選ばず、古いAction QueueをRun Queueへ流しません。</p> : null}
+-    {view.canQueue ? <p className="note">readyです。Codex Run Queueへ入れる直前の条件が揃っています。</p> : null}
+-  </article>;
+-}
+-
+-function CommandPanel({ view }: { view: ReturnType<typeof createReadinessViewModel> }) {
+-  return <article className="panel" aria-label="Codex実行条件">
+-    <div className="panelHeader"><p className="eyebrow">Run Condition</p><h2>Codex command / sandbox</h2></div>
+-    <dl className="detailList">
+-      <div><dt>codex command</dt><dd>{view.input.codexCommand}</dd></div>
+-      <div><dt>sandbox mode</dt><dd>{view.input.sandboxMode}</dd></div>
+-      <div><dt>rollback stop condition</dt><dd>{view.input.rollbackStopCondition}</dd></div>
+-    </dl>
+-    <h3>required verification commands</h3>
+-    {view.input.requiredVerificationCommands.length === 0 ? <p className="muted">未設定</p> : <ul className="checkList">{view.input.requiredVerificationCommands.map((command) => <li key={command}><strong>{command}</strong><span>個別terminal logへ保存</span></li>)}</ul>}
+-  </article>;
+-}
+-
+-function BrowserPanel({ coverage }: { coverage: Record<(typeof requiredBrowsers)[number], string> }) {
+-  return <article className="panel" aria-label="Chromium Firefox WebKit">
+-    <div className="panelHeader"><p className="eyebrow">Coverage</p><h2>Chromium / Firefox / WebKit</h2></div>
+-    <ul className="browserList">{requiredBrowsers.map((browser) => <li key={browser} className={coverage[browser] === "必須" ? "pass" : "skip"}><span>{browser}</span><strong>{coverage[browser]}</strong></li>)}</ul>
+-  </article>;
+-}
+-
+-function EvidencePanel({ evidence, missing }: { evidence: string[]; missing: string[] }) {
+-  return <article className="panel" aria-label="必要証跡">
+-    <div className="panelHeader"><p className="eyebrow">Evidence</p><h2>terminal / screenshots / report</h2></div>
+-    {evidence.length === 0 ? <p className="muted">必要証跡は未設定です。</p> : <ul className="checkList">{evidence.map((item) => <li key={item}><strong>{item}</strong><span>Verification Evidenceへ保存</span></li>)}</ul>}
+-    {missing.length ? <p className="note danger">不足: {missing.join("、")}</p> : <p className="note">terminal evidence、failure screenshot、Playwright reportが揃っています。</p>}
+-  </article>;
+-}
+-
+-function BlockPanel({ reasons, promptLeakage }: { reasons: string[]; promptLeakage: boolean }) {
+-  return <article className="panel" aria-label="blocked reasons">
+-    <div className="panelHeader"><p className="eyebrow">Gate</p><h2>実行前ブロック</h2></div>
+-    {reasons.length === 0 && !promptLeakage ? <p className="note">next_increment混入、危険command、sandbox不足、Firefox除外、terminal/failure screenshot不足、rollback不足、local path/private URL、AIDD-Spec接続不足は検出されていません。</p> : <ul className="findingList">{reasons.map((reason) => <li key={reason}><div><h3>{reason}</h3><span>blocked</span></div><p>解消するまでCodex Run Queueへ渡しません。</p></li>)}{promptLeakage ? <li><div><h3>execute_now以外または公開危険文字列のprompt混入</h3><span>blocked</span></div><p>Codex prompt previewはexecute_nowだけ、公開可能な文字列だけにしてください。</p></li> : null}</ul>}
+-  </article>;
+-}
+-
+-function OutputPanel({ title, body }: { title: string; body: string }) {
+-  return <article className="panel output primary" aria-label={title}><div className="panelHeader"><p className="eyebrow">Export</p><h2>{title}</h2></div><pre>{body}</pre></article>;
+-}
+
+apply patch
+patch: completed
+REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
+diff --git a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
+index 4f3039fa2759a7eaf4061908fec73b16aa5b3d94..c064f0c214369c7cdae3e77c96aabdab2fcd1228
+--- a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
++++ b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
+@@ -1,100 +1,205 @@
+ "use client";
+ 
+ import { useMemo, useState } from "react";
+-import { createReadinessViewModel, gateStates, requiredBrowsers, type GateState } from "../src/domain/readiness-gate";
++import {
++  createShrinkPlanViewModel,
++  plannerStates,
++  requiredBrowsers,
++  type PlannerState
++} from "../src/domain/budget-shrink-planner";
+ 
+-const stateLabels: Record<GateState, string> = {
+-  empty: "入力待ち",
+-  ready: "実行準備OK",
+-  blocked: "実行前ブロック",
++const stateLabels: Record<PlannerState, string> = {
++  ready: "実行可能",
++  brake: "予算縮小",
++  stop: "実行停止",
+   sanitized: "公開用サニタイズ済み"
+ };
+ 
+ export default function Home() {
+-  const [state, setState] = useState<GateState>("empty");
+-  const view = useMemo(() => createReadinessViewModel(state), [state]);
++  const [state, setState] = useState<PlannerState>("ready");
++  const view = useMemo(() => createShrinkPlanViewModel(state), [state]);
++
+   return (
+     <main className="shell">
+-      <section className="hero" aria-label="AIDD Control Plane MVP068">
++      <section className="hero" aria-label="AIDD Control Plane MVP069">
+         <div>
+-          <p className="eyebrow">AIDD Control Plane MVP068</p>
+-          <h1>One-Run Execution Readiness Gate</h1>
+-          <p className="lead">Smoke Finding Action Queueのexecute_now itemを、Codex Run Queueへ入れる直前に検査します。Codex command、sandbox mode、3ブラウザ、必要証跡、rollback stop condition、AIDD-Spec接続を確認し、危険な実行候補を止めます。</p>
++          <p className="eyebrow">AIDD Control Plane MVP069</p>
++          <h1>Codex Run Budget Shrink Planner</h1>
++          <p className="lead">
++            Codex Runへ渡す前に、残り予算へ合わせてkeep_nowを絞り込みます。brakeでは1件だけ実行し、
++            defer_next_incrementを次回送りに表示します。stopでは最低検証、3ブラウザ、terminal/failure screenshot、
++            rollback不足をブロック理由として固定表示します。
++          </p>
+         </div>
+-        <div className={`readiness ${view.readiness}`}>
+-          <span>run queue readiness</span>
+-          <strong>{view.readiness}</strong>
++        <div className={`readiness ${view.runState}`}>
++          <span>run budget state</span>
++          <strong>{view.runState}</strong>
+           <small>{stateLabels[state]}</small>
+         </div>
+       </section>
+ 
+-      <section className="toolbar" aria-label="Readiness Gate状態切替">
+-        {gateStates.map((item) => <button key={item} className={state === item ? "active" : ""} onClick={() => setState(item)} type="button">{item}</button>)}
++      <section className="toolbar" aria-label="Budget Shrink Planner状態切替">
++        {plannerStates.map((item) => (
++          <button key={item} className={state === item ? "active" : ""} onClick={() => setState(item)} type="button">
++            {item}
++          </button>
++        ))}
+       </section>
+ 
+       <section className="grid">
+         <SummaryPanel state={state} view={view} />
+-        <CommandPanel view={view} />
+-        <BrowserPanel coverage={view.input.browserProjects} />
+-        <EvidencePanel evidence={view.input.requiredEvidence} missing={view.missingEvidence} />
+-        <BlockPanel reasons={view.input.blockedReasons} promptLeakage={view.promptLeakage} />
+-        <OutputPanel title="Codex prompt preview（execute_nowのみ）" body={view.input.codexPromptPreview} />
++        <KeepNowPanel keepNow={view.input.keepNow} deferNextIncrement={view.input.deferNextIncrement} state={state} />
++        <VerificationPanel view={view} />
++        <BrowserPanel coverage={view.input.browserProjects} missing={view.missingBrowser} />
++        <BlockPanel reasons={view.hardBlockers} promptLeakage={view.promptLeakage} />
++        <OutputPanel title="Codex prompt preview（keep_nowのみ）" body={view.input.promptPreview} />
+       </section>
+     </main>
+   );
+ }
+ 
+-function SummaryPanel({ state, view }: { state: GateState; view: ReturnType<typeof createReadinessViewModel> }) {
+-  return <article className="panel primary" aria-label="One-Run Execution Readiness Gate概要">
+-    <div className="panelHeader"><p className="eyebrow">Source Action Queue</p><h2>{stateLabels[state]}</h2></div>
+-    <dl className="detailList">
+-      <div><dt>source queue id</dt><dd>{view.input.sourceQueueId || "未選択"}</dd></div>
+-      <div><dt>execute_now action id</dt><dd>{view.input.executeNowActionId || "未選択"}</dd></div>
+-      <div><dt>lane</dt><dd>{view.input.lane}</dd></div>
+-      <div><dt>ready reason</dt><dd>{view.input.readyReason}</dd></div>
+-      <div><dt>AIDD-Spec接続</dt><dd>{view.input.aiddSpecConnection}</dd></div>
+-      <div><dt>sanitization scan</dt><dd>{view.input.sanitizationScan}</dd></div>
+-    </dl>
+-    {state === "empty" ? <p className="note">emptyでは実行候補を選ばず、古いAction QueueをRun Queueへ流しません。</p> : null}
+-    {view.canQueue ? <p className="note">readyです。Codex Run Queueへ入れる直前の条件が揃っています。</p> : null}
+-  </article>;
++function SummaryPanel({ state, view }: { state: PlannerState; view: ReturnType<typeof createShrinkPlanViewModel> }) {
++  return (
++    <article className="panel primary" aria-label="Codex Run Budget Shrink Planner概要">
++      <div className="panelHeader">
++        <p className="eyebrow">AI Task Packet</p>
++        <h2>{stateLabels[state]}</h2>
++      </div>
++      <dl className="detailList">
++        <div>
++          <dt>source packet id</dt>
++          <dd>{view.input.sourcePacketId}</dd>
++        </div>
++        <div>
++          <dt>usage band</dt>
++          <dd>{view.input.usageBand}</dd>
++        </div>
++        <div>
++          <dt>fallback action</dt>
++          <dd>{view.input.fallbackAction}</dd>
++        </div>
++        <div>
++          <dt>resume condition</dt>
++          <dd>{view.input.resumeCondition}</dd>
++        </div>
++        <div>
++          <dt>AIDD-Spec接続</dt>
++          <dd>{view.input.aiddSpecConnection}</dd>
++        </div>
++        <div>
++          <dt>sanitization scan</dt>
++          <dd>{view.input.sanitizationScan}</dd>
++        </div>
++      </dl>
++      {view.canRunShrunkPacket ? (
++        <p className="note">Codex Runへ渡せます。brakeの場合はkeep_now 1件だけを実行対象にします。</p>
++      ) : (
++        <p className="note danger">stopです。ブロック理由を解消するまでCodex Runへ渡しません。</p>
++      )}
++    </article>
++  );
+ }
+ 
+-function CommandPanel({ view }: { view: ReturnType<typeof createReadinessViewModel> }) {
+-  return <article className="panel" aria-label="Codex実行条件">
+-    <div className="panelHeader"><p className="eyebrow">Run Condition</p><h2>Codex command / sandbox</h2></div>
+-    <dl className="detailList">
+-      <div><dt>codex command</dt><dd>{view.input.codexCommand}</dd></div>
+-      <div><dt>sandbox mode</dt><dd>{view.input.sandboxMode}</dd></div>
+-      <div><dt>rollback stop condition</dt><dd>{view.input.rollbackStopCondition}</dd></div>
+-    </dl>
+-    <h3>required verification commands</h3>
+-    {view.input.requiredVerificationCommands.length === 0 ? <p className="muted">未設定</p> : <ul className="checkList">{view.input.requiredVerificationCommands.map((command) => <li key={command}><strong>{command}</strong><span>個別terminal logへ保存</span></li>)}</ul>}
+-  </article>;
++function KeepNowPanel({ keepNow, deferNextIncrement, state }: { keepNow: string[]; deferNextIncrement: string[]; state: PlannerState }) {
++  return (
++    <article className="panel" aria-label="keep_nowとdefer_next_increment">
++      <div className="panelHeader">
++        <p className="eyebrow">Shrink Plan</p>
++        <h2>keep_now / defer_next_increment</h2>
++      </div>
++      <h3>keep_now</h3>
++      {keepNow.length === 0 ? <p className="muted">実行対象なし</p> : <ul className="checkList">{keepNow.map((item) => <li key={item}>{item}</li>)}</ul>}
++      <h3 className="sectionLabel">defer_next_increment</h3>
++      {deferNextIncrement.length === 0 ? (
++        <p className="muted">次回送りなし</p>
++      ) : (
++        <ul className="checkList deferred">{deferNextIncrement.map((item) => <li key={item}>{item}</li>)}</ul>
++      )}
++      {state === "brake" ? <p className="note">brakeではkeep_nowを1件に絞り、defer_next_incrementは次回Packetへ送ります。</p> : null}
++    </article>
++  );
+ }
+ 
+-function BrowserPanel({ coverage }: { coverage: Record<(typeof requiredBrowsers)[number], string> }) {
+-  return <article className="panel" aria-label="Chromium Firefox WebKit">
+-    <div className="panelHeader"><p className="eyebrow">Coverage</p><h2>Chromium / Firefox / WebKit</h2></div>
+-    <ul className="browserList">{requiredBrowsers.map((browser) => <li key={browser} className={coverage[browser] === "必須" ? "pass" : "skip"}><span>{browser}</span><strong>{coverage[browser]}</strong></li>)}</ul>
+-  </article>;
++function VerificationPanel({ view }: { view: ReturnType<typeof createShrinkPlanViewModel> }) {
++  return (
++    <article className="panel" aria-label="最低検証と証跡">
++      <div className="panelHeader">
++        <p className="eyebrow">Verification Evidence</p>
++        <h2>最低検証 / terminal / screenshot</h2>
++      </div>
++      <h3>minimum verification</h3>
++      <ul className="checkList">{view.input.minimumVerification.map((command) => <li key={command}>{command}</li>)}</ul>
++      {view.missingMinimumVerification.length ? <p className="note danger">不足: {view.missingMinimumVerification.join("、")}</p> : null}
++      <h3 className="sectionLabel">evidence paths</h3>
++      <ul className="checkList">{view.input.evidencePaths.map((item) => <li key={item}>{item}</li>)}</ul>
++      {view.missingEvidence.length ? <p className="note danger">不足: {view.missingEvidence.join("、")}</p> : null}
++    </article>
++  );
+ }
+ 
+-function EvidencePanel({ evidence, missing }: { evidence: string[]; missing: string[] }) {
+-  return <article className="panel" aria-label="必要証跡">
+-    <div className="panelHeader"><p className="eyebrow">Evidence</p><h2>terminal / screenshots / report</h2></div>
+-    {evidence.length === 0 ? <p className="muted">必要証跡は未設定です。</p> : <ul className="checkList">{evidence.map((item) => <li key={item}><strong>{item}</strong><span>Verification Evidenceへ保存</span></li>)}</ul>}
+-    {missing.length ? <p className="note danger">不足: {missing.join("、")}</p> : <p className="note">terminal evidence、failure screenshot、Playwright reportが揃っています。</p>}
+-  </article>;
++function BrowserPanel({ coverage, missing }: { coverage: Record<(typeof requiredBrowsers)[number], string>; missing: string[] }) {
++  return (
++    <article className="panel" aria-label="Chromium Firefox WebKit">
++      <div className="panelHeader">
++        <p className="eyebrow">3 Browser E2E</p>
++        <h2>Chromium / Firefox / WebKit</h2>
++      </div>
++      <ul className="browserList">
++        {requiredBrowsers.map((browser) => (
++          <li key={browser} className={coverage[browser] === "必須" ? "pass" : "skip"}>
++            <span>{browser}</span>
++            <strong>{coverage[browser]}</strong>
++          </li>
++        ))}
++      </ul>
++      {missing.length ? <p className="note danger">不足: {missing.join("、")}</p> : <p className="note">3ブラウザを必須として確認します。</p>}
++    </article>
++  );
+ }
+ 
+ function BlockPanel({ reasons, promptLeakage }: { reasons: string[]; promptLeakage: boolean }) {
+-  return <article className="panel" aria-label="blocked reasons">
+-    <div className="panelHeader"><p className="eyebrow">Gate</p><h2>実行前ブロック</h2></div>
+-    {reasons.length === 0 && !promptLeakage ? <p className="note">next_increment混入、危険command、sandbox不足、Firefox除外、terminal/failure screenshot不足、rollback不足、local path/private URL、AIDD-Spec接続不足は検出されていません。</p> : <ul className="findingList">{reasons.map((reason) => <li key={reason}><div><h3>{reason}</h3><span>blocked</span></div><p>解消するまでCodex Run Queueへ渡しません。</p></li>)}{promptLeakage ? <li><div><h3>execute_now以外または公開危険文字列のprompt混入</h3><span>blocked</span></div><p>Codex prompt previewはexecute_nowだけ、公開可能な文字列だけにしてください。</p></li> : null}</ul>}
+-  </article>;
++  return (
++    <article className="panel" aria-label="stop block reasons">
++      <div className="panelHeader">
++        <p className="eyebrow">Stop Reason</p>
++        <h2>ブロック理由</h2>
++      </div>
++      {reasons.length === 0 && !promptLeakage ? (
++        <p className="note">最低検証、3ブラウザ、terminal/failure screenshot、rollback、prompt sanitizationを確認済みです。</p>
++      ) : (
++        <ul className="findingList">
++          {reasons.map((reason) => (
++            <li key={reason}>
++              <div>
++                <h3>{reason}</h3>
++                <span>stop</span>
++              </div>
++              <p>解消するまでCodex Runへ渡しません。</p>
++            </li>
++          ))}
++          {promptLeakage ? (
++            <li>
++              <div>
++                <h3>prompt混入</h3>
++                <span>stop</span>
++              </div>
++              <p>Codex prompt previewはkeep_nowだけにし、local path / private host / private network URLを含めません。</p>
++            </li>
++          ) : null}
++        </ul>
++      )}
++    </article>
++  );
+ }
+ 
+ function OutputPanel({ title, body }: { title: string; body: string }) {
+-  return <article className="panel output primary" aria-label={title}><div className="panelHeader"><p className="eyebrow">Export</p><h2>{title}</h2></div><pre>{body}</pre></article>;
++  return (
++    <article className="panel output primary" aria-label={title}>
++      <div className="panelHeader">
++        <p className="eyebrow">Export</p>
++        <h2>{title}</h2>
++      </div>
++      <pre>{body}</pre>
++    </article>
++  );
+ }
+
+diff --git a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
+index 4f3039fa2759a7eaf4061908fec73b16aa5b3d94..c064f0c214369c7cdae3e77c96aabdab2fcd1228
+--- a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
++++ b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
+@@ -1,100 +1,205 @@
+ "use client";
+ 
+ import { useMemo, useState } from "react";
+-import { createReadinessViewModel, gateStates, requiredBrowsers, type GateState } from "../src/domain/readiness-gate";
++import {
++  createShrinkPlanViewModel,
++  plannerStates,
++  requiredBrowsers,
++  type PlannerState
++} from "../src/domain/budget-shrink-planner";
+ 
+-const stateLabels: Record<GateState, string> = {
+-  empty: "入力待ち",
+-  ready: "実行準備OK",
+-  blocked: "実行前ブロック",
++const stateLabels: Record<PlannerState, string> = {
++  ready: "実行可能",
++  brake: "予算縮小",
++  stop: "実行停止",
+   sanitized: "公開用サニタイズ済み"
+ };
+ 
+ export default function Home() {
+-  const [state, setState] = useState<GateState>("empty");
+-  const view = useMemo(() => createReadinessViewModel(state), [state]);
++  const [state, setState] = useState<PlannerState>("ready");
++  const view = useMemo(() => createShrinkPlanViewModel(state), [state]);
++
+   return (
+     <main className="shell">
+-      <section className="hero" aria-label="AIDD Control Plane MVP068">
++      <section className="hero" aria-label="AIDD Control Plane MVP069">
+         <div>
+-          <p className="eyebrow">AIDD Control Plane MVP068</p>
+-          <h1>One-Run Execution Readiness Gate</h1>
+-          <p className="lead">Smoke Finding Action Queueのexecute_now itemを、Codex Run Queueへ入れる直前に検査します。Codex command、sandbox mode、3ブラウザ、必要証跡、rollback stop condition、AIDD-Spec接続を確認し、危険な実行候補を止めます。</p>
++          <p className="eyebrow">AIDD Control Plane MVP069</p>
++          <h1>Codex Run Budget Shrink Planner</h1>
++          <p className="lead">
++            Codex Runへ渡す前に、残り予算へ合わせてkeep_nowを絞り込みます。brakeでは1件だけ実行し、
++            defer_next_incrementを次回送りに表示します。stopでは最低検証、3ブラウザ、terminal/failure screenshot、
++            rollback不足をブロック理由として固定表示します。
++          </p>
+         </div>
+-        <div className={`readiness ${view.readiness}`}>
+-          <span>run queue readiness</span>
+-          <strong>{view.readiness}</strong>
++        <div className={`readiness ${view.runState}`}>
++          <span>run budget state</span>
++          <strong>{view.runState}</strong>
+           <small>{stateLabels[state]}</small>
+         </div>
+       </section>
+ 
+-      <section className="toolbar" aria-label="Readiness Gate状態切替">
+-        {gateStates.map((item) => <button key={item} className={state === item ? "active" : ""} onClick={() => setState(item)} type="button">{item}</button>)}
++      <section className="toolbar" aria-label="Budget Shrink Planner状態切替">
++        {plannerStates.map((item) => (
++          <button key={item} className={state === item ? "active" : ""} onClick={() => setState(item)} type="button">
++            {item}
++          </button>
++        ))}
+       </section>
+ 
+       <section className="grid">
+         <SummaryPanel state={state} view={view} />
+-        <CommandPanel view={view} />
+-        <BrowserPanel coverage={view.input.browserProjects} />
+-        <EvidencePanel evidence={view.input.requiredEvidence} missing={view.missingEvidence} />
+-        <BlockPanel reasons={view.input.blockedReasons} promptLeakage={view.promptLeakage} />
+-        <OutputPanel title="Codex prompt preview（execute_nowのみ）" body={view.input.codexPromptPreview} />
++        <KeepNowPanel keepNow={view.input.keepNow} deferNextIncrement={view.input.deferNextIncrement} state={state} />
++        <VerificationPanel view={view} />
++        <BrowserPanel coverage={view.input.browserProjects} missing={view.missingBrowser} />
++        <BlockPanel reasons={view.hardBlockers} promptLeakage={view.promptLeakage} />
++        <OutputPanel title="Codex prompt preview（keep_nowのみ）" body={view.input.promptPreview} />
+       </section>
+     </main>
+   );
+ }
+ 
+-function SummaryPanel({ state, view }: { state: GateState; view: ReturnType<typeof createReadinessViewModel> }) {
+-  return <article className="panel primary" aria-label="One-Run Execution Readiness Gate概要">
+-    <div className="panelHeader"><p className="eyebrow">Source Action Queue</p><h2>{stateLabels[state]}</h2></div>
+-    <dl className="detailList">
+-      <div><dt>source queue id</dt><dd>{view.input.sourceQueueId || "未選択"}</dd></div>
+-      <div><dt>execute_now action id</dt><dd>{view.input.executeNowActionId || "未選択"}</dd></div>
+-      <div><dt>lane</dt><dd>{view.input.lane}</dd></div>
+-      <div><dt>ready reason</dt><dd>{view.input.readyReason}</dd></div>
+-      <div><dt>AIDD-Spec接続</dt><dd>{view.input.aiddSpecConnection}</dd></div>
+-      <div><dt>sanitization scan</dt><dd>{view.input.sanitizationScan}</dd></div>
+-    </dl>
+-    {state === "empty" ? <p className="note">emptyでは実行候補を選ばず、古いAction QueueをRun Queueへ流しません。</p> : null}
+-    {view.canQueue ? <p className="note">readyです。Codex Run Queueへ入れる直前の条件が揃っています。</p> : null}
+-  </article>;
++function SummaryPanel({ state, view }: { state: PlannerState; view: ReturnType<typeof createShrinkPlanViewModel> }) {
++  return (
++    <article className="panel primary" aria-label="Codex Run Budget Shrink Planner概要">
++      <div className="panelHeader">
++        <p className="eyebrow">AI Task Packet</p>
++        <h2>{stateLabels[state]}</h2>
++      </div>
++      <dl className="detailList">
++        <div>
++          <dt>source packet id</dt>
++          <dd>{view.input.sourcePacketId}</dd>
++        </div>
++        <div>
++          <dt>usage band</dt>
++          <dd>{view.input.usageBand}</dd>
++        </div>
++        <div>
++          <dt>fallback action</dt>
++          <dd>{view.input.fallbackAction}</dd>
++        </div>
++        <div>
++          <dt>resume condition</dt>
++          <dd>{view.input.resumeCondition}</dd>
++        </div>
++        <div>
++          <dt>AIDD-Spec接続</dt>
++          <dd>{view.input.aiddSpecConnection}</dd>
++        </div>
++        <div>
++          <dt>sanitization scan</dt>
++          <dd>{view.input.sanitizationScan}</dd>
++        </div>
++      </dl>
++      {view.canRunShrunkPacket ? (
++        <p className="note">Codex Runへ渡せます。brakeの場合はkeep_now 1件だけを実行対象にします。</p>
++      ) : (
++        <p className="note danger">stopです。ブロック理由を解消するまでCodex Runへ渡しません。</p>
++      )}
++    </article>
++  );
+ }
+ 
+-function CommandPanel({ view }: { view: ReturnType<typeof createReadinessViewModel> }) {
+-  return <article className="panel" aria-label="Codex実行条件">
+-    <div className="panelHeader"><p className="eyebrow">Run Condition</p><h2>Codex command / sandbox</h2></div>
+-    <dl className="detailList">
+-      <div><dt>codex command</dt><dd>{view.input.codexCommand}</dd></div>
+-      <div><dt>sandbox mode</dt><dd>{view.input.sandboxMode}</dd></div>
+-      <div><dt>rollback stop condition</dt><dd>{view.input.rollbackStopCondition}</dd></div>
+-    </dl>
+-    <h3>required verification commands</h3>
+-    {view.input.requiredVerificationCommands.length === 0 ? <p className="muted">未設定</p> : <ul className="checkList">{view.input.requiredVerificationCommands.map((command) => <li key={command}><strong>{command}</strong><span>個別terminal logへ保存</span></li>)}</ul>}
+-  </article>;
++function KeepNowPanel({ keepNow, deferNextIncrement, state }: { keepNow: string[]; deferNextIncrement: string[]; state: PlannerState }) {
++  return (
++    <article className="panel" aria-label="keep_nowとdefer_next_increment">
++      <div className="panelHeader">
++        <p className="eyebrow">Shrink Plan</p>
++        <h2>keep_now / defer_next_increment</h2>
++      </div>
++      <h3>keep_now</h3>
++      {keepNow.length === 0 ? <p className="muted">実行対象なし</p> : <ul className="checkList">{keepNow.map((item) => <li key={item}>{item}</li>)}</ul>}
++      <h3 className="sectionLabel">defer_next_increment</h3>
++      {deferNextIncrement.length === 0 ? (
++        <p className="muted">次回送りなし</p>
++      ) : (
++        <ul className="checkList deferred">{deferNextIncrement.map((item) => <li key={item}>{item}</li>)}</ul>
++      )}
++      {state === "brake" ? <p className="note">brakeではkeep_nowを1件に絞り、defer_next_incrementは次回Packetへ送ります。</p> : null}
++    </article>
++  );
+ }
+ 
+-function BrowserPanel({ coverage }: { coverage: Record<(typeof requiredBrowsers)[number], string> }) {
+-  return <article className="panel" aria-label="Chromium Firefox WebKit">
+-    <div className="panelHeader"><p className="eyebrow">Coverage</p><h2>Chromium / Firefox / WebKit</h2></div>
+-    <ul className="browserList">{requiredBrowsers.map((browser) => <li key={browser} className={coverage[browser] === "必須" ? "pass" : "skip"}><span>{browser}</span><strong>{coverage[browser]}</strong></li>)}</ul>
+-  </article>;
++function VerificationPanel({ view }: { view: ReturnType<typeof createShrinkPlanViewModel> }) {
++  return (
++    <article className="panel" aria-label="最低検証と証跡">
++      <div className="panelHeader">
++        <p className="eyebrow">Verification Evidence</p>
++        <h2>最低検証 / terminal / screenshot</h2>
++      </div>
++      <h3>minimum verification</h3>
++      <ul className="checkList">{view.input.minimumVerification.map((command) => <li key={command}>{command}</li>)}</ul>
++      {view.missingMinimumVerification.length ? <p className="note danger">不足: {view.missingMinimumVerification.join("、")}</p> : null}
++      <h3 className="sectionLabel">evidence paths</h3>
++      <ul className="checkList">{view.input.evidencePaths.map((item) => <li key={item}>{item}</li>)}</ul>
++      {view.missingEvidence.length ? <p className="note danger">不足: {view.missingEvidence.join("、")}</p> : null}
++    </article>
++  );
+ }
+ 
+-function EvidencePanel({ evidence, missing }: { evidence: string[]; missing: string[] }) {
+-  return <article className="panel" aria-label="必要証跡">
+-    <div className="panelHeader"><p className="eyebrow">Evidence</p><h2>terminal / screenshots / report</h2></div>
+-    {evidence.length === 0 ? <p className="muted">必要証跡は未設定です。</p> : <ul className="checkList">{evidence.map((item) => <li key={item}><strong>{item}</strong><span>Verification Evidenceへ保存</span></li>)}</ul>}
+-    {missing.length ? <p className="note danger">不足: {missing.join("、")}</p> : <p className="note">terminal evidence、failure screenshot、Playwright reportが揃っています。</p>}
+-  </article>;
++function BrowserPanel({ coverage, missing }: { coverage: Record<(typeof requiredBrowsers)[number], string>; missing: string[] }) {
++  return (
++    <article className="panel" aria-label="Chromium Firefox WebKit">
++      <div className="panelHeader">
++        <p className="eyebrow">3 Browser E2E</p>
++        <h2>Chromium / Firefox / WebKit</h2>
++      </div>
++      <ul className="browserList">
++        {requiredBrowsers.map((browser) => (
++          <li key={browser} className={coverage[browser] === "必須" ? "pass" : "skip"}>
++            <span>{browser}</span>
++            <strong>{coverage[browser]}</strong>
++          </li>
++        ))}
++      </ul>
++      {missing.length ? <p className="note danger">不足: {missing.join("、")}</p> : <p className="note">3ブラウザを必須として確認します。</p>}
++    </article>
++  );
+ }
+ 
+ function BlockPanel({ reasons, promptLeakage }: { reasons: string[]; promptLeakage: boolean }) {
+-  return <article className="panel" aria-label="blocked reasons">
+-    <div className="panelHeader"><p className="eyebrow">Gate</p><h2>実行前ブロック</h2></div>
+-    {reasons.length === 0 && !promptLeakage ? <p className="note">next_increment混入、危険command、sandbox不足、Firefox除外、terminal/failure screenshot不足、rollback不足、local path/private URL、AIDD-Spec接続不足は検出されていません。</p> : <ul className="findingList">{reasons.map((reason) => <li key={reason}><div><h3>{reason}</h3><span>blocked</span></div><p>解消するまでCodex Run Queueへ渡しません。</p></li>)}{promptLeakage ? <li><div><h3>execute_now以外または公開危険文字列のprompt混入</h3><span>blocked</span></div><p>Codex prompt previewはexecute_nowだけ、公開可能な文字列だけにしてください。</p></li> : null}</ul>}
+-  </article>;
++  return (
++    <article className="panel" aria-label="stop block reasons">
++      <div className="panelHeader">
++        <p className="eyebrow">Stop Reason</p>
++        <h2>ブロック理由</h2>
++      </div>
++      {reasons.length === 0 && !promptLeakage ? (
++        <p className="note">最低検証、3ブラウザ、terminal/failure screenshot、rollback、prompt sanitizationを確認済みです。</p>
++      ) : (
++        <ul className="findingList">
++          {reasons.map((reason) => (
++            <li key={reason}>
++              <div>
++                <h3>{reason}</h3>
++                <span>stop</span>
++              </div>
++              <p>解消するまでCodex Runへ渡しません。</p>
++            </li>
++          ))}
++          {promptLeakage ? (
++            <li>
++              <div>
++                <h3>prompt混入</h3>
++                <span>stop</span>
++              </div>
++              <p>Codex prompt previewはkeep_nowだけにし、local path / private host / private network URLを含めません。</p>
++            </li>
++          ) : null}
++        </ul>
++      )}
++    </article>
++  );
+ }
+ 
+ function OutputPanel({ title, body }: { title: string; body: string }) {
+-  return <article className="panel output primary" aria-label={title}><div className="panelHeader"><p className="eyebrow">Export</p><h2>{title}</h2></div><pre>{body}</pre></article>;
++  return (
++    <article className="panel output primary" aria-label={title}>
++      <div className="panelHeader">
++        <p className="eyebrow">Export</p>
++        <h2>{title}</h2>
++      </div>
++      <pre>{body}</pre>
++    </article>
++  );
+ }
+
+apply patch
+patch: completed
+REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts
+diff --git a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
+index 4f3039fa2759a7eaf4061908fec73b16aa5b3d94..c064f0c214369c7cdae3e77c96aabdab2fcd1228
+--- a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
++++ b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
+@@ -1,100 +1,205 @@
+ "use client";
+ 
+ import { useMemo, useState } from "react";
+-import { createReadinessViewModel, gateStates, requiredBrowsers, type GateState } from "../src/domain/readiness-gate";
++import {
++  createShrinkPlanViewModel,
++  plannerStates,
++  requiredBrowsers,
++  type PlannerState
++} from "../src/domain/budget-shrink-planner";
+ 
+-const stateLabels: Record<GateState, string> = {
+-  empty: "入力待ち",
+-  ready: "実行準備OK",
+-  blocked: "実行前ブロック",
++const stateLabels: Record<PlannerState, string> = {
++  ready: "実行可能",
++  brake: "予算縮小",
++  stop: "実行停止",
+   sanitized: "公開用サニタイズ済み"
+ };
+ 
+ export default function Home() {
+-  const [state, setState] = useState<GateState>("empty");
+-  const view = useMemo(() => createReadinessViewModel(state), [state]);
++  const [state, setState] = useState<PlannerState>("ready");
++  const view = useMemo(() => createShrinkPlanViewModel(state), [state]);
++
+   return (
+     <main className="shell">
+-      <section className="hero" aria-label="AIDD Control Plane MVP068">
++      <section className="hero" aria-label="AIDD Control Plane MVP069">
+         <div>
+-          <p className="eyebrow">AIDD Control Plane MVP068</p>
+-          <h1>One-Run Execution Readiness Gate</h1>
+-          <p className="lead">Smoke Finding Action Queueのexecute_now itemを、Codex Run Queueへ入れる直前に検査します。Codex command、sandbox mode、3ブラウザ、必要証跡、rollback stop condition、AIDD-Spec接続を確認し、危険な実行候補を止めます。</p>
++          <p className="eyebrow">AIDD Control Plane MVP069</p>
++          <h1>Codex Run Budget Shrink Planner</h1>
++          <p className="lead">
++            Codex Runへ渡す前に、残り予算へ合わせてkeep_nowを絞り込みます。brakeでは1件だけ実行し、
++            defer_next_incrementを次回送りに表示します。stopでは最低検証、3ブラウザ、terminal/failure screenshot、
++            rollback不足をブロック理由として固定表示します。
++          </p>
+         </div>
+-        <div className={`readiness ${view.readiness}`}>
+-          <span>run queue readiness</span>
+-          <strong>{view.readiness}</strong>
++        <div className={`readiness ${view.runState}`}>
++          <span>run budget state</span>
++          <strong>{view.runState}</strong>
+           <small>{stateLabels[state]}</small>
+         </div>
+       </section>
+ 
+-      <section className="toolbar" aria-label="Readiness Gate状態切替">
+-        {gateStates.map((item) => <button key={item} className={state === item ? "active" : ""} onClick={() => setState(item)} type="button">{item}</button>)}
++      <section className="toolbar" aria-label="Budget Shrink Planner状態切替">
++        {plannerStates.map((item) => (
++          <button key={item} className={state === item ? "active" : ""} onClick={() => setState(item)} type="button">
++            {item}
++          </button>
++        ))}
+       </section>
+ 
+       <section className="grid">
+         <SummaryPanel state={state} view={view} />
+-        <CommandPanel view={view} />
+-        <BrowserPanel coverage={view.input.browserProjects} />
+-        <EvidencePanel evidence={view.input.requiredEvidence} missing={view.missingEvidence} />
+-        <BlockPanel reasons={view.input.blockedReasons} promptLeakage={view.promptLeakage} />
+-        <OutputPanel title="Codex prompt preview（execute_nowのみ）" body={view.input.codexPromptPreview} />
++        <KeepNowPanel keepNow={view.input.keepNow} deferNextIncrement={view.input.deferNextIncrement} state={state} />
++        <VerificationPanel view={view} />
++        <BrowserPanel coverage={view.input.browserProjects} missing={view.missingBrowser} />
++        <BlockPanel reasons={view.hardBlockers} promptLeakage={view.promptLeakage} />
++        <OutputPanel title="Codex prompt preview（keep_nowのみ）" body={view.input.promptPreview} />
+       </section>
+     </main>
+   );
+ }
+ 
+-function SummaryPanel({ state, view }: { state: GateState; view: ReturnType<typeof createReadinessViewModel> }) {
+-  return <article className="panel primary" aria-label="One-Run Execution Readiness Gate概要">
+-    <div className="panelHeader"><p className="eyebrow">Source Action Queue</p><h2>{stateLabels[state]}</h2></div>
+-    <dl className="detailList">
+-      <div><dt>source queue id</dt><dd>{view.input.sourceQueueId || "未選択"}</dd></div>
+-      <div><dt>execute_now action id</dt><dd>{view.input.executeNowActionId || "未選択"}</dd></div>
+-      <div><dt>lane</dt><dd>{view.input.lane}</dd></div>
+-      <div><dt>ready reason</dt><dd>{view.input.readyReason}</dd></div>
+-      <div><dt>AIDD-Spec接続</dt><dd>{view.input.aiddSpecConnection}</dd></div>
+-      <div><dt>sanitization scan</dt><dd>{view.input.sanitizationScan}</dd></div>
+-    </dl>
+-    {state === "empty" ? <p className="note">emptyでは実行候補を選ばず、古いAction QueueをRun Queueへ流しません。</p> : null}
+-    {view.canQueue ? <p className="note">readyです。Codex Run Queueへ入れる直前の条件が揃っています。</p> : null}
+-  </article>;
++function SummaryPanel({ state, view }: { state: PlannerState; view: ReturnType<typeof createShrinkPlanViewModel> }) {
++  return (
++    <article className="panel primary" aria-label="Codex Run Budget Shrink Planner概要">
++      <div className="panelHeader">
++        <p className="eyebrow">AI Task Packet</p>
++        <h2>{stateLabels[state]}</h2>
++      </div>
++      <dl className="detailList">
++        <div>
++          <dt>source packet id</dt>
++          <dd>{view.input.sourcePacketId}</dd>
++        </div>
++        <div>
++          <dt>usage band</dt>
++          <dd>{view.input.usageBand}</dd>
++        </div>
++        <div>
++          <dt>fallback action</dt>
++          <dd>{view.input.fallbackAction}</dd>
++        </div>
++        <div>
++          <dt>resume condition</dt>
++          <dd>{view.input.resumeCondition}</dd>
++        </div>
++        <div>
++          <dt>AIDD-Spec接続</dt>
++          <dd>{view.input.aiddSpecConnection}</dd>
++        </div>
++        <div>
++          <dt>sanitization scan</dt>
++          <dd>{view.input.sanitizationScan}</dd>
++        </div>
++      </dl>
++      {view.canRunShrunkPacket ? (
++        <p className="note">Codex Runへ渡せます。brakeの場合はkeep_now 1件だけを実行対象にします。</p>
++      ) : (
++        <p className="note danger">stopです。ブロック理由を解消するまでCodex Runへ渡しません。</p>
++      )}
++    </article>
++  );
+ }
+ 
+-function CommandPanel({ view }: { view: ReturnType<typeof createReadinessViewModel> }) {
+-  return <article className="panel" aria-label="Codex実行条件">
+-    <div className="panelHeader"><p className="eyebrow">Run Condition</p><h2>Codex command / sandbox</h2></div>
+-    <dl className="detailList">
+-      <div><dt>codex command</dt><dd>{view.input.codexCommand}</dd></div>
+-      <div><dt>sandbox mode</dt><dd>{view.input.sandboxMode}</dd></div>
+-      <div><dt>rollback stop condition</dt><dd>{view.input.rollbackStopCondition}</dd></div>
+-    </dl>
+-    <h3>required verification commands</h3>
+-    {view.input.requiredVerificationCommands.length === 0 ? <p className="muted">未設定</p> : <ul className="checkList">{view.input.requiredVerificationCommands.map((command) => <li key={command}><strong>{command}</strong><span>個別terminal logへ保存</span></li>)}</ul>}
+-  </article>;
++function KeepNowPanel({ keepNow, deferNextIncrement, state }: { keepNow: string[]; deferNextIncrement: string[]; state: PlannerState }) {
++  return (
++    <article className="panel" aria-label="keep_nowとdefer_next_increment">
++      <div className="panelHeader">
++        <p className="eyebrow">Shrink Plan</p>
++        <h2>keep_now / defer_next_increment</h2>
++      </div>
++      <h3>keep_now</h3>
++      {keepNow.length === 0 ? <p className="muted">実行対象なし</p> : <ul className="checkList">{keepNow.map((item) => <li key={item}>{item}</li>)}</ul>}
++      <h3 className="sectionLabel">defer_next_increment</h3>
++      {deferNextIncrement.length === 0 ? (
++        <p className="muted">次回送りなし</p>
++      ) : (
++        <ul className="checkList deferred">{deferNextIncrement.map((item) => <li key={item}>{item}</li>)}</ul>
++      )}
++      {state === "brake" ? <p className="note">brakeではkeep_nowを1件に絞り、defer_next_incrementは次回Packetへ送ります。</p> : null}
++    </article>
++  );
+ }
+ 
+-function BrowserPanel({ coverage }: { coverage: Record<(typeof requiredBrowsers)[number], string> }) {
+-  return <article className="panel" aria-label="Chromium Firefox WebKit">
+-    <div className="panelHeader"><p className="eyebrow">Coverage</p><h2>Chromium / Firefox / WebKit</h2></div>
+-    <ul className="browserList">{requiredBrowsers.map((browser) => <li key={browser} className={coverage[browser] === "必須" ? "pass" : "skip"}><span>{browser}</span><strong>{coverage[browser]}</strong></li>)}</ul>
+-  </article>;
++function VerificationPanel({ view }: { view: ReturnType<typeof createShrinkPlanViewModel> }) {
++  return (
++    <article className="panel" aria-label="最低検証と証跡">
++      <div className="panelHeader">
++        <p className="eyebrow">Verification Evidence</p>
++        <h2>最低検証 / terminal / screenshot</h2>
++      </div>
++      <h3>minimum verification</h3>
++      <ul className="checkList">{view.input.minimumVerification.map((command) => <li key={command}>{command}</li>)}</ul>
++      {view.missingMinimumVerification.length ? <p className="note danger">不足: {view.missingMinimumVerification.join("、")}</p> : null}
++      <h3 className="sectionLabel">evidence paths</h3>
++      <ul className="checkList">{view.input.evidencePaths.map((item) => <li key={item}>{item}</li>)}</ul>
++      {view.missingEvidence.length ? <p className="note danger">不足: {view.missingEvidence.join("、")}</p> : null}
++    </article>
++  );
+ }
+ 
+-function EvidencePanel({ evidence, missing }: { evidence: string[]; missing: string[] }) {
+-  return <article className="panel" aria-label="必要証跡">
+-    <div className="panelHeader"><p className="eyebrow">Evidence</p><h2>terminal / screenshots / report</h2></div>
+-    {evidence.length === 0 ? <p className="muted">必要証跡は未設定です。</p> : <ul className="checkList">{evidence.map((item) => <li key={item}><strong>{item}</strong><span>Verification Evidenceへ保存</span></li>)}</ul>}
+-    {missing.length ? <p className="note danger">不足: {missing.join("、")}</p> : <p className="note">terminal evidence、failure screenshot、Playwright reportが揃っています。</p>}
+-  </article>;
++function BrowserPanel({ coverage, missing }: { coverage: Record<(typeof requiredBrowsers)[number], string>; missing: string[] }) {
++  return (
++    <article className="panel" aria-label="Chromium Firefox WebKit">
++      <div className="panelHeader">
++        <p className="eyebrow">3 Browser E2E</p>
++        <h2>Chromium / Firefox / WebKit</h2>
++      </div>
++      <ul className="browserList">
++        {requiredBrowsers.map((browser) => (
++          <li key={browser} className={coverage[browser] === "必須" ? "pass" : "skip"}>
++            <span>{browser}</span>
++            <strong>{coverage[browser]}</strong>
++          </li>
++        ))}
++      </ul>
++      {missing.length ? <p className="note danger">不足: {missing.join("、")}</p> : <p className="note">3ブラウザを必須として確認します。</p>}
++    </article>
++  );
+ }
+ 
+ function BlockPanel({ reasons, promptLeakage }: { reasons: string[]; promptLeakage: boolean }) {
+-  return <article className="panel" aria-label="blocked reasons">
+-    <div className="panelHeader"><p className="eyebrow">Gate</p><h2>実行前ブロック</h2></div>
+-    {reasons.length === 0 && !promptLeakage ? <p className="note">next_increment混入、危険command、sandbox不足、Firefox除外、terminal/failure screenshot不足、rollback不足、local path/private URL、AIDD-Spec接続不足は検出されていません。</p> : <ul className="findingList">{reasons.map((reason) => <li key={reason}><div><h3>{reason}</h3><span>blocked</span></div><p>解消するまでCodex Run Queueへ渡しません。</p></li>)}{promptLeakage ? <li><div><h3>execute_now以外または公開危険文字列のprompt混入</h3><span>blocked</span></div><p>Codex prompt previewはexecute_nowだけ、公開可能な文字列だけにしてください。</p></li> : null}</ul>}
+-  </article>;
++  return (
++    <article className="panel" aria-label="stop block reasons">
++      <div className="panelHeader">
++        <p className="eyebrow">Stop Reason</p>
++        <h2>ブロック理由</h2>
++      </div>
++      {reasons.length === 0 && !promptLeakage ? (
++        <p className="note">最低検証、3ブラウザ、terminal/failure screenshot、rollback、prompt sanitizationを確認済みです。</p>
++      ) : (
++        <ul className="findingList">
++          {reasons.map((reason) => (
++            <li key={reason}>
++              <div>
++                <h3>{reason}</h3>
++                <span>stop</span>
++              </div>
++              <p>解消するまでCodex Runへ渡しません。</p>
++            </li>
++          ))}
++          {promptLeakage ? (
++            <li>
++              <div>
++                <h3>prompt混入</h3>
++                <span>stop</span>
++              </div>
++              <p>Codex prompt previewはkeep_nowだけにし、local path / private host / private network URLを含めません。</p>
++            </li>
++          ) : null}
++        </ul>
++      )}
++    </article>
++  );
+ }
+ 
+ function OutputPanel({ title, body }: { title: string; body: string }) {
+-  return <article className="panel output primary" aria-label={title}><div className="panelHeader"><p className="eyebrow">Export</p><h2>{title}</h2></div><pre>{body}</pre></article>;
++  return (
++    <article className="panel output primary" aria-label={title}>
++      <div className="panelHeader">
++        <p className="eyebrow">Export</p>
++        <h2>{title}</h2>
++      </div>
++      <pre>{body}</pre>
++    </article>
++  );
+ }
+diff --git a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts
+index 560403ca59f7b595b3dce01bc6de034d4c2e6069..c0e4b2c3d49cc73ba1f33cdb1ec90bc3dc7aa719
+--- a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts
++++ b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts
+@@ -29,14 +29,15 @@
+   "pnpm run doctor:aidd"
+ ];
+ 
+-const safePrompt = [
++const readyPrompt = [
+   "MVP069 keep_now: 公開preview smokeで壊れたasset URLを1件だけ修正してください。",
+-  "defer_next_incrementは今回のCodex promptへ入れず、Learning Logへ戻します。",
+   "minimum_verification: pnpm run lint / pnpm run typecheck / pnpm run test / pnpm run build / pnpm run test:e2e / pnpm run doctor:aidd。",
+   "Chromium / Firefox / WebKit、terminal evidence、failure screenshot、Playwright reportを残します。",
+   "rollback: 証跡不足または公開危険文字列が出たら実行を止め、Review Recordへ戻します。"
+ ].join("\n");
+ 
++const sanitizedPrompt = "MVP069 keep_now: 公開preview smokeで壊れたasset URLを1件だけ修正してください。";
++
+ export function getShrinkPlanInput(state: PlannerState): ShrinkPlanInput {
+   if (state === "ready") {
+     return {
+@@ -50,7 +51,7 @@
+       resumeCondition: "3ブラウザE2Eとterminal/failure screenshotが揃ったら次へ進む",
+       evidencePaths: ["artifacts/terminal", "artifacts/screenshots", "playwright-report"],
+       browserProjects: { Chromium: "必須", Firefox: "必須", WebKit: "必須" },
+-      promptPreview: safePrompt,
++      promptPreview: readyPrompt,
+       blockedReasons: [],
+       sanitizationScan: "公開危険文字列なし",
+       aiddSpecConnection: "AIDD-Spec v0.1 AI Task Packet / Verification Evidence / Review Record / Learning Log、AIDD Control Plane Codex Run Budget Shrink Planner"
+@@ -68,7 +69,7 @@
+       resumeCondition: "keep_nowの1件が検証済みになったらdefer_next_incrementを次回Packetへ送る",
+       evidencePaths: ["artifacts/terminal", "artifacts/screenshots", "playwright-report"],
+       browserProjects: { Chromium: "必須", Firefox: "必須", WebKit: "必須" },
+-      promptPreview: safePrompt,
++      promptPreview: readyPrompt,
+       blockedReasons: ["実行予算超過のためkeep_nowへ縮小"],
+       sanitizationScan: "local path / private host / private network URLなし",
+       aiddSpecConnection: "AIDD-Spec v0.1 AI Task Packet / Verification Evidence / Review Record / Learning Log、AIDD Control Plane Codex Run Budget Shrink Planner"
+@@ -87,7 +88,7 @@
+       evidencePaths: ["未設定"],
+       browserProjects: { Chromium: "必須", Firefox: "除外", WebKit: "未確認" },
+       promptPreview: "defer_next_incrementもまとめて実行する。private-preview.example.invalid を参照する。",
+-      blockedReasons: ["minimum_verification不足", "Firefox除外", "terminal/failure screenshot不足", "rollback不足", "公開危険文字列混入"],
++      blockedReasons: ["最低検証不足", "3ブラウザ不足", "terminal/failure screenshot不足", "rollback不足"],
+       sanitizationScan: "private host混入を検出",
+       aiddSpecConnection: "不足"
+     };
+@@ -103,7 +104,7 @@
+     resumeCondition: "公開previewと画像URLがHTTP経路で確認できたら次へ進む",
+     evidencePaths: ["artifacts/terminal", "artifacts/screenshots", "playwright-report"],
+     browserProjects: { Chromium: "必須", Firefox: "必須", WebKit: "必須" },
+-    promptPreview: safePrompt,
++    promptPreview: sanitizedPrompt,
+     blockedReasons: [],
+     sanitizationScan: "local path / private host / private network URLなし",
+     aiddSpecConnection: "AIDD-Spec v0.1 AI Task Packet / Verification Evidence / Review Record / Learning Log、AIDD Control Plane Codex Run Budget Shrink Planner"
+
+diff --git a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
+index 4f3039fa2759a7eaf4061908fec73b16aa5b3d94..c064f0c214369c7cdae3e77c96aabdab2fcd1228
+--- a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
++++ b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
+@@ -1,100 +1,205 @@
+ "use client";
+ 
+ import { useMemo, useState } from "react";
+-import { createReadinessViewModel, gateStates, requiredBrowsers, type GateState } from "../src/domain/readiness-gate";
++import {
++  createShrinkPlanViewModel,
++  plannerStates,
++  requiredBrowsers,
++  type PlannerState
++} from "../src/domain/budget-shrink-planner";
+ 
+-const stateLabels: Record<GateState, string> = {
+-  empty: "入力待ち",
+-  ready: "実行準備OK",
+-  blocked: "実行前ブロック",
++const stateLabels: Record<PlannerState, string> = {
++  ready: "実行可能",
++  brake: "予算縮小",
++  stop: "実行停止",
+   sanitized: "公開用サニタイズ済み"
+ };
+ 
+ export default function Home() {
+-  const [state, setState] = useState<GateState>("empty");
+-  const view = useMemo(() => createReadinessViewModel(state), [state]);
++  const [state, setState] = useState<PlannerState>("ready");
++  const view = useMemo(() => createShrinkPlanViewModel(state), [state]);
++
+   return (
+     <main className="shell">
+-      <section className="hero" aria-label="AIDD Control Plane MVP068">
++      <section className="hero" aria-label="AIDD Control Plane MVP069">
+         <div>
+-          <p className="eyebrow">AIDD Control Plane MVP068</p>
+-          <h1>One-Run Execution Readiness Gate</h1>
+-          <p className="lead">Smoke Finding Action Queueのexecute_now itemを、Codex Run Queueへ入れる直前に検査します。Codex command、sandbox mode、3ブラウザ、必要証跡、rollback stop condition、AIDD-Spec接続を確認し、危険な実行候補を止めます。</p>
++          <p className="eyebrow">AIDD Control Plane MVP069</p>
++          <h1>Codex Run Budget Shrink Planner</h1>
++          <p className="lead">
++            Codex Runへ渡す前に、残り予算へ合わせてkeep_nowを絞り込みます。brakeでは1件だけ実行し、
++            defer_next_incrementを次回送りに表示します。stopでは最低検証、3ブラウザ、terminal/failure screenshot、
++            rollback不足をブロック理由として固定表示します。
++          </p>
+         </div>
+-        <div className={`readiness ${view.readiness}`}>
+-          <span>run queue readiness</span>
+-          <strong>{view.readiness}</strong>
++        <div className={`readiness ${view.runState}`}>
++          <span>run budget state</span>
++          <strong>{view.runState}</strong>
+           <small>{stateLabels[state]}</small>
+         </div>
+       </section>
+ 
+-      <section className="toolbar" aria-label="Readiness Gate状態切替">
+-        {gateStates.map((item) => <button key={item} className={state === item ? "active" : ""} onClick={() => setState(item)} type="button">{item}</button>)}
++      <section className="toolbar" aria-label="Budget Shrink Planner状態切替">
++        {plannerStates.map((item) => (
++          <button key={item} className={state === item ? "active" : ""} onClick={() => setState(item)} type="button">
++            {item}
++          </button>
++        ))}
+       </section>
+ 
+       <section className="grid">
+         <SummaryPanel state={state} view={view} />
+-        <CommandPanel view={view} />
+-        <BrowserPanel coverage={view.input.browserProjects} />
+-        <EvidencePanel evidence={view.input.requiredEvidence} missing={view.missingEvidence} />
+-        <BlockPanel reasons={view.input.blockedReasons} promptLeakage={view.promptLeakage} />
+-        <OutputPanel title="Codex prompt preview（execute_nowのみ）" body={view.input.codexPromptPreview} />
++        <KeepNowPanel keepNow={view.input.keepNow} deferNextIncrement={view.input.deferNextIncrement} state={state} />
++        <VerificationPanel view={view} />
++        <BrowserPanel coverage={view.input.browserProjects} missing={view.missingBrowser} />
++        <BlockPanel reasons={view.hardBlockers} promptLeakage={view.promptLeakage} />
++        <OutputPanel title="Codex prompt preview（keep_nowのみ）" body={view.input.promptPreview} />
+       </section>
+     </main>
+   );
+ }
+ 
+-function SummaryPanel({ state, view }: { state: GateState; view: ReturnType<typeof createReadinessViewModel> }) {
+-  return <article className="panel primary" aria-label="One-Run Execution Readiness Gate概要">
+-    <div className="panelHeader"><p className="eyebrow">Source Action Queue</p><h2>{stateLabels[state]}</h2></div>
+-    <dl className="detailList">
+-      <div><dt>source queue id</dt><dd>{view.input.sourceQueueId || "未選択"}</dd></div>
+-      <div><dt>execute_now action id</dt><dd>{view.input.executeNowActionId || "未選択"}</dd></div>
+-      <div><dt>lane</dt><dd>{view.input.lane}</dd></div>
+-      <div><dt>ready reason</dt><dd>{view.input.readyReason}</dd></div>
+-      <div><dt>AIDD-Spec接続</dt><dd>{view.input.aiddSpecConnection}</dd></div>
+-      <div><dt>sanitization scan</dt><dd>{view.input.sanitizationScan}</dd></div>
+-    </dl>
+-    {state === "empty" ? <p className="note">emptyでは実行候補を選ばず、古いAction QueueをRun Queueへ流しません。</p> : null}
+-    {view.canQueue ? <p className="note">readyです。Codex Run Queueへ入れる直前の条件が揃っています。</p> : null}
+-  </article>;
++function SummaryPanel({ state, view }: { state: PlannerState; view: ReturnType<typeof createShrinkPlanViewModel> }) {
++  return (
++    <article className="panel primary" aria-label="Codex Run Budget Shrink Planner概要">
++      <div className="panelHeader">
++        <p className="eyebrow">AI Task Packet</p>
++        <h2>{stateLabels[state]}</h2>
++      </div>
++      <dl className="detailList">
++        <div>
++          <dt>source packet id</dt>
++          <dd>{view.input.sourcePacketId}</dd>
++        </div>
++        <div>
++          <dt>usage band</dt>
++          <dd>{view.input.usageBand}</dd>
++        </div>
++        <div>
++          <dt>fallback action</dt>
++          <dd>{view.input.fallbackAction}</dd>
++        </div>
++        <div>
++          <dt>resume condition</dt>
++          <dd>{view.input.resumeCondition}</dd>
++        </div>
++        <div>
++          <dt>AIDD-Spec接続</dt>
++          <dd>{view.input.aiddSpecConnection}</dd>
++        </div>
++        <div>
++          <dt>sanitization scan</dt>
++          <dd>{view.input.sanitizationScan}</dd>
++        </div>
++      </dl>
++      {view.canRunShrunkPacket ? (
++        <p className="note">Codex Runへ渡せます。brakeの場合はkeep_now 1件だけを実行対象にします。</p>
++      ) : (
++        <p className="note danger">stopです。ブロック理由を解消するまでCodex Runへ渡しません。</p>
++      )}
++    </article>
++  );
+ }
+ 
+-function CommandPanel({ view }: { view: ReturnType<typeof createReadinessViewModel> }) {
+-  return <article className="panel" aria-label="Codex実行条件">
+-    <div className="panelHeader"><p className="eyebrow">Run Condition</p><h2>Codex command / sandbox</h2></div>
+-    <dl className="detailList">
+-      <div><dt>codex command</dt><dd>{view.input.codexCommand}</dd></div>
+-      <div><dt>sandbox mode</dt><dd>{view.input.sandboxMode}</dd></div>
+-      <div><dt>rollback stop condition</dt><dd>{view.input.rollbackStopCondition}</dd></div>
+-    </dl>
+-    <h3>required verification commands</h3>
+-    {view.input.requiredVerificationCommands.length === 0 ? <p className="muted">未設定</p> : <ul className="checkList">{view.input.requiredVerificationCommands.map((command) => <li key={command}><strong>{command}</strong><span>個別terminal logへ保存</span></li>)}</ul>}
+-  </article>;
++function KeepNowPanel({ keepNow, deferNextIncrement, state }: { keepNow: string[]; deferNextIncrement: string[]; state: PlannerState }) {
++  return (
++    <article className="panel" aria-label="keep_nowとdefer_next_increment">
++      <div className="panelHeader">
++        <p className="eyebrow">Shrink Plan</p>
++        <h2>keep_now / defer_next_increment</h2>
++      </div>
++      <h3>keep_now</h3>
++      {keepNow.length === 0 ? <p className="muted">実行対象なし</p> : <ul className="checkList">{keepNow.map((item) => <li key={item}>{item}</li>)}</ul>}
++      <h3 className="sectionLabel">defer_next_increment</h3>
++      {deferNextIncrement.length === 0 ? (
++        <p className="muted">次回送りなし</p>
++      ) : (
++        <ul className="checkList deferred">{deferNextIncrement.map((item) => <li key={item}>{item}</li>)}</ul>
++      )}
++      {state === "brake" ? <p className="note">brakeではkeep_nowを1件に絞り、defer_next_incrementは次回Packetへ送ります。</p> : null}
++    </article>
++  );
+ }
+ 
+-function BrowserPanel({ coverage }: { coverage: Record<(typeof requiredBrowsers)[number], string> }) {
+-  return <article className="panel" aria-label="Chromium Firefox WebKit">
+-    <div className="panelHeader"><p className="eyebrow">Coverage</p><h2>Chromium / Firefox / WebKit</h2></div>
+-    <ul className="browserList">{requiredBrowsers.map((browser) => <li key={browser} className={coverage[browser] === "必須" ? "pass" : "skip"}><span>{browser}</span><strong>{coverage[browser]}</strong></li>)}</ul>
+-  </article>;
++function VerificationPanel({ view }: { view: ReturnType<typeof createShrinkPlanViewModel> }) {
++  return (
++    <article className="panel" aria-label="最低検証と証跡">
++      <div className="panelHeader">
++        <p className="eyebrow">Verification Evidence</p>
++        <h2>最低検証 / terminal / screenshot</h2>
++      </div>
++      <h3>minimum verification</h3>
++      <ul className="checkList">{view.input.minimumVerification.map((command) => <li key={command}>{command}</li>)}</ul>
++      {view.missingMinimumVerification.length ? <p className="note danger">不足: {view.missingMinimumVerification.join("、")}</p> : null}
++      <h3 className="sectionLabel">evidence paths</h3>
++      <ul className="checkList">{view.input.evidencePaths.map((item) => <li key={item}>{item}</li>)}</ul>
++      {view.missingEvidence.length ? <p className="note danger">不足: {view.missingEvidence.join("、")}</p> : null}
++    </article>
++  );
+ }
+ 
+-function EvidencePanel({ evidence, missing }: { evidence: string[]; missing: string[] }) {
+-  return <article className="panel" aria-label="必要証跡">
+-    <div className="panelHeader"><p className="eyebrow">Evidence</p><h2>terminal / screenshots / report</h2></div>
+-    {evidence.length === 0 ? <p className="muted">必要証跡は未設定です。</p> : <ul className="checkList">{evidence.map((item) => <li key={item}><strong>{item}</strong><span>Verification Evidenceへ保存</span></li>)}</ul>}
+-    {missing.length ? <p className="note danger">不足: {missing.join("、")}</p> : <p className="note">terminal evidence、failure screenshot、Playwright reportが揃っています。</p>}
+-  </article>;
++function BrowserPanel({ coverage, missing }: { coverage: Record<(typeof requiredBrowsers)[number], string>; missing: string[] }) {
++  return (
++    <article className="panel" aria-label="Chromium Firefox WebKit">
++      <div className="panelHeader">
++        <p className="eyebrow">3 Browser E2E</p>
++        <h2>Chromium / Firefox / WebKit</h2>
++      </div>
++      <ul className="browserList">
++        {requiredBrowsers.map((browser) => (
++          <li key={browser} className={coverage[browser] === "必須" ? "pass" : "skip"}>
++            <span>{browser}</span>
++            <strong>{coverage[browser]}</strong>
++          </li>
++        ))}
++      </ul>
++      {missing.length ? <p className="note danger">不足: {missing.join("、")}</p> : <p className="note">3ブラウザを必須として確認します。</p>}
++    </article>
++  );
+ }
+ 
+ function BlockPanel({ reasons, promptLeakage }: { reasons: string[]; promptLeakage: boolean }) {
+-  return <article className="panel" aria-label="blocked reasons">
+-    <div className="panelHeader"><p className="eyebrow">Gate</p><h2>実行前ブロック</h2></div>
+-    {reasons.length === 0 && !promptLeakage ? <p className="note">next_increment混入、危険command、sandbox不足、Firefox除外、terminal/failure screenshot不足、rollback不足、local path/private URL、AIDD-Spec接続不足は検出されていません。</p> : <ul className="findingList">{reasons.map((reason) => <li key={reason}><div><h3>{reason}</h3><span>blocked</span></div><p>解消するまでCodex Run Queueへ渡しません。</p></li>)}{promptLeakage ? <li><div><h3>execute_now以外または公開危険文字列のprompt混入</h3><span>blocked</span></div><p>Codex prompt previewはexecute_nowだけ、公開可能な文字列だけにしてください。</p></li> : null}</ul>}
+-  </article>;
++  return (
++    <article className="panel" aria-label="stop block reasons">
++      <div className="panelHeader">
++        <p className="eyebrow">Stop Reason</p>
++        <h2>ブロック理由</h2>
++      </div>
++      {reasons.length === 0 && !promptLeakage ? (
++        <p className="note">最低検証、3ブラウザ、terminal/failure screenshot、rollback、prompt sanitizationを確認済みです。</p>
++      ) : (
++        <ul className="findingList">
++          {reasons.map((reason) => (
++            <li key={reason}>
++              <div>
++                <h3>{reason}</h3>
++                <span>stop</span>
++              </div>
++              <p>解消するまでCodex Runへ渡しません。</p>
++            </li>
++          ))}
++          {promptLeakage ? (
++            <li>
++              <div>
++                <h3>prompt混入</h3>
++                <span>stop</span>
++              </div>
++              <p>Codex prompt previewはkeep_nowだけにし、local path / private host / private network URLを含めません。</p>
++            </li>
++          ) : null}
++        </ul>
++      )}
++    </article>
++  );
+ }
+ 
+ function OutputPanel({ title, body }: { title: string; body: string }) {
+-  return <article className="panel output primary" aria-label={title}><div className="panelHeader"><p className="eyebrow">Export</p><h2>{title}</h2></div><pre>{body}</pre></article>;
++  return (
++    <article className="panel output primary" aria-label={title}>
++      <div className="panelHeader">
++        <p className="eyebrow">Export</p>
++        <h2>{title}</h2>
++      </div>
++      <pre>{body}</pre>
++    </article>
++  );
+ }
+diff --git a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts
+index 560403ca59f7b595b3dce01bc6de034d4c2e6069..c0e4b2c3d49cc73ba1f33cdb1ec90bc3dc7aa719
+--- a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts
++++ b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts
+@@ -29,14 +29,15 @@
+   "pnpm run doctor:aidd"
+ ];
+ 
+-const safePrompt = [
++const readyPrompt = [
+   "MVP069 keep_now: 公開preview smokeで壊れたasset URLを1件だけ修正してください。",
+-  "defer_next_incrementは今回のCodex promptへ入れず、Learning Logへ戻します。",
+   "minimum_verification: pnpm run lint / pnpm run typecheck / pnpm run test / pnpm run build / pnpm run test:e2e / pnpm run doctor:aidd。",
+   "Chromium / Firefox / WebKit、terminal evidence、failure screenshot、Playwright reportを残します。",
+   "rollback: 証跡不足または公開危険文字列が出たら実行を止め、Review Recordへ戻します。"
+ ].join("\n");
+ 
++const sanitizedPrompt = "MVP069 keep_now: 公開preview smokeで壊れたasset URLを1件だけ修正してください。";
++
+ export function getShrinkPlanInput(state: PlannerState): ShrinkPlanInput {
+   if (state === "ready") {
+     return {
+@@ -50,7 +51,7 @@
+       resumeCondition: "3ブラウザE2Eとterminal/failure screenshotが揃ったら次へ進む",
+       evidencePaths: ["artifacts/terminal", "artifacts/screenshots", "playwright-report"],
+       browserProjects: { Chromium: "必須", Firefox: "必須", WebKit: "必須" },
+-      promptPreview: safePrompt,
++      promptPreview: readyPrompt,
+       blockedReasons: [],
+       sanitizationScan: "公開危険文字列なし",
+       aiddSpecConnection: "AIDD-Spec v0.1 AI Task Packet / Verification Evidence / Review Record / Learning Log、AIDD Control Plane Codex Run Budget Shrink Planner"
+@@ -68,7 +69,7 @@
+       resumeCondition: "keep_nowの1件が検証済みになったらdefer_next_incrementを次回Packetへ送る",
+       evidencePaths: ["artifacts/terminal", "artifacts/screenshots", "playwright-report"],
+       browserProjects: { Chromium: "必須", Firefox: "必須", WebKit: "必須" },
+-      promptPreview: safePrompt,
++      promptPreview: readyPrompt,
+       blockedReasons: ["実行予算超過のためkeep_nowへ縮小"],
+       sanitizationScan: "local path / private host / private network URLなし",
+       aiddSpecConnection: "AIDD-Spec v0.1 AI Task Packet / Verification Evidence / Review Record / Learning Log、AIDD Control Plane Codex Run Budget Shrink Planner"
+@@ -87,7 +88,7 @@
+       evidencePaths: ["未設定"],
+       browserProjects: { Chromium: "必須", Firefox: "除外", WebKit: "未確認" },
+       promptPreview: "defer_next_incrementもまとめて実行する。private-preview.example.invalid を参照する。",
+-      blockedReasons: ["minimum_verification不足", "Firefox除外", "terminal/failure screenshot不足", "rollback不足", "公開危険文字列混入"],
++      blockedReasons: ["最低検証不足", "3ブラウザ不足", "terminal/failure screenshot不足", "rollback不足"],
+       sanitizationScan: "private host混入を検出",
+       aiddSpecConnection: "不足"
+     };
+@@ -103,7 +104,7 @@
+     resumeCondition: "公開previewと画像URLがHTTP経路で確認できたら次へ進む",
+     evidencePaths: ["artifacts/terminal", "artifacts/screenshots", "playwright-report"],
+     browserProjects: { Chromium: "必須", Firefox: "必須", WebKit: "必須" },
+-    promptPreview: safePrompt,
++    promptPreview: sanitizedPrompt,
+     blockedReasons: [],
+     sanitizationScan: "local path / private host / private network URLなし",
+     aiddSpecConnection: "AIDD-Spec v0.1 AI Task Packet / Verification Evidence / Review Record / Learning Log、AIDD Control Plane Codex Run Budget Shrink Planner"
+
+apply patch
+patch: completed
+REPO_ROOT/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/package.json
+diff --git a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
+index 4f3039fa2759a7eaf4061908fec73b16aa5b3d94..c064f0c214369c7cdae3e77c96aabdab2fcd1228
+--- a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
++++ b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
+@@ -1,100 +1,205 @@
+ "use client";
+ 
+ import { useMemo, useState } from "react";
+-import { createReadinessViewModel, gateStates, requiredBrowsers, type GateState } from "../src/domain/readiness-gate";
++import {
++  createShrinkPlanViewModel,
++  plannerStates,
++  requiredBrowsers,
++  type PlannerState
++} from "../src/domain/budget-shrink-planner";
+ 
+-const stateLabels: Record<GateState, string> = {
+-  empty: "入力待ち",
+-  ready: "実行準備OK",
+-  blocked: "実行前ブロック",
++const stateLabels: Record<PlannerState, string> = {
++  ready: "実行可能",
++  brake: "予算縮小",
++  stop: "実行停止",
+   sanitized: "公開用サニタイズ済み"
+ };
+ 
+ export default function Home() {
+-  const [state, setState] = useState<GateState>("empty");
+-  const view = useMemo(() => createReadinessViewModel(state), [state]);
++  const [state, setState] = useState<PlannerState>("ready");
++  const view = useMemo(() => createShrinkPlanViewModel(state), [state]);
++
+   return (
+     <main className="shell">
+-      <section className="hero" aria-label="AIDD Control Plane MVP068">
++      <section className="hero" aria-label="AIDD Control Plane MVP069">
+         <div>
+-          <p className="eyebrow">AIDD Control Plane MVP068</p>
+-          <h1>One-Run Execution Readiness Gate</h1>
+-          <p className="lead">Smoke Finding Action Queueのexecute_now itemを、Codex Run Queueへ入れる直前に検査します。Codex command、sandbox mode、3ブラウザ、必要証跡、rollback stop condition、AIDD-Spec接続を確認し、危険な実行候補を止めます。</p>
++          <p className="eyebrow">AIDD Control Plane MVP069</p>
++          <h1>Codex Run Budget Shrink Planner</h1>
++          <p className="lead">
++            Codex Runへ渡す前に、残り予算へ合わせてkeep_nowを絞り込みます。brakeでは1件だけ実行し、
++            defer_next_incrementを次回送りに表示します。stopでは最低検証、3ブラウザ、terminal/failure screenshot、
++            rollback不足をブロック理由として固定表示します。
++          </p>
+         </div>
+-        <div className={`readiness ${view.readiness}`}>
+-          <span>run queue readiness</span>
+-          <strong>{view.readiness}</strong>
++        <div className={`readiness ${view.runState}`}>
++          <span>run budget state</span>
++          <strong>{view.runState}</strong>
+           <small>{stateLabels[state]}</small>
+         </div>
+       </section>
+ 
+-      <section className="toolbar" aria-label="Readiness Gate状態切替">
+-        {gateStates.map((item) => <button key={item} className={state === item ? "active" : ""} onClick={() => setState(item)} type="button">{item}</button>)}
++      <section className="toolbar" aria-label="Budget Shrink Planner状態切替">
++        {plannerStates.map((item) => (
++          <button key={item} className={state === item ? "active" : ""} onClick={() => setState(item)} type="button">
++            {item}
++          </button>
++        ))}
+       </section>
+ 
+       <section className="grid">
+         <SummaryPanel state={state} view={view} />
+-        <CommandPanel view={view} />
+-        <BrowserPanel coverage={view.input.browserProjects} />
+-        <EvidencePanel evidence={view.input.requiredEvidence} missing={view.missingEvidence} />
+-        <BlockPanel reasons={view.input.blockedReasons} promptLeakage={view.promptLeakage} />
+-        <OutputPanel title="Codex prompt preview（execute_nowのみ）" body={view.input.codexPromptPreview} />
++        <KeepNowPanel keepNow={view.input.keepNow} deferNextIncrement={view.input.deferNextIncrement} state={state} />
++        <VerificationPanel view={view} />
++        <BrowserPanel coverage={view.input.browserProjects} missing={view.missingBrowser} />
++        <BlockPanel reasons={view.hardBlockers} promptLeakage={view.promptLeakage} />
++        <OutputPanel title="Codex prompt preview（keep_nowのみ）" body={view.input.promptPreview} />
+       </section>
+     </main>
+   );
+ }
+ 
+-function SummaryPanel({ state, view }: { state: GateState; view: ReturnType<typeof createReadinessViewModel> }) {
+-  return <article className="panel primary" aria-label="One-Run Execution Readiness Gate概要">
+-    <div className="panelHeader"><p className="eyebrow">Source Action Queue</p><h2>{stateLabels[state]}</h2></div>
+-    <dl className="detailList">
+-      <div><dt>source queue id</dt><dd>{view.input.sourceQueueId || "未選択"}</dd></div>
+-      <div><dt>execute_now action id</dt><dd>{view.input.executeNowActionId || "未選択"}</dd></div>
+-      <div><dt>lane</dt><dd>{view.input.lane}</dd></div>
+-      <div><dt>ready reason</dt><dd>{view.input.readyReason}</dd></div>
+-      <div><dt>AIDD-Spec接続</dt><dd>{view.input.aiddSpecConnection}</dd></div>
+-      <div><dt>sanitization scan</dt><dd>{view.input.sanitizationScan}</dd></div>
+-    </dl>
+-    {state === "empty" ? <p className="note">emptyでは実行候補を選ばず、古いAction QueueをRun Queueへ流しません。</p> : null}
+-    {view.canQueue ? <p className="note">readyです。Codex Run Queueへ入れる直前の条件が揃っています。</p> : null}
+-  </article>;
++function SummaryPanel({ state, view }: { state: PlannerState; view: ReturnType<typeof createShrinkPlanViewModel> }) {
++  return (
++    <article className="panel primary" aria-label="Codex Run Budget Shrink Planner概要">
++      <div className="panelHeader">
++        <p className="eyebrow">AI Task Packet</p>
++        <h2>{stateLabels[state]}</h2>
++      </div>
++      <dl className="detailList">
++        <div>
++          <dt>source packet id</dt>
++          <dd>{view.input.sourcePacketId}</dd>
++        </div>
++        <div>
++          <dt>usage band</dt>
++          <dd>{view.input.usageBand}</dd>
++        </div>
++        <div>
++          <dt>fallback action</dt>
++          <dd>{view.input.fallbackAction}</dd>
++        </div>
++        <div>
++          <dt>resume condition</dt>
++          <dd>{view.input.resumeCondition}</dd>
++        </div>
++        <div>
++          <dt>AIDD-Spec接続</dt>
++          <dd>{view.input.aiddSpecConnection}</dd>
++        </div>
++        <div>
++          <dt>sanitization scan</dt>
++          <dd>{view.input.sanitizationScan}</dd>
++        </div>
++      </dl>
++      {view.canRunShrunkPacket ? (
++        <p className="note">Codex Runへ渡せます。brakeの場合はkeep_now 1件だけを実行対象にします。</p>
++      ) : (
++        <p className="note danger">stopです。ブロック理由を解消するまでCodex Runへ渡しません。</p>
++      )}
++    </article>
++  );
+ }
+ 
+-function CommandPanel({ view }: { view: ReturnType<typeof createReadinessViewModel> }) {
+-  return <article className="panel" aria-label="Codex実行条件">
+-    <div className="panelHeader"><p className="eyebrow">Run Condition</p><h2>Codex command / sandbox</h2></div>
+-    <dl className="detailList">
+-      <div><dt>codex command</dt><dd>{view.input.codexCommand}</dd></div>
+-      <div><dt>sandbox mode</dt><dd>{view.input.sandboxMode}</dd></div>
+-      <div><dt>rollback stop condition</dt><dd>{view.input.rollbackStopCondition}</dd></div>
+-    </dl>
+-    <h3>required verification commands</h3>
+-    {view.input.requiredVerificationCommands.length === 0 ? <p className="muted">未設定</p> : <ul className="checkList">{view.input.requiredVerificationCommands.map((command) => <li key={command}><strong>{command}</strong><span>個別terminal logへ保存</span></li>)}</ul>}
+-  </article>;
++function KeepNowPanel({ keepNow, deferNextIncrement, state }: { keepNow: string[]; deferNextIncrement: string[]; state: PlannerState }) {
++  return (
++    <article className="panel" aria-label="keep_nowとdefer_next_increment">
++      <div className="panelHeader">
++        <p className="eyebrow">Shrink Plan</p>
++        <h2>keep_now / defer_next_increment</h2>
++      </div>
++      <h3>keep_now</h3>
++      {keepNow.length === 0 ? <p className="muted">実行対象なし</p> : <ul className="checkList">{keepNow.map((item) => <li key={item}>{item}</li>)}</ul>}
++      <h3 className="sectionLabel">defer_next_increment</h3>
++      {deferNextIncrement.length === 0 ? (
++        <p className="muted">次回送りなし</p>
++      ) : (
++        <ul className="checkList deferred">{deferNextIncrement.map((item) => <li key={item}>{item}</li>)}</ul>
++      )}
++      {state === "brake" ? <p className="note">brakeではkeep_nowを1件に絞り、defer_next_incrementは次回Packetへ送ります。</p> : null}
++    </article>
++  );
+ }
+ 
+-function BrowserPanel({ coverage }: { coverage: Record<(typeof requiredBrowsers)[number], string> }) {
+-  return <article className="panel" aria-label="Chromium Firefox WebKit">
+-    <div className="panelHeader"><p className="eyebrow">Coverage</p><h2>Chromium / Firefox / WebKit</h2></div>
+-    <ul className="browserList">{requiredBrowsers.map((browser) => <li key={browser} className={coverage[browser] === "必須" ? "pass" : "skip"}><span>{browser}</span><strong>{coverage[browser]}</strong></li>)}</ul>
+-  </article>;
++function VerificationPanel({ view }: { view: ReturnType<typeof createShrinkPlanViewModel> }) {
++  return (
++    <article className="panel" aria-label="最低検証と証跡">
++      <div className="panelHeader">
++        <p className="eyebrow">Verification Evidence</p>
++        <h2>最低検証 / terminal / screenshot</h2>
++      </div>
++      <h3>minimum verification</h3>
++      <ul className="checkList">{view.input.minimumVerification.map((command) => <li key={command}>{command}</li>)}</ul>
++      {view.missingMinimumVerification.length ? <p className="note danger">不足: {view.missingMinimumVerification.join("、")}</p> : null}
++      <h3 className="sectionLabel">evidence paths</h3>
++      <ul className="checkList">{view.input.evidencePaths.map((item) => <li key={item}>{item}</li>)}</ul>
++      {view.missingEvidence.length ? <p className="note danger">不足: {view.missingEvidence.join("、")}</p> : null}
++    </article>
++  );
+ }
+ 
+-function EvidencePanel({ evidence, missing }: { evidence: string[]; missing: string[] }) {
+-  return <article className="panel" aria-label="必要証跡">
+-    <div className="panelHeader"><p className="eyebrow">Evidence</p><h2>terminal / screenshots / report</h2></div>
+-    {evidence.length === 0 ? <p className="muted">必要証跡は未設定です。</p> : <ul className="checkList">{evidence.map((item) => <li key={item}><strong>{item}</strong><span>Verification Evidenceへ保存</span></li>)}</ul>}
+-    {missing.length ? <p className="note danger">不足: {missing.join("、")}</p> : <p className="note">terminal evidence、failure screenshot、Playwright reportが揃っています。</p>}
+-  </article>;
++function BrowserPanel({ coverage, missing }: { coverage: Record<(typeof requiredBrowsers)[number], string>; missing: string[] }) {
++  return (
++    <article className="panel" aria-label="Chromium Firefox WebKit">
++      <div className="panelHeader">
++        <p className="eyebrow">3 Browser E2E</p>
++        <h2>Chromium / Firefox / WebKit</h2>
++      </div>
++      <ul className="browserList">
++        {requiredBrowsers.map((browser) => (
++          <li key={browser} className={coverage[browser] === "必須" ? "pass" : "skip"}>
++            <span>{browser}</span>
++            <strong>{coverage[browser]}</strong>
++          </li>
++        ))}
++      </ul>
++      {missing.length ? <p className="note danger">不足: {missing.join("、")}</p> : <p className="note">3ブラウザを必須として確認します。</p>}
++    </article>
++  );
+ }
+ 
+ function BlockPanel({ reasons, promptLeakage }: { reasons: string[]; promptLeakage: boolean }) {
+-  return <article className="panel" aria-label="blocked reasons">
+-    <div className="panelHeader"><p className="eyebrow">Gate</p><h2>実行前ブロック</h2></div>
+-    {reasons.length === 0 && !promptLeakage ? <p className="note">next_increment混入、危険command、sandbox不足、Firefox除外、terminal/failure screenshot不足、rollback不足、local path/private URL、AIDD-Spec接続不足は検出されていません。</p> : <ul className="findingList">{reasons.map((reason) => <li key={reason}><div><h3>{reason}</h3><span>blocked</span></div><p>解消するまでCodex Run Queueへ渡しません。</p></li>)}{promptLeakage ? <li><div><h3>execute_now以外または公開危険文字列のprompt混入</h3><span>blocked</span></div><p>Codex prompt previewはexecute_nowだけ、公開可能な文字列だけにしてください。</p></li> : null}</ul>}
+-  </article>;
++  return (
++    <article className="panel" aria-label="stop block reasons">
++      <div className="panelHeader">
++        <p className="eyebrow">Stop Reason</p>
++        <h2>ブロック理由</h2>
++      </div>
++      {reasons.length === 0 && !promptLeakage ? (
++        <p className="note">最低検証、3ブラウザ、terminal/failure screenshot、rollback、prompt sanitizationを確認済みです。</p>
++      ) : (
++        <ul className="findingList">
++          {reasons.map((reason) => (
++            <li key={reason}>
++              <div>
++                <h3>{reason}</h3>
++                <span>stop</span>
++              </div>
++              <p>解消するまでCodex Runへ渡しません。</p>
++            </li>
++          ))}
++          {promptLeakage ? (
++            <li>
++              <div>
++                <h3>prompt混入</h3>
++                <span>stop</span>
++              </div>
++              <p>Codex prompt previewはkeep_nowだけにし、local path / private host / private network URLを含めません。</p>
++            </li>
++          ) : null}
++        </ul>
++      )}
++    </article>
++  );
+ }
+ 
+ function OutputPanel({ title, body }: { title: string; body: string }) {
+-  return <article className="panel output primary" aria-label={title}><div className="panelHeader"><p className="eyebrow">Export</p><h2>{title}</h2></div><pre>{body}</pre></article>;
++  return (
++    <article className="panel output primary" aria-label={title}>
++      <div className="panelHeader">
++        <p className="eyebrow">Export</p>
++        <h2>{title}</h2>
++      </div>
++      <pre>{body}</pre>
++    </article>
++  );
+ }
+diff --git a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/package.json b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/package.json
+index f8b4ec17cdb40e44e19dcca0a144a27d23fed254..f531c38c746895e5a2303f31f204ef1b1c9945c4
+--- a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/package.json
++++ b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/package.json
+@@ -1,5 +1,5 @@
+ {
+-  "name": "aidd-control-plane-mvp-068",
++  "name": "aidd-control-plane-mvp-069",
+   "version": "0.1.0",
+   "private": true,
+   "type": "module",
+@@ -12,7 +12,7 @@
+     "build": "next build",
+     "test:e2e": "playwright test",
+     "doctor:aidd": "node scripts/doctor-aidd.mjs",
+-    "capture:mvp068": "node scripts/capture-mvp068.mjs"
++    "capture:mvp069": "node scripts/capture-mvp069.mjs"
+   },
+   "dependencies": {
+     "next": "15.5.20",
+diff --git a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts
+index 560403ca59f7b595b3dce01bc6de034d4c2e6069..c0e4b2c3d49cc73ba1f33cdb1ec90bc3dc7aa719
+--- a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts
++++ b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts
+@@ -29,14 +29,15 @@
+   "pnpm run doctor:aidd"
+ ];
+ 
+-const safePrompt = [
++const readyPrompt = [
+   "MVP069 keep_now: 公開preview smokeで壊れたasset URLを1件だけ修正してください。",
+-  "defer_next_incrementは今回のCodex promptへ入れず、Learning Logへ戻します。",
+   "minimum_verification: pnpm run lint / pnpm run typecheck / pnpm run test / pnpm run build / pnpm run test:e2e / pnpm run doctor:aidd。",
+   "Chromium / Firefox / WebKit、terminal evidence、failure screenshot、Playwright reportを残します。",
+   "rollback: 証跡不足または公開危険文字列が出たら実行を止め、Review Recordへ戻します。"
+ ].join("\n");
+ 
++const sanitizedPrompt = "MVP069 keep_now: 公開preview smokeで壊れたasset URLを1件だけ修正してください。";
++
+ export function getShrinkPlanInput(state: PlannerState): ShrinkPlanInput {
+   if (state === "ready") {
+     return {
+@@ -50,7 +51,7 @@
+       resumeCondition: "3ブラウザE2Eとterminal/failure screenshotが揃ったら次へ進む",
+       evidencePaths: ["artifacts/terminal", "artifacts/screenshots", "playwright-report"],
+       browserProjects: { Chromium: "必須", Firefox: "必須", WebKit: "必須" },
+-      promptPreview: safePrompt,
++      promptPreview: readyPrompt,
+       blockedReasons: [],
+       sanitizationScan: "公開危険文字列なし",
+       aiddSpecConnection: "AIDD-Spec v0.1 AI Task Packet / Verification Evidence / Review Record / Learning Log、AIDD Control Plane Codex Run Budget Shrink Planner"
+@@ -68,7 +69,7 @@
+       resumeCondition: "keep_nowの1件が検証済みになったらdefer_next_incrementを次回Packetへ送る",
+       evidencePaths: ["artifacts/terminal", "artifacts/screenshots", "playwright-report"],
+       browserProjects: { Chromium: "必須", Firefox: "必須", WebKit: "必須" },
+-      promptPreview: safePrompt,
++      promptPreview: readyPrompt,
+       blockedReasons: ["実行予算超過のためkeep_nowへ縮小"],
+       sanitizationScan: "local path / private host / private network URLなし",
+       aiddSpecConnection: "AIDD-Spec v0.1 AI Task Packet / Verification Evidence / Review Record / Learning Log、AIDD Control Plane Codex Run Budget Shrink Planner"
+@@ -87,7 +88,7 @@
+       evidencePaths: ["未設定"],
+       browserProjects: { Chromium: "必須", Firefox: "除外", WebKit: "未確認" },
+       promptPreview: "defer_next_incrementもまとめて実行する。private-preview.example.invalid を参照する。",
+-      blockedReasons: ["minimum_verification不足", "Firefox除外", "terminal/failure screenshot不足", "rollback不足", "公開危険文字列混入"],
++      blockedReasons: ["最低検証不足", "3ブラウザ不足", "terminal/failure screenshot不足", "rollback不足"],
+       sanitizationScan: "private host混入を検出",
+       aiddSpecConnection: "不足"
+     };
+@@ -103,7 +104,7 @@
+     resumeCondition: "公開previewと画像URLがHTTP経路で確認できたら次へ進む",
+     evidencePaths: ["artifacts/terminal", "artifacts/screenshots", "playwright-report"],
+     browserProjects: { Chromium: "必須", Firefox: "必須", WebKit: "必須" },
+-    promptPreview: safePrompt,
++    promptPreview: sanitizedPrompt,
+     blockedReasons: [],
+     sanitizationScan: "local path / private host / private network URLなし",
+     aiddSpecConnection: "AIDD-Spec v0.1 AI Task Packet / Verification Evidence / Review Record / Learning Log、AIDD Control Plane Codex Run Budget Shrink Planner"
+
+diff --git a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
+index 4f3039fa2759a7eaf4061908fec73b16aa5b3d94..c064f0c214369c7cdae3e77c96aabdab2fcd1228
+--- a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
++++ b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/app/page.tsx
+@@ -1,100 +1,205 @@
+ "use client";
+ 
+ import { useMemo, useState } from "react";
+-import { createReadinessViewModel, gateStates, requiredBrowsers, type GateState } from "../src/domain/readiness-gate";
++import {
++  createShrinkPlanViewModel,
++  plannerStates,
++  requiredBrowsers,
++  type PlannerState
++} from "../src/domain/budget-shrink-planner";
+ 
+-const stateLabels: Record<GateState, string> = {
+-  empty: "入力待ち",
+-  ready: "実行準備OK",
+-  blocked: "実行前ブロック",
++const stateLabels: Record<PlannerState, string> = {
++  ready: "実行可能",
++  brake: "予算縮小",
++  stop: "実行停止",
+   sanitized: "公開用サニタイズ済み"
+ };
+ 
+ export default function Home() {
+-  const [state, setState] = useState<GateState>("empty");
+-  const view = useMemo(() => createReadinessViewModel(state), [state]);
++  const [state, setState] = useState<PlannerState>("ready");
++  const view = useMemo(() => createShrinkPlanViewModel(state), [state]);
++
+   return (
+     <main className="shell">
+-      <section className="hero" aria-label="AIDD Control Plane MVP068">
++      <section className="hero" aria-label="AIDD Control Plane MVP069">
+         <div>
+-          <p className="eyebrow">AIDD Control Plane MVP068</p>
+-          <h1>One-Run Execution Readiness Gate</h1>
+-          <p className="lead">Smoke Finding Action Queueのexecute_now itemを、Codex Run Queueへ入れる直前に検査します。Codex command、sandbox mode、3ブラウザ、必要証跡、rollback stop condition、AIDD-Spec接続を確認し、危険な実行候補を止めます。</p>
++          <p className="eyebrow">AIDD Control Plane MVP069</p>
++          <h1>Codex Run Budget Shrink Planner</h1>
++          <p className="lead">
++            Codex Runへ渡す前に、残り予算へ合わせてkeep_nowを絞り込みます。brakeでは1件だけ実行し、
++            defer_next_incrementを次回送りに表示します。stopでは最低検証、3ブラウザ、terminal/failure screenshot、
++            rollback不足をブロック理由として固定表示します。
++          </p>
+         </div>
+-        <div className={`readiness ${view.readiness}`}>
+-          <span>run queue readiness</span>
+-          <strong>{view.readiness}</strong>
++        <div className={`readiness ${view.runState}`}>
++          <span>run budget state</span>
++          <strong>{view.runState}</strong>
+           <small>{stateLabels[state]}</small>
+         </div>
+       </section>
+ 
+-      <section className="toolbar" aria-label="Readiness Gate状態切替">
+-        {gateStates.map((item) => <button key={item} className={state === item ? "active" : ""} onClick={() => setState(item)} type="button">{item}</button>)}
++      <section className="toolbar" aria-label="Budget Shrink Planner状態切替">
++        {plannerStates.map((item) => (
++          <button key={item} className={state === item ? "active" : ""} onClick={() => setState(item)} type="button">
++            {item}
++          </button>
++        ))}
+       </section>
+ 
+       <section className="grid">
+         <SummaryPanel state={state} view={view} />
+-        <CommandPanel view={view} />
+-        <BrowserPanel coverage={view.input.browserProjects} />
+-        <EvidencePanel evidence={view.input.requiredEvidence} missing={view.missingEvidence} />
+-        <BlockPanel reasons={view.input.blockedReasons} promptLeakage={view.promptLeakage} />
+-        <OutputPanel title="Codex prompt preview（execute_nowのみ）" body={view.input.codexPromptPreview} />
++        <KeepNowPanel keepNow={view.input.keepNow} deferNextIncrement={view.input.deferNextIncrement} state={state} />
++        <VerificationPanel view={view} />
++        <BrowserPanel coverage={view.input.browserProjects} missing={view.missingBrowser} />
++        <BlockPanel reasons={view.hardBlockers} promptLeakage={view.promptLeakage} />
++        <OutputPanel title="Codex prompt preview（keep_nowのみ）" body={view.input.promptPreview} />
+       </section>
+     </main>
+   );
+ }
+ 
+-function SummaryPanel({ state, view }: { state: GateState; view: ReturnType<typeof createReadinessViewModel> }) {
+-  return <article className="panel primary" aria-label="One-Run Execution Readiness Gate概要">
+-    <div className="panelHeader"><p className="eyebrow">Source Action Queue</p><h2>{stateLabels[state]}</h2></div>
+-    <dl className="detailList">
+-      <div><dt>source queue id</dt><dd>{view.input.sourceQueueId || "未選択"}</dd></div>
+-      <div><dt>execute_now action id</dt><dd>{view.input.executeNowActionId || "未選択"}</dd></div>
+-      <div><dt>lane</dt><dd>{view.input.lane}</dd></div>
+-      <div><dt>ready reason</dt><dd>{view.input.readyReason}</dd></div>
+-      <div><dt>AIDD-Spec接続</dt><dd>{view.input.aiddSpecConnection}</dd></div>
+-      <div><dt>sanitization scan</dt><dd>{view.input.sanitizationScan}</dd></div>
+-    </dl>
+-    {state === "empty" ? <p className="note">emptyでは実行候補を選ばず、古いAction QueueをRun Queueへ流しません。</p> : null}
+-    {view.canQueue ? <p className="note">readyです。Codex Run Queueへ入れる直前の条件が揃っています。</p> : null}
+-  </article>;
++function SummaryPanel({ state, view }: { state: PlannerState; view: ReturnType<typeof createShrinkPlanViewModel> }) {
++  return (
++    <article className="panel primary" aria-label="Codex Run Budget Shrink Planner概要">
++      <div className="panelHeader">
++        <p className="eyebrow">AI Task Packet</p>
++        <h2>{stateLabels[state]}</h2>
++      </div>
++      <dl className="detailList">
++        <div>
++          <dt>source packet id</dt>
++          <dd>{view.input.sourcePacketId}</dd>
++        </div>
++        <div>
++          <dt>usage band</dt>
++          <dd>{view.input.usageBand}</dd>
++        </div>
++        <div>
++          <dt>fallback action</dt>
++          <dd>{view.input.fallbackAction}</dd>
++        </div>
++        <div>
++          <dt>resume condition</dt>
++          <dd>{view.input.resumeCondition}</dd>
++        </div>
++        <div>
++          <dt>AIDD-Spec接続</dt>
++          <dd>{view.input.aiddSpecConnection}</dd>
++        </div>
++        <div>
++          <dt>sanitization scan</dt>
++          <dd>{view.input.sanitizationScan}</dd>
++        </div>
++      </dl>
++      {view.canRunShrunkPacket ? (
++        <p className="note">Codex Runへ渡せます。brakeの場合はkeep_now 1件だけを実行対象にします。</p>
++      ) : (
++        <p className="note danger">stopです。ブロック理由を解消するまでCodex Runへ渡しません。</p>
++      )}
++    </article>
++  );
+ }
+ 
+-function CommandPanel({ view }: { view: ReturnType<typeof createReadinessViewModel> }) {
+-  return <article className="panel" aria-label="Codex実行条件">
+-    <div className="panelHeader"><p className="eyebrow">Run Condition</p><h2>Codex command / sandbox</h2></div>
+-    <dl className="detailList">
+-      <div><dt>codex command</dt><dd>{view.input.codexCommand}</dd></div>
+-      <div><dt>sandbox mode</dt><dd>{view.input.sandboxMode}</dd></div>
+-      <div><dt>rollback stop condition</dt><dd>{view.input.rollbackStopCondition}</dd></div>
+-    </dl>
+-    <h3>required verification commands</h3>
+-    {view.input.requiredVerificationCommands.length === 0 ? <p className="muted">未設定</p> : <ul className="checkList">{view.input.requiredVerificationCommands.map((command) => <li key={command}><strong>{command}</strong><span>個別terminal logへ保存</span></li>)}</ul>}
+-  </article>;
++function KeepNowPanel({ keepNow, deferNextIncrement, state }: { keepNow: string[]; deferNextIncrement: string[]; state: PlannerState }) {
++  return (
++    <article className="panel" aria-label="keep_nowとdefer_next_increment">
++      <div className="panelHeader">
++        <p className="eyebrow">Shrink Plan</p>
++        <h2>keep_now / defer_next_increment</h2>
++      </div>
++      <h3>keep_now</h3>
++      {keepNow.length === 0 ? <p className="muted">実行対象なし</p> : <ul className="checkList">{keepNow.map((item) => <li key={item}>{item}</li>)}</ul>}
++      <h3 className="sectionLabel">defer_next_increment</h3>
++      {deferNextIncrement.length === 0 ? (
++        <p className="muted">次回送りなし</p>
++      ) : (
++        <ul className="checkList deferred">{deferNextIncrement.map((item) => <li key={item}>{item}</li>)}</ul>
++      )}
++      {state === "brake" ? <p className="note">brakeではkeep_nowを1件に絞り、defer_next_incrementは次回Packetへ送ります。</p> : null}
++    </article>
++  );
+ }
+ 
+-function BrowserPanel({ coverage }: { coverage: Record<(typeof requiredBrowsers)[number], string> }) {
+-  return <article className="panel" aria-label="Chromium Firefox WebKit">
+-    <div className="panelHeader"><p className="eyebrow">Coverage</p><h2>Chromium / Firefox / WebKit</h2></div>
+-    <ul className="browserList">{requiredBrowsers.map((browser) => <li key={browser} className={coverage[browser] === "必須" ? "pass" : "skip"}><span>{browser}</span><strong>{coverage[browser]}</strong></li>)}</ul>
+-  </article>;
++function VerificationPanel({ view }: { view: ReturnType<typeof createShrinkPlanViewModel> }) {
++  return (
++    <article className="panel" aria-label="最低検証と証跡">
++      <div className="panelHeader">
++        <p className="eyebrow">Verification Evidence</p>
++        <h2>最低検証 / terminal / screenshot</h2>
++      </div>
++      <h3>minimum verification</h3>
++      <ul className="checkList">{view.input.minimumVerification.map((command) => <li key={command}>{command}</li>)}</ul>
++      {view.missingMinimumVerification.length ? <p className="note danger">不足: {view.missingMinimumVerification.join("、")}</p> : null}
++      <h3 className="sectionLabel">evidence paths</h3>
++      <ul className="checkList">{view.input.evidencePaths.map((item) => <li key={item}>{item}</li>)}</ul>
++      {view.missingEvidence.length ? <p className="note danger">不足: {view.missingEvidence.join("、")}</p> : null}
++    </article>
++  );
+ }
+ 
+-function EvidencePanel({ evidence, missing }: { evidence: string[]; missing: string[] }) {
+-  return <article className="panel" aria-label="必要証跡">
+-    <div className="panelHeader"><p className="eyebrow">Evidence</p><h2>terminal / screenshots / report</h2></div>
+-    {evidence.length === 0 ? <p className="muted">必要証跡は未設定です。</p> : <ul className="checkList">{evidence.map((item) => <li key={item}><strong>{item}</strong><span>Verification Evidenceへ保存</span></li>)}</ul>}
+-    {missing.length ? <p className="note danger">不足: {missing.join("、")}</p> : <p className="note">terminal evidence、failure screenshot、Playwright reportが揃っています。</p>}
+-  </article>;
++function BrowserPanel({ coverage, missing }: { coverage: Record<(typeof requiredBrowsers)[number], string>; missing: string[] }) {
++  return (
++    <article className="panel" aria-label="Chromium Firefox WebKit">
++      <div className="panelHeader">
++        <p className="eyebrow">3 Browser E2E</p>
++        <h2>Chromium / Firefox / WebKit</h2>
++      </div>
++      <ul className="browserList">
++        {requiredBrowsers.map((browser) => (
++          <li key={browser} className={coverage[browser] === "必須" ? "pass" : "skip"}>
++            <span>{browser}</span>
++            <strong>{coverage[browser]}</strong>
++          </li>
++        ))}
++      </ul>
++      {missing.length ? <p className="note danger">不足: {missing.join("、")}</p> : <p className="note">3ブラウザを必須として確認します。</p>}
++    </article>
++  );
+ }
+ 
+ function BlockPanel({ reasons, promptLeakage }: { reasons: string[]; promptLeakage: boolean }) {
+-  return <article className="panel" aria-label="blocked reasons">
+-    <div className="panelHeader"><p className="eyebrow">Gate</p><h2>実行前ブロック</h2></div>
+-    {reasons.length === 0 && !promptLeakage ? <p className="note">next_increment混入、危険command、sandbox不足、Firefox除外、terminal/failure screenshot不足、rollback不足、local path/private URL、AIDD-Spec接続不足は検出されていません。</p> : <ul className="findingList">{reasons.map((reason) => <li key={reason}><div><h3>{reason}</h3><span>blocked</span></div><p>解消するまでCodex Run Queueへ渡しません。</p></li>)}{promptLeakage ? <li><div><h3>execute_now以外または公開危険文字列のprompt混入</h3><span>blocked</span></div><p>Codex prompt previewはexecute_nowだけ、公開可能な文字列だけにしてください。</p></li> : null}</ul>}
+-  </article>;
++  return (
++    <article className="panel" aria-label="stop block reasons">
++      <div className="panelHeader">
++        <p className="eyebrow">Stop Reason</p>
++        <h2>ブロック理由</h2>
++      </div>
++      {reasons.length === 0 && !promptLeakage ? (
++        <p className="note">最低検証、3ブラウザ、terminal/failure screenshot、rollback、prompt sanitizationを確認済みです。</p>
++      ) : (
++        <ul className="findingList">
++          {reasons.map((reason) => (
++            <li key={reason}>
++              <div>
++                <h3>{reason}</h3>
++                <span>stop</span>
++              </div>
++              <p>解消するまでCodex Runへ渡しません。</p>
++            </li>
++          ))}
++          {promptLeakage ? (
++            <li>
++              <div>
++                <h3>prompt混入</h3>
++                <span>stop</span>
++              </div>
++              <p>Codex prompt previewはkeep_nowだけにし、local path / private host / private network URLを含めません。</p>
++            </li>
++          ) : null}
++        </ul>
++      )}
++    </article>
++  );
+ }
+ 
+ function OutputPanel({ title, body }: { title: string; body: string }) {
+-  return <article className="panel output primary" aria-label={title}><div className="panelHeader"><p className="eyebrow">Export</p><h2>{title}</h2></div><pre>{body}</pre></article>;
++  return (
++    <article className="panel output primary" aria-label={title}>
++      <div className="panelHeader">
++        <p className="eyebrow">Export</p>
++        <h2>{title}</h2>
++      </div>
++      <pre>{body}</pre>
++    </article>
++  );
+ }
+diff --git a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/package.json b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/package.json
+index f8b4ec17cdb40e44e19dcca0a144a27d23fed254..f531c38c746895e5a2303f31f204ef1b1c9945c4
+--- a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/package.json
++++ b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/package.json
+@@ -1,5 +1,5 @@
+ {
+-  "name": "aidd-control-plane-mvp-068",
++  "name": "aidd-control-plane-mvp-069",
+   "version": "0.1.0",
+   "private": true,
+   "type": "module",
+@@ -12,7 +12,7 @@
+     "build": "next build",
+     "test:e2e": "playwright test",
+     "doctor:aidd": "node scripts/doctor-aidd.mjs",
+-    "capture:mvp068": "node scripts/capture-mvp068.mjs"
++    "capture:mvp069": "node scripts/capture-mvp069.mjs"
+   },
+   "dependencies": {
+     "next": "15.5.20",
+diff --git a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts
+index 560403ca59f7b595b3dce01bc6de034d4c2e6069..c0e4b2c3d49cc73ba1f33cdb1ec90bc3dc7aa719
+--- a/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts
++++ b/experiments/2026-07-08-aidd-control-plane-mvp-069/generated-repo/src/domain/budget-shrink-planner.ts
+@@ -29,14 +29,15 @@
+   "pnpm run doctor:aidd"
+ ];
+ 
+-const safePrompt = [
++const readyPrompt = [
+   "MVP069 keep_now: 公開preview smokeで壊れたasset URLを1件だけ修正してください。",
+-  "defer_next_incrementは今回のCodex promptへ入れず、Learning Logへ戻します。",
+   "minimum_verification: pnpm run lint / pnpm run typecheck / pnpm run test / pnpm run build / pnpm run test:e2e / pnpm run doctor:aidd。",
+   "Chromium / Firefox / WebKit、terminal evidence、failure screenshot、Playwright reportを残します。",
+   "rollback: 証跡不足または公開危険文字列が出たら実行を止め、Review Recordへ戻します。"
+ ].join("\n");
+ 
++const sanitizedPrompt = "MVP069 keep_now: 公開preview smokeで壊れたasset URLを1件だけ修正してください。";
++
+ export function getShrinkPlanInput(state: PlannerState): ShrinkPlanInput {
+   if (state === "ready") {
+     return {
+@@ -50,7 +51,7 @@
+       resumeCondition: "3ブラウザE2Eとterminal/failure screenshotが揃ったら次へ進む",
+       evidencePaths: ["artifacts/terminal", "artifacts/screenshots", "playwright-report"],
+       browserProjects: { Chromium: "必須", Firefox: "必須", WebKit: "必須" },
+-      promptPreview: safePrompt,
++      promptPreview: readyPrompt,
+       blockedReasons: [],
+       sanitizationScan: "公開危険文字列なし",
+       aiddSpecConnection: "AIDD-Spec v0.1 AI Task Packet / Verification Evidence / Review Record / Learning Log、AIDD Control Plane Codex Run Budget Shrink Planner"
+@@ -68,7 +69,7 @@
+       resumeCondition: "keep_nowの1件が検証済みになったらdefer_next_incrementを次回Packetへ送る",
+       evidencePaths: ["artifacts/terminal", "artifacts/screenshots", "playwright-report"],
+       browserProjects: { Chromium: "必須", Firefox: "必須", WebKit: "必須" },
+-      promptPreview: safePrompt,
++      promptPreview: readyPrompt,
+       blockedReasons: ["実行予算超過のためkeep_nowへ縮小"],
+       sanitizationScan: "local path / private host / private network URLなし",
+       aiddSpecConnection: "AIDD-Spec v0.1 AI Task Packet / Verification Evidence / Review Record / Learning Log、AIDD Control Plane Codex Run Budget Shrink Planner"
+@@ -87,7 +88,7 @@
+       evidencePaths: ["未設定"],
+       browserProjects: { Chromium: "必須", Firefox: "除外", WebKit: "未確認" },
+       promptPreview: "defer_next_incrementもまとめて実行する。private-preview.example.invalid を参照する。",
+-      blockedReasons: ["minimum_verification不足", "Firefox除外", "terminal/failure screenshot不足", "rollback不足", "公開危険文字列混入"],
++      blockedReasons: ["最低検証不足", "3ブラウザ不足", "terminal/failure screenshot不足", "rollback不足"],
+       sanitizationScan: "private host混入を検出",
+       aiddSpecConnection: "不足"
+     };
+@@ -103,7 +104,7 @@
+     resumeCondition: "公開previewと画像URLがHTTP経路で確認できたら次へ進む",
+     evidencePaths: ["artifacts/terminal", "artifacts/screenshots", "playwright-report"],
+     browserProjects: { Chromium: "必須", Firefox: "必須", WebKit: "必須" },
+-    promptPreview: safePrompt,
++    promptPreview: sanitizedPrompt,
+     blockedReasons: [],
+     sanitizationScan: "local path / private host / private network URLなし",
+     aiddSpecConnection: "AIDD-Spec v0.1 AI Task Packet / Verification Evidence / Review Record / Learning Log、AIDD Control Plane Codex Run Budget Shrink Planner"
+
+codex
+UI差し替えとドメインのsanitized prompt制約を入れました。続けてMVP068名のテスト・doctor・captureをMVP069仕様へ置き換えます。

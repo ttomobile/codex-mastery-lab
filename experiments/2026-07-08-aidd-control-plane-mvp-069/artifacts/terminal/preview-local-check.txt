@@ -1,0 +1,5 @@
+asset ok aidd-control-plane-mvp069-ready.png   287327
+asset ok aidd-control-plane-mvp069-brake.png   310038
+asset ok aidd-control-plane-mvp069-stop.png   392213
+asset ok aidd-control-plane-mvp069-sanitized.png   265465
+asset ok aidd-control-plane-mvp069-terminal-evidence.png    51050

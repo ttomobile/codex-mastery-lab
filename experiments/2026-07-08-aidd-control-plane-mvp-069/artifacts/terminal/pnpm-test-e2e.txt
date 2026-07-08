@@ -1,0 +1,18 @@
+$ playwright test
+
+Running 12 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/budget-shrink-planner.spec.ts:4:3 › Codex Run Budget Shrink Planner › ready状態では予算内の縮小packetを表示する (745ms)
+  ✓   2 [chromium] › e2e/budget-shrink-planner.spec.ts:12:3 › Codex Run Budget Shrink Planner › brake状態でkeep_nowとdefer_next_incrementを分ける (667ms)
+  ✓   3 [chromium] › e2e/budget-shrink-planner.spec.ts:21:3 › Codex Run Budget Shrink Planner › stop状態で最低検証と証跡不足を止める (462ms)
+  ✓   4 [chromium] › e2e/budget-shrink-planner.spec.ts:31:3 › Codex Run Budget Shrink Planner › sanitized状態で公開用promptにkeep_nowだけを残す (466ms)
+  ✓   5 [firefox] › e2e/budget-shrink-planner.spec.ts:4:3 › Codex Run Budget Shrink Planner › ready状態では予算内の縮小packetを表示する (1.3s)
+  ✓   6 [firefox] › e2e/budget-shrink-planner.spec.ts:12:3 › Codex Run Budget Shrink Planner › brake状態でkeep_nowとdefer_next_incrementを分ける (558ms)
+  ✓   7 [firefox] › e2e/budget-shrink-planner.spec.ts:21:3 › Codex Run Budget Shrink Planner › stop状態で最低検証と証跡不足を止める (620ms)
+  ✓   8 [firefox] › e2e/budget-shrink-planner.spec.ts:31:3 › Codex Run Budget Shrink Planner › sanitized状態で公開用promptにkeep_nowだけを残す (619ms)
+  ✓   9 [webkit] › e2e/budget-shrink-planner.spec.ts:4:3 › Codex Run Budget Shrink Planner › ready状態では予算内の縮小packetを表示する (2.2s)
+  ✓  10 [webkit] › e2e/budget-shrink-planner.spec.ts:12:3 › Codex Run Budget Shrink Planner › brake状態でkeep_nowとdefer_next_incrementを分ける (478ms)
+  ✓  11 [webkit] › e2e/budget-shrink-planner.spec.ts:21:3 › Codex Run Budget Shrink Planner › stop状態で最低検証と証跡不足を止める (438ms)
+  ✓  12 [webkit] › e2e/budget-shrink-planner.spec.ts:31:3 › Codex Run Budget Shrink Planner › sanitized状態で公開用promptにkeep_nowだけを残す (391ms)
+
+  12 passed (16.1s)

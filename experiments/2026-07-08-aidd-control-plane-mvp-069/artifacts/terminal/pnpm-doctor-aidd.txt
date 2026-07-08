@@ -1,0 +1,3 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+MVP069、ready/brake/stop/sanitized、keep_now縮小、3ブラウザE2E、capture:mvp069、AIDD-Spec接続、公開危険文字列検査を確認しました。
