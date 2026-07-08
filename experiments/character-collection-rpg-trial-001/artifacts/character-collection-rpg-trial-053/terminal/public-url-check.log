@@ -1,0 +1,7 @@
+$ curl public playable
+playable http=200 bytes=147668
+$ curl public assets
+party-key-art http=200 bytes=2868814
+battle-ruins http=200 bytes=2481271
+summon-altar http=200 bytes=2918540
+crystal-guardian http=200 bytes=2677355

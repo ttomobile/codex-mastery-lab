@@ -1,0 +1,4 @@
+$ python3 scripts/build_preview.py
+Wrote 134 articles to WORKSPACE/preview
+$ node JS syntax check
+JS syntax OK

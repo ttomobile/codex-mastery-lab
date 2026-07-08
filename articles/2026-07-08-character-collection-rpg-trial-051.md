@@ -29,7 +29,7 @@ Trial 051では、記事より先に触れるプレイアブル版を更新し�
 
 公開プレイアブルURL:
 
-https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html
+公開プレイアブルURLは各実行レポートで共有する。記事本文には内部ホスト名を残さない。
 
 ### ホーム: スタイル育成ロードマップ
 

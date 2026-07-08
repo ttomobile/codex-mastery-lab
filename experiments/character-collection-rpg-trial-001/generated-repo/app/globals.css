@@ -260,6 +260,41 @@ button {
   font-size: 18px;
 }
 
+.first-touch-panel {
+  border-color: rgba(248, 203, 94, .42);
+  background: linear-gradient(145deg, rgba(248, 203, 94, .13), rgba(67, 224, 192, .07));
+}
+
+.first-touch-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.first-touch-grid article {
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  background: rgba(7, 10, 18, .42);
+  padding: 10px;
+}
+
+.first-touch-grid strong,
+.first-touch-grid span {
+  display: block;
+}
+
+.first-touch-grid strong {
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.first-touch-grid span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .character-card,
 .quest-row,
 .training-row {

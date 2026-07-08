@@ -155,7 +155,7 @@ export default function Page() {
       <section className="phone-frame" aria-label="SagaForge Trial 001">
         <header className="top-bar">
           <div>
-            <p className="eyebrow">SagaForge Trial 001</p>
+            <p className="eyebrow">SagaForge Trial 001 / Playable Trial 053反映</p>
             <h1>星紋遠征隊</h1>
           </div>
           <span className={`status-pill ${isFailure ? "danger" : "ok"}`} data-testid="status-pill">
@@ -193,6 +193,15 @@ export default function Page() {
 
 function HomeScreen({ state, readiness }: { state: MockState; readiness: number }) {
   const hero = state.roster[0];
+  const featuredStyle = state.roster[0];
+  const partyLabel = partyMembersLabel(state).join(" / ") || "5人編成を確認";
+  const quest = state.quests[0];
+  const firstTouchSteps = [
+    { title: "召喚", body: "10連結果をスタイルカードとして確認し、重複はピースへ変換" },
+    { title: "スタイル", body: featuredStyle ? `${featuredStyle.name} Lv.${featuredStyle.level} / 戦力${featuredStyle.power}` : "育成候補を確認" },
+    { title: "5人編成", body: `${partyLabel} / 準備度${readiness}点` },
+    { title: "出撃/連携", body: quest ? `${quest.title} / 推奨${quest.requiredPower} / 予約コマンドへ` : "クエスト選択へ" }
+  ];
   return (
     <section className="screen" data-testid="home-screen">
       <div className="hero-panel premium-hero">
@@ -209,6 +218,19 @@ function HomeScreen({ state, readiness }: { state: MockState; readiness: number 
         <Metric label="所持隊員" value={`${state.roster.length}名`} />
         <Metric label="準備度" value={`${readiness}点`} />
         <Metric label="幻晶" value={state.scenario === "payment_failed" ? "決済失敗" : "12個"} />
+      </div>
+      <div className="panel first-touch-panel">
+        <p className="eyebrow">Trial 053: 初回30秒プレイ導線</p>
+        <h2>召喚→スタイル→5人編成→出撃→勝利後育成</h2>
+        <p>プレイアブル版で追加した導線をNext.js側にも戻し、初見でもどの順番で触ればキャラ収集RPGらしい周回に入れるかを見える化しました。</p>
+        <div className="first-touch-grid">
+          {firstTouchSteps.map((step) => (
+            <article key={step.title}>
+              <strong>{step.title}</strong>
+              <span>{step.body}</span>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

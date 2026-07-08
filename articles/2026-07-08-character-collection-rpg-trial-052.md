@@ -39,7 +39,7 @@ Trial 051では、スタイル育成ロードマップ、周回ルート推薦�
 
 公開プレイアブルURL:
 
-https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html
+公開プレイアブルURLは各実行レポートで共有する。記事本文には内部ホスト名を残さない。
 
 ### ホーム: Round別クエスト目的チケット
 
