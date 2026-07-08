@@ -1,0 +1,15 @@
+HTTP/2 200 
+content-type: text/html
+date: Wed, 08 Jul 2026 17:20:31 GMT
+last-modified: Wed, 08 Jul 2026 17:17:12 GMT
+server: SimpleHTTP/0.6 Python/3.9.6
+HTTP/2 200 
+content-type: image/png
+date: Wed, 08 Jul 2026 17:20:31 GMT
+last-modified: Fri, 03 Jul 2026 17:18:53 GMT
+server: SimpleHTTP/0.6 Python/3.9.6
+HTTP/2 200 
+content-type: image/png
+date: Wed, 08 Jul 2026 17:20:31 GMT
+last-modified: Wed, 08 Jul 2026 17:18:51 GMT
+server: SimpleHTTP/0.6 Python/3.9.6

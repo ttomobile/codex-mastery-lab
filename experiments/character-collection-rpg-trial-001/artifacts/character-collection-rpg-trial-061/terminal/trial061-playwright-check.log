@@ -1,0 +1,13 @@
+{
+  "errors": [],
+  "state": {
+    "title": "星紋遠征隊 SagaForge Trial 061",
+    "active": "battle",
+    "trial061Cards": 6,
+    "trial061Log": "Trial 061: 連携優先から、裂光の丘 1-5 HARD・堅守の盾・5人予約BP 5/10・連携100%へ更新。",
+    "battleResult": "コマンド選択: BPを管理してOD連携を狙う",
+    "bp": "10/13",
+    "od": "54%",
+    "hotCards": 4
+  }
+}
