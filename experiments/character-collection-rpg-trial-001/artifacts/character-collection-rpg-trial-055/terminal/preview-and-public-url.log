@@ -1,0 +1,14 @@
+## rebuild preview with Trial 055 assets
+Wrote 138 articles to WORKSPACE/preview
+## preview files
+preview/sagaforge-app/index.html True 154551
+preview/assets/2026-07-08-character-collection-rpg-trial-055-home.png True 2894302
+preview/assets/2026-07-08-character-collection-rpg-trial-055-quest.png True 1487046
+preview/2026-07-08-character-collection-rpg-trial-055.html True 65489
+## public curl
+PUBLIC_PLAYABLE_URL/sagaforge-app/index.html http=200
+PUBLIC_PLAYABLE_URL/sagaforge-app/assets/party-key-art.png http=200
+PUBLIC_PLAYABLE_URL/sagaforge-app/assets/battle-ruins.png http=200
+PUBLIC_PLAYABLE_URL/sagaforge-app/assets/crystal-guardian.png http=200
+PUBLIC_PLAYABLE_URL/sagaforge-app/assets/summon-altar.png http=200
+PUBLIC_PLAYABLE_URL/assets/2026-07-08-character-collection-rpg-trial-055-home.png http=200

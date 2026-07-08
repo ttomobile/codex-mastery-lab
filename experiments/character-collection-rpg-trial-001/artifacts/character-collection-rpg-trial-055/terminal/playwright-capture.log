@@ -1,0 +1,17 @@
+## playwright capture
+{
+  "before": {
+    "title": "星紋遠征隊 SagaForge Trial 055",
+    "tiles": 5,
+    "firstTile": "今日の資源出撃可スタミナ 54/80 / 幻晶 1,240 / 贈り物 9",
+    "screen": "home"
+  },
+  "after": {
+    "screen": "quests",
+    "selectedQuest": "外伝 記憶片の洞窟 VERY HARDWave 4 / 消費22 / 推奨戦力 47,000 / 初回: 虹片x1 / 周回: ピース成長候補: ピース/腕力/技Rank高め選択中",
+    "status": "稼働中"
+  }
+}
+## assets
+assets/2026-07-08-character-collection-rpg-trial-055-home.png 2894302
+assets/2026-07-08-character-collection-rpg-trial-055-quest.png 1487046
