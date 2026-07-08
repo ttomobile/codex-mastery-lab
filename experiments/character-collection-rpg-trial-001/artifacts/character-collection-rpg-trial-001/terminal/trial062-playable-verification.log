@@ -1,0 +1,39 @@
+$ node --check /tmp/sagaforge-script.js
+(exit 0)
+
+$ node scripts/capture-sagaforge-playable-trial062.mjs
+{
+  "errors": [],
+  "state": {
+    "title": "星紋遠征隊 SagaForge Trial 062",
+    "active": "battle",
+    "cards": 5,
+    "rewards": 4,
+    "log": "勝利: 紅槍リオ HP+10 / 技Rank+1 / ピース+14、記憶片+22。次は育成で突破。",
+    "result": "Trial 062: 五連リール勝利。能力値・技Rank・ピース・記憶片・次の戻り先をホーム/戦闘へ同期。",
+    "bp": "10/13",
+    "od": "54%",
+    "meter": "100%"
+  }
+}
+(exit 0)
+
+$ python3 scripts/build_preview.py
+Wrote 151 articles to preview
+(exit 0)
+
+$ curl public playable/assets
+playable http=200 bytes=193061
+home http=200 bytes=4123297
+reel http=200 bytes=4143928
+battle http=200 bytes=1952413
+(exit 0)
+
+$ python3 -m py_compile scripts/build_preview.py && node --check scripts/capture-sagaforge-playable-trial062.mjs
+(exit 0)
+
+$ pnpm run lint && pnpm run typecheck && pnpm run test
+lint: exit 0
+typecheck: exit 0
+vitest: 1 file passed, 12 tests passed
+(exit 0)
