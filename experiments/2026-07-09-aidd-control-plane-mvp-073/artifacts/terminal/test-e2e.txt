@@ -1,0 +1,23 @@
+$ playwright test
+
+Running 12 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/ledger.spec.ts:4:3 › Smoke Action Run Queue Intake画面 › emptyからqueuedへ切り替え、Run Queue投入項目を表示する (449ms)
+  ✓  2 [chromium] › e2e/ledger.spec.ts:31:3 › Smoke Action Run Queue Intake画面 › queuedではpayloadとCodex command previewにexecute_nowだけを入れる (293ms)
+  ✓  3 [chromium] › e2e/ledger.spec.ts:46:3 › Smoke Action Run Queue Intake画面 › rejectedではRun Queue投入拒否理由を表示する (280ms)
+  ✓  4 [chromium] › e2e/ledger.spec.ts:61:3 › Smoke Action Run Queue Intake画面 › evidence_missingでは証跡不足を表示する (283ms)
+  ✓  5 [firefox] › e2e/ledger.spec.ts:4:3 › Smoke Action Run Queue Intake画面 › emptyからqueuedへ切り替え、Run Queue投入項目を表示する (1.1s)
+  ✓  6 [firefox] › e2e/ledger.spec.ts:31:3 › Smoke Action Run Queue Intake画面 › queuedではpayloadとCodex command previewにexecute_nowだけを入れる (494ms)
+  ✓  7 [firefox] › e2e/ledger.spec.ts:46:3 › Smoke Action Run Queue Intake画面 › rejectedではRun Queue投入拒否理由を表示する (520ms)
+  ✓  8 [firefox] › e2e/ledger.spec.ts:61:3 › Smoke Action Run Queue Intake画面 › evidence_missingでは証跡不足を表示する (456ms)
+  ✓  9 [webkit] › e2e/ledger.spec.ts:4:3 › Smoke Action Run Queue Intake画面 › emptyからqueuedへ切り替え、Run Queue投入項目を表示する (820ms)
+  ✓  10 [webkit] › e2e/ledger.spec.ts:31:3 › Smoke Action Run Queue Intake画面 › queuedではpayloadとCodex command previewにexecute_nowだけを入れる (420ms)
+  ✓  11 [webkit] › e2e/ledger.spec.ts:46:3 › Smoke Action Run Queue Intake画面 › rejectedではRun Queue投入拒否理由を表示する (438ms)
+  ✓  12 [webkit] › e2e/ledger.spec.ts:61:3 › Smoke Action Run Queue Intake画面 › evidence_missingでは証跡不足を表示する (428ms)
+
+  12 passed (9.7s)
+
+To open last HTML report run:
+
+  pnpm exec playwright show-report
+

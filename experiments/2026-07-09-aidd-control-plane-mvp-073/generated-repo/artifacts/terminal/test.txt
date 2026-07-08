@@ -1,0 +1,16 @@
+$ vitest run --reporter=verbose
+
+ RUN  v3.2.4 <repo>/experiments/2026-07-09-aidd-control-plane-mvp-073/generated-repo
+
+ ✓ tests/ledger.test.ts > Smoke Action Run Queue Intakeの判定 > queuedではRun Queue投入に必要な項目を保持する 2ms
+ ✓ tests/ledger.test.ts > Smoke Action Run Queue Intakeの判定 > queued payloadとCodex command previewはexecute_nowだけを表示する 0ms
+ ✓ tests/ledger.test.ts > Smoke Action Run Queue Intakeの判定 > rejectedでは6種類の投入拒否理由を検出する 1ms
+ ✓ tests/ledger.test.ts > Smoke Action Run Queue Intakeの判定 > evidence_missingでは3種類の証跡不足を検出する 0ms
+ ✓ tests/ledger.test.ts > Smoke Action Run Queue Intakeの判定 > 正常なqueued itemでは拒否理由と証跡不足を出さない 0ms
+ ✓ tests/ledger.test.ts > Smoke Action Run Queue Intakeの判定 > emptyではitemを持たない 0ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  06:28:39
+   Duration  590ms (transform 38ms, setup 0ms, collect 31ms, tests 5ms, environment 318ms, prepare 53ms)
+

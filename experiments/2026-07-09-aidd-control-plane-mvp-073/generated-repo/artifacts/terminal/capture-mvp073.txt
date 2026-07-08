@@ -1,0 +1,8 @@
+capture:mvp073 completed
+screenshots:
+aidd-control-plane-mvp073-empty.png
+aidd-control-plane-mvp073-queued.png
+aidd-control-plane-mvp073-rejected.png
+aidd-control-plane-mvp073-evidence-missing.png
+aidd-control-plane-mvp073-failure.png
+aidd-control-plane-mvp073-terminal-evidence.png
