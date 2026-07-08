@@ -93,6 +93,7 @@ CONTROL_PLANE_ORDER = [
     '2026-07-08-aidd-control-plane-mvp-068.md',
     '2026-07-08-aidd-control-plane-mvp-069.md',
     '2026-07-08-aidd-control-plane-mvp-070.md',
+    '2026-07-09-aidd-control-plane-mvp-071.md',
 ]
 
 DOGFOOD_ORDER = [
@@ -374,6 +375,18 @@ def sanitize_public_html(rendered: str) -> str:
     home = Path.home()
     rendered = rendered.replace(str(ROOT), 'WORKSPACE')
     rendered = rendered.replace(str(home), 'HOME')
+    private_patterns = [
+        (r'https?://127\.0\.0\.1(?::\d+)?', 'LOCAL_PREVIEW_URL'),
+        (r'https?://localhost(?::\d+)?', 'LOCAL_PREVIEW_URL'),
+        (r'https?://(?:10|192\.168)\.\d{1,3}\.\d{1,3}\.\d{1,3}(?::\d+)?', 'PRIVATE_NETWORK_URL'),
+        (r"https?://[^\s<>()\"']*\.ts\.net[^\s<>()\"']*", 'PRIVATE_TAILNET_URL'),
+    ]
+    for pattern, replacement in private_patterns:
+        rendered = re.sub(pattern, replacement, rendered)
+    rendered = rendered.replace('127.0.0.1', 'LOCALHOST')
+    rendered = rendered.replace('localhost', 'LOCALHOST')
+    rendered = re.sub(r'\b192\.168\.\d{1,3}\.\d{1,3}\b', 'PRIVATE_NETWORK_HOST', rendered)
+    rendered = re.sub(r'\b10\.\d{1,3}\.\d{1,3}\.\d{1,3}\b', 'PRIVATE_NETWORK_HOST', rendered)
     return rendered
 
 def article_title(path: Path) -> str:

@@ -1,0 +1,6 @@
+capture:mvp071 completed
+screenshots:
+aidd-control-plane-mvp071-initial.png
+aidd-control-plane-mvp071-approved.png
+aidd-control-plane-mvp071-blocked.png
+aidd-control-plane-mvp071-terminal-evidence.png

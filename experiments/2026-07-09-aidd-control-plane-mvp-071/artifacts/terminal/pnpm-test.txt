@@ -1,0 +1,14 @@
+$ vitest run --reporter=verbose
+
+ RUN  v3.2.4 WORKSPACE/experiments/2026-07-09-aidd-control-plane-mvp-071/generated-repo
+
+ ✓ tests/ledger.test.ts > Handoff Decision Ledgerの判定 > approvedではexecute_nowだけがCodex command draftへ入る 1ms
+ ✓ tests/ledger.test.ts > Handoff Decision Ledgerの判定 > heldではCodex command draftを空にしてLearning Log返却を保持する 0ms
+ ✓ tests/ledger.test.ts > Handoff Decision Ledgerの判定 > blockedでは未承認、理由不足、3ブラウザ不足、evidence不足、公開前漏えいを検出する 1ms
+ ✓ tests/ledger.test.ts > Handoff Decision Ledgerの判定 > emptyではreceiptを持たない 0ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  01:46:00
+   Duration  533ms (transform 26ms, setup 0ms, collect 22ms, tests 2ms, environment 266ms, prepare 37ms)
+

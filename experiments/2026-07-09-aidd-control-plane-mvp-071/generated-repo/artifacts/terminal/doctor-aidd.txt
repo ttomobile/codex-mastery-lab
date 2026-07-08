@@ -1,0 +1,13 @@
+AIDD Control Plane MVP071 doctor
+root: generated-repo
+
+OK 必須pnpm script: lint, typecheck, test, build, test:e2e, doctor:aidd, capture:mvp071
+OK 日本語UI: empty / held / blocked の日本語表示を確認
+OK approved表示項目: approvedで必要なReview Record項目を確認
+OK blocked検出ロジック: 停止理由と公開前サニタイズ違反を確認
+OK execute_now限定draft: deferやheld理由をdraft生成に混ぜない
+OK Playwright 3ブラウザ: Chromium / Firefox / WebKit projectを確認
+OK 日本語E2E: テスト名と期待値が日本語文脈
+OK AIDD-Spec接続: 標準語彙との接続を確認
+OK capture画像: artifacts/screenshots/aidd-control-plane-mvp071-initial.png, artifacts/screenshots/aidd-control-plane-mvp071-approved.png, artifacts/screenshots/aidd-control-plane-mvp071-blocked.png, artifacts/screenshots/aidd-control-plane-mvp071-terminal-evidence.png
+OK terminal evidence: doctor自身の実行ログを保存

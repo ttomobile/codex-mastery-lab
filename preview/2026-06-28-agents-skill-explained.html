@@ -138,7 +138,8 @@ th { background:#f1f5f9; }
 <a href="2026-07-08-aidd-control-plane-mvp-067.html">MVP67｜「壊れていました」で終わらせない：Smoke失敗を次のAI指示へ戻すAction Queueを作った</a>
 <a href="2026-07-08-aidd-control-plane-mvp-068.html">MVP68｜AIに渡す直前で止める：One-Run Execution Readiness Gateを作った</a>
 <a href="2026-07-08-aidd-control-plane-mvp-069.html">MVP69｜AIへの依頼が大きすぎる時に畳む：Codex Run Budget Shrink Plannerを作った</a>
-<a href="2026-07-08-aidd-control-plane-mvp-070.html">MVP70｜縮小したAI依頼を渡す直前に確認する：Shrunk Packet Handoff Receiptを作った</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a href="2026-07-08-aidd-control-plane-mvp-070.html">MVP70｜縮小したAI依頼を渡す直前に確認する：Shrunk Packet Handoff Receiptを作った</a>
+<a href="2026-07-09-aidd-control-plane-mvp-071.html">MVP71｜AI実行へ進める判断を1枚で残す：Handoff Decision Ledgerを作った</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a href="2026-07-02-character-collection-rpg-trial-001.html">Dogfood01｜AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
 <a href="2026-07-02-character-collection-rpg-trial-002.html">Dogfood02｜AIDD Control Plane Dogfood 002：画像素材と戦闘シーンを入れて、キャラ収集RPGを“遊べそう”に近づける</a>
 <a href="2026-07-03-character-collection-rpg-trial-003.html">Dogfood03｜AIDD Control Plane Dogfood 003：キャラ収集RPGに「操作すると変わる」を入れる</a>
 <a href="2026-07-03-character-collection-rpg-trial-004.html">Dogfood04｜AIDD Control Plane Dogfood 004：キャラ収集RPGの操作をmock backendへ保存する</a>
@@ -281,7 +282,8 @@ th { background:#f1f5f9; }
 <a class="chapter-link " href="2026-07-08-aidd-control-plane-mvp-067.html"><span class="chapter-num">MVP 67</span>「壊れていました」で終わらせない：Smoke失敗を次のAI指示へ戻すAction Queueを作った</a>
 <a class="chapter-link " href="2026-07-08-aidd-control-plane-mvp-068.html"><span class="chapter-num">MVP 68</span>AIに渡す直前で止める：One-Run Execution Readiness Gateを作った</a>
 <a class="chapter-link " href="2026-07-08-aidd-control-plane-mvp-069.html"><span class="chapter-num">MVP 69</span>AIへの依頼が大きすぎる時に畳む：Codex Run Budget Shrink Plannerを作った</a>
-<a class="chapter-link " href="2026-07-08-aidd-control-plane-mvp-070.html"><span class="chapter-num">MVP 70</span>縮小したAI依頼を渡す直前に確認する：Shrunk Packet Handoff Receiptを作った</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
+<a class="chapter-link " href="2026-07-08-aidd-control-plane-mvp-070.html"><span class="chapter-num">MVP 70</span>縮小したAI依頼を渡す直前に確認する：Shrunk Packet Handoff Receiptを作った</a>
+<a class="chapter-link " href="2026-07-09-aidd-control-plane-mvp-071.html"><span class="chapter-num">MVP 71</span>AI実行へ進める判断を1枚で残す：Handoff Decision Ledgerを作った</a><div class="nav-section-title">AIDD Control Plane Dogfood</div><a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-001.html"><span class="chapter-num">Dogfood 01</span>AIDD Control Plane Dogfood 001：ロマサガRS風ではなく、キャラ収集RPGの体験パターンをAIに作らせる</a>
 <a class="chapter-link " href="2026-07-02-character-collection-rpg-trial-002.html"><span class="chapter-num">Dogfood 02</span>AIDD Control Plane Dogfood 002：画像素材と戦闘シーンを入れて、キャラ収集RPGを“遊べそう”に近づける</a>
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-003.html"><span class="chapter-num">Dogfood 03</span>AIDD Control Plane Dogfood 003：キャラ収集RPGに「操作すると変わる」を入れる</a>
 <a class="chapter-link " href="2026-07-03-character-collection-rpg-trial-004.html"><span class="chapter-num">Dogfood 04</span>AIDD Control Plane Dogfood 004：キャラ収集RPGの操作をmock backendへ保存する</a>
@@ -424,7 +426,7 @@ th { background:#f1f5f9; }
 <li>timeout/offlineの状態を再現できるか</li>
 </ul>
 <p><code>/__control/state</code> があると、Playwrightから状態を直接変えられる。</p>
-<pre><code>await request.post(&quot;http://127.0.0.1:4010/__control/state&quot;, {
+<pre><code>await request.post(&quot;LOCAL_PREVIEW_URL/__control/state&quot;, {
   data: { state: &quot;offline&quot; }
 });</code></pre>
 <p>これがStudyStreamでは、media failure、auth、billing、offline、timeoutの表示検証に効いた。DrillSwipeでも、短尺フィードの状態だけでなく、課金・認証・media失敗をUIに出すための根拠になった。</p>

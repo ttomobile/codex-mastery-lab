@@ -1,0 +1,8 @@
+html_exists True 72821
+Handoff Decision Ledger True
+aidd-control-plane-mvp071-initial.png True
+AIDD Control Plane SaaS化 True
+aidd-control-plane-mvp071-initial.png True 45901
+aidd-control-plane-mvp071-approved.png True 212995
+aidd-control-plane-mvp071-blocked.png True 172348
+aidd-control-plane-mvp071-terminal-evidence.png True 41871

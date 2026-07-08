@@ -1,0 +1,2 @@
+command: codex exec --sandbox danger-full-access "$(cat CODEX_PROMPT.md)"
+result: Codex generated generated-repo and ran partial checks, but the CLI session timed out during capture:mvp071 after screenshots were produced. Independent verification was rerun manually and saved as separate pnpm-*.txt logs.

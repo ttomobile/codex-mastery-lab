@@ -1,0 +1,38 @@
+$ playwright test
+[2m[WebServer] [22m(node:71253) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:71254) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:71260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 9 tests using 1 worker
+
+(node:71263) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:71263) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › e2e/ledger.spec.ts:4:3 › Handoff Decision Ledger画面 › emptyからapprovedへ切り替え、approved execute_nowだけをdraftへ入れる (1.8s)
+  ✓  2 [chromium] › e2e/ledger.spec.ts:29:3 › Handoff Decision Ledger画面 › heldではhold reasonとLearning Log返却を表示する (598ms)
+  ✓  3 [chromium] › e2e/ledger.spec.ts:38:3 › Handoff Decision Ledger画面 › blockedでは停止理由と公開前サニタイズ違反を表示する (687ms)
+(node:71274) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:71274) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  4 [firefox] › e2e/ledger.spec.ts:4:3 › Handoff Decision Ledger画面 › emptyからapprovedへ切り替え、approved execute_nowだけをdraftへ入れる (1.9s)
+  ✓  5 [firefox] › e2e/ledger.spec.ts:29:3 › Handoff Decision Ledger画面 › heldではhold reasonとLearning Log返却を表示する (776ms)
+  ✓  6 [firefox] › e2e/ledger.spec.ts:38:3 › Handoff Decision Ledger画面 › blockedでは停止理由と公開前サニタイズ違反を表示する (768ms)
+(node:71314) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:71314) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  7 [webkit] › e2e/ledger.spec.ts:4:3 › Handoff Decision Ledger画面 › emptyからapprovedへ切り替え、approved execute_nowだけをdraftへ入れる (2.4s)
+  ✓  8 [webkit] › e2e/ledger.spec.ts:29:3 › Handoff Decision Ledger画面 › heldではhold reasonとLearning Log返却を表示する (757ms)
+  ✓  9 [webkit] › e2e/ledger.spec.ts:38:3 › Handoff Decision Ledger画面 › blockedでは停止理由と公開前サニタイズ違反を表示する (1.3s)
+
+  9 passed (34.8s)
+
+To open last HTML report run:
+[36m[39m
+[36m  pnpm exec playwright show-report[39m
+[36m[39m

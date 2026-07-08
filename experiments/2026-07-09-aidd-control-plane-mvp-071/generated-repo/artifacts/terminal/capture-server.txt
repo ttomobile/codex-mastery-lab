@@ -1,0 +1,19 @@
+▲ Next.js 16.2.10 (Turbopack)
+- Local:         http://LOCALHOST:3071
+- Network:       http://LOCALHOST:3071
+✓ Ready in 580ms
+
+ GET / 200 in 397ms (next.js: 185ms, application-code: 211ms)
+ GET / 200 in 38ms (next.js: 4ms, application-code: 34ms)
+ GET / 200 in 28ms (next.js: 2ms, application-code: 25ms)
+ GET / 200 in 31ms (next.js: 2ms, application-code: 29ms)
+[?25h
+▲ Next.js 16.2.10 (Turbopack)
+- Local:         http://LOCALHOST:3071
+- Network:       http://LOCALHOST:3071
+✓ Ready in 527ms
+
+ GET / 200 in 366ms (next.js: 164ms, application-code: 201ms)
+ GET / 200 in 38ms (next.js: 4ms, application-code: 34ms)
+ GET / 200 in 29ms (next.js: 3ms, application-code: 27ms)
+ GET / 200 in 34ms (next.js: 3ms, application-code: 31ms)
