@@ -1,0 +1,20 @@
+import { chromium } from 'playwright';
+import path from 'node:path';
+
+const root = process.cwd();
+const url = 'file://' + path.join(root, 'playables/sagaforge-app/index.html');
+const browser = await chromium.launch({ headless: true });
+const page = await browser.newPage({ viewport: { width: 430, height: 932 }, deviceScaleFactor: 1 });
+const errors = [];
+page.on('pageerror', (error) => errors.push(error.message));
+await page.goto(url);
+await page.waitForTimeout(600);
+await page.screenshot({ path: 'assets/2026-07-08-character-collection-rpg-trial-058-home.png', fullPage: true });
+await page.getByRole('button', { name: '連携優先で準備' }).click();
+await page.waitForTimeout(600);
+await page.screenshot({ path: 'assets/2026-07-08-character-collection-rpg-trial-058-battle.png', fullPage: true });
+const active = await page.locator('.screen.active').getAttribute('id');
+const result = await page.locator('#result').innerText();
+await browser.close();
+console.log(JSON.stringify({ title: 'SagaForge Trial 058 capture', active, result, errors }, null, 2));
+if (errors.length) process.exit(1);
