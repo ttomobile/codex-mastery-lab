@@ -1,0 +1,3 @@
+== pnpm run lint ==
+$ eslint .
+EXIT:0

@@ -1,0 +1,17 @@
+== pnpm run test ==
+$ vitest run --reporter=verbose
+
+ RUN  v3.2.4 <repo>/experiments/2026-07-09-aidd-control-plane-mvp-072/generated-repo
+
+ ✓ tests/ledger.test.ts > Smoke Finding Action Queueの判定 > queuedではURL障害と実行patchを保持する 1ms
+ ✓ tests/ledger.test.ts > Smoke Finding Action Queueの判定 > exportedではexecute_nowだけがCodex prompt previewへ入る 0ms
+ ✓ tests/ledger.test.ts > Smoke Finding Action Queueの判定 > blockedでは5種類の停止条件を検出する 0ms
+ ✓ tests/ledger.test.ts > Smoke Finding Action Queueの判定 > 正常なqueued actionではblocked検出を出さない 0ms
+ ✓ tests/ledger.test.ts > Smoke Finding Action Queueの判定 > emptyではactionを持たない 0ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  04:12:22
+   Duration  648ms (transform 28ms, setup 0ms, collect 20ms, tests 2ms, environment 260ms, prepare 59ms)
+
+EXIT:0

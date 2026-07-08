@@ -1,0 +1,7 @@
+capture:mvp072 completed
+screenshots:
+aidd-control-plane-mvp072-empty.png
+aidd-control-plane-mvp072-queued.png
+aidd-control-plane-mvp072-blocked.png
+aidd-control-plane-mvp072-exported.png
+aidd-control-plane-mvp072-terminal-evidence.png

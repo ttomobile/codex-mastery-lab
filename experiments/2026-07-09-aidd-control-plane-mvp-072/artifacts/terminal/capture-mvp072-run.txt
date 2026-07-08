@@ -1,0 +1,3 @@
+== pnpm run capture:mvp072 ==
+$ tsx scripts/capture-mvp072.ts
+EXIT:0

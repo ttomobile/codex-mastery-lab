@@ -1,0 +1,14 @@
+$ tsx scripts/doctor-aidd.ts
+AIDD Control Plane MVP072 doctor
+root: generated-repo
+
+OK 必須pnpm script: lint, typecheck, test, build, test:e2e, doctor:aidd, capture:mvp072
+OK MVP072日本語UI: empty / queued / blocked / exported の表示を確認
+OK queued表示項目: queuedでSmoke Finding Action Queueの必要項目を確認
+OK blocked検出ロジック: 停止条件5種を確認
+OK exported execute_now限定preview: context/deferをCodex prompt previewへ混ぜない
+OK Playwright 3ブラウザ: Chromium / Firefox / WebKit projectを確認
+OK 日本語E2E: テスト名と期待値が日本語文脈
+OK AIDD-Spec接続: 標準語彙との接続を確認
+OK capture画像: artifacts/screenshots/aidd-control-plane-mvp072-empty.png, artifacts/screenshots/aidd-control-plane-mvp072-queued.png, artifacts/screenshots/aidd-control-plane-mvp072-blocked.png, artifacts/screenshots/aidd-control-plane-mvp072-exported.png, artifacts/screenshots/aidd-control-plane-mvp072-terminal-evidence.png, assets/aidd-control-plane-mvp072-empty.png, assets/aidd-control-plane-mvp072-queued.png, assets/aidd-control-plane-mvp072-blocked.png, assets/aidd-control-plane-mvp072-exported.png, assets/aidd-control-plane-mvp072-terminal-evidence.png
+OK terminal evidence: doctor自身の実行ログを保存
