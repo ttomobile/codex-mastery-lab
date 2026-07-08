@@ -1,0 +1,11 @@
+node_modules
+.next
+coverage
+playwright-report
+test-results
+*.tsbuildinfo
+/artifacts/
+/e2e/readiness-gate.spec.ts
+/scripts/capture-mvp068.mjs
+/src/domain/readiness-gate.ts
+/tests/readiness-gate.test.ts

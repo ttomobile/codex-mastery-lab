@@ -1,0 +1,11 @@
+$ vitest run
+
+ RUN  v3.2.7 WORKSPACE/experiments/2026-07-08-aidd-control-plane-mvp-070/generated-repo
+
+ ✓ tests/handoff-receipt.test.ts (4 tests) 6ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  23:17:11
+   Duration  400ms (transform 45ms, setup 0ms, collect 38ms, tests 6ms, environment 0ms, prepare 75ms)
+
