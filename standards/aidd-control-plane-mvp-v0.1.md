@@ -82,6 +82,7 @@ MVPではこの流れをフォームとチェックリストで標準化する�
 | Handoff Decision Ledger | 縮小版ハンドオフレシートを見た後、次回Codex実行へ進めるか・保留するか・止めるかをReview Recordとして判断する | empty / approved / held / blocked、source handoff receipt、decision owner、decision reason、approved execute_now、Codex command draft、verification commands、required evidence、rollback condition、hold reason、Learning Log返却、未承認・理由不足・3ブラウザ不足・evidence不足・local path/private host/private network URL混入検出 |
 | Run Queue Intake | Handoff Decision Ledgerでapprovedになった実行候補だけをCodex Run Queueへ入れる直前に検査する | empty / queued / rejected / evidence_missing、source decision id、queue item id、run status、Codex command、sandbox mode、required verification commands、browser projects、required evidence、rollback plan、AIDD-Spec接続、held/blocked/unapproved decision・危険command・sandbox不足・Firefox除外・浅い検証・rollback不足・証跡不足・local path/private host/private network URL混入検出 |
 | Codex Run Queue Status Tracker | Run Queue Intakeでqueuedになった実行を待ち・実行中・成功・失敗・証跡不足として追跡し、実行結果をVerification Evidence / Review Record / Learning Logへ戻す | empty / waiting / running / succeeded / failed / evidence_missing、source intake id、queue item id、run status、actual results、verification summary、browser projects、terminal evidence、screenshot evidence、browser console log、掲載用GIF、Playwright report、rollback plan、review record output、learning log output、AIDD-Spec接続、command失敗・Firefox未実行・doctor:aidd失敗・危険command・rollback不足・証跡不足・console error/warn・local path/private host/private network URL混入検出 |
+| Run Result Digest Publisher | Codex Run Queue Status Trackerの実行結果を、レビュー担当者・次回AI Task Packet・note記事化に使える短い共有ダイジェストへ変換する | empty / valid / failure / blocked、source run id、run outcome、score、terminal evidence、initial/filled/failure/terminal screenshot、Chromium / Firefox / WebKit coverage、console status、Review Record excerpt、Learning Log excerpt、AI Task Packet delta、Codex prompt delta、note article angle、publish readiness、local path/private host/private network URL混入検出 |
 
 ### 3.1 Codex Run Queue Status Tracker evidence rule（MVP063反映）
 
@@ -131,6 +132,47 @@ codex_run_queue_status_tracker:
         - verification_command
   prompt_delta: |
     Run Queue状態UIを作る場合は、6状態の表示だけでなく、terminal evidence、screenshot evidence、browser console log、掲載用GIFを保存し、failed / evidence_missingをReview FindingとしてLearning Logへ戻してください。検証補助scriptもlint対象です。
+```
+
+### 3.2 Run Result Digest Publisher sharing rule（MVP064反映）
+
+Run結果は詳細画面だけに閉じず、次回判断・レビュー・記事化で再利用できる短い共有ダイジェストへ変換する。共有前に次を確認する。
+
+```yaml
+run_result_digest_publisher:
+  required_states:
+    - empty
+    - valid
+    - failure
+    - blocked
+  required_inputs:
+    - source_run_id
+    - run_outcome
+    - score
+    - terminal_evidence_summary
+    - initial_screenshot
+    - filled_screenshot
+    - failure_screenshot
+    - terminal_evidence_screenshot
+    - browser_coverage_chromium_firefox_webkit
+    - console_status
+    - review_record_excerpt
+    - learning_log_excerpt
+    - ai_task_packet_delta
+    - codex_prompt_delta
+    - note_article_angle
+    - publish_readiness
+  blocking_findings:
+    - source run id不足
+    - terminal evidence不足
+    - failure screenshot不足
+    - Firefox除外
+    - console error/warn未確認
+    - local path/host/private network URL混入
+    - Learning Log接続不足
+    - note記事観点不足
+  prompt_delta: |
+    実行結果を共有する前に、source run id、terminal evidence、failure screenshot、3ブラウザcoverage、console status、Review Record、Learning Log、note article angleを1つのMarkdown digestへまとめ、blocked条件をReview Findingとして表示してください。
 ```
 
 ## 4. 初期データモデル

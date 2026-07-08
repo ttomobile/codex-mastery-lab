@@ -1,0 +1,22 @@
+$ playwright test
+[WebServer]  ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+[WebServer]  We detected multiple lockfiles and selected the directory of WORKSPACE/package-lock.json as the root directory.
+[WebServer]  To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+[WebServer]    See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+[WebServer]  Detected additional lockfiles: 
+[WebServer]    * WORKSPACE/experiments/2026-07-08-aidd-control-plane-mvp-064/generated-repo/pnpm-lock.yaml
+[WebServer] 
+
+Running 9 tests using 1 worker
+
+  ✓  1 [chromium] › e2e/digest-publisher.spec.ts:4:3 › Run Result Digest Publisher › empty / valid / failure / blockedを切り替えられる (1.9s)
+  ✓  2 [chromium] › e2e/digest-publisher.spec.ts:18:3 › Run Result Digest Publisher › blockedでは8件のReview Findingを表示する (646ms)
+  ✓  3 [chromium] › e2e/digest-publisher.spec.ts:33:3 › Run Result Digest Publisher › 3ブラウザcoverageを画面で確認できる (722ms)
+  ✓  4 [firefox] › e2e/digest-publisher.spec.ts:4:3 › Run Result Digest Publisher › empty / valid / failure / blockedを切り替えられる (2.0s)
+  ✓  5 [firefox] › e2e/digest-publisher.spec.ts:18:3 › Run Result Digest Publisher › blockedでは8件のReview Findingを表示する (1.2s)
+  ✓  6 [firefox] › e2e/digest-publisher.spec.ts:33:3 › Run Result Digest Publisher › 3ブラウザcoverageを画面で確認できる (1.0s)
+  ✓  7 [webkit] › e2e/digest-publisher.spec.ts:4:3 › Run Result Digest Publisher › empty / valid / failure / blockedを切り替えられる (1.6s)
+  ✓  8 [webkit] › e2e/digest-publisher.spec.ts:18:3 › Run Result Digest Publisher › blockedでは8件のReview Findingを表示する (812ms)
+  ✓  9 [webkit] › e2e/digest-publisher.spec.ts:33:3 › Run Result Digest Publisher › 3ブラウザcoverageを画面で確認できる (769ms)
+
+  9 passed (17.1s)

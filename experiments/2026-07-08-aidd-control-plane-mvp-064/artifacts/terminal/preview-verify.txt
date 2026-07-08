@@ -1,0 +1,10 @@
+html exists True bytes 67231
+Run Result Digest Publisher True
+aidd-control-plane-mvp064-valid.png True
+aidd-control-plane-mvp064-terminal-real.png True
+AIDD Control Plane SaaS化 True
+aidd-control-plane-mvp064-empty.png True 155684
+aidd-control-plane-mvp064-valid.png True 578166
+aidd-control-plane-mvp064-failure.png True 280011
+aidd-control-plane-mvp064-blocked.png True 400885
+aidd-control-plane-mvp064-terminal-real.png True 121222

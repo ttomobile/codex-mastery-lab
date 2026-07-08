@@ -1,0 +1,7 @@
+article text ok
+terminal image reference ok
+aidd-control-plane-mvp064-empty.png 155684
+aidd-control-plane-mvp064-valid.png 578166
+aidd-control-plane-mvp064-failure.png 280011
+aidd-control-plane-mvp064-blocked.png 400885
+aidd-control-plane-mvp064-terminal-real.png 121222
