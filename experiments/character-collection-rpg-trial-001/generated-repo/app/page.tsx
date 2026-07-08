@@ -155,7 +155,7 @@ export default function Page() {
       <section className="phone-frame" aria-label="SagaForge Trial 001">
         <header className="top-bar">
           <div>
-            <p className="eyebrow">SagaForge Trial 001 / Playable Trial 053反映</p>
+            <p className="eyebrow">SagaForge Trial 001 / Playable Trial 054反映</p>
             <h1>星紋遠征隊</h1>
           </div>
           <span className={`status-pill ${isFailure ? "danger" : "ok"}`} data-testid="status-pill">
@@ -199,7 +199,7 @@ function HomeScreen({ state, readiness }: { state: MockState; readiness: number 
   const firstTouchSteps = [
     { title: "召喚", body: "10連結果をスタイルカードとして確認し、重複はピースへ変換" },
     { title: "スタイル", body: featuredStyle ? `${featuredStyle.name} Lv.${featuredStyle.level} / 戦力${featuredStyle.power}` : "育成候補を確認" },
-    { title: "5人編成", body: `${partyLabel} / 準備度${readiness}点` },
+    { title: "周回デッキ", body: `${partyLabel} / 育成3周・ピース回収・OD連携から目的選択` },
     { title: "出撃/連携", body: quest ? `${quest.title} / 推奨${quest.requiredPower} / 予約コマンドへ` : "クエスト選択へ" }
   ];
   return (
@@ -220,9 +220,9 @@ function HomeScreen({ state, readiness }: { state: MockState; readiness: number 
         <Metric label="幻晶" value={state.scenario === "payment_failed" ? "決済失敗" : "12個"} />
       </div>
       <div className="panel first-touch-panel">
-        <p className="eyebrow">Trial 053: 初回30秒プレイ導線</p>
-        <h2>召喚→スタイル→5人編成→出撃→勝利後育成</h2>
-        <p>プレイアブル版で追加した導線をNext.js側にも戻し、初見でもどの順番で触ればキャラ収集RPGらしい周回に入れるかを見える化しました。</p>
+        <p className="eyebrow">Trial 054: 初回30秒＋目的別周回デッキ</p>
+        <h2>召喚→スタイル→周回デッキ→出撃→勝利後育成</h2>
+        <p>プレイアブル版で追加した目的別周回デッキをNext.js側にも戻し、育成3周・ピース回収・OD連携狙いを1枚の作戦として選べる構造を見える化しました。</p>
         <div className="first-touch-grid">
           {firstTouchSteps.map((step) => (
             <article key={step.title}>

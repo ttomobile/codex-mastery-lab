@@ -1,0 +1,10 @@
+== public playable after Trial 054 rebuild ==
+playable http=200 bytes=150728
+contains Trial 054 deck= True
+== public key asset ==
+party-key-art http=200 bytes=2868814
+== public article ==
+article http=200 bytes=64918
+playable http=200 bytes=150728
+contains Trial 054 deck= True
+contains official word= False

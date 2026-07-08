@@ -1,0 +1,28 @@
+== build preview ==
+Wrote 136 articles to WORKSPACE/preview
+== extract and node --check playable script ==
+script bytes 88026
+PLAYWRIGHT_SMOKE {"title":"星紋遠征隊 SagaForge Trial 054","hasDeck":true,"active":"battle","status":"稼働中"}
+Wrote 136 articles to WORKSPACE/preview
+preview/sagaforge-app/index.html True 150719
+preview/assets/2026-07-08-character-collection-rpg-trial-054-home.png True 2745326
+preview/assets/2026-07-08-character-collection-rpg-trial-054-battle.png True 1618401
+preview/2026-07-08-character-collection-rpg-trial-054.html True 64918
+== rebuild after wording fix ==
+Wrote 136 articles to WORKSPACE/preview
+script bytes 88026
+locator.waitFor: Error: strict mode violation: getByText('OD連携デッキ') resolved to 4 elements:
+    1) <small>OD連携デッキ / 3周予約3</small> aka getByText('OD連携デッキ / 3周予約')
+    2) <b>予約中: OD連携デッキ</b> aka locator('#loopDeckHome').getByText('予約中: OD連携デッキ')
+    3) <span class="gain">Trial 054周回デッキ: OD連携デッキを適用。翠策ミナ、裂光の丘 1-5 HARD、堅守の…</span> aka getByText('Trial 054周回デッキ: OD')
+    4) <b>予約中: OD連携デッキ</b> aka locator('#loopDeckQuest').getByText('予約中: OD連携デッキ')
+
+Call log:
+  - waiting for getByText('OD連携デッキ') to be visible
+
+    at [stdin]:2:373 {
+  log: [ "  - waiting for getByText('OD連携デッキ') to be visible" ]
+}
+RERUN_SMOKE_OK {"active":"quests","questDeck":true}
+Wrote 136 articles to WORKSPACE/preview
+contains official word in playable= False
