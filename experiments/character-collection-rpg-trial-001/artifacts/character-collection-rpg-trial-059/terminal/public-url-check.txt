@@ -1,0 +1,6 @@
+200 PUBLIC_PLAYABLE_URL/sagaforge-app/index.html
+200 PUBLIC_PLAYABLE_URL/sagaforge-app/assets/party-key-art.png
+200 PUBLIC_PLAYABLE_URL/sagaforge-app/assets/battle-ruins.png
+200 PUBLIC_PLAYABLE_URL/sagaforge-app/assets/crystal-guardian.png
+200 PUBLIC_PLAYABLE_URL/assets/2026-07-08-character-collection-rpg-trial-059-home.png
+200 PUBLIC_PLAYABLE_URL/2026-07-08-character-collection-rpg-trial-059.html

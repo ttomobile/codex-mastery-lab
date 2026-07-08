@@ -1,0 +1,9 @@
+{
+  "errors": [],
+  "state": {
+    "title": "星紋遠征隊 SagaForge Trial 059",
+    "visible": true,
+    "button": true,
+    "cards": 5
+  }
+}

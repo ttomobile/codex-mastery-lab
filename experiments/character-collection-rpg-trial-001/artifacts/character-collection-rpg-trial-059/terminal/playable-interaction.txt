@@ -1,0 +1,15 @@
+{
+  "errors": [],
+  "state": {
+    "title": "星紋遠征隊 SagaForge Trial 059",
+    "active": "battle",
+    "homeCards": 5,
+    "battleCards": 5,
+    "note": "30秒リザルト: 能力値:上昇済 / 技Rank:弱点で進行 / ピース:突破候補 / 報酬:交換可 / 次の1手:突破して再戦。次は突破して再戦。",
+    "result": "Trial 059: 裂光の丘 1-1 NORMALの勝利後30秒リザルトを生成。能力値・技Rank・ピース・交換・再戦を短く接続。"
+  },
+  "afterRepeat": {
+    "active": "quests",
+    "questSelected": "第1章 裂光の丘 1-1 NORMAL"
+  }
+}
