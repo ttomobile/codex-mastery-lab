@@ -75,4 +75,4 @@ curl key asset URL: http=200
 
 ## 公開URL
 
-- プレイアブル: `https://ttomac-mini.tail352b67.ts.net/sagaforge-app/index.html`
+- プレイアブル: `PUBLIC_PREVIEW_URL/sagaforge-app/index.html`
