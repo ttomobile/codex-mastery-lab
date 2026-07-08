@@ -1,0 +1,8 @@
+python3 scripts/build_preview.py: Wrote 140 articles to preview
+curl preview article grep: Smoke Finding Action Queue and terminal evidence image reference found
+asset byte checks:
+aidd-control-plane-mvp067-empty.png 204397
+aidd-control-plane-mvp067-queued.png 448244
+aidd-control-plane-mvp067-blocked.png 442863
+aidd-control-plane-mvp067-exported.png 451428
+aidd-control-plane-mvp067-terminal-evidence.png 114446

@@ -1,0 +1,7 @@
+generated-repo/node_modules/
+generated-repo/.next/
+generated-repo/coverage/
+generated-repo/playwright-report/
+generated-repo/test-results/
+generated-repo/*.tsbuildinfo
+generated-repo/artifacts/

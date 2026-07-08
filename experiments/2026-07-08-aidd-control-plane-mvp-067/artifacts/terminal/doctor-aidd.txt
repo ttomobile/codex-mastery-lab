@@ -1,0 +1,3 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+MVP067、4状態、execute_now限定export、3ブラウザE2E、capture:mvp067、AIDD-Spec接続、公開危険文字列検査を確認しました。

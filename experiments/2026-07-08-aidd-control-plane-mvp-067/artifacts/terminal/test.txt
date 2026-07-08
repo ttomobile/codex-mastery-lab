@@ -1,0 +1,11 @@
+$ vitest run
+
+ RUN  v3.2.7 WORKSPACE/experiments/2026-07-08-aidd-control-plane-mvp-067/generated-repo
+
+ ✓ tests/digest-publisher.test.ts (5 tests) 5ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  16:30:40
+   Duration  362ms (transform 43ms, setup 0ms, collect 39ms, tests 5ms, environment 0ms, prepare 89ms)
+
