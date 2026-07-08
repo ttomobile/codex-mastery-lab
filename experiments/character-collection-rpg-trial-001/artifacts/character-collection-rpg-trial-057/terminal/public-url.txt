@@ -1,0 +1,12 @@
+== public url check ==
+/sagaforge-app/index.html http=200 bytes=164746
+/sagaforge-app/assets/party-key-art.png http=200 bytes=2868814
+/sagaforge-app/assets/battle-ruins.png http=200 bytes=2481271
+/sagaforge-app/assets/crystal-guardian.png http=200 bytes=2677355
+/sagaforge-app/assets/summon-altar.png http=200 bytes=2918540
+== public url check after preview rebuild ==
+/sagaforge-app/index.html http=200 bytes=164746
+/sagaforge-app/assets/party-key-art.png http=200 bytes=2868814
+/sagaforge-app/assets/battle-ruins.png http=200 bytes=2481271
+/sagaforge-app/assets/crystal-guardian.png http=200 bytes=2677355
+/sagaforge-app/assets/summon-altar.png http=200 bytes=2918540

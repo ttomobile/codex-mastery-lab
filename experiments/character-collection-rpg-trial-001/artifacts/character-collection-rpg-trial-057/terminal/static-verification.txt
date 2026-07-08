@@ -1,0 +1,6 @@
+== static verification ==
+Trial 057 12
+tempoBurstRail 2
+battleTempoHome 2
+function runTempoBurst 1
+テンポ重視で出撃準備 1

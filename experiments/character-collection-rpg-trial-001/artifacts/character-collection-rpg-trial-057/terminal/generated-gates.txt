@@ -1,0 +1,45 @@
+== generated-repo gates ==
+
+> sagaforge-trial-001@0.1.0 lint <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> eslint .
+
+
+> sagaforge-trial-001@0.1.0 typecheck <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> tsc --noEmit
+
+
+> sagaforge-trial-001@0.1.0 test <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> vitest run
+
+
+ RUN  v4.1.9 <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+
+ [32m✓ src/domain/rpg.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 6[2mms[22m
+
+[2m Test Files [22m [1m[32m1 passed[22m (1)
+[2m      Tests [22m [1m[32m12 passed[22m (12)
+[2m   Start at [22m 18:21:06
+[2m   Duration [22m 1.31s[2m (transform 36ms, setup 60ms, import 26ms, tests 6ms, environment 1.08s)[22m
+
+
+> sagaforge-trial-001@0.1.0 build <repo>/experiments/character-collection-rpg-trial-001/generated-repo
+> next build
+
+▲ Next.js 16.2.9 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1833ms
+  Running TypeScript ...
+  Finished TypeScript in 1933ms ...
+  Collecting page data using 4 workers ...
+  Generating static pages using 4 workers (0/3) ...
+✓ Generating static pages using 4 workers (3/3) in 145ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+

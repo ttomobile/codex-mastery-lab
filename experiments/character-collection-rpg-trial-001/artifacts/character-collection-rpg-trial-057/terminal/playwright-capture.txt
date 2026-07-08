@@ -1,0 +1,6 @@
+{
+  "title": "星紋遠征隊 SagaForge Trial 057",
+  "summary": "STEP 5/5: 5.結果戻り。BP 16/2、連携率93%、OD 100%、Round 1/3。",
+  "rail": 5,
+  "homeRail": 5
+}
