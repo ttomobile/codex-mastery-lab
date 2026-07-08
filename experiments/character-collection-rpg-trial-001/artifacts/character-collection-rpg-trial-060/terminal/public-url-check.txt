@@ -1,0 +1,5 @@
+playable http=200 bytes=180251
+asset party http=200 bytes=2868814
+asset battle http=200 bytes=2481271
+article http=200 bytes=70183
+article asset home http=200 bytes=3681487

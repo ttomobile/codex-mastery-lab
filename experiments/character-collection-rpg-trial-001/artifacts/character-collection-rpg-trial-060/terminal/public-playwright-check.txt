@@ -1,0 +1,10 @@
+{
+  "errors": [],
+  "state": {
+    "title": "星紋遠征隊 SagaForge Trial 060",
+    "cards": 4,
+    "members": 5,
+    "gacha": 10,
+    "log": "Trial 060: 10連結果をスタイルカードで更新。重複はピースへ変換し、交換Pt 100/150 と育成候補へ接続。"
+  }
+}
