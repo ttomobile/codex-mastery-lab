@@ -1,0 +1,12 @@
+$ vitest run
+
+ RUN  v3.2.7 WORKSPACE/experiments/2026-07-09-aidd-control-plane-mvp-081/generated-repo
+
+ ✓ src/domain/preview-smoke-receipt.test.ts (1 test) 1ms
+ ✓ src/domain/receipt-history.test.ts (5 tests) 2ms
+
+ Test Files  2 passed (2)
+      Tests  6 passed (6)
+   Start at  22:53:54
+   Duration  257ms (transform 33ms, setup 0ms, collect 40ms, tests 3ms, environment 0ms, prepare 79ms)
+

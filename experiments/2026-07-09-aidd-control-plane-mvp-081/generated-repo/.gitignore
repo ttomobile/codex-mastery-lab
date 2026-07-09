@@ -1,0 +1,16 @@
+node_modules/
+.next/
+coverage/
+playwright-report/
+test-results/
+tsconfig.tsbuildinfo
+*.log
+.env*
+!.env.example
+.git-disabled/
+assets/mvp077-*.png
+assets/mvp078-*.png
+artifacts/screenshots/mvp077-*.png
+artifacts/screenshots/mvp078-*.png
+scripts/capture-mvp077.mjs
+scripts/capture-mvp078.mjs

@@ -1,0 +1,7 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+- 5状態: empty / valid / improved / regression / blocked
+- 履歴比較: 3件のReceipt、score推移、再発finding、減ったfinding、効いたRepair Action
+- prompt preview: execute_nowのみ、next_increment / learning_log分離
+- blocked: private URL / local path / host名 / Firefox除外 / terminal evidence不足 / failure screenshot不足 / AIDD-Spec接続不足 / execute_now以外混入
+- 3ブラウザ: Chromium / Firefox / WebKit

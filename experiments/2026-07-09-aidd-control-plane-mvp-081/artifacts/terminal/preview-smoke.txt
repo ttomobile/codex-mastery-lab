@@ -1,0 +1,8 @@
+$ curl preview article
+article_status=200 bytes=82891
+article_text=ok
+mvp081-empty.png status=200 bytes=227697
+mvp081-valid.png status=200 bytes=324328
+mvp081-regression.png status=200 bytes=324637
+mvp081-blocked.png status=200 bytes=374236
+mvp081-terminal-evidence.png status=200 bytes=86540
