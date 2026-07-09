@@ -1,0 +1,7 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+- 4状態: empty / valid / failure / blocked
+- AIDD-Spec接続: MVP076 Publication Evidence QA Gate -> Preview Smoke Receipt Binder
+- 3ブラウザ: Chromium / Firefox / WebKit
+- 公開前停止: private URL / local path / Firefox未確認 / receipt保存先不足 / AIDD-Spec接続不足
+exit_code=0

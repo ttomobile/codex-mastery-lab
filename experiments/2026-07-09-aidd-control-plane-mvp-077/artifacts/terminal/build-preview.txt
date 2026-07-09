@@ -1,0 +1,2 @@
+Wrote 160 articles to <repo>/preview
+exit_code=0

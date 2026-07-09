@@ -1,0 +1,19 @@
+$ playwright test
+
+Running 12 tests using 1 worker
+
+  ✓   1 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:4:3 › Preview Smoke Receipt Binder の4状態 › emptyは未入力Receiptと必要な列名を表示する (992ms)
+  ✓   2 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:18:3 › Preview Smoke Receipt Binder の4状態 › validはHTTP証跡保存可能と3ブラウザ確認済みを表示する (602ms)
+  ✓   3 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:28:3 › Preview Smoke Receipt Binder の4状態 › failureは4種類のReview Findingを表示する (728ms)
+  ✓   4 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:38:3 › Preview Smoke Receipt Binder の4状態 › blockedは公開前停止理由を表示する (722ms)
+  ✓   5 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:4:3 › Preview Smoke Receipt Binder の4状態 › emptyは未入力Receiptと必要な列名を表示する (3.3s)
+  ✓   6 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:18:3 › Preview Smoke Receipt Binder の4状態 › validはHTTP証跡保存可能と3ブラウザ確認済みを表示する (1.1s)
+  ✓   7 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:28:3 › Preview Smoke Receipt Binder の4状態 › failureは4種類のReview Findingを表示する (1.0s)
+  ✓   8 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:38:3 › Preview Smoke Receipt Binder の4状態 › blockedは公開前停止理由を表示する (1.1s)
+  ✓   9 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:4:3 › Preview Smoke Receipt Binder の4状態 › emptyは未入力Receiptと必要な列名を表示する (1.3s)
+  ✓  10 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:18:3 › Preview Smoke Receipt Binder の4状態 › validはHTTP証跡保存可能と3ブラウザ確認済みを表示する (875ms)
+  ✓  11 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:28:3 › Preview Smoke Receipt Binder の4状態 › failureは4種類のReview Findingを表示する (832ms)
+  ✓  12 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:38:3 › Preview Smoke Receipt Binder の4状態 › blockedは公開前停止理由を表示する (823ms)
+
+  12 passed (22.0s)
+exit_code=0

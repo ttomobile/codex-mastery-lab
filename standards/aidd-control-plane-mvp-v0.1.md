@@ -84,6 +84,7 @@ MVPではこの流れをフォームとチェックリストで標準化する�
 | Codex Run Queue Status Tracker | Run Queue Intakeでqueuedになった実行を待ち・実行中・成功・失敗・証跡不足として追跡し、実行結果をVerification Evidence / Review Record / Learning Logへ戻す | empty / waiting / running / succeeded / failed / evidence_missing、source intake id、queue item id、run status、actual results、verification summary、browser projects、terminal evidence、screenshot evidence、browser console log、掲載用GIF、Playwright report、rollback plan、review record output、learning log output、AIDD-Spec接続、command失敗・Firefox未実行・doctor:aidd失敗・危険command・rollback不足・証跡不足・console error/warn・local path/private host/private network URL混入検出。MVP074では、6状態をquery paramで切り替え、command別exit code、3ブラウザcoverage、terminal/screenshot/console/Playwright証跡、Review Record / Learning Log出力をdoctor/e2eで確認する |
 | Run Result Digest Publisher | Codex Run Queue Status Trackerの実行結果を、レビュー担当者・次回AI Task Packet・note記事化に使える短い共有ダイジェストへ変換する | empty / valid / failure / blocked、source run id、run outcome、score、terminal evidence、initial/filled/failure/terminal screenshot、Chromium / Firefox / WebKit coverage、console status、Review Record excerpt、Learning Log excerpt、AI Task Packet delta、Codex prompt delta、note article angle、publish readiness、local path/private host/private network URL混入検出 |
 | Publication Evidence QA Gate | Run Result Digestをnote/preview公開へ進める直前に、記事・画像・terminal evidence・3ブラウザ・console・サニタイズ・AIDD-Spec接続を公開前QAとして確認する | empty / valid / failure / blocked、source digest id、article path、preview、asset copy、terminal evidence、initial/filled/failure/terminal evidence PNG、Chromium / Firefox / WebKit coverage、console status、sanitization scan、Review Record、Learning Log、AI Task Packet delta、Codex prompt delta、publish checklist、local path / host / private network URL混入・Firefox除外・terminal evidence不足・記事観点不足・AIDD-Spec接続不足検出 |
+| Preview Smoke Receipt Binder | Publication Evidence QA Gateの後段で、公開preview HTML / asset / terminal evidence imageがHTTP経路で読めた事実をReceiptとして束ねる | empty / valid / failure / blocked、receipt id、source QA gate id、checked URLs、HTTP status、byte size、content type、latency ms、checked_at、evidence path、Chromium / Firefox / WebKit、console status、sanitization scan、Review Finding、Learning Log、AI Task Packet delta、Codex prompt delta、404・0 byte・content type mismatch・latency超過・private URL・local path・Firefox未確認・receipt保存先不足・AIDD-Spec接続不足検出 |
 | Public Preview Smoke Verifier | Publication Evidence QA Gateの後段で、公開preview HTMLとassetsがHTTP経路で読めるかを最終確認する | empty / valid / failure / blocked、smoke run id、article path、preview URL/path、checked URLs、HTTP status、byte size、content type、latency ms、terminal evidence image response、Chromium / Firefox / WebKit coverage、console status、sanitization scan、Review Finding、Learning Log、AI Task Packet delta、Codex prompt delta、rerun command、HTTP経路未確認・private URL混入・Firefox未確認・terminal evidence image response不足・AIDD-Spec接続不足検出 |
 | Smoke Finding Action Queue | Public Preview Smoke Verifierの失敗を次の1回で実行するReview Finding Actionへ変換し、execute_now / next_increment / learning_logを混ぜずに扱う | empty / queued / blocked / exported、source smoke run id、broken URL、HTTP status、byte size、content type、finding category、severity、lane、priority reason、AI Task Packet patch、Codex prompt patch、verification commands、required evidence、rollback condition、AIDD-Spec接続、execute_now以外のprompt混入・private URL混入・Firefox未確認・terminal evidence不足・AIDD-Spec接続不足検出。MVP072では、preview smoke失敗を1件の実行actionへ変換し、exported promptにexecute_nowだけが入ることをdoctor/e2eで確認する |
 | Smoke Action Run Queue Intake | Smoke Finding Action Queueでexportedになったexecute_now actionをCodex Run Queueへ入れる直前に検査する | empty / queued / rejected / evidence_missing、source smoke action id、queue item id、Codex command、sandbox mode、required verification commands、Chromium / Firefox / WebKit、required evidence、rollback plan、AIDD-Spec接続、Run Queue payload、未export action・execute_now以外混入・危険command・sandbox不足・Firefox除外・local path/private network URL混入・terminal evidence不足・failure screenshot不足・Playwright report不足検出。MVP073では、queued payloadとCodex command previewへexecute_nowだけを入れ、Run Queue投入前に拒否/証跡不足を分けることをdoctor/e2eで確認する |
@@ -230,6 +231,46 @@ publication_evidence_qa_gate:
     - private network URL混入
   prompt_delta: |
     Run Result Digestを公開へ進める前に、記事・preview・asset copy・terminal evidence・initial/filled/failure/terminal evidence PNG・Chromium/Firefox/WebKit coverage・console status・sanitization scan・Review Record・Learning Log・AI Task Packet delta・Codex prompt delta・AIDD-Spec接続をPublication Evidence QA Gateで確認してください。Firefox未確認やterminal evidence不足はfailure、local path/private host/private network URL混入はblockedとして公開前停止にしてください。
+```
+
+### 3.4 Preview Smoke Receipt Binder HTTP receipt rule（MVP077反映）
+
+Publication Evidence QA Gateで公開前QAを通過した後、preview HTML / asset / terminal evidence imageをHTTP経路で再読込し、status、byte size、content type、latency、checked_at、evidence pathをReceiptとして束ねる。
+
+```yaml
+preview_smoke_receipt_binder:
+  required_states:
+    - empty
+    - valid
+    - failure
+    - blocked
+  required_inputs:
+    - receipt_id
+    - source_qa_gate_id
+    - checked_urls
+    - http_status
+    - byte_size
+    - content_type
+    - latency_ms
+    - checked_at
+    - evidence_path
+    - chromium_firefox_webkit_coverage
+    - console_status
+    - sanitization_scan
+    - aidd_spec_connection
+  failure_findings:
+    - 404
+    - 0 byte
+    - content type mismatch
+    - latency超過
+  blocking_findings:
+    - private URL
+    - local path
+    - Firefox未確認
+    - receipt保存先不足
+    - AIDD-Spec接続不足
+  prompt_delta: |
+    公開preview確認を「画像があるはず」という目視で終わらせず、HTML、asset、terminal evidence imageのHTTP status、byte size、content type、latency ms、checked_at、evidence pathをPreview Smoke Receiptとして保存してください。404、0 byte、content type mismatch、latency超過はReview Findingへ変換し、private URL、local path、Firefox未確認、receipt保存先不足、AIDD-Spec接続不足はblockedとして公開前停止にしてください。
 ```
 
 ## 4. 初期データモデル
