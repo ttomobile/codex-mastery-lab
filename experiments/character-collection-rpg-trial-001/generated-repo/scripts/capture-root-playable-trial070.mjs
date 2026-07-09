@@ -1,0 +1,24 @@
+import { chromium } from 'playwright';
+import path from 'node:path';
+
+const root = path.resolve('../../..');
+const url = 'file://' + path.join(root, 'playables/sagaforge-app/index.html');
+const browser = await chromium.launch({ headless: true });
+const page = await browser.newPage({ viewport: { width: 430, height: 920 }, deviceScaleFactor: 1 });
+const out = path.join(root, 'assets');
+const art = path.join(root, 'experiments/character-collection-rpg-trial-001/artifacts/character-collection-rpg-trial-070/screenshots');
+await page.goto(url);
+await page.waitForSelector('#trial070Board');
+await page.screenshot({ path: path.join(out, '2026-07-09-character-collection-rpg-trial-070-home.png'), fullPage: true });
+await page.screenshot({ path: path.join(art, '2026-07-09-character-collection-rpg-trial-070-home.png'), fullPage: true });
+await page.getByRole('button', { name: '日課開始' }).click();
+await page.waitForSelector('#quests.active');
+await page.screenshot({ path: path.join(out, '2026-07-09-character-collection-rpg-trial-070-quest.png'), fullPage: true });
+await page.screenshot({ path: path.join(art, '2026-07-09-character-collection-rpg-trial-070-quest.png'), fullPage: true });
+await page.getByRole('button', { name: 'ホーム' }).click();
+await page.getByRole('button', { name: 'Round勝利' }).nth(1).click();
+await page.waitForSelector('#battle.active');
+await page.screenshot({ path: path.join(out, '2026-07-09-character-collection-rpg-trial-070-battle-result.png'), fullPage: true });
+await page.screenshot({ path: path.join(art, '2026-07-09-character-collection-rpg-trial-070-battle-result.png'), fullPage: true });
+await browser.close();
+console.log('captured trial070 home/quest/battle-result');
