@@ -1,0 +1,5 @@
+$ node --check /tmp/sagaforge-trial071-script.js
+$ node scripts/capture-root-playable-trial071.mjs
+captured trial071 home/styles/battle-result/failure-state
+$ python3 scripts/build_preview.py
+Wrote 168 articles to WORKSPACE/preview

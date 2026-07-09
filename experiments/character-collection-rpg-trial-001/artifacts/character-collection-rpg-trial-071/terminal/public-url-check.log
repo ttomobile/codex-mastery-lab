@@ -1,0 +1,10 @@
+$ curl -L -s -o /dev/null -w '%{http_code}' PUBLIC_PREVIEW_URL/sagaforge-app/index.html
+200
+$ curl -L -s -o /dev/null -w '%{http_code}' PUBLIC_PREVIEW_URL/sagaforge-app/assets/party-key-art.png
+200
+$ curl -L -s -o /dev/null -w '%{http_code}' PUBLIC_PREVIEW_URL/sagaforge-app/assets/battle-ruins.png
+200
+$ curl -L -s -o /dev/null -w '%{http_code}' PUBLIC_PREVIEW_URL/assets/2026-07-09-character-collection-rpg-trial-071-home.png
+200
+$ curl -L -s -o /dev/null -w '%{http_code}' PUBLIC_PREVIEW_URL/2026-07-09-character-collection-rpg-trial-071.html
+200
