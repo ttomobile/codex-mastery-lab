@@ -1,0 +1,20 @@
+$ playwright test
+
+Running 12 tests using 1 worker
+
+  ✓   1 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:4:3 › Repair Action Run Queue Intake の4状態 › emptyはRepair Action未選択と必須フィールド名を表示する (545ms)
+  ✓   2 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:14:3 › Repair Action Run Queue Intake の4状態 › readyはexecute_nowだけのqueue payloadとゲート通過を表示する (301ms)
+  ✓   3 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:32:3 › Repair Action Run Queue Intake の4状態 › failureは不足ゲートとReview Finding YAML風カードを表示する (289ms)
+  ✓   4 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:43:3 › Repair Action Run Queue Intake の4状態 › blockedは実行前停止条件と破壊的cleanup要求を表示する (297ms)
+  ✓   5 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:4:3 › Repair Action Run Queue Intake の4状態 › emptyはRepair Action未選択と必須フィールド名を表示する (1.7s)
+  ✓   6 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:14:3 › Repair Action Run Queue Intake の4状態 › readyはexecute_nowだけのqueue payloadとゲート通過を表示する (1.4s)
+  ✓   7 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:32:3 › Repair Action Run Queue Intake の4状態 › failureは不足ゲートとReview Finding YAML風カードを表示する (1.3s)
+  ✓   8 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:43:3 › Repair Action Run Queue Intake の4状態 › blockedは実行前停止条件と破壊的cleanup要求を表示する (981ms)
+  ✓   9 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:4:3 › Repair Action Run Queue Intake の4状態 › emptyはRepair Action未選択と必須フィールド名を表示する (1.2s)
+  ✓  10 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:14:3 › Repair Action Run Queue Intake の4状態 › readyはexecute_nowだけのqueue payloadとゲート通過を表示する (1.0s)
+  ✓  11 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:32:3 › Repair Action Run Queue Intake の4状態 › failureは不足ゲートとReview Finding YAML風カードを表示する (896ms)
+  ✓  12 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:43:3 › Repair Action Run Queue Intake の4状態 › blockedは実行前停止条件と破壊的cleanup要求を表示する (956ms)
+
+  12 passed (18.3s)
+
+[exit_code] 0

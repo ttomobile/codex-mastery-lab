@@ -1,0 +1,7 @@
+$ node scripts/capture-mvp079.mjs
+capture:mvp079 passed
+- assets: <repo>/experiments/2026-07-09-aidd-control-plane-mvp-079/generated-repo/assets
+- screenshots: <repo>/experiments/2026-07-09-aidd-control-plane-mvp-079/generated-repo/artifacts/screenshots
+- terminal evidence PNG: <repo>/experiments/2026-07-09-aidd-control-plane-mvp-079/generated-repo/artifacts/screenshots/mvp079-terminal-evidence.png
+
+[exit_code] 0

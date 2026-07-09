@@ -1,0 +1,3 @@
+$ codex exec --sandbox danger-full-access
+blocked: codex CLI not found in cron environment (/bin/bash: codex: command not found)
+fallback: Hermes agent implemented MVP079 directly, then independent verification was run.

@@ -1,0 +1,9 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+- 4状態: empty / ready / failure / blocked
+- ready: 実行キュー投入前チェックを通過
+- failure: 検証ゲート不足 / 証跡ゲート不足 / rollbackゲート不足 / AIDD-Spec接続不足
+- blocked: private URL / local path / Firefox除外 / terminal evidence不足 / failure screenshot不足 / prompt混入 / 破壊的cleanup要求
+- 3ブラウザ: Chromium / Firefox / WebKit
+
+[exit_code] 0
