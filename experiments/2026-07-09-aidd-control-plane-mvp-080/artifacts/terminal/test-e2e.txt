@@ -1,0 +1,21 @@
+$ playwright test
+
+Running 15 tests using 1 worker
+
+  ✓   1 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:4:3 › Run Queue Dispatch Receipt の5状態 › emptyはqueue item未選択と必須フィールド名を表示する (905ms)
+  ✓   2 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:13:3 › Run Queue Dispatch Receipt の5状態 › readyはexecute_nowだけのdispatch payloadとReceipt発行可能を表示する (556ms)
+  ✓   3 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:30:3 › Run Queue Dispatch Receipt の5状態 › runningは実行中の証跡収集とpending evidenceを表示する (541ms)
+  ✓   4 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:37:3 › Run Queue Dispatch Receipt の5状態 › failureは不足ゲートとReview Finding YAML風カードを表示する (684ms)
+  ✓   5 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:47:3 › Run Queue Dispatch Receipt の5状態 › blockedはDispatch停止条件と破壊的cleanup要求を表示する (811ms)
+  ✓   6 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:4:3 › Run Queue Dispatch Receipt の5状態 › emptyはqueue item未選択と必須フィールド名を表示する (2.0s)
+  ✓   7 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:13:3 › Run Queue Dispatch Receipt の5状態 › readyはexecute_nowだけのdispatch payloadとReceipt発行可能を表示する (1.1s)
+  ✓   8 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:30:3 › Run Queue Dispatch Receipt の5状態 › runningは実行中の証跡収集とpending evidenceを表示する (847ms)
+  ✓   9 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:37:3 › Run Queue Dispatch Receipt の5状態 › failureは不足ゲートとReview Finding YAML風カードを表示する (820ms)
+  ✓  10 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:47:3 › Run Queue Dispatch Receipt の5状態 › blockedはDispatch停止条件と破壊的cleanup要求を表示する (858ms)
+  ✓  11 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:4:3 › Run Queue Dispatch Receipt の5状態 › emptyはqueue item未選択と必須フィールド名を表示する (2.7s)
+  ✓  12 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:13:3 › Run Queue Dispatch Receipt の5状態 › readyはexecute_nowだけのdispatch payloadとReceipt発行可能を表示する (415ms)
+  ✓  13 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:30:3 › Run Queue Dispatch Receipt の5状態 › runningは実行中の証跡収集とpending evidenceを表示する (362ms)
+  ✓  14 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:37:3 › Run Queue Dispatch Receipt の5状態 › failureは不足ゲートとReview Finding YAML風カードを表示する (366ms)
+  ✓  15 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:47:3 › Run Queue Dispatch Receipt の5状態 › blockedはDispatch停止条件と破壊的cleanup要求を表示する (386ms)
+
+  15 passed (24.2s)
