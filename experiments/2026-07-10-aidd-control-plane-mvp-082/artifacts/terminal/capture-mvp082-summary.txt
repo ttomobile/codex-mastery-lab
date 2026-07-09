@@ -1,0 +1,2 @@
+capture:mvp082 passed
+- empty/planned/failure/blocked/terminal evidence screenshots saved

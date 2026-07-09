@@ -1,0 +1,6 @@
+html_exists True bytes 83203
+mvp082-empty.png True 311156
+mvp082-planned.png True 359983
+mvp082-failure.png True 342426
+mvp082-blocked.png True 389711
+mvp082-terminal-evidence.png True 40985

@@ -275,6 +275,46 @@ preview_smoke_receipt_binder:
     公開preview確認を「画像があるはず」という目視で終わらせず、HTML、asset、terminal evidence imageのHTTP status、byte size、content type、latency ms、checked_at、evidence pathをPreview Smoke Receiptとして保存してください。404、0 byte、content type mismatch、latency超過はReview Findingへ変換し、private URL、local path、Firefox未確認、receipt保存先不足、AIDD-Spec接続不足はblockedとして公開前停止にしてください。
 ```
 
+### 3.5 Smoke Receipt Repair Action Planner rule（MVP082反映）
+
+Preview Smoke Receiptで見つかったfailure / blockedは、その場のメモで終わらせず、次の1回で実行するRepair Actionへ変換する。execute_now、next_increment、learning_logを混ぜるとAIへの依頼が大きくなりすぎるため、Codex prompt previewにはexecute_nowだけを入れる。
+
+```yaml
+smoke_receipt_repair_action_planner:
+  required_states:
+    - empty
+    - planned
+    - failure
+    - blocked
+  required_inputs:
+    - source_receipt
+    - broken_url
+    - finding_category
+    - severity
+    - lane
+    - priority_reason
+  required_outputs:
+    - execute_now_action
+    - next_increment
+    - learning_log
+    - ai_task_packet_patch
+    - codex_prompt_patch
+    - verification_commands
+    - required_evidence
+    - rollback_condition
+    - aidd_spec_connection
+  blocking_findings:
+    - private URL
+    - local path
+    - Firefox除外
+    - terminal evidence不足
+    - failure screenshot不足
+    - AIDD-Spec接続不足
+    - execute_now以外混入
+  prompt_delta: |
+    Preview Smoke Receiptの失敗を次の1回へ進める時は、broken URL、finding category、severity、lane、priority reasonを明示し、execute_now action、AI Task Packet patch、Codex prompt patch、verification commands、required evidence、rollback condition、AIDD-Spec connectionを生成してください。Codex prompt previewにはexecute_nowだけを入れ、next_incrementとlearning_logは別欄へ分離してください。private URL、local path、Firefox除外、terminal evidence不足、failure screenshot不足、AIDD-Spec接続不足、execute_now以外混入はblockedとして止めてください。
+```
+
 ## 4. 初期データモデル
 
 ```ts
