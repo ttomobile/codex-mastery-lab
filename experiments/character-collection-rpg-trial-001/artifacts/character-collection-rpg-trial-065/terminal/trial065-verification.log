@@ -1,0 +1,16 @@
+== script syntax ==
+extracted script bytes 122381
+== build preview ==
+Wrote 157 articles to WORKSPACE/preview
+== local preview checks ==
+/sagaforge-app/index.html -> http=200
+/sagaforge-app/assets/party-key-art.png -> http=200
+/sagaforge-app/assets/battle-ruins.png -> http=200
+/sagaforge-app/assets/crystal-guardian.png -> http=200
+/sagaforge-app/assets/summon-altar.png -> http=200
+== public preview checks ==
+/sagaforge-app/index.html -> http=200
+/sagaforge-app/assets/party-key-art.png -> http=200
+/sagaforge-app/assets/battle-ruins.png -> http=200
+/sagaforge-app/assets/crystal-guardian.png -> http=200
+/sagaforge-app/assets/summon-altar.png -> http=200
