@@ -1,0 +1,16 @@
+import { chromium } from 'playwright';
+import fs from 'node:fs';
+import path from 'node:path';
+const root = process.cwd();
+const logDir = path.join(root, 'experiments/character-collection-rpg-trial-001/artifacts/character-collection-rpg-trial-066/terminal');
+const maybe = name => fs.existsSync(path.join(logDir, name)) ? fs.readFileSync(path.join(logDir, name), 'utf8') : '(not captured)';
+const lines = ['node --check /tmp/sagaforge-trial066-script.js', maybe('node-check.log') || '(syntax ok)', 'python3 scripts/build_preview.py', maybe('build-preview.log'), 'node scripts/capture-sagaforge-playable-trial066.mjs', maybe('capture.log'), 'curl public playable/assets', maybe('public-url-check.log'), 'playwright public browser smoke', maybe('public-browser-check.log')].join('\n\n$ ');
+const sanitized = lines.replaceAll(root, '<repo>').replaceAll(process.env.HOME || '', '<home>').replace(/ttomac-mini\.tail[0-9a-z]+\.ts\.net/g, '<public-preview-host>');
+const html = `<!doctype html><meta charset="utf-8"><style>body{margin:0;background:#0f172a;color:#dbeafe;font:14px ui-monospace,SFMono-Regular,Menlo,monospace}.card{padding:24px}.title{color:#93c5fd;font-weight:800;margin-bottom:14px}pre{white-space:pre-wrap;line-height:1.55}</style><div class="card"><div class="title">SagaForge Trial 066 terminal evidence</div><pre>${sanitized.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}</pre></div>`;
+const browser = await chromium.launch({ headless: true });
+const page = await browser.newPage({ viewport: { width: 1200, height: 900 }, deviceScaleFactor: 1 });
+await page.setContent(html);
+const out = path.join(root, 'assets/2026-07-09-character-collection-rpg-trial-066-terminal-evidence.png');
+await page.screenshot({ path: out, fullPage: true });
+await browser.close();
+console.log(out);

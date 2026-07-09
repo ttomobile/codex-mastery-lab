@@ -1,0 +1,11 @@
+{
+  "playable": "file://<repo>/playables/sagaforge-app/index.html",
+  "state": {
+    "title": "星紋遠征隊 SagaForge Trial 066",
+    "trial066": true,
+    "reward": true,
+    "log": "Trial 066: 勝利。紅槍リオのピース、記憶片、技書を増やし、突破候補としてホームに戻しました。",
+    "result": "Trial 066: 瞬間火力チケットを短縮解決。5人のBP/OD/弱点行動から勝利報酬へ接続。"
+  },
+  "consoleMessages": []
+}
