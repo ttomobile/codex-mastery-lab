@@ -1,0 +1,7 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+- 4状態: empty / planned / failure / blocked
+- planned: 次の1回で実行する修正Actionが準備済み
+- failure: 検証コマンド不足 / 証跡不足 / rollback不足 / AIDD-Spec接続不足
+- blocked: private URL / local path / Firefox除外 / terminal evidence不足 / failure screenshot不足 / prompt混入
+- 3ブラウザ: Chromium / Firefox / WebKit

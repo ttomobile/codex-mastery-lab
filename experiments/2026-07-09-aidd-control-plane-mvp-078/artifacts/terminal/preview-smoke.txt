@@ -1,0 +1,7 @@
+GET <preview-url>/2026-07-09-aidd-control-plane-mvp-078.html
+mvp078-empty.png status=200 bytes=212900
+mvp078-planned.png status=200 bytes=383523
+mvp078-failure.png status=200 bytes=380169
+mvp078-blocked.png status=200 bytes=484303
+mvp078-terminal-evidence.png status=200 bytes=64144
+preview smoke passed

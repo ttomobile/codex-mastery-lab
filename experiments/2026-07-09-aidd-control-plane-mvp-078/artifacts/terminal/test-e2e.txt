@@ -1,0 +1,18 @@
+$ playwright test
+
+Running 12 tests using 1 worker
+
+  ✓   1 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:4:3 › Smoke Receipt Repair Action Planner の4状態 › emptyは修正Action未入力と必須フィールド名を表示する (732ms)
+  ✓   2 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:19:3 › Smoke Receipt Repair Action Planner の4状態 › plannedは次の1回で実行する修正Actionとprompt previewの分離を表示する (425ms)
+  ✓   3 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:35:3 › Smoke Receipt Repair Action Planner の4状態 › failureは4種類のReview Finding YAML風カードを表示する (395ms)
+  ✓   4 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:46:3 › Smoke Receipt Repair Action Planner の4状態 › blockedは実行前停止条件をすべて表示する (417ms)
+  ✓   5 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:4:3 › Smoke Receipt Repair Action Planner の4状態 › emptyは修正Action未入力と必須フィールド名を表示する (1.2s)
+  ✓   6 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:19:3 › Smoke Receipt Repair Action Planner の4状態 › plannedは次の1回で実行する修正Actionとprompt previewの分離を表示する (707ms)
+  ✓   7 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:35:3 › Smoke Receipt Repair Action Planner の4状態 › failureは4種類のReview Finding YAML風カードを表示する (680ms)
+  ✓   8 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:46:3 › Smoke Receipt Repair Action Planner の4状態 › blockedは実行前停止条件をすべて表示する (650ms)
+  ✓   9 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:4:3 › Smoke Receipt Repair Action Planner の4状態 › emptyは修正Action未入力と必須フィールド名を表示する (1.2s)
+  ✓  10 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:19:3 › Smoke Receipt Repair Action Planner の4状態 › plannedは次の1回で実行する修正Actionとprompt previewの分離を表示する (592ms)
+  ✓  11 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:35:3 › Smoke Receipt Repair Action Planner の4状態 › failureは4種類のReview Finding YAML風カードを表示する (584ms)
+  ✓  12 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:46:3 › Smoke Receipt Repair Action Planner の4状態 › blockedは実行前停止条件をすべて表示する (562ms)
+
+  12 passed (13.8s)
