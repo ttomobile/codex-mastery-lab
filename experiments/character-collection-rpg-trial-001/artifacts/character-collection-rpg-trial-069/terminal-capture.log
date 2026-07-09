@@ -1,0 +1,19 @@
+{
+  "playable": "file://WORKSPACE/playables/sagaforge-app/index.html",
+  "state": {
+    "title": "星紋遠征隊 SagaForge Trial 069",
+    "hasTrial069": true,
+    "activeScreen": "battle",
+    "log": "Trial 069: 勝利報酬を反映。限界突破へ戻るとしてホームの次導線へ戻します。",
+    "result": "Trial 069: Round/BP/OD連携を勝利まで解決。紅槍リオの能力値・技Rank・ピースを報酬へ戻しました。",
+    "timeline": [
+      "1.ホーム資源/日課贈り物9",
+      "2.スタイル盾士ガルLv.38",
+      "3.編成流星の楔5人予約",
+      "4.クエスト裂光の丘 1-1 NORMAL消費8",
+      "5.RoundBP11 OD76%連携98%",
+      "6.報酬限界突破へ戻る片70"
+    ]
+  },
+  "consoleMessages": []
+}
