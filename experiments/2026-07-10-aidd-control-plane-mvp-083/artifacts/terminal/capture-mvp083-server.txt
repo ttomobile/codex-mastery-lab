@@ -1,0 +1,13 @@
+   ▲ Next.js 15.5.20
+   - Local:        http://127.0.0.1:3083
+   - Network:      http://127.0.0.1:3083
+
+ ✓ Starting...
+ ✓ Ready in 1363ms
+ ○ Compiling / ...
+ ✓ Compiled / in 692ms (525 modules)
+ GET / 200 in 1142ms
+ GET /?state=empty 200 in 100ms
+ GET /?state=prioritized 200 in 66ms
+ GET /?state=conflict 200 in 125ms
+ GET /?state=blocked 200 in 70ms

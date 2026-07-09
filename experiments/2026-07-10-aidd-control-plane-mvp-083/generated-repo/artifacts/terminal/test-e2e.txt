@@ -1,0 +1,27 @@
+$ playwright test
+
+Running 21 tests using 1 worker
+
+  ✓   1 [Chromium] › tests/e2e/smoke-priority-gate.spec.ts:7:5 › MVP083 Smoke Repair Priority Gate › empty 状態を表示できる (901ms)
+  ✓   2 [Chromium] › tests/e2e/smoke-priority-gate.spec.ts:7:5 › MVP083 Smoke Repair Priority Gate › prioritized 状態を表示できる (601ms)
+  ✓   3 [Chromium] › tests/e2e/smoke-priority-gate.spec.ts:7:5 › MVP083 Smoke Repair Priority Gate › conflict 状態を表示できる (594ms)
+  ✓   4 [Chromium] › tests/e2e/smoke-priority-gate.spec.ts:7:5 › MVP083 Smoke Repair Priority Gate › blocked 状態を表示できる (640ms)
+  ✓   5 [Chromium] › tests/e2e/smoke-priority-gate.spec.ts:15:3 › MVP083 Smoke Repair Priority Gate › prioritizedではexecute_nowだけをpromptに入れる (639ms)
+  ✓   6 [Chromium] › tests/e2e/smoke-priority-gate.spec.ts:25:3 › MVP083 Smoke Repair Priority Gate › conflictでは優先順位衝突を止める (648ms)
+  ✓   7 [Chromium] › tests/e2e/smoke-priority-gate.spec.ts:32:3 › MVP083 Smoke Repair Priority Gate › blockedでは公開前ブロック条件を表示する (638ms)
+  ✓   8 [Firefox] › tests/e2e/smoke-priority-gate.spec.ts:7:5 › MVP083 Smoke Repair Priority Gate › empty 状態を表示できる (2.1s)
+  ✓   9 [Firefox] › tests/e2e/smoke-priority-gate.spec.ts:7:5 › MVP083 Smoke Repair Priority Gate › prioritized 状態を表示できる (1.1s)
+  ✓  10 [Firefox] › tests/e2e/smoke-priority-gate.spec.ts:7:5 › MVP083 Smoke Repair Priority Gate › conflict 状態を表示できる (979ms)
+  ✓  11 [Firefox] › tests/e2e/smoke-priority-gate.spec.ts:7:5 › MVP083 Smoke Repair Priority Gate › blocked 状態を表示できる (955ms)
+  ✓  12 [Firefox] › tests/e2e/smoke-priority-gate.spec.ts:15:3 › MVP083 Smoke Repair Priority Gate › prioritizedではexecute_nowだけをpromptに入れる (845ms)
+  ✓  13 [Firefox] › tests/e2e/smoke-priority-gate.spec.ts:25:3 › MVP083 Smoke Repair Priority Gate › conflictでは優先順位衝突を止める (844ms)
+  ✓  14 [Firefox] › tests/e2e/smoke-priority-gate.spec.ts:32:3 › MVP083 Smoke Repair Priority Gate › blockedでは公開前ブロック条件を表示する (888ms)
+  ✓  15 [WebKit] › tests/e2e/smoke-priority-gate.spec.ts:7:5 › MVP083 Smoke Repair Priority Gate › empty 状態を表示できる (1.7s)
+  ✓  16 [WebKit] › tests/e2e/smoke-priority-gate.spec.ts:7:5 › MVP083 Smoke Repair Priority Gate › prioritized 状態を表示できる (1.1s)
+  ✓  17 [WebKit] › tests/e2e/smoke-priority-gate.spec.ts:7:5 › MVP083 Smoke Repair Priority Gate › conflict 状態を表示できる (1.4s)
+  ✓  18 [WebKit] › tests/e2e/smoke-priority-gate.spec.ts:7:5 › MVP083 Smoke Repair Priority Gate › blocked 状態を表示できる (1.2s)
+  ✓  19 [WebKit] › tests/e2e/smoke-priority-gate.spec.ts:15:3 › MVP083 Smoke Repair Priority Gate › prioritizedではexecute_nowだけをpromptに入れる (669ms)
+  ✓  20 [WebKit] › tests/e2e/smoke-priority-gate.spec.ts:25:3 › MVP083 Smoke Repair Priority Gate › conflictでは優先順位衝突を止める (378ms)
+  ✓  21 [WebKit] › tests/e2e/smoke-priority-gate.spec.ts:32:3 › MVP083 Smoke Repair Priority Gate › blockedでは公開前ブロック条件を表示する (375ms)
+
+  21 passed (27.9s)

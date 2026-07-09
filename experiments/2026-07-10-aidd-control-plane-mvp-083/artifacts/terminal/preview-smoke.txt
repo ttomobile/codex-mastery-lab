@@ -1,0 +1,9 @@
+<p>作った機能名は <strong>Smoke Repair Priority Gate</strong> です。</p>
+<pre><code>Smoke Repair Priority Gate MVP083
+<p><img src="assets/mvp083-terminal-evidence.png" alt="MVP083 terminal evidence" loading="lazy"></p>
+<p>AIDD-Spec v0.1では、AI Task Packetは「やってほしいことリスト」ではなく、検証可能な入力です。MVP083で追加したSmoke Repair Priority Gateは、AIDD Control PlaneのSaaSとして次の役割を持ちます。</p>
+mvp083-empty.png 398864 bytes
+mvp083-prioritized.png 427204 bytes
+mvp083-conflict.png 455420 bytes
+mvp083-blocked.png 478126 bytes
+mvp083-terminal-evidence.png 41068 bytes

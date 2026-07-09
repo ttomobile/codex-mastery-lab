@@ -1,0 +1,2 @@
+capture:mvp083 passed
+- empty/prioritized/conflict/blocked/terminal evidence screenshots saved

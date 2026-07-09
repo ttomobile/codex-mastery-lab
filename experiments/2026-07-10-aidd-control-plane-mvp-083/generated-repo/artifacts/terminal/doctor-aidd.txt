@@ -1,0 +1,8 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+- 4状態: empty / prioritized / conflict / blocked
+- Candidate: candidate id / source receipt / severity / lane / priority score / effort / risk / priority reason
+- prompt preview: execute_nowのみ、defer_next_increment / return_to_learning_log分離
+- Priority Gate: AI Task Packet patch / Codex prompt patch / verification commands / required evidence / rollback
+- blocked: private URL / local path / Firefox除外 / terminal evidence不足 / failure screenshot不足 / rollback不足 / AIDD-Spec接続不足 / execute_now以外混入
+- 3ブラウザ: Chromium / Firefox / WebKit
