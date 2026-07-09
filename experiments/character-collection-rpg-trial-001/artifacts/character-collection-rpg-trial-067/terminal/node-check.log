@@ -1,0 +1,8 @@
+# local syntax check
+html_bytes 194676 script_bytes 130676 trial067 True
+# preview file check
+preview contains Trial 067
+asset ok: preview/sagaforge-app/assets/party-key-art.png
+asset ok: preview/sagaforge-app/assets/battle-ruins.png
+asset ok: preview/sagaforge-app/assets/summon-altar.png
+asset ok: preview/sagaforge-app/assets/crystal-guardian.png

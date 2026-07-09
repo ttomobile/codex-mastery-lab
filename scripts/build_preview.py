@@ -169,6 +169,7 @@ DOGFOOD_ORDER = [
     '2026-07-09-character-collection-rpg-trial-064.md',
     '2026-07-09-character-collection-rpg-trial-065.md',
     '2026-07-09-character-collection-rpg-trial-066.md',
+    '2026-07-09-character-collection-rpg-trial-067.md',
 ]
 
 PAST_ARTICLES_ORDER = [
