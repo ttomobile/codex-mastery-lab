@@ -1,0 +1,8 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+- 4状態: empty / planned / failure / blocked
+- Smoke Receipt: broken URL / category / severity / lane / priority reason
+- prompt preview: execute_nowのみ、next_increment / learning_log分離
+- Repair Action: AI Task Packet patch / Codex prompt patch / verification commands / required evidence / rollback
+- blocked: private URL / local path / Firefox除外 / terminal evidence不足 / failure screenshot不足 / AIDD-Spec接続不足 / execute_now以外混入
+- 3ブラウザ: Chromium / Firefox / WebKit

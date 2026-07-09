@@ -1,1 +1,1 @@
-sanitize scan passed: no /Users/tto, tailnet, .ts.net in MVP082 article/preview/artifacts text (runtime dirs excluded)
+sanitize scan passed: no HOME path or private network identifiers in MVP082 article/preview/artifacts text (runtime dirs excluded)

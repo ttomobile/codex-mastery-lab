@@ -1,0 +1,33 @@
+$ playwright test
+
+Running 27 tests using 1 worker
+
+  ✓   1 [Chromium] › tests/e2e/preview-smoke-receipt.spec.ts:3:1 › 旧E2Eファイル名でもMVP082 Repair Action Plannerを確認する (640ms)
+  ✓   2 [Chromium] › tests/e2e/receipt-history.spec.ts:3:1 › 旧Receipt履歴E2E名でもMVP082へ置換済み (295ms)
+  ✓   3 [Chromium] › tests/e2e/smoke-repair-planner.spec.ts:6:3 › MVP082 empty 状態を表示する (280ms)
+  ✓   4 [Chromium] › tests/e2e/smoke-repair-planner.spec.ts:6:3 › MVP082 planned 状態を表示する (275ms)
+  ✓   5 [Chromium] › tests/e2e/smoke-repair-planner.spec.ts:6:3 › MVP082 failure 状態を表示する (272ms)
+  ✓   6 [Chromium] › tests/e2e/smoke-repair-planner.spec.ts:6:3 › MVP082 blocked 状態を表示する (276ms)
+  ✓   7 [Chromium] › tests/e2e/smoke-repair-planner.spec.ts:14:1 › plannedではexecute_nowだけをpromptへ入れる (296ms)
+  ✓   8 [Chromium] › tests/e2e/smoke-repair-planner.spec.ts:21:1 › failureではHTTP失敗をReview Findingへ変換する (323ms)
+  ✓   9 [Chromium] › tests/e2e/smoke-repair-planner.spec.ts:28:1 › blockedでは公開前に止める条件を表示する (283ms)
+  ✓  10 [Firefox] › tests/e2e/preview-smoke-receipt.spec.ts:3:1 › 旧E2Eファイル名でもMVP082 Repair Action Plannerを確認する (817ms)
+  ✓  11 [Firefox] › tests/e2e/receipt-history.spec.ts:3:1 › 旧Receipt履歴E2E名でもMVP082へ置換済み (387ms)
+  ✓  12 [Firefox] › tests/e2e/smoke-repair-planner.spec.ts:6:3 › MVP082 empty 状態を表示する (405ms)
+  ✓  13 [Firefox] › tests/e2e/smoke-repair-planner.spec.ts:6:3 › MVP082 planned 状態を表示する (391ms)
+  ✓  14 [Firefox] › tests/e2e/smoke-repair-planner.spec.ts:6:3 › MVP082 failure 状態を表示する (378ms)
+  ✓  15 [Firefox] › tests/e2e/smoke-repair-planner.spec.ts:6:3 › MVP082 blocked 状態を表示する (380ms)
+  ✓  16 [Firefox] › tests/e2e/smoke-repair-planner.spec.ts:14:1 › plannedではexecute_nowだけをpromptへ入れる (376ms)
+  ✓  17 [Firefox] › tests/e2e/smoke-repair-planner.spec.ts:21:1 › failureではHTTP失敗をReview Findingへ変換する (379ms)
+  ✓  18 [Firefox] › tests/e2e/smoke-repair-planner.spec.ts:28:1 › blockedでは公開前に止める条件を表示する (397ms)
+  ✓  19 [WebKit] › tests/e2e/preview-smoke-receipt.spec.ts:3:1 › 旧E2Eファイル名でもMVP082 Repair Action Plannerを確認する (654ms)
+  ✓  20 [WebKit] › tests/e2e/receipt-history.spec.ts:3:1 › 旧Receipt履歴E2E名でもMVP082へ置換済み (345ms)
+  ✓  21 [WebKit] › tests/e2e/smoke-repair-planner.spec.ts:6:3 › MVP082 empty 状態を表示する (353ms)
+  ✓  22 [WebKit] › tests/e2e/smoke-repair-planner.spec.ts:6:3 › MVP082 planned 状態を表示する (353ms)
+  ✓  23 [WebKit] › tests/e2e/smoke-repair-planner.spec.ts:6:3 › MVP082 failure 状態を表示する (359ms)
+  ✓  24 [WebKit] › tests/e2e/smoke-repair-planner.spec.ts:6:3 › MVP082 blocked 状態を表示する (367ms)
+  ✓  25 [WebKit] › tests/e2e/smoke-repair-planner.spec.ts:14:1 › plannedではexecute_nowだけをpromptへ入れる (345ms)
+  ✓  26 [WebKit] › tests/e2e/smoke-repair-planner.spec.ts:21:1 › failureではHTTP失敗をReview Findingへ変換する (347ms)
+  ✓  27 [WebKit] › tests/e2e/smoke-repair-planner.spec.ts:28:1 › blockedでは公開前に止める条件を表示する (361ms)
+
+  27 passed (14.6s)
