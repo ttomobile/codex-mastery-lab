@@ -1,0 +1,12 @@
+$ python3 scripts/build_preview.py
+Wrote 172 articles to /Users/tto/codex-mastery-lab/preview
+$ node - <<SCRIPT_SYNTAX_CHECK
+script syntax ok
+$ node scripts/capture-sagaforge-playable-trial073.mjs
+captured trial073 screenshots from file:///Users/tto/codex-mastery-lab/preview/sagaforge-app/index.html
+$ curl public playable/assets
+playable http=200
+asset battle-ruins http=200
+article screenshot http=200
+$ node scripts/smoke-sagaforge-public-trial073.mjs
+public browser smoke ok
