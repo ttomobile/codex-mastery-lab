@@ -480,7 +480,8 @@ generated-repo/README.md</code></pre>
 <p><img src="assets/aidd-control-plane-mvp075-blocked.png" alt="MVP075 blocked" loading="lazy"></p>
 <p>blockedでは、<code>local path / private host / private network URL混入</code> を検出して公開停止にする。記事化の直前にgrepで慌てて探すのではなく、共有ダイジェスト生成時点で止めるのが今回の標準化ポイントである。</p>
 <h2>品質ゲートの結果</h2>
-<p>Codexの自己申告だけでは完了にせず、こちらで再実行した。</p>
+<p>Codexの自己申告だけでは完了にせず、こちらで再実行した。note向けの一次情報として、terminal evidenceも画像化して残した。</p>
+<p><img src="assets/aidd-control-plane-mvp075-terminal-evidence.png" alt="MVP075 terminal evidence" loading="lazy"></p>
 <pre><code>pnpm run lint: 成功
 pnpm run typecheck: 成功
 pnpm run test: 成功（5 tests passed）

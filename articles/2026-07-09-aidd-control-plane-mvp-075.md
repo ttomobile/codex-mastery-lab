@@ -159,7 +159,9 @@ blockedでは、`local path / private host / private network URL混入` を検�
 
 ## 品質ゲートの結果
 
-Codexの自己申告だけでは完了にせず、こちらで再実行した。
+Codexの自己申告だけでは完了にせず、こちらで再実行した。note向けの一次情報として、terminal evidenceも画像化して残した。
+
+![MVP075 terminal evidence](../assets/aidd-control-plane-mvp075-terminal-evidence.png)
 
 ```text
 pnpm run lint: 成功
