@@ -1,0 +1,6 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+- 4状態: empty / valid / failure / blocked
+- 3ブラウザ: Chromium / Firefox / WebKit
+- blocked: local path / private host / private network URL
+- AIDD-Spec v0.1: standards/aidd-control-plane-mvp-v0.1.md

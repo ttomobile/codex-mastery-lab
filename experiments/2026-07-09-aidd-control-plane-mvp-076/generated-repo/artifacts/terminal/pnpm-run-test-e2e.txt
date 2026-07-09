@@ -1,0 +1,18 @@
+$ playwright test
+
+Running 12 tests using 1 worker
+
+  ✓   1 [Chromium] › tests/e2e/publication-evidence-qa.spec.ts:4:3 › Publication Evidence QA Gate の4状態 › emptyはsource digest未選択と必要入力を表示する (800ms)
+  ✓   2 [Chromium] › tests/e2e/publication-evidence-qa.spec.ts:12:3 › Publication Evidence QA Gate の4状態 › validは公開可能と証跡一式を表示する (582ms)
+  ✓   3 [Chromium] › tests/e2e/publication-evidence-qa.spec.ts:21:3 › Publication Evidence QA Gate の4状態 › failureは修正可能なReview Findingとして表示する (605ms)
+  ✓   4 [Chromium] › tests/e2e/publication-evidence-qa.spec.ts:29:3 › Publication Evidence QA Gate の4状態 › blockedはサニタイズ混入を公開前停止にする (595ms)
+  ✓   5 [Firefox] › tests/e2e/publication-evidence-qa.spec.ts:4:3 › Publication Evidence QA Gate の4状態 › emptyはsource digest未選択と必要入力を表示する (2.1s)
+  ✓   6 [Firefox] › tests/e2e/publication-evidence-qa.spec.ts:12:3 › Publication Evidence QA Gate の4状態 › validは公開可能と証跡一式を表示する (725ms)
+  ✓   7 [Firefox] › tests/e2e/publication-evidence-qa.spec.ts:21:3 › Publication Evidence QA Gate の4状態 › failureは修正可能なReview Findingとして表示する (624ms)
+  ✓   8 [Firefox] › tests/e2e/publication-evidence-qa.spec.ts:29:3 › Publication Evidence QA Gate の4状態 › blockedはサニタイズ混入を公開前停止にする (821ms)
+  ✓   9 [WebKit] › tests/e2e/publication-evidence-qa.spec.ts:4:3 › Publication Evidence QA Gate の4状態 › emptyはsource digest未選択と必要入力を表示する (987ms)
+  ✓  10 [WebKit] › tests/e2e/publication-evidence-qa.spec.ts:12:3 › Publication Evidence QA Gate の4状態 › validは公開可能と証跡一式を表示する (582ms)
+  ✓  11 [WebKit] › tests/e2e/publication-evidence-qa.spec.ts:21:3 › Publication Evidence QA Gate の4状態 › failureは修正可能なReview Findingとして表示する (736ms)
+  ✓  12 [WebKit] › tests/e2e/publication-evidence-qa.spec.ts:29:3 › Publication Evidence QA Gate の4状態 › blockedはサニタイズ混入を公開前停止にする (645ms)
+
+  12 passed (18.3s)

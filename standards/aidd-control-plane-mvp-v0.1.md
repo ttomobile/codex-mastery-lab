@@ -187,6 +187,51 @@ run_result_digest_publisher:
     実行結果を共有する前に、source run id、run outcome、scoreとscore根拠、terminal evidence、initial/filled/failure/terminal screenshot、Chromium / Firefox / WebKit coverage、console status、Review Record excerpt、Learning Log excerpt、AI Task Packet delta、Codex prompt delta、note article angle、publish readinessを1つのMarkdown digestへまとめてください。score根拠不足、Firefox未実行、console warn、terminal evidence不足、local path / private host / private network URL混入はReview Findingとして表示し、blockedでは公開前に止めてください。検証補助scriptはdoctor:aiddと3ブラウザE2Eの対象に含めてください。
 ```
 
+### 3.3 Publication Evidence QA Gate public QA rule（MVP076反映）
+
+Run Result Digestをnote/preview公開へ進める前に、記事本文だけでなく公開preview、画像コピー、terminal evidence、3ブラウザ、console、sanitize、AIDD-Spec接続を同じ単位で確認する。
+
+```yaml
+publication_evidence_qa_gate:
+  required_states:
+    - empty
+    - valid
+    - failure
+    - blocked
+  required_inputs:
+    - source_digest_id
+    - article_path
+    - preview_path
+    - asset_copy_status
+    - terminal_evidence_status
+    - initial_screenshot
+    - filled_screenshot
+    - failure_screenshot
+    - terminal_evidence_screenshot
+    - chromium_firefox_webkit_coverage
+    - console_status
+    - sanitization_scan
+    - review_record_excerpt
+    - learning_log_excerpt
+    - ai_task_packet_delta
+    - codex_prompt_delta
+    - publish_checklist
+    - aidd_spec_connection
+  failure_findings:
+    - Firefox未確認
+    - terminal evidence不足
+    - failure screenshot不足
+    - console warn未解消
+    - 記事観点不足
+    - AIDD-Spec接続不足
+  blocking_findings:
+    - local path混入
+    - private host混入
+    - private network URL混入
+  prompt_delta: |
+    Run Result Digestを公開へ進める前に、記事・preview・asset copy・terminal evidence・initial/filled/failure/terminal evidence PNG・Chromium/Firefox/WebKit coverage・console status・sanitization scan・Review Record・Learning Log・AI Task Packet delta・Codex prompt delta・AIDD-Spec接続をPublication Evidence QA Gateで確認してください。Firefox未確認やterminal evidence不足はfailure、local path/private host/private network URL混入はblockedとして公開前停止にしてください。
+```
+
 ## 4. 初期データモデル
 
 ```ts

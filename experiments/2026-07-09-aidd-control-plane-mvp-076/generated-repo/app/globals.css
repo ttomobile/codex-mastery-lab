@@ -1,0 +1,281 @@
+:root {
+  --bg: #f7f8f5;
+  --panel: #ffffff;
+  --text: #17201c;
+  --muted: #5d6963;
+  --line: #dfe4dd;
+  --green: #126b45;
+  --yellow: #8a5a00;
+  --red: #a6252d;
+  --blue: #1f5f99;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+}
+
+main {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0 48px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 24px;
+  align-items: end;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 12px;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.02;
+  letter-spacing: 0;
+}
+
+h2 {
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+
+h3 {
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.lead {
+  max-width: 760px;
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.decision {
+  display: grid;
+  gap: 8px;
+  min-height: 128px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.decision span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.decision strong {
+  align-self: end;
+  font-size: 30px;
+}
+
+.decision.success {
+  border-color: #98c8ae;
+  color: var(--green);
+}
+
+.decision.warning {
+  border-color: #dfc37c;
+  color: var(--yellow);
+}
+
+.decision.danger {
+  border-color: #dda0a5;
+  color: var(--red);
+}
+
+.stateNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.stateNav a {
+  min-width: 96px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  text-align: center;
+  text-decoration: none;
+  background: var(--panel);
+}
+
+.stateNav a.active {
+  border-color: var(--blue);
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.grid.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.panel {
+  margin: 16px 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.kv,
+.evidenceRow,
+.statusList li {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+
+.evidenceRow {
+  grid-template-columns: 190px minmax(0, 1fr) 90px;
+}
+
+.kv:first-of-type,
+.evidenceRow:first-of-type {
+  border-top: 0;
+}
+
+.kv span,
+.evidenceRow span {
+  color: var(--muted);
+}
+
+code {
+  overflow-wrap: anywhere;
+  color: #263b57;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 13px;
+}
+
+.ok {
+  color: var(--green);
+}
+
+.ng {
+  color: var(--yellow);
+}
+
+.block {
+  color: var(--red);
+}
+
+.statusList,
+.checklist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.statusList li {
+  grid-template-columns: minmax(0, 1fr) 100px;
+}
+
+.checklist {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.checklist li {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfa;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chips span {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfa;
+  font-size: 13px;
+}
+
+.findingGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.finding {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfa;
+}
+
+.finding.error {
+  border-color: #dda0a5;
+}
+
+.finding.warning {
+  border-color: #dfc37c;
+}
+
+.finding.danger,
+.finding.blocker {
+  border-color: #d56b74;
+  background: #fff8f8;
+}
+
+@media (max-width: 760px) {
+  main {
+    width: min(100% - 20px, 1180px);
+    padding-top: 20px;
+  }
+
+  .hero,
+  .grid.two,
+  .findingGrid,
+  .checklist {
+    grid-template-columns: 1fr;
+  }
+
+  .kv,
+  .evidenceRow,
+  .statusList li {
+    grid-template-columns: 1fr;
+  }
+}
