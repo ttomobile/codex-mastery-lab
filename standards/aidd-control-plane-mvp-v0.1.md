@@ -138,7 +138,7 @@ codex_run_queue_status_tracker:
     Run Queue状態UIを作る場合は、6状態の表示だけでなく、terminal evidence、screenshot evidence、browser console log、掲載用GIFを保存し、failed / evidence_missingをReview FindingとしてLearning Logへ戻してください。検証補助scriptもlint対象です。
 ```
 
-### 3.2 Run Result Digest Publisher sharing rule（MVP064反映）
+### 3.2 Run Result Digest Publisher sharing rule（MVP075反映）
 
 Run結果は詳細画面だけに閉じず、次回判断・レビュー・記事化で再利用できる短い共有ダイジェストへ変換する。共有前に次を確認する。
 
@@ -153,6 +153,7 @@ run_result_digest_publisher:
     - source_run_id
     - run_outcome
     - score
+    - score_basis
     - terminal_evidence_summary
     - initial_screenshot
     - filled_screenshot
@@ -166,17 +167,24 @@ run_result_digest_publisher:
     - codex_prompt_delta
     - note_article_angle
     - publish_readiness
+  required_outputs:
+    - reviewer_digest
+    - next_ai_task_packet_delta
+    - codex_prompt_delta
+    - note_article_angle
+    - publish_readiness_decision
   blocking_findings:
+    - score根拠不足
     - source run id不足
     - terminal evidence不足
     - failure screenshot不足
     - Firefox除外
     - console error/warn未確認
-    - local path/host/private network URL混入
+    - local path/private host/private network URL混入
     - Learning Log接続不足
     - note記事観点不足
   prompt_delta: |
-    実行結果を共有する前に、source run id、terminal evidence、failure screenshot、3ブラウザcoverage、console status、Review Record、Learning Log、note article angleを1つのMarkdown digestへまとめ、blocked条件をReview Findingとして表示してください。
+    実行結果を共有する前に、source run id、run outcome、scoreとscore根拠、terminal evidence、initial/filled/failure/terminal screenshot、Chromium / Firefox / WebKit coverage、console status、Review Record excerpt、Learning Log excerpt、AI Task Packet delta、Codex prompt delta、note article angle、publish readinessを1つのMarkdown digestへまとめてください。score根拠不足、Firefox未実行、console warn、terminal evidence不足、local path / private host / private network URL混入はReview Findingとして表示し、blockedでは公開前に止めてください。検証補助scriptはdoctor:aiddと3ブラウザE2Eの対象に含めてください。
 ```
 
 ## 4. 初期データモデル

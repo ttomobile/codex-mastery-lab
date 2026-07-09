@@ -63,7 +63,8 @@
 - [x] 次回候補: Review Record Receipt Synthesizerのfindingをexecute_now / next_increment / learning_logへ分け、execute_nowだけを次回Codex promptへ入れるAction Queueを作る（2026-07-05: AIDD Control Plane MVP 043）
 - [x] 次回候補: Codex Run Budget Gateでbrake/stopになった時、AI Task Packetをkeep_now / defer_next_increment / minimum_verification / resume_conditionへ自動縮小する（2026-07-06: AIDD Control Plane MVP 053）
 - [x] 次回候補: 縮小後AI Task Packetを実際に次回Codex promptへ渡し、元の大きいpacketよりE2E失敗やtimeoutが減るか検証する（2026-07-08: MVP063でRun Queue Status Trackerに接続し、実行失敗/証跡不足を次回へ戻す導線を検証）
-- [ ] 次回候補: Run Queue Status Trackerのfailed/evidence_missingから、Run Result Review Synthesizerへ自動変換する
+- [x] 次回候補: Run Queue Status Trackerの結果から、レビュー担当者・次回AI Task Packet・note記事化に使えるRun Result Digest Publisherを作る（2026-07-09: MVP075でempty/valid/failure/blocked、score根拠、3ブラウザcoverage、console status、Review Record/Learning Log excerpt、local path/private URL公開停止を検証）
+- [ ] 次回候補: Run Result DigestをPublication Evidence QA Gateへ渡し、記事・画像・terminal evidence・3ブラウザ・console・サニタイズを公開直前に止める
 
 - [ ] 2つのCodexに実装案を競わせる
 - [ ] Codex実装をHermesがレビューする二段構え

@@ -1,0 +1,18 @@
+$ playwright test
+
+Running 12 tests using 1 worker
+
+  ✓   1 [chromium] › e2e/run-result-digest.spec.ts:3:1 › emptyではsource run未選択と次の入力を表示する (873ms)
+  ✓   2 [chromium] › e2e/run-result-digest.spec.ts:12:1 › validでは共有ダイジェストの必須項目を1画面で表示する (622ms)
+  ✓   3 [chromium] › e2e/run-result-digest.spec.ts:28:1 › failureではReview Findingとして不足を表示する (672ms)
+  ✓   4 [chromium] › e2e/run-result-digest.spec.ts:37:1 › blockedではlocal pathとprivate URL混入を公開前に止める (682ms)
+  ✓   5 [firefox] › e2e/run-result-digest.spec.ts:3:1 › emptyではsource run未選択と次の入力を表示する (1.8s)
+  ✓   6 [firefox] › e2e/run-result-digest.spec.ts:12:1 › validでは共有ダイジェストの必須項目を1画面で表示する (1.1s)
+  ✓   7 [firefox] › e2e/run-result-digest.spec.ts:28:1 › failureではReview Findingとして不足を表示する (906ms)
+  ✓   8 [firefox] › e2e/run-result-digest.spec.ts:37:1 › blockedではlocal pathとprivate URL混入を公開前に止める (813ms)
+  ✓   9 [webkit] › e2e/run-result-digest.spec.ts:3:1 › emptyではsource run未選択と次の入力を表示する (1.2s)
+  ✓  10 [webkit] › e2e/run-result-digest.spec.ts:12:1 › validでは共有ダイジェストの必須項目を1画面で表示する (901ms)
+  ✓  11 [webkit] › e2e/run-result-digest.spec.ts:28:1 › failureではReview Findingとして不足を表示する (871ms)
+  ✓  12 [webkit] › e2e/run-result-digest.spec.ts:37:1 › blockedではlocal pathとprivate URL混入を公開前に止める (545ms)
+
+  12 passed (20.2s)

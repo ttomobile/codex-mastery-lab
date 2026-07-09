@@ -1,0 +1,33 @@
+OpenAI Codex v0.143.0
+workdir: WORKSPACE
+sandbox: danger-full-access
+
+User task:
+AI Task Packet: Run Result Digest Publisher MVP075
+- Next.js + TypeScript app under experiments/2026-07-09-aidd-control-plane-mvp-075/generated-repo/
+- UI states: ?state=empty|valid|failure|blocked
+- Japanese UI
+- show run outcome, score, score basis, terminal evidence, initial/filled/failure/terminal screenshot, Chromium / Firefox / WebKit coverage, console status, Review Record excerpt, Learning Log excerpt, AI Task Packet delta, Codex prompt delta, note article angle, publish readiness
+- failure shows score根拠不足 / Firefox未実行 / console warn / terminal evidence不足 as Review Findings
+- blocked detects local path / private host / private network URL混入 and stops publication
+- add Vitest, Playwright 3-browser E2E, doctor:aidd, capture:mvp075, README
+
+Codex summary:
+- Created a new generated-repo based on a nearby AIDD Control Plane MVP structure.
+- Added app/page.tsx for the four digest states.
+- Added src/domain/run-result-digest.ts with RunResultDigest, createDigest, parseDigestState, detectUnsafePublicTokens, sanitizeForPublic.
+- Added tests/run-result-digest.test.ts.
+- Added e2e/run-result-digest.spec.ts covering empty / valid / failure / blocked in Chromium / Firefox / WebKit.
+- Added scripts/doctor-aidd.mjs and scripts/capture-mvp075.mjs.
+- Added README and docs.
+
+Codex-reported verification:
+- pnpm run lint: passed
+- pnpm run typecheck: passed
+- pnpm run test: passed
+- pnpm run build: passed
+- pnpm run doctor:aidd: passed
+- pnpm run test:e2e: 12 passed across Chromium / Firefox / WebKit
+- pnpm run capture:mvp075: passed
+
+Independent verification was re-run by Hermes and stored in sibling pnpm-run-*.log files.

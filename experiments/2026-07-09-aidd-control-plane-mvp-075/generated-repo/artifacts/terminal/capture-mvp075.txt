@@ -1,0 +1,26 @@
+capture:mvp075 completed
+health check retry: fetch failed
+   ▲ Next.js 15.5.20
+
+   - Local:        LOCAL_PREVIEW_URL
+   - Network:      LOCAL_PREVIEW_URL
+
+ ✓ Starting...
+
+ ✓ Ready in 1124ms
+
+ ✓ Compiled /_not-found in 374ms (524 modules)
+
+ GET /?state=empty 404 in 569ms
+
+ ✓ Compiled / in 201ms (588 modules)
+
+ GET /?state=empty 200 in 433ms
+
+ GET /?state=empty 200 in 69ms
+
+ GET /?state=valid 200 in 126ms
+
+ GET /?state=failure 200 in 118ms
+
+ GET /?state=blocked 200 in 86ms
