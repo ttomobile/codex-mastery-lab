@@ -1,0 +1,12 @@
+LOCAL_PREVIEW_URL/2026-07-09-aidd-control-plane-mvp-081.html
+<a href="2026-06-27-watchflow-trial-005.html">第06回｜WatchFlow Trial 005：91点から100点へ、Firefox/CI/artifactまで通して実験を閉じる</a><div class="nav-section-title">AIDD Control Plane SaaS化</div><a href="2026-06-28-aidd-control-plane-mvp-001.html">MVP01｜AIDD Control Plane MVP 001：AIDD-SpecをSaaSの画面に落とし込む最初の実装</a>
+<a href="2026-07-03-verification-evidence-lite.html">過去記事11｜「E2Eが1本通った」だけでは足りない：Verification Evidence LiteをAI Task Packetへ逆算する</a></details></div><div class="layout "><aside><p class="brand">Codex Mastery Lab<br>AIDD-Spec Preview</p><p class="series-note">WatchFlow本編、AIDD Control Plane SaaS化、過去記事を分けて読めるプレビュー</p><div class="nav-section-title">WatchFlow 100点チャレンジ</div><a class="chapter-link " href="001-series-roadmap.html"><span class="chapter-num">第01回</span>WatchFlow 100点チャレンジ 第1回：YouTube風アプリでAI駆動開発の正解を探す</a>
+<a class="chapter-link " href="2026-06-27-watchflow-trial-005.html"><span class="chapter-num">第06回</span>WatchFlow Trial 005：91点から100点へ、Firefox/CI/artifactまで通して実験を閉じる</a><div class="nav-section-title">AIDD Control Plane SaaS化</div><a class="chapter-link " href="2026-06-28-aidd-control-plane-mvp-001.html"><span class="chapter-num">MVP 01</span>AIDD Control Plane MVP 001：AIDD-SpecをSaaSの画面に落とし込む最初の実装</a>
+<p><img src="assets/mvp081-empty.png" alt="MVP081 empty" loading="lazy"></p>
+<p><img src="assets/mvp081-valid.png" alt="MVP081 valid" loading="lazy"></p>
+<p><img src="assets/mvp081-regression.png" alt="MVP081 regression" loading="lazy"></p>
+<p><img src="assets/mvp081-terminal-evidence.png" alt="MVP081 terminal evidence" loading="lazy"></p>
+mvp081-empty.png bytes=227697
+mvp081-valid.png bytes=324328
+mvp081-regression.png bytes=324637
+mvp081-terminal-evidence.png bytes=86540
