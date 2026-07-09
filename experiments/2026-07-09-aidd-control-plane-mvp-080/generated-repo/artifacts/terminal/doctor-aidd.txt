@@ -1,0 +1,8 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+- 5状態: empty / ready / running / failure / blocked
+- ready: Dispatch Receiptを発行可能
+- running: 実行中の証跡を収集中
+- failure: dispatch command失敗 / 証跡ゲート不足 / rollbackゲート発火
+- blocked: private URL / local path / Firefox除外 / terminal evidence不足 / failure screenshot不足 / payload混入 / 破壊的cleanup要求
+- 3ブラウザ: Chromium / Firefox / WebKit
