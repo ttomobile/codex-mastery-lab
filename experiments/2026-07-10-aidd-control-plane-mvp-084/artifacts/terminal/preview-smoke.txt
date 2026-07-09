@@ -1,0 +1,17 @@
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.9.6
+Date: Thu, 09 Jul 2026 20:47:00 GMT
+Content-type: text/html
+Content-Length: 85593
+Last-Modified: Thu, 09 Jul 2026 20:46:49 GMT
+
+<p>作った機能名は <strong>Public Preview Smoke Final Receipt</strong> です。</p>
+<pre><code>Public Preview Smoke Final Receipt MVP084
+<p><img src="assets/mvp084-verified.png" alt="MVP084 verified" loading="lazy"></p>
+<p><img src="assets/mvp084-terminal-evidence.png" alt="MVP084 terminal evidence" loading="lazy"></p>
+<p>AIDD-Spec v0.1では、Verification Evidenceは「コマンドを実行した気がする」ではなく、レビュー可能な証拠です。MVP084で追加したPublic Preview Smoke Final Receiptは、AIDD Control PlaneのSaaSとして次の役割を持ちます。</p>
+mvp084-empty.png bytes=330286
+mvp084-verified.png bytes=363239
+mvp084-failure.png bytes=598063
+mvp084-blocked.png bytes=375560
+mvp084-terminal-evidence.png bytes=41072

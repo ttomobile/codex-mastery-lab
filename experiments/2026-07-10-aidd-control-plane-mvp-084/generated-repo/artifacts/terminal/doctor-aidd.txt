@@ -1,0 +1,8 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+- 4状態: empty / verified / failure / blocked
+- HTTP receipt: checked URLs / HTTP status / byte size / content type / latency ms / checked_at
+- terminal evidence image response、console status、sanitization scan
+- failure: 404 / 0 byte / content type mismatch / latency超過をReview Findingとdeltaへ変換
+- blocked: private URL / local path / host名 / Firefox未確認 / terminal evidence不足 / AIDD-Spec接続不足 / rollback不足
+- 3ブラウザ: Chromium / Firefox / WebKit
