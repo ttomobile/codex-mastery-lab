@@ -1,0 +1,30 @@
+$ playwright test
+
+Running 24 tests using 1 worker
+
+  ✓   1 [Chromium] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:7:5 › MVP085 Final Receipt Failure Handoff Queue › empty状態を日本語UIで確認できる (1.8s)
+  ✓   2 [Chromium] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:7:5 › MVP085 Final Receipt Failure Handoff Queue › queued状態を日本語UIで確認できる (1.5s)
+  ✓   3 [Chromium] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:7:5 › MVP085 Final Receipt Failure Handoff Queue › blocked状態を日本語UIで確認できる (1.7s)
+  ✓   4 [Chromium] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:7:5 › MVP085 Final Receipt Failure Handoff Queue › exported状態を日本語UIで確認できる (1.5s)
+  ✓   5 [Chromium] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:19:3 › MVP085 Final Receipt Failure Handoff Queue › queuedでは3 laneを混ぜずに表示する (1.3s)
+  ✓   6 [Chromium] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:27:3 › MVP085 Final Receipt Failure Handoff Queue › exportedではexecute_nowだけがCodex prompt previewに入る (1.2s)
+  ✓   7 [Chromium] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:36:3 › MVP085 Final Receipt Failure Handoff Queue › blockedでは公開前ブロック理由を表示する (306ms)
+  ✓   8 [Chromium] › tests/e2e/smoke-priority-gate.spec.ts:3:1 › MVP085 Final Receipt Failure Handoff Queueへ置き換わっている (292ms)
+  ✓   9 [Firefox] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:7:5 › MVP085 Final Receipt Failure Handoff Queue › empty状態を日本語UIで確認できる (909ms)
+  ✓  10 [Firefox] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:7:5 › MVP085 Final Receipt Failure Handoff Queue › queued状態を日本語UIで確認できる (659ms)
+  ✓  11 [Firefox] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:7:5 › MVP085 Final Receipt Failure Handoff Queue › blocked状態を日本語UIで確認できる (852ms)
+  ✓  12 [Firefox] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:7:5 › MVP085 Final Receipt Failure Handoff Queue › exported状態を日本語UIで確認できる (1.3s)
+  ✓  13 [Firefox] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:19:3 › MVP085 Final Receipt Failure Handoff Queue › queuedでは3 laneを混ぜずに表示する (992ms)
+  ✓  14 [Firefox] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:27:3 › MVP085 Final Receipt Failure Handoff Queue › exportedではexecute_nowだけがCodex prompt previewに入る (804ms)
+  ✓  15 [Firefox] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:36:3 › MVP085 Final Receipt Failure Handoff Queue › blockedでは公開前ブロック理由を表示する (694ms)
+  ✓  16 [Firefox] › tests/e2e/smoke-priority-gate.spec.ts:3:1 › MVP085 Final Receipt Failure Handoff Queueへ置き換わっている (628ms)
+  ✓  17 [WebKit] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:7:5 › MVP085 Final Receipt Failure Handoff Queue › empty状態を日本語UIで確認できる (937ms)
+  ✓  18 [WebKit] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:7:5 › MVP085 Final Receipt Failure Handoff Queue › queued状態を日本語UIで確認できる (638ms)
+  ✓  19 [WebKit] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:7:5 › MVP085 Final Receipt Failure Handoff Queue › blocked状態を日本語UIで確認できる (609ms)
+  ✓  20 [WebKit] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:7:5 › MVP085 Final Receipt Failure Handoff Queue › exported状態を日本語UIで確認できる (619ms)
+  ✓  21 [WebKit] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:19:3 › MVP085 Final Receipt Failure Handoff Queue › queuedでは3 laneを混ぜずに表示する (606ms)
+  ✓  22 [WebKit] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:27:3 › MVP085 Final Receipt Failure Handoff Queue › exportedではexecute_nowだけがCodex prompt previewに入る (743ms)
+  ✓  23 [WebKit] › tests/e2e/public-preview-smoke-final-receipt.spec.ts:36:3 › MVP085 Final Receipt Failure Handoff Queue › blockedでは公開前ブロック理由を表示する (796ms)
+  ✓  24 [WebKit] › tests/e2e/smoke-priority-gate.spec.ts:3:1 › MVP085 Final Receipt Failure Handoff Queueへ置き換わっている (677ms)
+
+  24 passed (33.9s)

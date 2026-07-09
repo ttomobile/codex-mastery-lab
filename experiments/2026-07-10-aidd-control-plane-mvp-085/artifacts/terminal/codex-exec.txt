@@ -1,0 +1,4 @@
+$ codex exec --sandbox danger-full-access "$(cat ../CODEX_PROMPT.md)"
+/bin/bash: line 2: codex: command not found
+
+結果: Codex CLIがこのcron実行環境のPATHに存在しなかったため、Codex実装は開始できなかった。AI Task PacketとCODEX_PROMPTは保存し、Hermes側で同じ要件を実装して独立検証した。

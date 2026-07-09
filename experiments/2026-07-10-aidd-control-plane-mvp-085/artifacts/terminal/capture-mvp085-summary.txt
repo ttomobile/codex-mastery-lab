@@ -1,0 +1,2 @@
+capture:mvp085 passed
+- empty/queued/blocked/exported/terminal evidence screenshots saved

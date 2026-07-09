@@ -1,0 +1,7 @@
+preview HTTP smoke passed
+- article: http://127.0.0.1:3099/2026-07-10-aidd-control-plane-mvp-085.html contained Final Receipt Failure Handoff Queue
+- assets/mvp085-empty.png: 262141 bytes
+- assets/mvp085-queued.png: 657483 bytes
+- assets/mvp085-blocked.png: 680574 bytes
+- assets/mvp085-exported.png: 681974 bytes
+- assets/mvp085-terminal-evidence.png: 40486 bytes

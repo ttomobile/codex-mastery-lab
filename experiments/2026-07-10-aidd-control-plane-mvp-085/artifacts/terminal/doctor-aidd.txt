@@ -1,0 +1,8 @@
+$ node scripts/doctor-aidd.mjs
+doctor:aidd passed
+- 4状態: empty / queued / blocked / exported
+- source receipt / broken URL / HTTP status / byte size / content type / latency ms
+- execute_now / next_increment / learning_log を分離
+- exported promptにはexecute_nowのみ
+- terminal evidence / failure screenshot / Playwright report / rollback condition
+- 3ブラウザ: Chromium / Firefox / WebKit

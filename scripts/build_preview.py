@@ -107,6 +107,7 @@ CONTROL_PLANE_ORDER = [
     '2026-07-10-aidd-control-plane-mvp-082.md',
     '2026-07-10-aidd-control-plane-mvp-083.md',
     '2026-07-10-aidd-control-plane-mvp-084.md',
+    '2026-07-10-aidd-control-plane-mvp-085.md',
 ]
 
 DOGFOOD_ORDER = [
@@ -461,6 +462,7 @@ def main():
         'mvp082-*.png',
         'mvp083-*.png',
         'mvp084-*.png',
+        'mvp085-*.png',
         'aidd-control-plane-mvp043-*.png',
         'verification-evidence-lite-*.png', 'verification-evidence-lite-*.gif',
         '2026-07-02-sagaforge-trial-001-*.png',
